@@ -15,5 +15,8 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 
+# CodeGraph (local index, not committed)
+.codegraph/
+
 # Local notes
 Catatan.docx
