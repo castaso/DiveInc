@@ -1,0 +1,535 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <%-include ../partial/sidebar-nav--toggle %>
+        <div class="row">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <%-include ../partial/sidebar-nav %>
+            <div class="col-lg-9">
+                <!-- <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="btn btn-white btn-sm">My Contribution</a>
+                    </li>
+                </ul> -->
+                <div class="card shadow-sm border-0 rounded-0 card-account">
+                    <!-- Term List -->
+                    <div id="layoutWaitContribution" style="display:none;" class="card-body">
+                        <div class="card bg-lighter">
+                            <div class="card-body">
+                                <h4>Thank you for registering your contribution</h4>
+                                <p>Your contribution documents are in the process of being reviewed by our team. This registration requires only one time, you can immediately add your room or travel package when this registration is complete.</p>
+                                <hr>
+                                <p class="mb-0">Please also read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="layoutRegisterContribution" style="display:none;" class="card-body">
+                        <div class="card bg-lighter">
+                            <div class="card-body">
+                                <h4>Want to create & manage your contribution?</h4>
+                                <br>
+                                <p>To create and manage a contribution, you must fill out the form below & attach some mandatory requirements to be verified by the team. After everything is finished, our team will contact you as soon as possible.</p>
+                                <p>Please also read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a>.</p>
+                                <hr>
+                                <br>
+                                <h5 class="mb-3">Terms List</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6>PT</h6>
+                                        <ul class="list-base">
+                                            <li>Akta Pendirian PT;</li>
+                                            <li>Akta Pendirian PT;</li>
+                                            <li>NPWP;</li>
+                                            <li>NIB/SIUP/ dan TDP</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>CV</h6>
+                                        <ul class="list-base">
+                                            <li>Akta Pendirian CV;</li>
+                                            <li>Akta Pendirian CV;</li>
+                                            <li>NPWP;</li>
+                                            <li>NIB</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Individu</h6>
+                                        <ul class="list-base">
+                                            <li>Surat Perjanjian & Pernyataan;</li>
+                                            <li>Foto KTP;</li>
+                                            <li>Foto Diri & Pernyataan;</li>
+                                            <li>Rekening</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-block">
+                                    <!-- <h5 class="mb-3">Attach File</h5>
+                                    <div id="listDataRequest"></div>
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFile" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
+                                        <label id="chooseFile" class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New File</button>
+                                            <button id="sendFile" style="display:none;" type="button" class="btn btn-primary"><i class="fas fa-paper-plane mr-2"></i>Send File</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="select-card-wrapper mb-2">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input type="checkbox" name="dive-email-update" id="termsConditions"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0">I've read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a></h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <a href="/verify-company-contribution" class="btn btn-primary disabled" id="verifyTermsButton">Start Verify Your Company <i class="ml-3 fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="layoutRejectContribution" style="display:none;" class="card-body">
+                        <div class="card bg-lighter">
+                            <div class="card-body">
+                                <h4>Your request has been rejected. Want to try again?</h4>
+                                <br>
+                                <p>To create and manage a contribution, you must fill out the form below & attach some mandatory requirements to be verified by the team. After everything is finished, our team will contact you as soon as possible.</p>
+                                <p>Please also read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a>.</p>
+                                <hr>
+                                <br>
+                                <h5 class="mb-3">Terms List</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6>PT</h6>
+                                        <ul class="list-base">
+                                            <li>Akta Pendirian PT;</li>
+                                            <li>Akta Pendirian PT;</li>
+                                            <li>NPWP;</li>
+                                            <li>NIB/SIUP/ dan TDP</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>CV</h6>
+                                        <ul class="list-base">
+                                            <li>Akta Pendirian CV;</li>
+                                            <li>Akta Pendirian CV;</li>
+                                            <li>NPWP;</li>
+                                            <li>NIB</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Individu</h6>
+                                        <ul class="list-base">
+                                            <li>Surat Perjanjian & Pernyataan;</li>
+                                            <li>Foto KTP;</li>
+                                            <li>Foto Diri & Pernyataan;</li>
+                                            <li>Rekening</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-block">
+                                    <div id="listDocument"></div>
+                                    <!-- <h5 class="mb-3">Attach File</h5>
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFileReject">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New File</button>
+                                            <button id="sendFile" type="button" class="btn btn-primary buttonSubmit"><i class="fas fa-paper-plane mr-2"></i>Send File</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="select-card-wrapper mb-2">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input type="checkbox" name="dive-email-update" id="termsConditions"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0">I've read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a></h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <a href="/verify-company-contribution" class="btn btn-primary disabled" id="verifyTermsButton">Start Verify Your Company <i class="ml-3 fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="layoutMyContribution" style="display:none;" class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">My Contribution</h5>
+                                <span id="totalContribution" class="badge badge-primary rounded">0</span>
+                            </div>
+                            <a href="my-contribution-create" class="btn btn-outline-primary">Create New Contribution</a>
+                        </div>
+                        <div id="listMyContribution">
+                            <div id="listMyContributionEmpty" class="card rounded-0 mb-3 bg-white">
+                                <div class="card-body">
+                                    <div class="d-block bg-light p-4">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <h5>Congratulation!</h5>
+                                                <p>Now you can start to register your contribution, by clicking
+                                                    <a href="my-contribution-create" class="btn btn-outline-primary">Create New</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card rounded-0 mb-3 bg-white">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <div class="card-body">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">3 Photos</span>
+                                        <div class="slick rounded">
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/komodo-resort.jpg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body card-body-flex-y pl-0">
+                                        <div class="card-content">
+                                            <h5 class="m-0 mb-1">Bali's Dive Resort</h5>
+                                            <ul class="list-inline list-inline-sm mb-2">
+                                                <li class="list-inline-item">Bali, Indonesia</li>
+                                                <li class="list-inline-item">Created 4/5/2019</li>
+                                            </ul>
+                                            <div class="meta-user text-black">
+                                                <div class="meta-user-img" style="background-image: url('/images/ocean-research-logo.jpg');"></div>
+                                                <div class="meta-user-detail">
+                                                    <h6 class="text-sm mb-0">Nusantara Resort</h6>
+                                                    <div class="text-success text-xs">Verified</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="list-group list-group-horizontal list-group-sm w-100">
+                                            <div class="dropdown">
+                                                <a class="list-group-item" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="my-resort-create">Edit Resort</a>
+                                                    <a class="dropdown-item" href="#">Upgrade Storage</a>
+                                                    <a class="dropdown-item" href="#">Add to Promotion</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Delete Resort</a>
+                                                </div>
+                                            </div>
+                                            <a href="resort" class="list-group-item" target="_blank"><i class="fas fa-eye fa-sm mr-2"></i>View</a>
+                                            <button type="button" class="list-group-item text-danger"><i class="fas fa-toggle-off fa-sm mr-2"></i>Unpublished</button>
+                                            <a href="my-resort-booking-management" class="list-group-item flex-grow-1 text-center"><i class="fas fa-book fa-sm mr-2"></i>Booking (4)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+<script>
+
+    var fileUrl = ""
+    var filePath = ""
+    var fileBaseUrl = ""
+
+    $(document).ready(function() {
+        loadPermission()
+
+        $(`#customFile`).on(`change`, function(){
+          
+          $('#sendFile').hide()
+          $('#chooseFile').text("Please Wait ...")
+          makeFileRequestUpload('/api/upload/file', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $('#sendFile').click(function(){
+            vendorRegister()
+        })
+    })
+
+    function loadPermission() {
+        $.ajax({
+            url: `/api/my-permission`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    var permission = result.data.profile.permission
+                    for(var i = 0; i < permission.length; i++){
+                        if(permission[i].type == "contribution" && permission[i].status_name == "Accessed"){
+                            $('#layoutMyContribution').show()
+                            getMyContribution()
+                        }
+                        if(permission[i].type == "contribution" && permission[i].status_name == "No Access"){
+                            $('#layoutRegisterContribution').show()
+                        }
+                        if(permission[i].type == "contribution" && permission[i].status_name == "Request"){
+                            $('#layoutWaitContribution').show()
+                        }
+                        if(permission[i].type == "contribution" && permission[i].status_name == "Rejected"){
+                            $('#layoutRejectContribution').show()
+                        }
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function vendorRegister() {
+        $.ajax({
+            url: `/api/transaction-creator`,
+            method: `POST`,
+            data : {
+                type : "contribution",
+                file : {
+                    url : fileUrl,
+                    baseUrl : fileBaseUrl,
+                    path : filePath
+                }
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.reload() 
+                    Swal.fire({
+                        title: "Your data has been sent",
+                        text: "Thank you for registering your contribution, we will immediately inform you of the status of your contribution."
+                    }).then(function() {
+                        window.location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getMyContribution(){
+        console.log('HALOOO')
+        $('#listMyContributionEmpty').show();
+        $.ajax({
+            url: `/api/my-contribution`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    $('#totalContribution').text(result.data.length)
+                    for(var i = 0; i < result.data.length; i++){
+                        $('#listMyContributionEmpty').hide();
+                        $('#listMyContribution').append(`
+                            <div class="card rounded-0 mb-3 bg-white">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <div class="card-body">
+                                            <span class="badge-photos badge-photos-2 badge badge-dark badge-pill rounded">${result.data[i].photos.length} Photos</span>
+                                            <div class="slick rounded">
+                                                <div class="glide__slide--photos" style="background-image:url('${result.data[i].photos[0].url}');"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body card-body-flex-y pl-0">
+                                            <div class="card-content">
+                                                <h5 class="m-0 mb-1">${result.data[i].profile.name}</h5>
+                                                <ul class="list-inline list-inline-sm mb-2">
+                                                    <li class="list-inline-item">${result.data[i].profile.destination.name}, ${result.data[i].profile.country.name}</li>
+                                                    <li class="list-inline-item">Created ${result.data[i].created_at}</li>
+                                                </ul>
+                                                <div class="meta-user text-black">
+                                                    <div class="meta-user-img" style="background-image: url('${result.data[i].photos[0].url}');"></div>
+                                                    <div class="meta-user-detail">
+                                                        <h6 class="text-sm mb-0">Nama Vendor</h6>
+                                                        <div class="text-success text-xs">Verified</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="hide-mobile list-group-custom list-group list-group-horizontal list-group-sm w-100">
+                                                <a href="/my-contribution-create/${result.data[i].id}" class="list-group-item px-3" data-toggle="tooltip" data-placement="top" title="Edit your divecenter"><i class="fas fa-edit fa-sm mr-2"></i>Edit</a>
+                                                <a onClick="activeContribution('${result.data[i].id}', ${result.data[i].publish});" type="button" class="list-group-item ${result.data[i].publish ? "text-success" : "text-danger"}" data-toggle="tooltip" data-placement="top" title="Select to publish or unpublish"><i class="fas ${result.data[i].publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${result.data[i].publish ? "Published" : "Unpublished"}</a>
+                                                <a href="my-contribution-booking-management?id=${result.data[i].id}" class="list-group-item flex-grow-1 text-center" data-toggle="tooltip" data-placement="top" title="View my booking list"><i class="fas fa-book fa-sm mr-2"></i>Booking</a>
+                                            </div>
+
+                                            <div class="view-mobile-only">
+                                                <a href="/my-contribution-create/${result.data[i].id}" class="btn btn-outline-primary btn-block px-3" data-toggle="tooltip" data-placement="top" title="Edit your divecenter"><i class="fas fa-edit fa-sm mr-2"></i>Edit</a>
+                                                <a onClick="activeContribution('${result.data[i].id}', ${result.data[i].publish});" type="button" class="btn btn-outline-primary btn-block ${result.data[i].publish ? "text-success" : "text-danger"}" data-toggle="tooltip" data-placement="top" title="Select to publish or unpublish"><i class="fas ${result.data[i].publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${result.data[i].publish ? "Published" : "Unpublished"}</a>
+                                                <a href="my-contribution-booking-management?id=${result.data[i].id}" class="btn btn-outline-primary btn-block flex-grow-1 text-center" data-toggle="tooltip" data-placement="top" title="View my booking list"><i class="fas fa-book fa-sm mr-2"></i>Booking</a>
+                                            </div>
+                                            
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    }
+                    
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function activeContribution(contributionId, statusPublish){
+        if(statusPublish){
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will unpublish your contribution",
+                icon: "warning",
+                showCancelButton : true,
+            }).then(function(isConfirm) {
+                console.log(isConfirm)
+                if (isConfirm.value) {
+                    unpublishContribution(contributionId)
+                } else {
+                    swal("Cancelled", "Your data safe :)", "error");
+                }
+            })
+        }else{
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will publish your contribution",
+                icon: "warning",
+                showCancelButton : true,
+            }).then(function(isConfirm) {
+                console.log(isConfirm)
+                if (isConfirm.value) {
+                    publishContribution(contributionId)
+                } else {
+                    swal("Cancelled", "Your data safe :)", "error");
+                }
+            })
+        }
+    }
+
+    function unpublishContribution(contributionId){
+        $.ajax({
+        url: `/api/contribution/${contributionId}/publish`,
+        method: `PUT`,
+        data : {
+            publish : false
+        },
+        success: function (result) {
+            console.log(result)
+            if (result.success) {
+                Swal.fire({
+                    title: "Your contribution has been unpublished",
+                    text: "Thank you."
+                }).then(function() {
+                    window.location.reload()
+                });
+            } else {
+                Swal.fire(
+                    'Publish Failed',
+                    result.message
+                )
+                //alert(result.message)
+                //console.log(result)
+            }
+        },
+        error(xhr, status, error) {
+            if(xhr.responseJSON){
+                console.log(xhr.responseJSON)
+            }
+        }
+        })
+    }
+
+    function publishContribution(contributionId){
+        //alert(divecenterId)
+        var canPublish = true
+
+        if(canPublish){
+            $.ajax({
+                url: `/api/contribution/${contributionId}/publish`,
+                method: `PUT`,
+                data : {
+                    publish : true
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        Swal.fire({
+                            title: "Your contribution has been active",
+                            text: "Thank you for acivating your contribution."
+                        }).then(function() {
+                            window.location.reload()
+                        });
+                    } else {
+                        Swal.fire(
+                            'Publish Failed',
+                            result.message
+                        )
+                        //alert(result.message)
+                        //console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }else{
+            Swal.fire(
+                'Publish Failed',
+                `You can't published contribution with empty package`
+            )
+        }
+    }
+
+    
+
+        
+    
+</script>

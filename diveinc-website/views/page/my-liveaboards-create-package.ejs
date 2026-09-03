@@ -1,0 +1,2010 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+
+<!-- Modal Set Itenary -->
+<div class="modal" id="modalSetItenary" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Package Itenary</span> 
+            </div>
+            <div class="modal-body">
+                <div id="listItenary"></div>
+                <!-- <div class="accordion-itenary-add bg-lighter p-2 border">
+                    <div class="accordion-title"><h6 class="m-0">Day 1</h6><i class="fas fa-chevron-down icon active"></i></div>
+                    <div class="accordion-content active">
+                        <textarea class="form-control mb-0" placeholder="Please write your itenary..."></textarea>
+                        <div class="d-flex justify-content-end pt-2 text-center">
+                            <button class="btn btn-sm btn-outline-primary">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-itenary-add bg-lighter p-2 border">
+                    <div class="accordion-title"><h6 class="m-0">Day 2</h6><i class="fas fa-chevron-down icon"></i></div>
+                    <div class="accordion-content">
+                        <textarea class="form-control mb-0" placeholder="Please write your itenary..."></textarea>
+                        <div class="d-flex justify-content-end pt-2 text-center">
+                            <button class="btn btn-sm btn-outline-primary">Remove</button>
+                        </div>
+                    </div>
+                </div> -->
+                <button id="addItenary" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new day</button>
+                <button type="button" onclick="populateItenary()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalSetAdditionalService" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Additional Service</span>
+            </div>
+            <div class="modal-body">
+                <div id="listServiceModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addServiceItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateService()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalAddRoom" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Package Price</span>
+            </div>
+            <div class="modal-body">
+                <div id="listRoomPrice">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addRoomItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onclick="populateRoom()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalSetHighlight" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Highlight</span>
+            </div>
+            <div class="modal-body">
+                <div id="listHighlightModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addHighlightItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateHighlight()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalSetIncluded" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Included</span>
+            </div>
+            <div class="modal-body">
+                <div id="listIncludedModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addIncludedItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateIncluded()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalSetExcluded" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Excluded</span>
+            </div>
+            <div class="modal-body">
+                <div id="listExcludedModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addExcludedItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateExcluded()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <div class="col-lg-9">
+                <!-- Package Info & Options -->
+                <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <!-- <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li> -->
+                    <li>
+                        <a href="/my-liveaboards" class="btn btn-white btn-sm">My Liveaboard</a>
+                    </li>
+                    <li>
+                        <a href="/my-liveaboards-create/<%= parentId %>" class="btn btn-white btn-sm">Liveaboard</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="btn btn-white btn-sm"><span class="formTitle">Create New</span> Package</a>
+                    </li>
+                </ul>
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom d-flex-mobile">
+                            <div class="d-flex align-items-center text-center-mobile mb-2 mb-md-0">
+                                <h5 class="m-0 mr-2"><span class="formTitle">Create New</span> Package</h5>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" onClick="savePackage()" href="#" class="btn btn-primary"><i class="fas fa-save fa-sm mr-2"></i>Save Package & Add Schedule</button>
+                            </div>
+                        </div>
+                        <div class="d-block mb-4">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Package Info</h5>
+                            <div class="form-row mb-3">
+                                <label for="package_name" class="col-sm-2 col-form-label">Package Name<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputName" type="text" class="form-control text-capitalize" name="package_name" placeholder="Package name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="package_name" class="col-sm-2 col-form-label">Package Duration<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="row row-sm">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                  <span class="input-group-text">Day</span>
+                                                </div>
+                                                <!-- value="0" -->
+                                                <input id="inputDay" type="text" class="form-control">
+                                              </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                  <span class="input-group-text">Night</span>
+                                                </div>
+                                                <!-- value="0" -->
+                                                <input id="inputNight" type="text" class="form-control">
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="package_name" class="col-sm-2 col-form-label">Dive Total<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputDiveTotal" type="number" min="0" class="form-control text-capitalize" name="package_name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="package_name" class="col-sm-2 col-form-label">Max Purchase<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputMaxPurchase" type="number" min="0" class="form-control text-capitalize" name="package_name"  required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="room_desc" class="col-sm-2 col-form-label">Description<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="inputDescription" class="form-control rounded-0" name="resort_description" placeholder="Writes your package description" required rows="6"></textarea>
+
+                                    <div class="alert alert-info border-0 mt-2 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Writes your package description. Your guest will read this first when opening your page.</div></div></div>
+                                </div>
+                            </div>
+                            <!-- <div class="form-row mb-3">
+                                <label for="origin" class="col-sm-2 col-form-label">Country & City</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <select class="form-control rounded-0">
+                                            <option>Select Country</option>
+                                        </select>
+                                        <select class="form-control rounded-0">
+                                            <option>Select City</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Photos -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Package Photos</h5>
+                            <div class="form-row">
+                                <div class="col-sm-12">
+                                    <div class="d-block w-100 mb-3">
+                                        <div class="custom-file mb-2">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                        <!-- <div class="btn-group">
+                                            <div class="btn btn-outline-primary btn-sm">Clear</div>
+                                            <div class="btn btn-outline-primary btn-sm"><i class="fas fa-upload mr-2"></i>Upload Photos</div>
+                                        </div> -->
+                                    </div>
+                                    <div id="listPhotos" class="photo-gallery-create">
+                                        <!-- <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Package Highlight -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Package Highlight</h5>
+                            <div>
+                                <ul id="listHighlight" class="list-base list-base-md font-serif"></ul>
+                            </div>
+                            <div class="d-none p-2 border mb-2 bg-lighter">
+                                <div class="d-flex">
+                                    <div class="mr-2 flex-grow-1">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <input id="inputHighlight" type="text" class="form-control" placeholder="Write your package highlight...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <!-- <button type="button" class="btn btn-primary"><i class="far fa-save fa-sm mr-2"></i>Save</button> -->
+                                            <!-- <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#modalSetHighlight" data-toggle="modal" id="addHighlight" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Itenary -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <div class="d-flex align-items-center justify-content-between mb-4 ">
+                                <h5 class="panel-title panel-title-sm d-block m-0">Package Itenary</h5>
+                                <button class="btn btn-outline-primary" onclick="showItenModal()" data-toggle="modal" data-target="#modalSetItenary">Set Package Itenary</button>
+                            </div>
+                            <!-- Itenary description -->
+                            <div class="d-block mb-4">
+                                <div id="listItenary2" class="itenary-listing">
+                                    <!-- <div class="itenary-listing--item">
+                                        <div class="itenary-wrapper">
+                                            <div class="itenary-title font-weight-bold">Day 1<i class="fas fa-angle-down ml-2 active"></i></div>
+                                            <div class="itenary-content active">
+                                                <ul class="list-base">
+                                                    <li>Pick up by Aggressor staff at the airport or hotel</li>
+                                                    <li>Group transfer to the boat.</li>
+                                                    <li>Meet the crew & welcome briefing.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="itenary-listing--item">
+                                        <div class="itenary-wrapper">
+                                            <div class="itenary-title font-weight-bold">Day 2<i class="fas fa-angle-down ml-2"></i></div>
+                                            <div class="itenary-content">
+                                                <ul class="list-base">
+                                                    <li>The Raja Ampat itinerary combines the best dive sites of Dampier Strait, Fam, Mansuar and the awesome dive sites of Misool, the best diving area of Raja Ampat.</li>
+                                                    <li>The great highlights are the manta cleaning station near Mansuar and the huge schools of fish near Farondi.</li>
+                                                    <li>The name comes from the Dutch colonial times. It refers to the shape of the peninsula on the map, but it is also a paradise for many rare bird species.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="itenary-listing--item">
+                                        <div class="itenary-wrapper">
+                                            <div class="itenary-title font-weight-bold">Day 3<i class="fas fa-angle-down ml-2"></i></div>
+                                            <div class="itenary-content">
+                                                <ul class="list-base">
+                                                    <li>Check-out from boat around 8 am.</li>
+                                                    <li>You will be transported to the airport for a domestic flight back or to a local hotel if you are extending their stay.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Package How to Get There -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Highlight's Trip</h5>
+                        </div>
+                        <div class="form-row mb-3">
+                            <label for="trip_begining" class="col-sm-2 col-form-label">The Begining of Your Trip</label>
+                            <div class="col-sm-10">
+                                <textarea id="inputBegining" class="summernoteData"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <label for="during_trip" class="col-sm-2 col-form-label">During the Trip</label>
+                            <div class="col-sm-10">
+                                <textarea id="inputDuring" class="summernoteData"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <label for="end_trip" class="col-sm-2 col-form-label">Trip End</label>
+                            <div class="col-sm-10">
+                                <textarea id="inputTrip" class="summernoteData"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Feature -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Package Feature</h5>
+                            <div class="form-row mb-3">
+                                <label for="resort_arrival" class="col-sm-2 col-form-label">What's Included</label>
+                                <div class="col-sm-10">
+                                    <div id="listIncluded"></div>
+                                    <div class="d-none p-2 border mb-2 bg-lighter">
+                                        <div class="d-flex">
+                                            <div class="mr-2 flex-grow-1">
+                                                <div class="form-row">
+                                                    <div class="col-md-12">
+                                                        <input id="inputIncluded" type="text" class="form-control" placeholder="What's included?">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <!-- <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="addIncluded" class="btn btn-outline-primary btn-sm" type="button">Manage</button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="resort_departure" class="col-sm-2 col-form-label">What's Excluded</label>
+                                <div class="col-sm-10">
+                                    <div id="listExcluded"></div>
+                                    <div class="d-none p-2 border mb-2 bg-lighter">
+                                        <div class="d-flex">
+                                            <div class="mr-2 flex-grow-1">
+                                                <div class="form-row">
+                                                    <div class="col-md-12">
+                                                        <input id="inputExcluded" type="text" class="form-control" placeholder="What's excluded?">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <!-- <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="addExcluded" class="btn btn-outline-primary btn-sm" type="button">Manage</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Package Good to Know -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Good to Know</h5>
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col-sm-12">
+                                <textarea id="inputGTK" class="summernoteData"></textarea>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            Beritahu tamu mengenai informasi diluar trip ini, seperti peralatan yang harus dibawa, syarat-syarat lainnya yang perlu diberitahu.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Price -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Package Price</h5>
+                            <div id="listRoom"></div>
+                            <a href="#modalAddRoom" onclick="showRoomList()" data-toggle="modal" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Additional Services -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Additional Services</h5>
+                            <div class="form-row">
+                                <div class="col-sm-12">
+                                    <div id="listService"></div>
+                                        <div class="d-none p-2 border mb-2 bg-lighter">
+                                            <div class="d-flex">
+                                                <div class="mr-0 mr-md-2 flex-grow-1">
+                                                    <div class="form-row">
+                                                        <div class="col-md-6 mb-2 mb-md-0">
+                                                            <input id="inputServiceName" type="text" class="form-control" placeholder="Service item">
+                                                        </div>
+                                                        <div class="col-md-3 mb-2 mb-md-0">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">IDR</span>
+                                                                </div>
+                                                                <input id="inputServicePrice" type="number" min="0" class="form-control" placeholder="0">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">Max Qty</span>
+                                                                </div>
+                                                                <input id="inputServiceQty"  type="number" min="0" class="form-control" placeholder="0">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button id="addService" class="btn btn-outline-primary btn-sm" type="button">manage</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between d-flex-mobile">
+                            <div class="d-flex align-items-center text-center-mobile mb-2 mb-md-0">
+                                <button onclick="history.back()" class="btn btn-outline-primary">Back</button>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" onClick="savePackage()" href="#" class="btn btn-primary"><i class="fas fa-save fa-sm mr-2"></i>Save Package & Add Schedule</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="overlay-loader" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script src="/vendor/summernotes/summernote-bs4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.20/b-1.6.1/sl-1.3.1/datatables.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
+<script src="/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+    $('.summernoteData').summernote({
+      placeholder: 'Write your information here...',
+      tabsize: 2,
+      height: 100,
+      toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline']],
+            ['font', ['strikethrough']],
+            ['para', ['ul', 'ol']]
+        ]
+    });
+</script>
+<script>
+
+    var id = "<%= id %>"
+    var parentId = "<%= parentId %>"
+
+    var dataImage = []
+    var dataHighlight = []
+    var dataItenary = []
+    var dataService = []
+    var dataIncluded = []
+    var dataExcluded = []
+
+    var dataLoadRoom = []
+    var dataRoom = []
+
+    let scheduleTable;
+
+    console.log("MY ID")
+    console.log(id)
+
+    $(document).ready(function(){
+        //initData()
+
+        if (id) {
+            $('.formTitle').text("Edit");
+        }
+        getPackageById();
+        getRoom();
+
+        $(`#customFile`).on(`change`, function(){
+
+          makeFileRequestUpload('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+        //======================start package schedule==========================
+        if (id != '') {            
+            $('#datePicker').datepicker({
+                format: "dd-mm-yyyy",
+                todayHighlight: true
+            });
+
+            $('#buttonAddSchedule').click(function(){
+                createSchedule()
+            });
+
+            // scheduleTable = $('#dataSchedule').DataTable({
+            //     processing: true,
+            //     serverSide: true,
+            //     searching: true,
+            //     "columnDefs": [{
+            //         "targets"  : 'nosort',
+            //         "orderable": false
+            //     }],
+            //     ajax: "/api/datatable-schedule/"+id,
+            //     "initComplete":function( settings, json){
+            //         console.log(json);
+            //         cekSchedule()
+            //         // call your function here
+            //     }
+            // });
+        }else{
+            $('#schedule-section').html('');
+        }
+        //======================end package schedule==========================
+    
+    })
+
+    function getRoom(){
+        $('#overlay-loader').removeClass('d-none');
+        $.ajax({
+            url: `/api/room/${parentId}/liveaboard`,
+            method: `GET`,
+            success: function (result) {
+                console.log("GET ROOOOOOOOOMMMMMM")
+                console.log(result)
+                if (result.success) {
+
+                    for(var i = 0; i < result.data.length; i ++){
+                        // $('#inputRoom').append(`
+                        //     <option value="${result.data[i].id}">${result.data[i].info.name}</option>
+                        // `)
+
+                        dataLoadRoom.push(result.data[i])
+                    }
+                    $('#overlay-loader').addClass('d-none');
+                } else {
+                    alert(result.message);
+                    console.log(result)
+                    $('#overlay-loader').addClass('d-none');
+
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })  
+    }
+    
+    function getPackageById() {
+        $.ajax({
+            url: `/api/package/${id}`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    let info = result.data.info;
+                    $('#inputName').val(info.name);
+                    $('#inputDay').val(info.duration.day);
+                    $('#inputNight').val(info.duration.night);
+                    $('#inputDiveTotal').val(info.dive_total);
+                    $('#inputDescription').val(info.description);
+                    $('#inputPrice').val(result.data.price.price);
+                    $('#inputDiscount').val(result.data.price.discount);
+                    $('#inputMaxPurchase').val(info.max_purchase);
+                    dataImage = result.data.photos;
+                    loadImage();
+                    dataItenary = result.data.itenary;
+                    loadItenary();
+                    dataHighlight = result.data.highlight;
+                    // loadHighlight();
+                    loadHighlightItem();
+                    dataService = result.data.service;
+                    // loadService();
+                    loadServiceItem();
+                    let dataFeature = result.data.info.feature;
+                    dataIncluded = (typeof dataFeature !== "undefined" ? result.data.info.feature.included : []);
+                    loadIncludedItem();
+                    dataExcluded = (typeof dataFeature !== "undefined" ? result.data.info.feature.excluded : []);
+                    loadExcludedItem();
+
+                    dataRoom = result.data.room_liveaboard;
+                    loadRoom()
+                    
+                    let how_to = result.data.info.how_to;
+                    $('#inputBegining').summernote('code', how_to.begining);
+                    $('#inputDuring').summernote('code',how_to.during);
+                    $("#inputTrip").summernote('code',how_to.trip);
+                    $("#inputGTK").summernote('code',how_to.gtk);
+                    $("#inputPrice").val(result.data.price.price);
+                    $("#inputDiscount").val(result.data.price.discount);
+                    // var dataArrival = []
+                    // var dataDeparture = []
+                    
+                    
+                } else {
+                    alert(result.message);
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+
+    $('.summernoteData').summernote({
+      placeholder: 'Write your information here...',
+      tabsize: 2,
+      height: 100,
+      toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline']],
+            ['font', ['strikethrough']],
+            ['para', ['ul', 'ol']]
+        ]
+    });
+
+    function makeFileRequestUpload(url, params, files){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 20400000){
+            alert("Size must be less than 20MB")
+            }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        $('#sendFile').show()
+                        $('#chooseFile').text(files[0].name)
+                        var response = JSON.parse(xhr.response)
+                        var objUrl = {}
+                        objUrl.id = "image-"+ new Date().getTime()
+                        objUrl.url = response.data.location
+                        objUrl.path = response.data.key
+                        objUrl.baseUrl = response.data.baseUrl
+                        dataImage.push(objUrl)
+                        loadImage()
+                    }else {
+                        console.log(xhr.response)
+                        $('#chooseFile').text("Choose File")
+                        alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+            }
+        })
+    }
+
+    function progressHandlerBackground(event) {
+        // var percent = (event.loaded / event.total) * 100
+        // $("#progressBackground").val(Math.round(percent))
+        // if(percent == 100){
+        //     $("#statusBackground").text("Upload Success")
+        // }else{
+        //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        // }
+    }
+
+    function completeHandlerBackground(event) {
+        //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+    }
+
+    function errorHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Failed")
+    }
+
+    function abortHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Aborted")
+    }
+
+    function loadImage(){
+        $(`.data-photos`).remove()
+        if (dataImage) {
+            for(var i = 0; i < dataImage.length; i++){
+                $(`#listPhotos`).append(`
+                    <div class="photo-gallery--item data-photos" style="background-image:url('${dataImage[i].url}');"><div onClick="deleteImage('${dataImage[i].id}')" class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                `).fadeIn('slow')
+            }
+        }
+    }
+
+    function deleteImage(id){
+        dataImage = dataImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadImage()
+    }
+
+    //===============================itenary=========================
+        // function inputItenary(id){
+        //     for(var i = 0; i < dataItenary.length; i++){
+        //         if(id == dataItenary[i].id){
+        //             dataItenary[i].text = $(`#text-${id}`).val()
+        //         }
+        //     }
+        //     loadItenary()
+        // }
+
+        $(`#addItenary`).click(function(){
+            var objItenary = {}
+            objItenary.id = "itenary-"+new Date().getTime().toString()
+            objItenary.text = ''
+            dataItenary.push(objItenary)
+            $('#listItenary').append(`
+                    <div class="accordion-itenary-add bg-lighter p-2 border data-itenary" id="div-${objItenary.id}">
+                        <div class="accordion-title"><h6 class="m-0">Day ${dataItenary.length}</h6><i class="fas fa-chevron-down icon active"></i></div>
+                        <div class="accordion-content active">
+                            <textarea id="text-${objItenary.id}" class="form-control mb-0" placeholder="Please write your itenary...">${objItenary.text}</textarea>
+                            <div class="d-flex justify-content-end pt-2 text-center">
+                                <button onClick="deleteItenary('${objItenary.id}')" class="btn btn-sm btn-outline-primary">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `)
+        });  
+
+        function loadItenary(){
+            $('.data-itenary').remove()
+            if (dataItenary) {
+                for(var i = 0; i < dataItenary.length; i++){
+                    $('#listItenary').append(`
+                        <div class="accordion-itenary-add bg-lighter p-2 border data-itenary" id="div-${dataItenary[i].id}">
+                            <div class="accordion-title"><h6 class="m-0">Day ${i+1}</h6><i class="fas fa-chevron-down icon active"></i></div>
+                            <div class="accordion-content active">
+                                <textarea id="text-${dataItenary[i].id}" class="form-control mb-0" placeholder="Please write your itenary...">${dataItenary[i].text}</textarea>
+                                <div class="d-flex justify-content-end pt-2 text-center">
+                                    <button onClick="deleteItenary('${dataItenary[i].id}')" class="btn btn-sm btn-outline-primary">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                    $('#listItenary2').append(`
+                        <div class="itenary-listing--item data-itenary">
+                            <div class="itenary-wrapper">
+                                <div class="itenary-title font-weight-bold">Day ${i+1}<i class="fas fa-angle-down ml-2 active"></i></div>
+                                <div class="itenary-content active">
+                                    ${dataItenary[i].text}
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                    $('.accordion-title').click(function(){
+                        $(this).children('.accordion-title .fas').toggleClass('active');
+                        $(this).parent().children('.accordion-content').toggleClass('active');
+                    });
+                    $('.itenary-title').click(function(){
+                        $(this).children('.itenary-title .fas').toggleClass('active');
+                        $(this).parent().children('.itenary-content').toggleClass('active');
+                    });
+                }
+            
+                
+            }
+        }
+
+        function deleteItenary(id){
+            dataItenary = dataItenary.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadItenary()
+        }
+
+        function showItenModal(){
+            $("#modalSetItenary").modal('toggle');
+        }
+
+        function populateItenary(){
+            let statusIten = true;
+            if (dataItenary) {
+                for(var i = 0; i < dataItenary.length; i++){
+                    dataItenary[i].text = $(`#text-${dataItenary[i].id}`).val();
+                    if(dataItenary[i].text.length == 0){
+                        statusIten = false;
+                    }
+                }
+                if(statusIten){
+                    loadItenary();
+                    $("#modalSetItenary").modal('toggle');
+                }else{
+                    Swal.fire("Please check all day","Itenary can't be blank");
+                }
+            }
+        }
+    //===============================end itenary=========================
+    
+    //==============================additional service==========================
+        // function addService(){
+        //     populateService();
+        //     var objService = {}
+        //     objService.id = "service-"+new Date().getTime().toString()
+        //     objService.name = $(`#inputServiceName`).val()
+        //     objService.price = parseFloat($(`#inputServicePrice`).val())
+        //     objService.qty = parseInt($(`#inputServiceQty`).val())
+        //     dataService.push(objService)
+        //     $('#inputServiceName').val("")
+        //     $('#inputServicePrice').val("")
+        //     $('#inputServiceQty').val("")
+        //     loadService()
+        // }
+
+        $("#addService").click(function(){
+            $("#modalSetAdditionalService").modal('toggle');
+            loadService();
+        });
+
+        function loadService(){
+            $(`.data-service`).remove()
+            if (dataService) {
+                for(var i = 0; i < dataService.length; i++){
+                    $(`#listServiceModal`).append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-service" id="div-${dataService[i].id}">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" id='serviceName-${dataService[i].id}' placeholder="Service item" value="${dataService[i].name}">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">IDR</span>
+                                                </div>
+                                                <input type="number" class="form-control" min="0" id='servicePrice-${dataService[i].id}' placeholder="0" value="${dataService[i].price}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Max Qty</span>
+                                                </div>
+                                                <input type="number" class="form-control" min="0" id='serviceQty-${dataService[i].id}' placeholder="0" value="${dataService[i].qty}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button onClick="deleteService('${dataService[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).fadeIn('slow')
+                }
+            
+                
+            }
+        }
+
+        function addServiceItem(){
+            var objService = {}
+            objService.id = "service-"+new Date().getTime().toString()
+            objService.name = ''
+            objService.price = ''
+            objService.qty = ''
+            dataService.push(objService)
+            $(`#listServiceModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-service" id="div-${objService.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id='serviceName-${objService.id}' placeholder="Service item" value="">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">IDR</span>
+                                            </div>
+                                            <input type="number" class="form-control" min="0" id='servicePrice-${objService.id}' placeholder="0" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Max Qty</span>
+                                            </div>
+                                            <input type="number" class="form-control" min="0" id='serviceQty-${objService.id}' placeholder="0" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteService('${objService.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow')
+                $(`#serviceName-${objService.id}`).focus();
+            
+            // loadService()
+        }
+
+        function loadServiceItem(){
+            $(`#listService`).html('');
+            if (dataService) {
+                for(var i = 0; i < dataService.length; i++){
+                    $(`#listService`).append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-service">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" placeholder="Service item" value="${dataService[i].name}"  disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">IDR</span>
+                                                </div>
+                                                <input type="number" class="form-control" min="0" placeholder="0" value="${dataService[i].price}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Max Qty</span>
+                                                </div>
+                                                <input type="number" class="form-control" min="0" placeholder="0" value="${dataService[i].qty}" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).fadeIn('slow')
+                }
+            
+                
+            }
+        }
+
+        function deleteService(id){
+            dataService = dataService.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadService()
+        }
+
+        function populateService(){
+        let dataTemp = [];
+        let respond = true;
+        $.each(dataService, function(i,v){
+            let name = $(`#serviceName-${v.id}`).val();
+            let price = $(`#servicePrice-${v.id}`).val();
+            price = (price === '' ? 0 : parseFloat(price));
+            let qty = $(`#serviceQty-${v.id}`).val();
+            qty = (qty === '' ? 0 : parseFloat(qty));
+
+            var objService = {}
+            objService.id = v.id
+            objService.name = name
+            objService.price = price
+            objService.qty = qty
+            dataTemp.push(objService)
+
+            if(name == '' || price === '' || qty === '' || price == 0 || qty == 0 ){
+                respond = false;
+            }
+        });
+
+        dataService = dataTemp;
+        if(respond == true){
+            loadServiceItem();
+            $("#modalSetAdditionalService").modal('toggle');
+        }else{
+            Swal.fire('Additional Services',
+                'Please complete all field. Price and qty must greater than 0');
+                // return false;
+        }
+    }
+    //==============================end additional service==========================
+
+    //========================================highlight======================================
+
+        /*function addHighlight(){
+            populateHighlight();
+            var objHighlight = {}
+            objHighlight.id = "highlight-"+new Date().getTime().toString()
+            objHighlight.highlight = $(`#inputHighlight`).val()
+            dataHighlight.push(objHighlight)
+            $('#inputHighlight').val("")
+            loadHighlight()
+        }*/
+
+        $('#addHighlight').click(function(){
+            $("#modalSetHighlight").modal('toggle');
+            loadHighlight();
+        });
+
+        function addHighlightItem(){
+            var objHighlight = {}
+            objHighlight.id = "Highlight-"+new Date().getTime().toString()
+            objHighlight.text = ''
+            dataHighlight.push(objHighlight);
+            $(`#listHighlightModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${objHighlight.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="${objHighlight.id}" class="form-control highlight-added-field" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${objHighlight.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow')
+                $(`#${objHighlight.id}`).focus();
+            
+            // loadHighlight()
+        }
+
+        function loadHighlightItem(){
+            $(`#listHighlight`).html('');
+            if (dataHighlight) {
+                for(var i = 0; i < dataHighlight.length; i++){
+                    /*$('#listHighlight').append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-highlight">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <input type="text" class="form-control" value="${dataHighlight[i].text}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)*/
+    
+                    $("#listHighlight").append(`<li class="mb-3">
+                        ${dataHighlight[i].text}
+                        </li>`);
+                
+                }
+            
+                
+            }
+        }
+
+        function loadHighlight(){
+            //console.log(dataHighlight)
+            $(`.data-highlight`).remove()
+            if (dataHighlight) {
+                for(var i = 0; i < dataHighlight.length; i++){
+                    $('#listHighlightModal').append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${dataHighlight[i].id}">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <textarea type="text" id="${dataHighlight[i].id}"  class="form-control" maxlength='140' rows='2'>${dataHighlight[i].text}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button onClick="deleteHighlight('${dataHighlight[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+            
+                
+            }
+        }
+
+        function deleteHighlight(id){
+            dataHighlight = dataHighlight.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadHighlight()
+        }
+
+        function populateHighlight(){
+            let result = true;
+            if (dataHighlight) {
+                for (let i = 0; i < dataHighlight.length; i++) {
+                    dataHighlight[i].text = $(`#${dataHighlight[i].id}`).val();
+                    if(dataHighlight[i].text.length == 0){
+                        result = false;
+                    }
+                }
+                
+            }
+
+            
+            if (!result) {
+                return Swal.fire("Fail", "Please <b>fill all</b> highlight field <b>or</b> <br/> <b>remove blank</b> field highlight using the <i class='far fa-trash-alt fa-sm'></i> button on the right side of the field");
+                // return Swal.fire("Highlight Note", "Highlight can't be blank");
+            }else{
+                loadHighlightItem();
+                $("#modalSetHighlight").modal('toggle');
+            }
+        }
+        
+    //========================================Included======================================
+        /*function addIncluded(){
+            populateIncluded();
+            var objHighlight = {}
+            objHighlight.id = "included-"+new Date().getTime().toString()
+            objHighlight.text = $(`#inputIncluded`).val()
+            dataIncluded.push(objHighlight)
+            $('#inputIncluded').val("")
+            loadIncluded()
+        }*/
+
+        $('#addIncluded').click(function(){
+            $("#modalSetIncluded").modal('toggle');
+            loadIncluded();
+        });
+
+        function addIncludedItem(){
+            var objIncluded = {}
+            objIncluded.id = "Included-"+new Date().getTime().toString()
+            objIncluded.text = ""
+            dataIncluded.push(objIncluded);
+            $(`#listIncludedModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-included" id="div-${objIncluded.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="${objIncluded.id}" class="form-control highlight-added-field" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteIncluded('${objIncluded.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow');
+                $(`#${objIncluded.id}`).focus();
+            
+            // loadIncluded()
+        }
+
+        function loadIncludedItem(){
+            $(`#listIncluded`).html('');
+            if (dataIncluded) {
+                for(var i = 0; i < dataIncluded.length; i++){
+                    $('#listIncluded').append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-included">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <input type="text" class="form-control" value="${dataIncluded[i].text}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+                
+                
+            }
+        }
+
+        function loadIncluded(){
+            //console.log(dataIncluded)
+            $(`.data-included`).remove()
+            if (dataIncluded) {
+                for(var i = 0; i < dataIncluded.length; i++){
+                    $('#listIncludedModal').append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-included" id="div-${dataIncluded[i].id}">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <input type="text" id="${dataIncluded[i].id}" class="form-control" value="${dataIncluded[i].text}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button onClick="deleteIncluded('${dataIncluded[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+            
+                
+            }
+            
+        }
+
+        function deleteIncluded(id){
+            dataIncluded = dataIncluded.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+        }
+
+        function populateIncluded(){
+            let result = true;
+            if (dataIncluded) {
+                for (let i = 0; i < dataIncluded.length; i++) {
+                    dataIncluded[i].text = $(`#${dataIncluded[i].id}`).val();
+                    if(dataIncluded[i].text.length == 0){
+                        result = false;
+                    }
+                }
+                
+            }
+
+            if (!result) {
+                return Swal.fire("Included Note", "Included can't be blank");
+            }else{
+                loadIncludedItem();
+                $("#modalSetIncluded").modal('toggle');
+            }
+        }
+
+    //========================================Excluded======================================
+
+        /*function addExcluded(){
+            populateExcluded();
+            var objHighlight = {}
+            objHighlight.id = "excluded-"+new Date().getTime().toString()
+            objHighlight.text = $(`#inputExcluded`).val()
+            dataExcluded.push(objHighlight)
+            $('#inputExcluded').val("")
+            loadExcluded()
+        }*/
+
+        $('#addExcluded').click(function(){
+            $("#modalSetExcluded").modal('toggle');
+            loadExcluded();
+        });
+
+        function addExcludedItem(){
+            var objExcluded = {}
+            objExcluded.id = "Excluded-"+new Date().getTime().toString()
+            objExcluded.text = ""
+            dataExcluded.push(objExcluded);
+            $(`#listExcludedModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-excluded" id="div-${objExcluded.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="${objExcluded.id}" class="form-control highlight-added-field" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteExcluded('${objExcluded.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow')
+                $(`#${objExcluded.id}`).focus();
+            
+            // loadExcluded()
+        }
+
+        function loadExcludedItem(){
+            $(`#listExcluded`).html('');
+            if (dataExcluded) {
+                for(var i = 0; i < dataExcluded.length; i++){
+                    $('#listExcluded').append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-excluded">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <input type="text" class="form-control" value="${dataExcluded[i].text}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+                
+                
+            }
+        }
+
+        function loadExcluded(){
+            //console.log(dataExcluded)
+            $(`.data-excluded`).remove()
+            if (dataExcluded) {
+                for(var i = 0; i < dataExcluded.length; i++){
+                    $('#listExcludedModal').append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-excluded" id="div-${dataExcluded[i].id}">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <input type="text" id="${dataExcluded[i].id}" class="form-control" value="${dataExcluded[i].text}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button onClick="deleteExcluded('${dataExcluded[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+            }
+
+        }
+
+        function deleteExcluded(id){
+            dataExcluded = dataExcluded.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+
+        }
+        
+        function populateExcluded(){
+            let result = true;
+            if (dataExcluded) {
+                for (let i = 0; i < dataExcluded.length; i++) {
+                    dataExcluded[i].text = $(`#${dataExcluded[i].id}`).val();
+                    if(dataExcluded[i].text.length == 0){
+                        result = false;
+                    }
+                }
+            }
+
+            if (!result) {
+                return Swal.fire("Excluded Note", "Excluded can't be blank");
+            }else{
+                loadExcludedItem();
+                $("#modalSetExcluded").modal('toggle');
+            }
+        }
+
+    // ==============================================================================
+    
+    function savePackage() {
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            // return alert("form is not valid")
+            Swal.fire("Oops","'Please complete all forms to save this room in the list.'");
+        }else{
+            if(id){
+                $('#overlay-loader').removeClass('d-none');
+                $.ajax({
+                    url: `/api/package/${id}`,
+                    method: `PUT`,
+                    data: {
+                        info : {
+                            name : $('#inputName').val(),
+                            description : $('#inputDescription').val(),
+                            duration : {
+                                day : $('#inputDay').val(),
+                                night : $('#inputNight').val()
+                            },
+                            dive_total : $('#inputDiveTotal').val(),
+                            max_purchase : $('#inputMaxPurchase').val(),
+                            how_to : {
+                                begining : $('#inputBegining').val(),
+                                during : $('#inputDuring').val(),
+                                trip : $('#inputTrip').val(),
+                                gtk : $('#inputGTK').val()
+                            },
+                            feature:{
+                                included: dataIncluded,
+                                excluded: dataExcluded
+                            },
+                        },
+                        photos : dataImage,
+                        price : {
+                            price : 0,
+                            discount : 0,
+                        },
+                        room_liveaboard : dataRoom,
+                        highlight : dataHighlight,
+                        itenary : dataItenary,
+                        service : dataService,
+                        // departure : dataDeparture,
+                        // arrival : dataArrival
+                        parent_id : parentId
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            $('#overlay-loader').addClass('d-none');
+                            Swal.fire({
+                                title: "Data Liveaboard Package updated",
+                                text: "The package of your liveaboard has been successfully saved."
+                            }).then(function() {
+                                window.location.href = `/my-liveaboards-create/${parentId}#schedule-section`
+                                // window.location.reload();
+                            });
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                            $('#overlay-loader').addClass('d-none');
+
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }else{
+                $('#overlay-loader').removeClass('d-none');
+                $.ajax({
+                    url: `/api/package`,
+                    method: `POST`,
+                    data: {
+                        info : {
+                            name : $('#inputName').val(),
+                            description : $('#inputDescription').val(),
+                            duration : {
+                                day : $('#inputDay').val(),
+                                night : $('#inputNight').val()
+                            },
+                            dive_total : $('#inputDiveTotal').val(),
+                            max_purchase : $('#inputMaxPurchase').val(),
+                            how_to : {
+                                begining : $('#inputBegining').val(),
+                                during : $('#inputDuring').val(),
+                                trip : $('#inputTrip').val(),
+                                gtk : $('#inputGTK').val()
+                            },
+                            feature:{
+                                included: dataIncluded,
+                                excluded: dataExcluded
+                            },
+                        },
+                        photos : dataImage,
+                        price : {
+                            price : 0,
+                            discount : 0,
+                        },
+                        room_liveaboard : dataRoom,
+                        highlight : dataHighlight,
+                        itenary : dataItenary,
+                        service : dataService,
+                        parent_id : parentId
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            $('#overlay-loader').addClass('d-none');
+                            Swal.fire({
+                                title: "Data Liveaboard Package updated",
+                                text: "The package of your liveaboard has been successfully saved."
+                            }).then(function() {
+                                //window.location.reload();
+                                // location.href = `/my-liveaboards-create/${result.data.parent_id}/my-liveaboards-create-package/${result.data.id}`
+                                location.href = `/my-liveaboards-create/${parentId}#schedule-section`
+                            });
+                        } else {
+                            $('#overlay-loader').addClass('d-none');
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }
+        }
+    }
+
+    function formValidate(){
+
+        $(document).find(".text-field-warning").remove();
+        let listIncomplete = [];
+
+        ($('#inputName').val().length < 3 ? listIncomplete.push({inputId:"inputName", message: "Name is too short" }) : '' );
+        ($('#inputDescription').val().length < 3 ? listIncomplete.push({inputId:"inputDescription", message: "Description is too short" }) : '' );
+        ($('#inputDay').val().length == 0 ? listIncomplete.push({inputId:"inputDay", message: "Day can't be blank" }) : '' );
+        ($('#inputNight').val().length == 0 ? listIncomplete.push({inputId:"inputNight", message: "Night can't be blank" }) : '' );
+        // ($('#inputPrice').val().length == 0 || parseFloat($('#inputPrice').val()) < 0 ? listIncomplete.push({inputId:"inputPrice", message: "Room Price can't be blank / less than 0" }) : '' );
+        (dataRoom.length == 0 ? listIncomplete.push({inputId:"listRoom", message: "Please add at least 1 cabin" }) : '' );
+        (parseFloat($('#inputDiscount').val()) < 0 || parseFloat($('#inputDiscount').val()) > parseFloat($('#inputPrice').val()) ? listIncomplete.push({inputId:"inputDiscount", message: "Discount can't less than 0 / greater than actual price" }) : '' );
+        ($('#inputDiveTotal').val().length == 0 || parseFloat($('#inputDiveTotal').val()) < 0 ? listIncomplete.push({inputId:"inputDiveTotal", message: "Dive Total can't be blank/less than 0" }) : '' );
+        ($('#inputMaxPurchase').val().length == 0 || parseFloat($('#inputMaxPurchase').val()) < 0 ? listIncomplete.push({inputId:"inputMaxPurchase", message: "Max Purchase can't be blank/less than 0" }) : '' );
+        (dataImage.length == 0 ? listIncomplete.push({inputId:"listPhotos", message: "Please provide 1 or more photos" }) : '' );
+                
+        showIncompleteFieldMessage(listIncomplete)
+        return listIncomplete;
+        // $('#inputName').val().length < 3 ||
+        // $('#inputDay').val() == "" ||
+        // $('#inputNight').val() == "" ||
+        // $('#inputDiveTotal').val() == "" ||
+        // $('#inputDescription').val().length < 3 ||
+        // $('#inputPrice').val() == "" ||
+        // dataImage.length == 0
+    }
+
+    function showIncompleteFieldMessage(listIncomplete){
+        let earliestInput = "";
+        $.each(listIncomplete,function(i,v){
+            earliestInput = (i==0 ? v.inputId : earliestInput);
+            if(!$(`#${v.inputId}`).parent().hasClass("input-group")){
+                $(`#${v.inputId}`).parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+            }else{
+                $(`#${v.inputId}`).parent().parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+            }
+        });
+
+        let el = document.getElementById(`${earliestInput}`);
+        (earliestInput != '' ? el.scrollIntoView() : '');
+    }
+
+
+//=====================================package schedule ==============================================
+
+    if(id !== ''){
+        function createSchedule(){
+            if($('#datePicker').val().length > 0){
+                $('#overlay-loader').removeClass('d-none');
+                $.ajax({
+                    url: `/api/schedule`,
+                    method: `POST`,
+                    data:{
+                        parent_id : id,
+                        schedule_date : $('#datePicker').val()
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            $('#overlay-loader').addClass('d-none');
+                            scheduleTable.ajax.reload();
+                            $('#datePicker').val('');
+                            Swal.fire("Success","Date Added");
+                        } else {
+                            $('#overlay-loader').addClass('d-none');
+                            //alert(result.message)
+                            console.log(result)
+                            Swal.fire({
+                                title: "Data Liveaboard Package update error",
+                                text: result.message
+                            }).then(function() {
+                                //window.location.reload();
+                                // location.href = `/my-liveaboards-create/${parentId}`
+                            });
+                        }
+                    },
+                    error(xhr, status, error) {
+                        $('#overlay-loader').addClass('d-none');
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                            Swal.fire({
+                                title: "Data Liveaboard Package update error",
+                                text: xhr.responseJSON.message
+                            }).then(function() {
+                                //window.location.reload();
+                                // location.href = `/my-liveaboards-create/${parentId}`
+                            });
+                        }
+                    }
+                })
+            }else{
+                alert("Date Required")
+            }
+        }
+    
+        function closeSchedule(scheduleId,tgl){
+            Swal.fire({
+                title: `Close date : ${tgl}?`,
+                text: `This will close the date.`,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((respond) => {
+                if (respond.value) {
+                    $.ajax({
+                        url: `/api/close/${scheduleId}`,
+                        method: `PUT`,
+                        success: function (result) {
+                            console.log(result)
+                            if (result.success) {
+                                scheduleTable.ajax.reload();
+                                Swal.fire({
+                                    title:"Schedule status changed"
+                                });
+                            } else {
+                                alert(result.message)
+                                console.log(result)
+                            }
+                        },
+                        error(xhr, status, error) {
+                            if(xhr.responseJSON){
+                                console.log(xhr.responseJSON)
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        function openSchedule(scheduleId,tgl){
+            Swal.fire({
+                title: `Open date : ${tgl}?`,
+                text: `This will open the schedule.`,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((respond) => {
+                if (respond.value) {
+                    $.ajax({
+                        url: `/api/open/${scheduleId}`,
+                        method: `PUT`,
+                        success: function (result) {
+                            console.log(result)
+                            if (result.success) {
+                                scheduleTable.ajax.reload();
+                                Swal.fire({
+                                    title:"Schedule status changed"
+                                });
+                            } else {
+                                alert(result.message)
+                                console.log(result)
+                            }
+                        },
+                        error(xhr, status, error) {
+                            if(xhr.responseJSON){
+                                console.log(xhr.responseJSON)
+                            }
+                        }
+                    });
+                }
+            });
+            
+    
+        }
+    
+        function removeScheduleDate(scheduleId,tgl){
+            Swal.fire({
+                title: `Delete date: ${tgl} ?`,
+                text: "This will remove the date from the list, you can't undo this action.",
+                showCancelButton: true,
+                confirmButtonColor: '#bd2130',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((respond) => {
+                if (respond.value) {
+                    $.ajax({
+                        url: `/api/delete/${scheduleId}`,
+                        method: `PUT`,
+                        success: function (result) {
+                            console.log(result)
+                            if (result.success) {
+                                scheduleTable.ajax.reload();
+                                Swal.fire({
+                                    title:"Schedule deleted success"
+                                });
+                            } else {
+                                alert(result.message)
+                                console.log(result)
+                            }
+                        },
+                        error(xhr, status, error) {
+                            if(xhr.responseJSON){
+                                console.log(xhr.responseJSON)
+                            }
+                        }
+                    });
+                }
+            });
+            
+    
+        }
+
+    }
+
+    //====================================================================
+
+    function showRoomList(){
+        $('#modalAddRoom').modal('toggle');
+        $('#listRoomPrice').empty();
+        
+        if(dataRoom){
+            for (let i = 0; i < dataRoom.length; i++) {
+                let roomList = '';
+                for(var j = 0; j < dataLoadRoom.length; j++){
+                    roomList += `<option ${dataLoadRoom[j].id == dataRoom[i].room_id ? 'selected' : ''} value="${dataLoadRoom[j].id}">${dataLoadRoom[j].info.name}</option>`;
+                }
+                $('#listRoomPrice').append(`<div class="d-block p-2 border mb-2 bg-lighter data-room" id="divRoom-${dataRoom[i].id}">
+                    <div class="d-flex">
+                        <div class="mr-2 flex-grow-1">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <select id="${dataRoom[i].id}-inputRoom" class="form-control rounded-0 mb-2 mb-md-0">
+                                        <option value="">Select Room</option>
+                                        ${roomList}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">IDR</span>
+                                        </div>
+                                        <input id="${dataRoom[i].id}-inputPrice" type="number" class="form-control" placeholder="Set your package price" value="${dataRoom[i].price}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group mr-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">IDR</span>
+                                        </div>
+                                        <input id="${dataRoom[i].id}-inputDiscount" type="number" class="form-control" placeholder="Set your discount price"  value="${dataRoom[i].discount}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Remove Room">
+                                <button onClick="deleteRoom('${dataRoom[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+                
+            }
+        
+
+        }
+    }
+
+    function addRoomItem(){
+        var objRoom = {}
+        let roomId = "room-"+new Date().getTime().toString();
+        objRoom.id = roomId
+        objRoom.room_id = ''
+        objRoom.name = ''
+        objRoom.price = 0
+        objRoom.discount = ''
+        let roomList = '';
+
+        for(var i = 0; i < dataLoadRoom.length; i++){
+        
+            roomList += `<option value="${dataLoadRoom[i].id}">${dataLoadRoom[i].info.name}</option>`;
+        }
+
+        dataRoom.push(objRoom)
+
+        $('#listRoomPrice').append(`<div class="d-block p-2 border mb-2 bg-lighter data-room" id="divRoom-${roomId}">
+            <div class="d-flex">
+                <div class="mr-2 flex-grow-1">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <select id="${roomId}-inputRoom" class="form-control rounded-0 mb-2 mb-md-0">
+                                <option value="">Select Room</option>
+                                ${roomList}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">IDR</span>
+                                </div>
+                                <input id="${roomId}-inputPrice" type="number" class="form-control" placeholder="Set your package price">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group mr-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">IDR</span>
+                                </div>
+                                <input id="${roomId}-inputDiscount" type="number" class="form-control" placeholder="Set your discount price">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="btn-group" role="group" aria-label="Remove Room">
+                        <button onClick="deleteRoom('${roomId}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>`);
+        // loadRoom()
+    }
+
+    function populateRoom(){
+        let statusRoom = true;
+        if (dataRoom) {
+            for (let i = 0; i < dataRoom.length; i++) {
+                let roomId = dataRoom[i].id
+    
+                dataRoom[i].room_id = $(`#${roomId}-inputRoom`).val();
+                dataRoom[i].name = $(`#${roomId}-inputRoom option:selected`).text();
+                dataRoom[i].price = $(`#${roomId}-inputPrice`).val();
+                dataRoom[i].discount = $(`#${roomId}-inputDiscount`).val();
+    
+                for(var j = 0; j < dataLoadRoom.length; j++){
+                    if(dataRoom[i].room_id == dataLoadRoom[j].id){
+                        dataRoom[i].data = dataLoadRoom[j]
+                    }
+                }
+    
+                if (dataRoom[i].room_id == '' || dataRoom[i].price == '' || parseFloat(dataRoom[i].price) == 0 ) {
+                    Swal.fire("Please fill data room","Room and price can't be blank");
+                    statusRoom = false;
+                    return false;
+                }
+            }
+            
+        }
+
+        
+        if (statusRoom == true) {
+            $('#modalAddRoom').modal('toggle');
+        }
+
+        console.log(dataRoom)
+        
+        loadRoom();
+    }
+
+    function loadRoom(){
+        $('#listRoom').empty()
+        if(dataRoom){
+            for(var i = 0; i < dataRoom.length; i ++){
+                $('#listRoom').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-service">
+                    <div class="d-flex">
+                        <div class="mr-2 flex-grow-1">
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Service item" value="${dataRoom[i].name}"  disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">IDR</span>
+                                        </div>
+                                        <input type="number" class="form-control" min="0" placeholder="0" value="${dataRoom[i].price}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">IDR</span>
+                                        </div>
+                                        <input type="number" class="form-control" min="0" placeholder="0" value="${dataRoom[i].discount}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `)
+            }
+        
+
+        }
+    }
+
+    function deleteRoom(id){
+        dataRoom = dataRoom.filter(function( obj ) {
+            return obj.id !== id
+        })
+        $(`#divRoom-${id}`).remove();
+        // loadService()
+    } 
+
+    function cekSchedule(){
+        // alert(scheduleTable.data().count());
+        if (scheduleTable.data().count() == 0) {
+            Swal.fire("You don't have any Schedule","Create schedule to enable open/publish this package");
+        }
+
+        // $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+
+    }
+
+</script>

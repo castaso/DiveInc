@@ -1,0 +1,1832 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<div class="modal" id="modalSetHighlight" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Highlight</span>
+            </div>
+            <div class="modal-body">
+                <small hidden>Max 140 Characters per input</small>
+                <div id="listHighlightModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addHighlightItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateHighlight()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalSetUnavailableDates" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Unavailable Dates</span>
+            </div>
+            <div class="modal-body">
+                <div id="listUnavailableDatesModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addUnavailableDates()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateUnavailableDates()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <div class="col-lg-9">
+                <!-- <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li>
+                        <a href="/my-divecenter" class="btn btn-white btn-sm">My Dive Center</a>
+                    </li>
+                    <li class="active">
+                        <a href="/my-divecenter-create" class="btn btn-white btn-sm">Create New Dive Center</a>
+                    </li>
+                </ul> -->
+                <!-- Liveaboard Create 1 -->
+                <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <!-- <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li> -->
+                    <li>
+                        <a href="/my-divecenter" class="btn btn-white btn-sm">My Divecenter</a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-white btn-sm">Divecenter</a>
+                    </li>
+                </ul>
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom d-flex-mobile">
+                            <div class="d-flex align-items-center text-center-mobile mb-2 mb-md-0">
+                                <h5 class="m-0 mr-2"><span class="formTitle">Create New</span> Dive Center</h5>
+                            </div>
+                            <div id="divecenterButton" style="display:none !important;" class="d-flex">
+                                <button type="button" onClick="saveDraft()" class="btn btn-light mr-2">Save as Draft</button>
+                                <button type="button" onClick="savePublish()" class="btn btn-primary"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</button>
+                            </div>
+                        </div>
+                        <div class="d-block">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Dive Center Profile</h5>
+                            <div class="form-row mb-3">
+                                <label for="name" class="col-sm-2 col-form-label">Name<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputName" type="text" class="form-control rounded-0 text-capitalize" name="name" placeholder="Dive center name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="origin" class="col-sm-2 col-form-label">Country & City<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-mobile">
+                                        <select id="inputCountry" class="form-control rounded-0 mb-2 mb-md-0">
+                                            <option value="">Select Country</option>
+                                        </select>
+                                        <select id="inputDestination" class="form-control rounded-0 mb-2 mb-md-0">
+                                            <option value="">Select Destination</option>
+                                        </select>
+                                        <select id="inputSubDestination" class="form-control rounded-0 mb-2 mb-md-0">
+                                            <option value="">Select Sub Destination</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="divecenter_introduction" class="col-sm-2 col-form-label">Dive Center Introduction<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <!-- <div id="inputIntroduction" class="summernoteData"></div> -->
+
+                                    <textarea id="inputIntroduction" class="form-control rounded-0" name="resort_description" placeholder="Dive center short introduction" required rows="6"></textarea>
+
+                                    <div class="alert alert-info border-0 mt-2 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Writes your dive center introduction in 400 characters. Your guest will read this first when opening your page.</div></div></div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="ideal_for" class="col-sm-2 col-form-label">Ideal For<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listIdeal" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="language" class="col-sm-2 col-form-label">Language<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listLanguage" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Dive Center Highlight<span class="required text-danger">*</span></h5>
+                            <div>
+                                <ul id="listHighlight"  class="list-base list-base-md font-serif"></ul>
+                            </div>
+                            <div class="d-none p-2 border mb-2 bg-lighter">
+                                <div class="d-flex">
+                                    <div class="mr-2 flex-grow-1">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <input id="inputHighlight" type="text" class="form-control" placeholder="Write your dive center highlight">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button id="saveHighlight" type="button" class="btn btn-outline-primary">Add</button>
+                                            <!-- <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#modalSetHighlight" data-toggle="modal" onclick="loadHighlight()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                            <!-- <button class="btn btn-outline-primary btn-sm" type="button">Add Item</button> -->
+                        </div>
+                        <div class="alert alert-info border-0 mt-3 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Write your dive center highlight to inform the guest with quick best value of your dive center.</div></div></div>
+                    </div>
+                    
+                </div>
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                       <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Dive Center Photos<span class="required text-danger">*</span></h5>
+                            <div class="form-row">
+                                <div class="col-sm-12">
+                                    <div class="d-block w-100 mb-3">
+                                        <div class="custom-file mb-2">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                        <!-- <div class="btn-group">
+                                            <div class="btn btn-outline-primary btn-sm">Clear</div>
+                                            <div class="btn btn-outline-primary btn-sm"><i class="fas fa-upload mr-2"></i>Upload Photos</div>
+                                        </div> -->
+                                    </div>
+                                    <div id="listPhotos" class="photo-gallery-create">
+                                        <!-- <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resort Unavailable Date -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Unavailable Dates</h5>
+                            <div>
+                                <ul id="listUnavailableDates" class="list-base list-base-md font-serif"></ul>
+                            </div>
+
+                            <a href="#modalSetUnavailableDates" data-toggle="modal" onclick="loadUnavailableDates()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                            <!-- <button class="btn btn-outline-primary btn-sm" type="button">Add Item</button> -->
+                        </div>
+                        <div class="alert alert-info border-0 mt-3 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>List your unavailable dates to inform the guest your holiday etc .</div></div></div>
+                    </div>
+                    <div class="card-footer"  id="divecenterButtonBottom">
+                        <div class="hide-mobile">
+                            <div class="d-flex align-items-center justify-content-between mt-2 mb-2 pt-2 pb-2">
+                                <div class="d-flex align-items-center text-center-mobile mb-2 mb-md-0">
+                                    <a href="/my-divecenter" class="btn btn-outline-primary"><i class="fas fa-arrow-left fa-sm mr-2"></i>My Divecenter</a>
+                                </div>
+                                <div class="text-right">
+                                    <button type="button" onClick="saveDraft()" class="btn btn-light mr-2">Save as Draft</button>
+                                    <button type="button" onClick="savePublish()" class="btn btn-primary"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="align-items-center justify-content-between mt-2 mb-2 pt-2 pb-2 view-mobile-only">
+                            <a href="/my-divecenter" class="btn btn-block btn-outline-primary"><i class="fas fa-arrow-left fa-sm mr-2"></i>My Divecenter</a>
+                            <button type="button" onClick="saveDraft()" class="btn btn-block btn-light mr-2">Save as Draft</button>
+                            <button type="button" onClick="savePublish()" class="btn btn-block btn-primary"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="cardSave" style="display:none;" class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between d-flex-mobile">
+                            <div class="d-flex align-items-center text-center-mobile mb-2 mb-md-0">
+                                <h5 class="m-0 mr-2">Is your dive center data is complete?</h5>
+                            </div>
+                            <div class="d-flex">
+                                <a onClick="saveDraft()" class="btn btn-primary btn-lg ml-2"><i class="mr-2 far fa-save"></i>Save & Continue</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end py-2">
+                            <div>Next, you will creating a package<i class="ml-2 fas fa-arrow-right"></i></div> 
+                        </div>
+                    </div>
+                </div>
+                <!-- Trip Package -->
+                <div id="layoutDivecenterPackage" class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Dive Package</h5>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" onClick="setUpPackage();" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New Package</button>
+                            </div>
+                        </div>
+                        <div id="listPackage"></div>
+                        <!-- <div class="card rounded-0 mb-3 bg-white">
+                            <div class="row no-gutters align-items-start">
+                                <div class="col-md-4">
+                                    <div class="card-body pr-md-0">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">2 Photos</span>
+                                        <div class="slick rounded">
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/trip-1.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/trip-1.jpeg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start justify-content-between mb-2">
+                                            <div>
+                                                <h5 class="m-0 mb-1">Komodo Weekender</h5>
+                                                <span class="text-sm text-muted">Created 20/1/2019 - 12:44</span>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="d-flex flex-column">
+                                                    <h5 class="m-0 normal-price discounted" class="">$770</h5>
+                                                    <h5 class="m-0 discount-price">$599</h5>
+                                                </div>
+                                                <span class="text-sm text-muted">per guest</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-block py-1">
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-clock fa-sm mr-2"></i>3 day activity
+                                            </div>
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-archive fa-sm mr-2"></i>2 additional item
+                                            </div>
+                                        </div>
+                                        <div class="d-block my-2">
+                                            <p class="text-sm mb-0">Escape for a weekend of diving and relaxation on Komodo</p>
+                                            <small>at Gili, Lombok - Indonesia</small>
+                                        </div>
+                                        <div class="list-group list-group-horizontal list-group-sm w-100">
+                                            <div class="dropdown">
+                                                <a class="list-group-item" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#">Delete Package</a>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="list-group-item "><i class="fas fa-eye fa-sm"></i></a>
+                                            <a href="#" class="list-group-item text-danger"><i class="fas fa-toggle-off fa-sm mr-2"></i>Closed</a>
+                                            <a href="#" class="list-group-item flex-grow-1 text-center"><i class="fas fa-edit fa-sm mr-2"></i>Edit Package</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal Room Details -->
+<div class="modal" id="modalRoomDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h4>Twin Bungalow</h4>
+                    <h6 class="text-muted">Room Details</h6>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        Perfect for 2 people traveling together. The twin bungalows are equipped with 2 twin beds, aircon, fan, a private open-air bathroom, and a balcony with hammock, table and chairs.
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <h6 class="mb-3">Room Info</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Room size</div>
+                                    <div class="list-panel-content">12m2</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Max. occupancy</div>
+                                    <div class="list-panel-content">2 guest</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Beds</div>
+                                    <div class="list-panel-content">Double or Twin</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Private Bathroom</div>
+                                    <div class="list-panel-content">Yes</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Air Conditioning</div>
+                                    <div class="list-panel-content">Yes</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">WiFi in Room</div>
+                                    <div class="list-panel-content">No</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <h6 class="mb-3">Amenities</h6>
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Air Conditioning
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Hair dryer
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>TV
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Private bathroom
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>In-room safe
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Fresh water-shower
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Wi-Fi (Free)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-neutral" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="overlay-loader" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script src="/vendor/summernotes/summernote-bs4.min.js"></script>
+<script src="/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $('.summernoteData').summernote({
+      placeholder: 'Write your information here...',
+      tabsize: 2,
+      height: 100,
+      toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline']],
+            ['font', ['strikethrough']],
+            ['para', ['ul', 'ol']]
+        ]
+    });
+</script>
+
+<script>
+
+    var id = "<%= id %>"
+
+    var dataCountry = {}
+    var dataDestination = {}
+    var dataSubDestination = {}
+
+    var canPublish = false
+
+    initData()
+
+    var dataHighlight = []
+    var dataImage = [
+        // {
+        //     id: '21423534523982',
+        //     baseUrl: 'https://cache.desktopnexus.com/',
+        //     url : 'https://cache.desktopnexus.com/thumbseg/2318/2318166-bigthumbnail.jpg',
+        //     path : 'thumbseg/2318/2318166-bigthumbnail.jpg'
+        // }
+    ]
+    var dataIdeal = []
+    var dataLanguage = []
+    var dataUnavailableDates = [];
+
+    var statusPublishDivecenter = false;
+    var totalAktif= 0;
+    var totalNonAktif = [];
+
+
+    $(document).ready(function(){
+
+        $('#inputCountry').change(function(){
+            getDestination()
+        })
+
+        $('#inputDestination').change(function(){
+            getSubDestination()
+        })
+
+        $(`#saveHighlight`).click(function(){
+          if($('#inputHighlight').val().length > 0){
+            addHighlight();
+          }else{
+            // alert("Form not valid")
+            Swal.fire(
+                'Oops!',
+                'Write the highlight resort then press "add item" button.'
+            )
+          }
+        })
+
+        $(`#customFile`).on(`change`, function(){
+
+          makeFileRequestUpload('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        });
+
+        $(document).on("focus", ".unavailableDatePicker", function(){
+            $(this).datepicker({
+                // format: "yyyy-mm-dd",
+                format: "dd MM yyyy",
+                todayHighlight: true,
+                autoclose: true
+            });
+        });
+    })
+
+    function initData() {
+        if(id){
+            $(".formTitle").text('Edit');
+            $('#cardSave').hide()
+            $('#layoutDivecenterPackage').show()
+            $('#divecenterButton').show()
+            $('#divecenterButtonBottom').show()
+            loadResortById()
+        }else{
+            $('#cardSave').show()
+            $('#layoutDivecenterPackage').hide()
+            $('#divecenterButton').hide()
+            $('#divecenterButtonBottom').hide()
+            //console.log("naha asup dieu")
+            getIdeal()
+            getLanguage()
+            getCountry()
+        }
+    }
+
+    function loadResortById() {
+        $('#listDivecenterEmpty').show();
+        $.ajax({
+            url: `/api/divecenter/${id}`,
+            method: `GET`,
+            success: function (result) {
+                // console.log("kaskajsdlaskjdas")
+                // console.log(result)
+                if (result.success) {
+                    $('#inputName').val(result.data.profile.name)
+                    $('#inputIntroduction').val(result.data.profile.introduction)
+
+                    statusPublishDivecenter = result.data.publish;
+                    dataCountry = result.data.profile.country
+                    dataDestination = result.data.profile.destination
+                    dataSubDestination = result.data.profile.sub_destination
+                    getCountry()
+
+                    dataImage = result.data.photos
+                    loadImage()
+
+                    dataHighlight = result.data.highlight
+                    // loadHighlight()
+                    loadHighlightItem()
+
+                    dataIdeal = result.data.profile.ideal
+                    getIdeal()
+                    dataLanguage = result.data.profile.language
+                    getLanguage()
+
+                    dataUnavailableDates = (typeof result.data.unavailable_dates !== 'undefined' ? result.data.unavailable_dates : [])
+                    loadUnavailableDatesItem()
+
+
+                    console.log("result")
+                    console.log(result.data.packages)
+                    for(var i =0; i < result.data.packages.length; i++){
+                        var publish = result.data.packages[i].publish
+                        if(publish){
+                            canPublish = true;
+                            totalAktif++;
+                        }else{
+                            totalNonAktif.push({
+                                nama:`${result.data.packages[i].info.name}`,
+                                tipe:'package',
+                                id: result.data.packages[i].id
+                            });
+                        }
+
+                        var htmlPrice = ""
+                        if(result.data.packages[i].price.discount != "" && result.data.packages[i].price.discount != "0" && result.data.packages[i].price.discount != "NaN"){
+                            htmlPrice = `
+                                <h5 class="m-0 normal-price discounted" class="">IDR ${formatRupiah(result.data.packages[i].price.price)}</h5>
+                                <h5 class="m-0 discount-price">IDR ${formatRupiah(result.data.packages[i].price.discount)}</h5>
+                            `
+                        }else{
+                            htmlPrice = `
+                                <h5 class="m-0 normal-price" class="">IDR ${formatRupiah(result.data.packages[i].price.price)}</h5>
+                            `
+                        }
+
+                        let htmlPhotos = "";
+                        for (let ph_idx = 0; ph_idx < result.data.packages[i].photos.length; ph_idx++) {
+                            htmlPhotos += `<div class="glide__slide--photos" style="background:url('${result.data.packages[i].photos[ph_idx].url}')">
+                                                </div>`;
+                            
+                        }
+
+                        $('#listPackage').append(`
+                            <div class="card rounded-0 mb-3 bg-white">
+                                <div class="row no-gutters align-items-start">
+                                    <div class="col-md-4">
+                                        <div class="card-body pr-md-0">
+                                            <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">${result.data.packages[i].photos.length} Photos</span>
+                                            <div class="slick rounded">
+                                                ${htmlPhotos}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-start justify-content-between mb-2 d-flex-mobile">
+                                                <div class="mb-2 mb-md-0">
+                                                    <h5 class="m-0 mb-1">${result.data.packages[i].info.name}</h5>
+                                                    <span class="text-sm text-muted">Created ${dateFormatMonth(result.data.packages[i].created_at)}</span>
+                                                </div>
+                                                <div class="text-right text-left-mobile">
+                                                    <div class="d-flex flex-column">
+                                                        ${htmlPrice}
+                                                    </div>
+                                                    <span class="text-sm text-muted">per guest</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-block py-1">
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-clock fa-sm mr-2"></i>${result.data.packages[i].info.duration.day} day activity
+                                                </div>
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-archive fa-sm mr-2"></i>${result.data.packages[i].service.length} additional item
+                                                </div>
+                                            </div>
+                                            <div class="d-block my-2">
+                                                <p class="text-sm mb-0">${result.data.packages[i].info.description}</p>
+                                                <small>at ${result.data.profile.destination.name} - ${result.data.profile.country.name}</small>
+                                            </div>
+                                            <div class="list-group list-group-horizontal list-group-sm w-100">
+
+                                                <!--<button type="button" class="list-group-item" data-toggle="modal" data-target="#modalRoomDetails"><i class="fas fa-eye fa-sm"></i></button>-->
+                                                <button onClick="activePackage('${result.data.packages[i].id}',${publish});" type="button" class="list-group-item ${publish ? "text-success" : "text-danger"}" style="height:45px;"><i class="fas ${publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${publish ? "Open" : "Closed"}</button>
+                                                <a href="/my-divecenter-create/${id}/my-divecenter-create-package/${result.data.packages[i].id}" class="list-group-item flex-grow-1 text-center">Edit</a>
+                                                
+                                            </div>
+                                            <div class="text-center d-block mt-2">
+                                                <button type="button" onClick="deletePackageConfirm('${result.data.packages[i].id}', '${result.data.packages[i].info.name}', ${publish})" class="btn btn-sm btn-link">Delete Package</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    }
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getCountry() {
+        $.ajax({
+            url: `/api/country`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var selected = ""
+                        if(dataCountry){
+                            if(dataCountry.id == result.data[i].id){
+                                selected = "selected"
+                            }
+                        }
+                        $('#inputCountry').append(`
+                            <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                        `)
+                        if(dataCountry){
+                            getDestination()
+                        }
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getDestination() {
+        console.log("MANATAP")
+        console.log($('#inputCountry').val())
+        if($('#inputCountry').val() != null && $('#inputCountry').val() != ""){
+            var idCountry = $('#inputCountry').val()
+            $.ajax({
+                url: `/api/destination/${idCountry}/country`,
+                method: `GET`,
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        for(var i = 0; i < result.data.length; i++){
+                            var selected = ""
+                            if(dataDestination){
+                                if(dataDestination.id == result.data[i].id){
+                                    selected = "selected"
+                                    //getSubDestination()
+                                }
+                            }
+                            $('#inputDestination').append(`
+                                <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                            `)
+                            if(dataDestination){
+                                getSubDestination()
+                            }
+                        } 
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+        
+    }
+
+    function getSubDestination() {
+
+        if($('#inputDestination').val() != null && $('#inputDestination').val() != ""){
+            var idDestination = $('#inputDestination').val()
+            $.ajax({
+                url: `/api/sub-destination/${idDestination}/destination`,
+                method: `GET`,
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        for(var i = 0; i < result.data.length; i++){
+                            var selected = ""
+                            if(dataSubDestination){
+                                if(dataSubDestination.id == result.data[i].id){
+                                    selected = "selected"
+                                }
+                            }
+                            $('#inputSubDestination').append(`
+                                <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                            `)
+                        } 
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+        
+    }
+
+    function getIdeal() {
+        $.ajax({
+            url: `/api/ideal`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataIdeal.length; j++){
+                            if(dataIdeal[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listIdeal').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="idealClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function idealClick(cb){
+        if(cb.checked){
+            dataIdeal.push(cb.value)
+        }else{
+            dataIdeal = dataIdeal.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+        console.log(dataIdeal)
+    }
+
+    function getLanguage() {
+        $.ajax({
+            url: `/api/language`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataLanguage.length; j++){
+                            if(dataLanguage[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listLanguage').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="languageClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function languageClick(cb){
+        if(cb.checked){
+            dataLanguage.push(cb.value)
+        }else{
+            dataLanguage = dataLanguage.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+        console.log(dataLanguage)
+    }
+
+    //========================================highlight======================================
+
+        /*function addHighlight(){
+            populateHighlight();
+            var objHighlight = {}
+            objHighlight.id = "highlight-"+new Date().getTime().toString()
+            objHighlight.highlight = $(`#inputHighlight`).val()
+            dataHighlight.push(objHighlight)
+            $('#inputHighlight').val("")
+            loadHighlight()
+        }*/
+
+        function addHighlightItem(){
+            var objHighlight = {}
+            objHighlight.id = "Highlight-"+new Date().getTime().toString()
+            objHighlight.highlight = ''
+            dataHighlight.push(objHighlight);
+            $(`#listHighlightModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${objHighlight.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${objHighlight.id}" rows='2' maxlength='140' class="form-control"></textarea>
+                                        <!--<input type="text" class="form-control highlight-added-field" value="">-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${objHighlight.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow')
+            
+            // loadHighlight()
+        }
+
+        function loadHighlightItem(){
+            $(`#listHighlight`).html('');
+            for(var i = 0; i < dataHighlight.length; i++){
+                /*$('#listHighlight').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" value="${dataHighlight[i].highlight}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)*/
+
+                $("#listHighlight").append(`<li class="mb-3">
+                    ${dataHighlight[i].highlight}
+                    </li>`);
+            }
+        
+        }
+
+        function loadHighlight(){
+            //console.log(dataHighlight)
+            $(`.data-highlight`).remove()
+            for(var i = 0; i < dataHighlight.length; i++){
+                $('#listHighlightModal').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${dataHighlight[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${dataHighlight[i].id}" rows='2' maxlength='140' class="form-control">${dataHighlight[i].highlight}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${dataHighlight[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+        }
+
+        function deleteHighlight(id){
+            dataHighlight = dataHighlight.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadHighlight()
+        }
+
+        function populateHighlight(){
+            let result = true;
+            for (let i = 0; i < dataHighlight.length; i++) {
+                dataHighlight[i].highlight = $(`#${dataHighlight[i].id}`).val();
+                if(dataHighlight[i].highlight.length == 0){
+                    result = false;
+                }
+            }
+
+            if (!result) {
+                // return Swal.fire("Highlight Note", "Highlight can't be blank");
+                return Swal.fire("Fail", "Please <b>fill all</b> highlight field <b>or</b> <br/> <b>remove blank</b> field highlight using the <i class='far fa-trash-alt fa-sm'></i> button on the right side of the field");
+            }else{
+                loadHighlightItem();
+                $("#modalSetHighlight").modal('toggle');
+            }
+        }
+        
+    //========================================end highlight======================================
+    
+
+    function makeFileRequestUpload(url, params, files){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'Oops!',
+                'The image size must be less than 20 MB.'
+            )
+            }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        $('#sendFile').show()
+                        $('#chooseFile').text(files[0].name)
+                        var response = JSON.parse(xhr.response)
+                        var objUrl = {}
+                        console.log(response)
+                        objUrl.id = "image-"+ new Date().getTime()
+                        objUrl.url = response.data.location
+                        objUrl.path = response.data.key
+                        objUrl.baseUrl = response.data.baseUrl
+                        dataImage.push(objUrl)
+                        loadImage()
+                    }else {
+                        console.log(xhr.response)
+                        $('#chooseFile').text("Choose File")
+                        alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+            }
+        })
+    }
+
+    function progressHandlerBackground(event) {
+        // var percent = (event.loaded / event.total) * 100
+        // $("#progressBackground").val(Math.round(percent))
+        // if(percent == 100){
+        //     $("#statusBackground").text("Upload Success")
+        // }else{
+        //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        // }
+    }
+
+    function completeHandlerBackground(event) {
+        //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+    }
+
+    function errorHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Failed")
+    }
+
+    function abortHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Aborted")
+    }
+
+    function loadImage(){
+        console.log(dataImage)
+        $(`.data-photos`).remove()
+        for(var i = 0; i < dataImage.length; i++){
+            $(`#listPhotos`).append(`
+                <div class="photo-gallery--item data-photos" style="background-image:url('${dataImage[i].url}');"><div onClick="deleteImage('${dataImage[i].id}')" class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+            `).fadeIn('slow')
+        }
+    }
+
+    function deleteImage(id){
+        dataImage = dataImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadImage()
+    }
+
+    function saveDraft() {
+        //alert("hai")
+
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            showIncompleteFieldMessage(listIncomplete);
+            // return alert("form is not valid")
+            return Swal.fire(
+                'Oops!',
+                'Please complete all forms to get to the next step.'
+            )
+        }else{
+            if(id){
+                $.ajax({
+                    url: `/api/divecenter/${id}`,
+                    method: `PUT`,
+                    data: {
+                        publish : false,
+                        profile : {
+                            name : $('#inputName').val(),
+                            country : {
+                                id : $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            destination : {
+                                id : $('#inputDestination').val(),
+                                name : $('#inputDestination option:selected').text()
+                            },
+                            sub_destination : {
+                                id : $('#inputSubDestination').val(),
+                                name : $('#inputSubDestination option:selected').text()
+                            },
+                            introduction : $('#inputIntroduction').val(),
+                            ideal : dataIdeal,
+                            language : dataLanguage
+                        },
+                        highlight : dataHighlight,
+                        photos : dataImage,
+                        unavailable_dates : dataUnavailableDates,
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // alert("Success")
+                            // location.href = `/my-resort-create/${result.data.id}`
+                            Swal.fire({
+                                title: "Divecenter data saved!",
+                                text: "The basic information of your divecenter has been successfully saved, please continue designing the divecenter packages.",
+                                confirmButtonText: 'Great, continue to packages'
+                            }).then(function() {
+                                window.location.reload();
+                                // window.location.href = `/my-divecenter-create/${result.data.id}#layoutDivecenterPackage`
+                            });
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }else{
+                $.ajax({
+                    url: `/api/divecenter`,
+                    method: `POST`,
+                    data: {
+                        profile : {
+                            name : $('#inputName').val(),
+                            country : {
+                                id : $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            destination : {
+                                id : $('#inputDestination').val(),
+                                name : $('#inputDestination option:selected').text()
+                            },
+                            sub_destination : {
+                                id : $('#inputSubDestination').val(),
+                                name : $('#inputSubDestination option:selected').text()
+                            },
+                            introduction : $('#inputIntroduction').val(),
+                            ideal : dataIdeal,
+                            language : dataLanguage
+                        },
+                        highlight : dataHighlight,
+                        photos : dataImage,
+                        unavailable_dates : dataUnavailableDates,
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // alert("Success")
+                            // location.href = `/my-resort-create/${result.data.id}`
+                            Swal.fire({
+                                title: "Divecenter data saved!",
+                                text: "The basic information of your divecenter has been successfully saved, please continue designing the divecenter packages.",
+                                confirmButtonText: 'Great, continue to package'
+                            }).then(function() {
+                                window.location.href = `/my-divecenter-create/${result.data.id}#layoutDivecenterPackage`
+                            });
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }
+        }
+    }
+
+    function savePublish() 
+    {
+        // populateHighlight();
+
+        if(!canPublish){
+            // return alert("Cannot publish , resort must be has open room or package")
+            Swal.fire({
+                title: "Publish Failed",
+                html: `Make sure your resort have at least one room or package in order to publish your resort.<br/>
+                    <hr/>
+                    <div style="font-size:14px;">
+                        <b>Tips <i class='fas fa-info-circle'></i>: </b><br/>
+                        To change your unpublish to publish, click 
+                        <button type="button" class="btn activePublishPackage text-danger" style="font-size:12px; border:1px solid #ddd; padding:5px;"><i class="fas fa-toggle-off fa-sm mr-2"></i>Unpublished</button> to
+                        <button type="button" class="btn activePublishPackage text-success" style="font-size:12px; border:1px solid #ddd; padding:5px;"><i class="fas fa-toggle-on fa-sm mr-2"></i>Published</button>
+                    </div>
+                    `
+            });
+        }else{
+            let listIncomplete = formValidate();
+            
+            if(listIncomplete.length > 0){
+                // return alert("form is not valid")
+                Swal.fire(
+                    'Oops!',
+                    'Please complete all forms to save this room in the list.'
+                )
+            }else{
+                if(id){
+                    if (totalNonAktif.length > 0) {
+                        let html = '';
+                        let hRoom = [];
+                        let hPack = [];
+                        for (let i = 0; i < totalNonAktif.length; i++) {
+                            if (totalNonAktif[i].tipe == 'package') {
+                                hRoom.push(totalNonAktif[i].nama);
+                            }else{
+                                hPack.push(totalNonAktif[i].nama);
+                            }
+                        }
+
+                        html += `This divecenter still have closed package, are you sure want to publish ? 
+                        ${(hRoom.length > 0 ? "<br/><b>Room : </b>"+hRoom.join(', ') : '')}
+                        ${(hPack.length > 0 ? "<br/><b>Package : </b>"+hPack.join(', ') : '')}`
+                        html += `<hr/>
+                            <div style="font-size:14px;">
+                                <b>Tips <i class='fas fa-info-circle'></i>: </b><br/>
+                                To change your unpublish to publish, click 
+                                <button type="button" class="btn activePublishPackage text-danger" style="font-size:12px; border:1px solid #ddd; padding:5px;"><i class="fas fa-toggle-off fa-sm mr-2"></i>Unpublished</button> to
+                                <button type="button" class="btn activePublishPackage text-success" style="font-size:12px; border:1px solid #ddd; padding:5px;"><i class="fas fa-toggle-on fa-sm mr-2"></i>Published</button>
+                            </div>`
+                        
+                        Swal.fire({
+                            title: "Reminder",
+                            html: html,
+                            icon: "warning",
+                            confirmButtonText: 'Yes',
+                            showCancelButton : true,
+                        }).then(function(isConfirm) {
+                            if (isConfirm.value) {
+                                $("#overlay-loader").removeClass('d-none');
+                                publishData();
+                            }
+                        }) 
+                    }else{
+                        publishData();
+                    }
+                    
+                }else{
+                    // alert("You cant publish this resort , please complete the data")
+                    Swal.fire(
+                        'Please create dive package.',
+                        'In order to publish your divecenter, the divecenter must have dive package.'
+                    )
+                }
+            }
+            
+        }
+    }
+
+    function publishData(){
+        $.ajax({
+            url: `/api/divecenter/${id}`,
+            method: `PUT`,
+            data: {
+                publish : true,
+                profile : {
+                    name : $('#inputName').val(),
+                    country : {
+                        id : $('#inputCountry').val(),
+                        name : $('#inputCountry option:selected').text()
+                    },
+                    destination : {
+                        id : $('#inputDestination').val(),
+                        name : $('#inputDestination option:selected').text()
+                    },
+                    sub_destination : {
+                        id : $('#inputSubDestination').val(),
+                        name : $('#inputSubDestination option:selected').text()
+                    },
+                    introduction : $('#inputIntroduction').val(),
+                    ideal : dataIdeal,
+                    language : dataLanguage
+                },
+                highlight : dataHighlight,
+                photos : dataImage,
+                unavailable_dates : dataUnavailableDates,
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-resort-create/${result.data.id}`
+                    Swal.fire({
+                        title: "Divecenter package status updated!",
+                        text: "The package status has changed.",
+                        confirmButtonText: 'Great'
+                    }).then(function() {
+                        window.location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        });
+    }
+
+    function activePackage(packageId, statusPublish) {
+        let text = ''; let title = '';
+        if (totalAktif == 1 && statusPublishDivecenter == true && statusPublish) {
+            text = "Since this is the only active package,<br/> this will <b style='color:red'>automatically unpublish your divecenter</b>.";
+        }else{
+            text = "You will close this package";  
+        }
+
+        if (statusPublish) {
+            title = 'Close this package?'
+        } else {
+            title = 'Open this package ?';
+            text = "You will make this package available for customers"
+        }
+
+        Swal.fire({
+            title: title,
+            html: text,
+            icon: "warning",
+            showCancelButton: true,
+        }).then(function(isConfirm) {
+            if (isConfirm.value) {
+                $("#overlay-loader").removeClass('d-none');
+                if (totalAktif == 1 && statusPublishDivecenter) {
+                    unpublishDivecenter(id, packageId, 1);
+                }else{
+                    changePackageStatus(packageId, statusPublish);
+                }
+            }
+            
+        });
+    }
+
+    function changePackageStatus(packageId, statusPublish){
+        console.log('stat', statusPublishDivecenter, statusPublish);
+        let title = '';
+        if (statusPublish == 4) {
+            title = "Dicenter unpublished and package's status now closed";
+        }else if (statusPublish) {
+            title = "Package's status now closed";
+        }else{
+            title = "Package's status now open";
+        }
+        $.ajax({
+            url: `/api/package/${packageId}/publish`,
+            method: `PUT`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-resort-create/${id}`
+                    $("#overlay-loader").removeClass('d-none');
+                    if (statusPublish == false && statusPublishDivecenter == false) {
+                        Swal.fire({
+                            title: "Publish your divecenter too ?",
+                            text: "You divecenter status is unpublished",
+                            showCancelButton : true,
+                            cancelButtonText : "No",
+                        }).then(function(isConfirm) {
+                            console.log(isConfirm)
+                            if (isConfirm.value) {
+                                $("#overlay-loader").removeClass('d-none');
+                                if (totalNonAktif.length > 1) {
+                                    for (let i = 0; i < totalNonAktif.length; i++) {
+                                        if (totalNonAktif[i].tipe == 'package') {
+                                            if (totalNonAktif[i].id == packageId) {
+                                                totalNonAktif[i].tipe = '';
+                                                totalNonAktif[i].nama = '';
+                                                totalNonAktif[i].id = '';
+                                            }
+                                        }
+                                    }   
+                                }else{
+                                    totalNonAktif = [];
+                                }
+                                canPublish = true;
+                                savePublish();
+                            } else {
+                                Swal.fire(
+                                    'Cancelled', 
+                                    'OK', 
+                                    'error'
+                                );
+                                location.reload();
+                            }
+                        })
+                    }else{
+                        Swal.fire({
+                            title: title,
+                            text: "The package status has changed!",
+                            confirmButtonText: 'Great'
+                        }).then(function() {
+                            location.reload()
+                            //window.location.href = `/my-divecenter-create/${id}#layoutDivecenterPackage`
+                        });
+                    }
+                } else {
+                    $("#overlay-loader").removeClass('d-none');
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    
+    }
+
+    function setUpPackage(){
+        location.href = `/my-divecenter-create/${id}/my-divecenter-create-package`
+    }
+
+    function formValidate(){
+        $(document).find(".text-field-warning").remove();
+        let listIncomplete = [];
+
+        ($('#inputName').val().length < 3 ? listIncomplete.push({inputId:"inputName", message: "Name is too short" }) : '' );
+        ($('#inputIntroduction').val().length < 3 ? listIncomplete.push({inputId:"inputIntroduction", message: "Introduction is too short" }) : '' );
+        ($('#inputCountry').val().length == "" ? listIncomplete.push({inputId:"inputCountry",message:"Country cannot be blank"}) : '' );
+        ($('#inputDestination').val().length == "" ? listIncomplete.push({inputId:"inputDestination",message:"Destination cannot be blank"}) : '' );
+        ($('#inputSubDestination').val().length == "" ? listIncomplete.push({inputId:"inputSubDestination",message:"Sub Destination cannot be blank"}) : '' );
+        (dataIdeal.length == 0 ? listIncomplete.push({inputId:"listIdeal",message:"Please choose 1 or more ideal for"}) : '' );
+        (dataLanguage.length == 0 ? listIncomplete.push({inputId:"listLanguage",message:"Please choose 1 or more language"}) : '' );
+        (dataHighlight.length == 0 ? listIncomplete.push({inputId:"inputHighlight",message:"Please provide 1 or more highlight"}) : '' );
+        (dataImage.length == 0 ? listIncomplete.push({inputId:"listPhotos",message:"Image: Please provide 1 image or more"}) : '' );
+        
+        showIncompleteFieldMessage(listIncomplete);
+        return listIncomplete;
+        // $('#inputName').val().length < 3 ||
+        // $('#inputCountry').val().length == "" ||
+        // $('#inputDestination').val().length == "" ||
+        // $('#inputSubDestination').val().length == "" ||
+        // $('#inputIntroduction').val().length < 3 ||
+        // dataIdeal.length == 0 ||
+        // dataLanguage.length == 0 ||
+        // dataHighlight.length == 0 ||
+        // dataImage.length == 0
+    }
+
+    function showIncompleteFieldMessage(listIncomplete){
+        let earliestInput = "";
+        $.each(listIncomplete,function(i,v){
+            earliestInput = (i==0 ? v.inputId : earliestInput);
+            if(v.inputId !='inputCountry' && v.inputId != 'inputDestination' && v.inputId != 'inputSubDestination' ){
+                if(!$(`#${v.inputId}`).parent().hasClass("input-group")){
+                    $(`#${v.inputId}`).parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+                }else{
+                    $(`#${v.inputId}`).parent().parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+                }
+            }else{
+                $(`#${v.inputId}`).closest('div').parent().append(`<i class='text-danger text-field-warning' style="font-size:12px; margin-right:10px">*${v.message}</i>`);
+            }
+        });
+
+        let el = document.getElementById(`${earliestInput}`);
+        (earliestInput != '' ? el.scrollIntoView() : '');
+    }
+
+    function deletePackageConfirm(packageId, packageName, statusPublish) {
+        let text = '';
+        if (statusPublishDivecenter && totalAktif == 1 && statusPublish) {
+            text = "Since this is the only active package,<br/> this will <b style='color:red'>automatically unpublish your divecenter</b>.";
+        }else{
+            text = "This will remove this package from list.";
+        }
+
+        Swal.fire({
+            title: `Delete Package "${packageName}"?`,
+            html: text,
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((respond) => {
+            if (respond.value) {
+                $("#overlay-loader").removeClass('d-none');
+                if (statusPublishDivecenter && totalAktif == 1 && statusPublish ) {
+                    unpublishDivecenter(id, packageId+'??'+packageName, 2);
+                } else {
+                    deletePackage(packageId, packageName,1);
+                }
+            }
+        });
+    }
+
+    function deletePackage(packageId, packageName, type){
+        let title = ''
+        if (type == 1) {
+            title=`Package ${packageName} Removed`;
+        }else if(type==2){
+            title = `Divecenter Unpublished & Package ${packageName} Removed`
+        }
+        $.ajax({
+            url: `/api/package/${packageId}`,
+            method: `DELETE`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    Swal.fire({
+                        title: title,
+                        text: "Success."
+                    }).then(function() {
+                        location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+                $("#overlay-loader").addClass('d-none');
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    
+    }
+
+
+    //====================unpublish divecenter===========================
+    function unpublishDivecenter(divecenterId, packageId, statusPublish){
+        $.ajax({
+            url: `/api/divecenter/${divecenterId}/publish`,
+            method: `PUT`,
+            data : {
+                publish : false
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    if (statusPublish == 1) {
+                        changePackageStatus(packageId, 4);
+                    } else if (statusPublish == 2){
+                        let dt = packageId.split('??');
+                        deletePackage(dt[0], dt[1],2);   
+                    }
+                } else {
+                    $("#overlay-loader").addClass('d-none');
+                    Swal.fire(
+                        'Unpublish Divecenter & Package Failed',
+                        result.message
+                    )
+                    //alert(result.message)
+                    //console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    //==============unavailable dates==================================
+
+    function addUnavailableDates(){
+        var objUnavailableDates = {}
+        objUnavailableDates.id = "unavailableDates-"+new Date().getTime().toString()
+        objUnavailableDates.dates = '';
+        objUnavailableDates.date_start = '';
+        objUnavailableDates.date_end = '';
+        objUnavailableDates.name = '';
+        objUnavailableDates.annually = false;
+        dataUnavailableDates.push(objUnavailableDates)
+        $(`#listUnavailableDatesModal`).append(`
+                <div class="d-block p-2 border mb-2 bg-lighter data-unavailableDates" id="divUD-${objUnavailableDates.id}">
+                    <div class="d-flex">
+                        <div class="mr-2 flex-grow-1">
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control unavailableDatePicker" id='unavailableDates-${objUnavailableDates.id}' placeholder="Dates" value="">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id='unavailableDatesName-${objUnavailableDates.id}' placeholder="Closed / Public Holidays" value="">
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- value="1" -->
+                                    <label>
+                                    <input type="checkbox" name="annually" id="unavailableDatesAnnually-${objUnavailableDates.id}"/> Repeated <br/>Each Year</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button onClick="deleteUnavailableDates('${objUnavailableDates.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).fadeIn('slow')
+        $(`#unavailableDates-${objUnavailableDates.id}`).focus();
+
+        
+        // loadService()
+    }
+
+
+    function loadUnavailableDates(){
+        $(`#listUnavailableDatesModal`).empty()
+        for(var i = 0; i < dataUnavailableDates.length; i++){
+            let ann = (dataUnavailableDates[i].annually == "true" || dataUnavailableDates[i].annually == true ? true : false)
+            let tS = (typeof dataUnavailableDates[i].date_start !== 'undefined' ? dataUnavailableDates[i].date_start : dataUnavailableDates[i].dates)
+            let tE = (typeof dataUnavailableDates[i].date_end !== 'undefined' ? dataUnavailableDates[i].date_end : dataUnavailableDates[i].dates)
+                    
+            $(`#listUnavailableDatesModal`).append(`
+                <div class="d-block p-2 border mb-2 bg-lighter data-service" id="divUD-${dataUnavailableDates[i].id}">
+                    <div class="d-flex">
+                        <div class="mr-2 flex-grow-1">
+                            <div class="form-row pb-2" style='font-size:12px;font-weight:bold'>
+                                <div class="col-md-3 text-center"><span style='padding:2px 5px'>From / To</span></div>
+                                <div class="col-md-6 text-center">Information</div>
+                                <div class="col-md-3 text-left">Annually</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <input type="text" class="unavailableDatePicker form-control mb-2" onchange="countDays('${dataUnavailableDates[i].id}')" id='unavailableDatesStart-${dataUnavailableDates[i].id}' placeholder="Dates" value="${dateFormatMonth(tS)}">
+                                    <input type="text" class="unavailableDatePicker form-control" onchange="countDays('${dataUnavailableDates[i].id}')" id='unavailableDatesEnd-${dataUnavailableDates[i].id}' placeholder="Dates" value="${dateFormatMonth(tE)}">
+                                    <div class='text-center' id='daysInfo-${dataUnavailableDates[i].id}'></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea type="text" rows='3' class="form-control unavailableDatesName" min="0" id='unavailableDatesName-${dataUnavailableDates[i].id}' placeholder="New Year / Renovation" >${dataUnavailableDates[i].name}</textarea>
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- value="1" -->
+                                    <label>
+                                    <input ${(ann ? 'checked' : '')} type="checkbox" name="annually" id="unavailableDatesAnnually-${dataUnavailableDates[i].id}"/> Repeated <br/>Every Year</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button onClick="deleteUnavailableDates('${dataUnavailableDates[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).fadeIn('slow')
+        }
+    }
+
+    function populateUnavailableDates(){
+        let dataTemp = [];
+        let respond = true;
+        // console.log('ddd',dataUnavailableDates);
+
+        for (let i = 0; i < dataUnavailableDates.length; i++) {
+            console.log('ddu',dataUnavailableDates[i]);
+            let tglStart = $(`#unavailableDatesStart-${dataUnavailableDates[i].id}`).val();
+            let tglEnd = $(`#unavailableDatesEnd-${dataUnavailableDates[i].id}`).val();
+            let date_start = dateFormatForDB(tglStart);
+            let date_end = dateFormatForDB(tglEnd);
+            
+            dataUnavailableDates[i].date_start = date_start;
+            dataUnavailableDates[i].date_end = date_end;
+            dataUnavailableDates[i].name = $(`#unavailableDatesName-${dataUnavailableDates[i].id}`).val();
+            dataUnavailableDates[i].annually = $(`#unavailableDatesAnnually-${dataUnavailableDates[i].id}`).is(":checked");
+            console.log(dataUnavailableDates[i].id, dataUnavailableDates[i].dates, dataUnavailableDates[i].name.length );
+            if(dataUnavailableDates[i].date_start.length == 0 || dataUnavailableDates[i].date_end.length == 0 || dataUnavailableDates[i].name.length == 0 ){
+                respond = false;
+            }
+        }
+        console.log('ddu',dataUnavailableDates);
+
+        if(respond == true){
+            loadUnavailableDatesItem();
+            $("#modalSetUnavailableDates").modal('toggle');
+        }else{
+            Swal.fire('Unavailable Dates',
+                'Please complete all field. Date and Name cannot be blanked');
+                // return false;
+        }
+    }
+
+
+    function loadUnavailableDatesItem(){
+            $(`#listUnavailableDates`).html(``);
+            if (dataUnavailableDates.length) {
+                for(var i = 0; i < dataUnavailableDates.length; i++){
+                    let ann = (dataUnavailableDates[i].annually == "true" || dataUnavailableDates[i].annually == true ? true : false)
+                    /* <div class="d-block p-2 border mb-2 bg-lighter data-unavailableDates">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row">
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" placeholder="UnavailableDates item" value="${dateFormatMonth(dataUnavailableDates[i].date_start)}"  disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" placeholder="UnavailableDates item" value="${dateFormatMonth(dataUnavailableDates[i].date_end)}"  disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" value="${dataUnavailableDates[i].name}" disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" value="${(ann ? "Repeated Every Year" : "Only Once")}" disabled>
+                                            <!--<p>${(dataUnavailableDates[i].annually ? "Repeated Every Year" : "Only Once")}</p>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> */
+                        let tS = (typeof dataUnavailableDates[i].date_start !== 'undefined' ? dataUnavailableDates[i].date_start : dataUnavailableDates[i].dates)
+                        let tE = (typeof dataUnavailableDates[i].date_end !== 'undefined' ? dataUnavailableDates[i].date_end : dataUnavailableDates[i].dates)
+                        
+                    $(`#listUnavailableDates`).append(`
+                        <div class="d-block p-2 border mb-2 bg-lighter data-service" id="divUD-${dataUnavailableDates[i].id}">
+                            <div class="d-flex">
+                                <div class="mr-2 flex-grow-1">
+                                    <div class="form-row pb-2" style='font-size:12px;font-weight:bold'>
+                                        <div class="col-md-3 text-center"><span style='padding:2px 5px'>From / To</span></div>
+                                        <div class="col-md-6 text-center">Information</div>
+                                        <div class="col-md-3 text-left">Annually</div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-3">
+                                            <input type="text" class="unavailableDatePicker form-control mb-2" disabled value="${dateFormatMonth(tS)}">
+                                            <input type="text" class="unavailableDatePicker form-control" disabled value="${dateFormatMonth(tE)}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <textarea type="text" rows='3' class="form-control unavailableDatesName" min="0" disabled >${dataUnavailableDates[i].name}</textarea>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <!-- value="1" -->
+                                            <label>
+                                            ${(ann ? 'Repeated <br/>Every Year' : 'Only Once')}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).fadeIn('slow')
+                }
+                
+            }else{
+                $(`#listUnavailableDates`).append("No Data")
+            }
+        
+        }
+
+    function deleteUnavailableDates(id){
+        let temp = [];
+        dataUnavailableDates : dataUnavailableDates.filter(function( obj ) {
+            if(obj.id !== id){
+                temp.push({...obj});
+            }
+        })
+
+        dataUnavailableDates = [];
+        dataUnavailableDates = temp;
+        console.log('ddus',dataUnavailableDates);
+
+        $(`#divUD-${id}`).remove();
+        // loadUnavailableDates()
+    }
+
+    function countDays(udId){
+        let t1 = $(`#unavailableDatesStart-${udId}`).val();
+        let t2 = $(`#unavailableDatesEnd-${udId}`).val();
+
+        // dateFormatForDB
+        if (t1 != '' && t2 != '') {
+            let tgl1 = new Date(t1)                
+            let tgl2 = new Date(t2)
+            let diff = tgl2.getTime() - tgl1.getTime()
+            if (diff >= 0) {
+                var days = Math.ceil(diff / (1000 * 3600 * 24)); 
+                let text = (parseInt(days+1) == 1 ? ' day off' : ' days off')
+                console.log(days + ' days off');
+                $(`#daysInfo-${udId}`).text((parseInt(days) + 1)+text );                
+            }else{
+                Swal.fire(
+                    'Oops!',
+                    `'From' date is bigger than 'To' date.`
+                )
+            }
+        }
+    }
+    
+
+
+    
+</script>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Diveinc - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+
+    <!-- CSS -->
+    <%- include('../../partials/mainstyle') %>
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <!-- Topbar Start -->
+      <%- include('../../partials/mainheader') %>
+      <!-- end Topbar -->
+
+      <!-- Menu Start -->
+      <%- include('../../partials/mainmenu') %>
+      <!-- end menu -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="wrapper">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right"></div>
+              <h4 class="page-title">Detail User</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="..." class="card-img" alt="..." />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 id="fullname" class="card-title">Card title</h5>
+                  <h5 class="card-title">User ID : <span id="userid"></span></h5>
+                  <h6 class="card-title">Role : <span id="role"></span></h6>
+                  <p class="card-text description">
+                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                  </p>
+                  <p class="card-text text-muted">
+                    Email :
+                    <span id="email"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <%- include('../../partials/mainfooter') %>
+    </footer>
+    <!-- end Footer -->
+
+    <!-- Vendor js -->
+    <script src="../assets/js/vendor.min.js"></script>
+
+    <!-- third party js -->
+    <%- include('../../partials/mainjs.ejs') %>
+
+    <!-- Datatables init -->
+    <!-- <script src="/assets/js/pages/datatables.init.js"></script> -->
+
+    <!-- App js-->
+
+    <script src="../assets/js/app.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        const id = <%- JSON.stringify(id)%>
+        console.log(id);
+
+        $.ajax({
+          url: `/api/user/${id}`,
+          method: `GET`,
+          success: function(result) {
+              console.log(result)
+            if (result.meta.success) {
+              const fullName = `${result.data.profile.name.first_name} ${result.data.profile.name.last_name}`;
+              const address = `${result.data.profile.address.street} ${result.data.profile.address.subdistrict} ${result.data.profile.address.postal_code} ${result.data.profile.address.city} ${result.data.profile.address.province}`
+              $("#fullname").html(fullName);
+              $("#userid").html(result.data.user_id);
+              $("#role").html(result.data.role.name);
+              $('#email').html(result.data.data_register.data.email)
+              $(".card-img").attr("src", result.data.profile.images[0].url);
+              $('.description').html(address)
+            } else {
+              location.href = "/404";
+            }
+          },
+          error(xhr, status, error) {
+            console.log(xhr.responseJSON);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

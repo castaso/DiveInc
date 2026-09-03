@@ -1,0 +1,1148 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<div class="modal" id="modalSetHighlight" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Highlight</span>
+            </div>
+            <div class="modal-body">
+                <div id="listHighlightModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addHighlightItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateHighlight()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalSetNews" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set News</span>
+            </div>
+            <div class="modal-body">
+                <div id="listNewsModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addNewsItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateNews()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <div class="col-lg-9">
+                <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li>
+                        <a href="my-contribution" class="btn btn-white btn-sm">My Contribution</a>
+                    </li>
+                    <li class="active">
+                        <a href="my-contribution-create" class="btn btn-white btn-sm">Create New Contribution</a>
+                    </li>
+                </ul>
+                <!-- Contribution Create 1 -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Create New Contribution</h5>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" onClick="saveDraft()" class="btn btn-light mr-2 saveDraftBtn">
+                                    Save Draft
+                                </button>
+                                <button type="button" class="btn btn-light mr-2 saveDraftLoading" hidden>
+                                    <div class="spinner-border spinner-border-sm text-white" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
+                                <button type="button" onClick="savePublish(false)" class="btn btn-primary savePublishBtn"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</button>
+                                <button type="button" class="btn btn-primary savePublishLoading">
+                                    <div class="spinner-border spinner-border-sm text-white" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-block">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Contribution Profile</h5>
+                            <div class="form-row mb-3">
+                                <label for="cabin_price" class="col-sm-2 col-form-label">Funds Needed<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">IDR</span>
+                                        </div>
+                                        <input id='inputFunds' type="number" class="form-control" placeholder="How much help do you need">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="contribution_name" class="col-sm-2 col-form-label">Contribution Name<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id='inputName' type="text" class="form-control rounded-0 text-capitalize" name="contribution_name" placeholder="Contribution name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="contribution_address" class="col-sm-2 col-form-label">Address<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input  id='inputAddress' type="text" class="form-control rounded-0 text-capitalize" name="contribution_address" placeholder="Contribution address" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="contribution_name" class="col-sm-2 col-form-label">Country & City<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <select id="inputCountry" class="form-control rounded-0">
+                                            <option>Select Country</option>
+                                        </select>
+                                        <select id="inputDestination" class="form-control rounded-0">
+                                            <option>Select City</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="resort_description" class="col-sm-2 col-form-label">Contribution Story<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id='inputAbout' class="form-control rounded-0" name="contribution_description" placeholder="About your contribution" required rows="6"></textarea>
+                                    <div class="alert alert-info border-0 mt-2 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Writes your story in 2000 characters. Tell your guest about your project.</div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contribution Highlight -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Contribution Highlight</h5>
+                            <div>
+                                <ul id="listHighlight" class="list-base list-base-md font-serif">
+
+                                </ul>
+                                
+                            </div>
+                            
+                            <a href="#modalSetHighlight" data-toggle="modal" onclick="loadHighlight()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contribution Photos -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                       <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Contribution Photos</h5>
+                            <div class="form-row">
+                                <div class="col-sm-9">
+                                    <div class="d-block w-100 mb-3">
+                                        <div class="custom-file mb-2">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <div id="listPhotos" class="d-flex photo-gallery-create">
+                                        <div id="listPhotosSpinner" class="d-none spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 d-flex">
+                                    <div class="card rounded-0 w-100">
+                                        <div class="card-body p-3">
+                                            <h6>Nice Photos</h6>
+                                            <p class="text-sm" >Please chooes good photos to represent your contribution. Recommended pixel 400px min on 100kb max size.</p>
+                                        </div>
+                                        <!-- <div class="btn-group">
+                                            <div class="btn btn-outline-primary btn-sm">Clear</div>
+                                            <div class="btn btn-outline-primary btn-sm"><i class="fas fa-upload mr-2"></i>Upload Photos</div>
+                                        </div> -->
+                                    </div>
+                                    <div id="listPhotos" class="photo-gallery-create">
+                                        <!-- <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contribution News -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Update And News</h5>
+                            <div>
+                                <ul id="listNews" class="list-base list-base-md font-serif">
+
+                                </ul>
+                                
+                            </div>
+                            
+                            <a href="#modalSetNews" data-toggle="modal" onclick="loadNews()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Document</h5>
+                            
+                            <div class="col-sm-12">
+                                <a onclick="loadDocument()" class="btn btn-outline-primary btn-sm" type="button">See Document</a>
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                <div class="custom-file mb-2">
+                                    <input type="file" class="custom-file-input" id="customFile6">
+                                    <label id="chooseFile6" class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="overlay-loader" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>fetch data. . .</span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script>
+    var dataImage = []
+    var dataHighlight = []
+    var dataNews = [];
+    var dataCountry = {}
+    var dataDestination = {}
+
+    var fileUrl6 = ""
+    var filePath6 = ""
+    var fileBaseUrl6 = ""
+
+    var id = "<%= id %>"
+
+
+    $(document).ready(function(){
+
+        if(id){
+            loadContributionById()
+        }else{
+            getCountry();
+        }
+
+        $('#inputCountry').change(function(){
+            getDestination()
+        })
+
+        $(`#customFile`).on(`change`, function(){
+            makeFileRequestUpload('/api/upload/image', [], this.files).then((result) => {
+                console.log(result)
+            }, (error) => {
+                console.error(error)
+            })
+        });
+
+        $('#customFile6').change(function(){
+            $('#chooseFile6').text("Please Wait ...")
+            makeFileRequestUpload6('/api/upload/file', [], this.files).then((result) => {
+                console.log(result)
+            }, (error) => {
+                console.error(error)
+            })
+        })
+    });
+
+    function loadContributionById() {
+        $.ajax({
+            url: `/api/contribution/${id}`,
+            method: `GET`,
+            success: function (result) {
+                // console.log("kaskajsdlaskjdas")
+                console.log(result)
+                if (result.success) {
+                    $('#inputName').val(result.data.profile.name)
+                    $('#inputFunds').val(result.data.profile.funds)
+                    $('#inputAbout').val(result.data.profile.about)
+                    $('#inputAddress').val(result.data.profile.address)
+
+                    statusPublishDivecenter = result.data.publish;
+                    dataCountry = result.data.profile.country
+                    dataDestination = result.data.profile.destination
+                    getCountry()
+
+                    dataImage = result.data.photos
+                    loadImage()
+
+                    dataHighlight = result.data.highlight
+                    // loadHighlight()
+                    loadHighlightItem()
+
+                    dataNews = result.data.news
+                    loadNewsItem()
+
+                    fileUrl6 = result.data.documents.url
+                    filePath6 = result.data.documents.path
+                    fileBaseUrl6 = result.data.documents.baseUrl
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function makeFileRequestUpload(url, params, files){
+        $("#listPhotosSpinner").removeClass('d-none');
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'Oops!',
+                'The image size must be less than 20 MB.'
+            )
+            }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        $('#sendFile').show()
+                        $('#chooseFile').text(files[0].name)
+                        var response = JSON.parse(xhr.response)
+                        var objUrl = {}
+                        console.log(response)
+                        objUrl.id = "image-"+ new Date().getTime()
+                        objUrl.url = response.data.location
+                        objUrl.path = response.data.key
+                        objUrl.baseUrl = response.data.baseUrl
+                        dataImage.push(objUrl)
+                        loadImage()
+                    }else {
+                        console.log(xhr.response)
+                        $('#chooseFile').text("Choose File")
+                        alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+            }
+        })
+    }
+
+    function progressHandlerBackground(event) {
+        // var percent = (event.loaded / event.total) * 100
+        // $("#progressBackground").val(Math.round(percent))
+        // if(percent == 100){
+        //     $("#statusBackground").text("Upload Success")
+        // }else{
+        //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        // }
+    }
+
+    function completeHandlerBackground(event) {
+        //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+    }
+
+    function errorHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Failed")
+    }
+
+    function abortHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Aborted")
+    }
+
+
+    function loadImage(){
+        console.log(dataImage)
+        $(`.data-photos`).remove()
+        for(var i = 0; i < dataImage.length; i++){
+            $(`#listPhotosSpinner`).before(`
+                <div class="photo-gallery--item data-photos" style="background-image:url('${dataImage[i].url}');"><div onClick="deleteImage('${dataImage[i].id}')" class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+            `).fadeIn('slow')
+        }
+        $("#listPhotosSpinner").addClass('d-none');
+
+    }
+
+    function deleteImage(id){
+        dataImage = dataImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadImage()
+    }
+
+    //========================================highlight======================================
+
+        function addHighlightItem(){
+            var objHighlight = {}
+            objHighlight.id = "Highlight-"+new Date().getTime().toString()
+            objHighlight.highlight = ''
+            dataHighlight.push(objHighlight);
+            console.log()
+            $(`#listHighlightModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${objHighlight.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${objHighlight.id}" rows='2' maxlength='140' class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${objHighlight.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow');
+                $(`#${objHighlight.id}`).focus();
+            
+                console.log(dataHighlight);
+            // loadHighlight()
+        }
+
+        function loadHighlightItem(){
+            $(`#listHighlight`).html('');
+            for(var i = 0; i < dataHighlight.length; i++){
+                $("#listHighlight").append(`<li class="mb-3">
+                    ${dataHighlight[i].highlight}
+                    </li>`);
+            }
+        
+        }
+
+        function loadHighlight(){
+            //console.log(dataHighlight)
+            $(`.data-highlight`).remove()
+            for(var i = 0; i < dataHighlight.length; i++){
+                $('#listHighlightModal').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${dataHighlight[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${dataHighlight[i].id}" rows='2' maxlength='140' class="form-control">${dataHighlight[i].highlight}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${dataHighlight[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+        }
+
+        function deleteHighlight(id){
+            dataHighlight = dataHighlight.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadHighlight()
+        }
+
+        function populateHighlight(){
+            let result = true;
+            for (let i = 0; i < dataHighlight.length; i++) {
+                console.log(dataHighlight[i].id);
+                dataHighlight[i].highlight = $(`#${dataHighlight[i].id}`).val();
+                if(dataHighlight[i].highlight.length == 0){
+                    result = false;
+                }
+            }
+
+            if (!result) {
+                return Swal.fire("Highlight Note", "Highlight can't be blank");
+            }else{
+                loadHighlightItem();
+                $("#modalSetHighlight").modal('toggle');
+            }
+        }
+    
+    //========================================news======================================
+
+        function addNewsItem(){
+            var tgl = new Date();
+            var objNews = {}
+            var bulan = parseInt(tgl.getMonth())+1;
+            objNews.id = "News-"+new Date().getTime().toString()
+            objNews.date = tgl.getFullYear()+'-'+bulan.toString().padStart(2,'0')+'-'+tgl.getDate();
+            objNews.news = ''
+            dataNews.push(objNews);
+            console.log()
+            $(`#listNewsModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-news" id="div-${objNews.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12 pl-3 pb-2">
+                                        ${dateFormatMonth(dataNews[i].date)}
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea id="${objNews.id}" rows='4' maxlength='2000' class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteNews('${objNews.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow');
+                $(`#${objNews.id}`).focus();
+            
+                console.log(dataNews);
+            // loadNews()
+        }
+
+        function loadNewsItem(){
+            $(`#listNews`).html('');
+            for(var i = 0; i < dataNews.length; i++){
+                $("#listNews").append(`<div class="itenary-listing--item data-itenary">
+                        <div class="itenary-wrapper">
+                            <div class="itenary-title font-weight-bold">${dateFormatMonth(dataNews[i].date)}<i class="fas fa-angle-down ml-2 active"></i></div>
+                            <div class="itenary-content active">
+                                ${dataNews[i].news}
+                            </div>
+                        </div>
+                    </div>`);
+            }
+        
+        }
+
+        function loadNews(){
+            //console.log(dataNews)
+            $(`.data-news`).remove()
+            for(var i = 0; i < dataNews.length; i++){
+                $('#listNewsModal').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-news" id="div-${dataNews[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12 pl-3 pb-2">
+                                        ${dateFormatMonth(dataNews[i].date)}
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea id="${dataNews[i].id}" rows='4' maxlength='2000' class="form-control">${dataNews[i].news}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteNews('${dataNews[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+        }
+
+        function deleteNews(id){
+            dataNews = dataNews.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadNews()
+        }
+
+        function populateNews(){
+            let result = true;
+            for (let i = 0; i < dataNews.length; i++) {
+                console.log(dataNews[i].id);
+                dataNews[i].news = $(`#${dataNews[i].id}`).val();
+                if(dataNews[i].news.length == 0){
+                    result = false;
+                }
+            }
+
+            if (!result) {
+                return Swal.fire("News Note", "News can't be blank");
+            }else{
+                loadNewsItem();
+                $("#modalSetNews").modal('toggle');
+            }
+        }
+
+    //=================================================================================
+
+    function saveDraft() {
+        //alert("hai")
+        $('.saveDraftBtn').hide();
+        $('.saveDraftLoading').show();
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            // return alert("form is not valid")
+            $('.saveDraftBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+            return Swal.fire(
+                'Oops!',
+                `Please complete all forms to get to the next step.
+                <ul style='padding-left:20px'>
+                </ul>
+                `
+            )
+        }else{
+            
+            if(id){
+                $.ajax({
+                    url: `/api/contribution/${id}`,
+                    method: `PUT`,
+                    data: {
+                        publish : false,
+                        profile : {
+                            name : $('#inputName').val(),
+                            address : $('#inputAddress').val(),
+                            country : {
+                                id : $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            destination : {
+                                id : $('#inputDestination').val(),
+                                name : $('#inputDestination option:selected').text()
+                            },
+                            funds : $('#inputFunds').val(),
+                            about : $('#inputAbout').val(),
+                        },
+                        highlight : dataHighlight,
+                        news : dataNews,
+                        photos : dataImage,
+                        documents: {
+                            url : fileUrl6,
+                            path : filePath6,
+                            baseUrl : fileBaseUrl6
+                        }
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // alert("Success")
+                            // location.href = `/my-resort-create/${result.data.id}`
+                            Swal.fire({
+                                title: "Contribution data saved!",
+                                text: "Your contribution data has been successfully saved, you can see here to see how it looks.",
+                                confirmButtonText: 'Done'
+                            }).then(function() {
+                                // window.location.reload();
+                                location.href = `/my-contribution`
+                            });
+                            $('.saveDraftBtn').show();
+                            $('.saveDraftLoading').hide();
+
+                            $('.savePublishBtn').show();
+                            $('.savePublishLoading').hide();
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }else{
+                $.ajax({
+                    url: `/api/contribution`,
+                    method: `POST`,
+                    data: {
+                        profile : {
+                            name : $('#inputName').val(),
+                            address : $('#inputAddress').val(),
+                            country : {
+                                id : $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            destination : {
+                                id : $('#inputDestination').val(),
+                                name : $('#inputDestination option:selected').text()
+                            },
+                            funds : $('#inputFunds').val(),
+                            about : $('#inputAbout').val(),
+                        },
+                        highlight : dataHighlight,
+                        news : dataNews,
+                        photos : dataImage,
+                        documents: {
+                            url : fileUrl6,
+                            path : filePath6,
+                            baseUrl : fileBaseUrl6
+                        }
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // alert("Success")
+                            // location.href = `/my-resort-create/${result.data.id}`
+                            Swal.fire({
+                                title: "Contribution data saved!",
+                                text: "Your contribution data has been successfully saved, you can see here to see how it looks.",
+                                confirmButtonText: 'Done'
+                            }).then(function() {
+                                // window.location.reload()
+                                location.href = `/my-contribution`
+                                
+                            });
+                            $('.saveDraftBtn').show();
+                            $('.saveDraftLoading').hide();
+
+                            $('.savePublishBtn').show();
+                            $('.savePublishLoading').hide();
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }
+        }
+    }
+
+    $('.savePublishLoading').hide();
+
+    function savePublish(canPublish) {
+
+        $('.savePublishBtn').hide();
+        $('.savePublishLoading').show();
+        
+        // var canPublish = false
+        // for(var x = 0; x < listDataPackage.length; x++){
+        //     if(listDataPackage[x].publish){
+        //         canPublish = true
+        //     }
+        // }
+
+        // for(var x = 0; x < listDataRoom.length; x++){
+        //     if(listDataRoom[x].publish){
+        //         canPublish = true
+        //     }
+        // }
+
+        // if(!canPublish){
+        //     $('.saveDrafthBtn').show();
+        //     $('.saveDraftLoading').hide();
+        //     $('.savePublishBtn').show();
+        //     $('.savePublishLoading').hide();
+        //     // return alert("Cannot publish, resort must be has open room or package")
+        //     return Swal.fire({
+        //         title: "Cannot be published",
+        //         text: "Your resort must have rooms or package in order to publish your resort."
+        //     });
+            
+        // }
+
+        
+        $.each(dataHighlight, function(i,v){
+            console.log("Highlight");
+            console.log(i,v);
+        })
+
+        // populateHighlight();
+        // populateArrival();
+        // populateDeparture();
+            
+
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            
+            // return alert("form is not valid")
+            // Swal.fire(
+            //     'Oops!',
+            //     'Please complete all forms to save this room in the list.'
+            // )
+            $('.saveDrafthBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+        }else{
+            if(id){
+                publishData();
+            }else{
+                publishData2();
+                // alert("You cant publish this resort , please complete the data")
+                // Swal.fire(
+                //     'Please create rooms or dive package.',
+                //     'In order to publish your resort, the resort must have resort rooms or dive package.'
+                // )
+                // $('.saveDrafthBtn').show();
+                // $('.saveDraftLoading').hide();
+                // $('.savePublishBtn').show();
+                // $('.savePublishLoading').hide();
+            }
+        }
+    }
+
+    //===========================================================================
+
+    function formValidate(){
+        $(document).find(".text-field-warning").remove();
+        let listIncomplete = [];
+
+        ($('#inputName').val().length < 3 ? listIncomplete.push({inputId:"inputName", message: "Name is too short" }) : '' );
+        ($('#inputAddress').val().length < 3 ? listIncomplete.push({inputId:"inputAddress", message: "Address is too short" }) : '' );
+        ($('#inputAbout').val().length < 3 ? listIncomplete.push({inputId:"inputAbout", message: "About is too short" }) : '' );
+        ($('#inputFunds').val().length == 0 || parseFloat($('#inputFunds').val()) < 0 ? listIncomplete.push({inputId:"inputFunds", message: "Funds can't be blank / less than 0" }) : '' );
+        (dataImage.length == 0 ? listIncomplete.push({inputId:"listPhotos", message: "Please provide 1 or more photos" }) : '' );
+                
+        showIncompleteFieldMessage(listIncomplete)
+        return listIncomplete;
+
+        // $('#inputName').val().length < 3 ||
+        // $('#inputDay').val() == "" ||
+        // $('#inputNight').val() == "" ||
+        // $('#inputDiveTotal').val() == "" ||
+        // $('#inputDescription').val().length < 3 ||
+        // $('#inputPrice').val() == "" ||
+        // dataImage.length == 0
+        }
+
+    function showIncompleteFieldMessage(listIncomplete){
+        let earliestInput = "";
+        $.each(listIncomplete,function(i,v){
+            earliestInput = (i==0 ? v.inputId : earliestInput);
+            if(!$(`#${v.inputId}`).parent().hasClass("input-group")){
+                $(`#${v.inputId}`).parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+            }else{
+                $(`#${v.inputId}`).parent().parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+            }
+        });
+
+        let el = document.getElementById(`${earliestInput}`);
+        (earliestInput != '' ? el.scrollIntoView() : '');
+    }
+
+    function publishData(){
+        $.ajax({
+            url: `/api/contribution/${id}`,
+            method: `PUT`,
+            data: {
+                publish : true,
+                profile : {
+                    name : $('#inputName').val(),
+                    address : $('#inputAddress').val(),
+                    country : {
+                        id : $('#inputCountry').val(),
+                        name : $('#inputCountry option:selected').text()
+                    },
+                    destination : {
+                        id : $('#inputDestination').val(),
+                        name : $('#inputDestination option:selected').text()
+                    },
+                    funds : $('#inputFunds').val(),
+                    about : $('#inputAbout').val(),
+                },
+                highlight : dataHighlight,
+                news : dataNews,
+                photos : dataImage,
+                documents: {
+                    url : fileUrl6,
+                    path : filePath6,
+                    baseUrl : fileBaseUrl6
+                }
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-resort-create/${result.data.id}`
+                    Swal.fire({
+                        title: "Contribution created!",
+                        text: "The package has published.",
+                        confirmButtonText: 'Great'
+                    }).then(function() {
+                        // window.location.reload()
+                        location.href = `/my-contribution`
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        });
+    }
+
+    function publishData2(){
+        $.ajax({
+            url: `/api/contribution`,
+            method: `POST`,
+            data: {
+                publish : true,
+                profile : {
+                    name : $('#inputName').val(),
+                    address : $('#inputAddress').val(),
+                    country : {
+                        id : $('#inputCountry').val(),
+                        name : $('#inputCountry option:selected').text()
+                    },
+                    destination : {
+                        id : $('#inputDestination').val(),
+                        name : $('#inputDestination option:selected').text()
+                    },
+                    funds : $('#inputFunds').val(),
+                    about : $('#inputAbout').val(),
+                },
+                highlight : dataHighlight,
+                news : dataNews,
+                photos : dataImage,
+                documents: {
+                    url : fileUrl6,
+                    path : filePath6,
+                    baseUrl : fileBaseUrl6
+                }
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-resort-create/${result.data.id}`
+                    Swal.fire({
+                        title: "Contribution created!",
+                        text: "The package has published.",
+                        confirmButtonText: 'Great'
+                    }).then(function() {
+                        // window.location.reload()
+                        location.href = `/my-contribution`
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        });
+    }
+
+    function getCountry() {
+        $("#overlay-loader").removeClass('d-none');
+        $.ajax({
+            url: `/api/country`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var selected = ""
+                        if(dataCountry){
+                            if(dataCountry.id == result.data[i].id){
+                                selected = "selected"
+                            }
+                        }
+                        $('#inputCountry').append(`
+                            <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                        `)
+                        if(dataCountry){
+                            getDestination()
+                        }
+                    } 
+                    $("#overlay-loader").addClass('d-none');
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                    $("#overlay-loader").addClass('d-none');
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+
+    function getDestination() {
+        $('#inputDestination').find('option')
+            .remove()
+            .end()
+            .append('<option>Select City</option>')
+        if($('#inputCountry').val() != null && $('#inputCountry').val() != ""){
+            var idCountry = $('#inputCountry').val()
+            $.ajax({
+                url: `/api/city/${idCountry}/country`,
+                method: `GET`,
+                success: function (result) {
+                    // console.log(result)
+                    if (result.success) {
+                        for(var i = 0; i < result.data.length; i++){
+                            var selected = ""
+                            if(dataDestination){
+                                if(dataDestination.id == result.data[i].id){
+                                    selected = "selected"
+                                    //getSubDestination()
+                                }
+                            }
+                            $('#inputDestination').append(`
+                                <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                            `)
+                            
+                        } 
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+    }
+
+    function makeFileRequestUpload6(url, params, files){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 20400000){
+                // alert("Size must be less than 20MB")
+                Swal.fire(
+                    'File too large',
+                    'Please make sure the data to be uploaded is under 20MB.'
+                )
+            }else{
+                formData.append("upload", files[0], files[0].name)
+
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            $('#chooseFile6').text(files[0].name)
+                            var response = JSON.parse(xhr.response)
+                            fileUrl6 = response.data.location
+                            filePath6 = response.data.key
+                            fileBaseUrl6 = response.data.baseUrl
+                        }else {
+                            console.log(xhr.response)
+                            $('#chooseFile6').text("Choose File")
+                        //   alert("Upload file gagal")
+                            Swal.fire(
+                                'Upload failed',
+                                'We apologize in advance for the inconvenience. please try again to upload your data.'
+                            )
+                        }
+                    }
+                }
+
+                xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+                xhr.addEventListener("load", completeHandlerBackground, false);
+                xhr.addEventListener("error", errorHandlerBackground, false);
+                xhr.addEventListener("abort", abortHandlerBackground, false);
+
+                xhr.open("POST", url, true)
+
+                xhr.send(formData)
+            }
+        })
+    }
+
+    function progressHandlerBackground(event) {
+    // var percent = (event.loaded / event.total) * 100
+    // $("#progressBackground").val(Math.round(percent))
+    // if(percent == 100){
+    //     $("#statusBackground").text("Upload Success")
+    // }else{
+    //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+    // }
+    }
+
+    function completeHandlerBackground(event) {
+    //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+    }
+
+    function errorHandlerBackground(event) {
+    //$("#statusBackground").text("Upload Failed")
+    }
+
+    function abortHandlerBackground(event) {
+    //$("#statusBackground").text("Upload Aborted")
+    }
+
+    function loadDocument(){
+        if(fileUrl6 == ""){
+            Swal.fire(
+                'Contribution document',
+                'No document uploaded'
+            )
+        }else{
+            location.href = fileUrl6
+        }
+    }
+
+    
+
+</script>

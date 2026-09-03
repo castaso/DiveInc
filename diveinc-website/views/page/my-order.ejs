@@ -1,0 +1,531 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<style>
+    .btn-filter{
+        background: none;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .btn-filter-active{
+        /* border: 2px solid #ccc; */
+        background: #ebf0f5;
+        font-weight: bold;
+    }
+
+    .btn-paging{
+        background: none;
+        border: none;
+        border-radius: 10px;
+        padding: 5px 0 5px 10px;
+    }
+
+    .btn-paging:hover{
+        color: blue;
+    }
+
+    .btn-paging:hover:disabled{
+        cursor: no-drop;
+        color: rgba(16, 16, 16, 0.3);
+    }
+
+</style>
+<!-- Modal Cancel Booking -->
+<div class="modal" id="modalCancelBooking" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body">
+                <div class="d-block mb-3">
+                    <h4 class="flex-shrink-0 mb-2">Cancel your order?</h4>
+                    <p class="mb-1">Please tell us the reason why you canceled this order.</p>
+                    <div class="d-block p-2 border bg-lighter">
+                        <p class="text-xs text-muted m-0">This info is very important for us to improve in the future. Thank you.</p>
+                    </div>
+                    <form class="d-block mt-2">
+                        <div class="select-card-wrapper cancel-info" >
+                            <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                <label class="select-card-inner select-card-inner-h">
+                                    <input type="checkbox" class='cancel-reason' name="cancel-reason"  value='Waiting too long for the confirmation'/>
+                                    <div class="select-card-content">
+                                        <h6 class="mb-0 font-weight-normal">Waiting too long for the confirmation</h6>
+                                    </div>
+                                    <div class="select-card-checkbox"></div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="select-card-wrapper cancel-info">
+                            <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                <label class="select-card-inner select-card-inner-h">
+                                    <input type="checkbox" class='cancel-reason' name="cancel-reason" value='Change schedule'/>
+                                    <div class="select-card-content">
+                                        <h6 class="mb-0 font-weight-normal">Change schedule</h6>
+                                    </div>
+                                    <div class="select-card-checkbox"></div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="select-card-wrapper cancel-info">
+                            <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                <label class="select-card-inner select-card-inner-h">
+                                    <input type="checkbox" class='cancel-reason' name="cancel-reason" value='Change guest'/>
+                                    <div class="select-card-content">
+                                        <h6 class="mb-0 font-weight-normal">Change guest</h6>
+                                    </div>
+                                    <div class="select-card-checkbox"></div>
+                                </label>
+                            </div>
+                        </div>
+                        <textarea class="form-control d-block mt-2" id='other-cancel-reason' placeholder="Please tell us another reason you canceled this order..."></textarea>
+                        <hr/>
+                        <p class="mb-3 bank-info">Inform us your Bank Account.<br/>
+                            <small class="text-xs text-muted m-0">*Please read terms and condition about our refund policy.</small>
+                        </p>
+                        
+                        <div class="form-row mb-0 bank-info">
+                            <label for="bank_name" class="col-sm-3 col-form-label">Bank</label>
+                            <div class="col-sm-9">
+                                <input id="inputBank" type="text" class="form-control rounded-0 text-capitalize" name="bank" placeholder="Bank Name" required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-0 bank-info">
+                            <label for="account_number" class="col-sm-3 col-form-label">Account No.</label>
+                            <div class="col-sm-9">
+                                <input id="inputAccountNumber" type="text" class="form-control rounded-0 text-capitalize" name="account_number" placeholder="Account Number" required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4 bank-info">
+                            <label for="account_name" class="col-sm-3 col-form-label">Account Name</label>
+                            <div class="col-sm-9">
+                                <input id="inputAccountName" type="text" class="form-control rounded-0 text-capitalize" name="account_name" placeholder="Account Name" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-neutral" data-dismiss="modal" onclick="confirmCancel()">Submit & Cancel Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+<div class="header-spacer"></div>
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <%-include ../partial/sidebar-nav %>
+            <div class="col-lg-9">
+                <ul class="progress-step-wrapper list-unstyled pt-0 shift-left on-bg-lighter">
+                    <li>
+                        <a href="/my-account" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="btn btn-white btn-sm">My Order</a>
+                    </li>
+                </ul>
+                <div class="card shadow-sm border-0 rounded-0 card-account">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">My Order</h5>
+                                <span class="badge badge-primary rounded" id='totalOrder'>1</span>
+                            </div>
+                            <a href="#" class="btn btn-light"><i class="fas fa-question-circle fa-sm text-muted mr-2"></i>Help</a>
+                        </div>
+
+                        <div class="d-none d-sm-block mb-4 bg-light p-2">
+                            <div>
+                                <b>FILTER : </b>
+                                    <button style="margin-left: 10px;" onclick="filterType('')" id="btn-all" class="btn-filter">ALL <span style="font-size: 0.9em;" class='jml'></span></button>
+                                    <button style="margin-left: 10px;" onclick="filterType('resort')" id="btn-resort" class="btn-filter">RESORT <span style="font-size: 0.9em;" class='jml'></span></button>
+                                    <button style="margin-left: 10px;" onclick="filterType('divecenter')" id="btn-divecenter" class="btn-filter">DIVECENTER <span style="font-size: 0.9em;" class='jml'></span></button>
+                                    <button style="margin-left: 10px;" onclick="filterType('liveaboard')" id="btn-liveaboard" class="btn-filter">LIVEABOARD <span style="font-size: 0.9em;" class='jml'></span></button>
+                            </div>
+                        </div>
+
+                        <div class="d-lg-none d-sm-none d-xl-none mb-4 bg-light p-2">
+                            <div>
+                                <b>FILTER : </b><br/>
+                                    <button style="margin-left: 10px;" onclick="filterType('')" id="btn-all" class="btn-filter">ALL <span style="font-size: 0.9em;" class='jml'></span></button>
+                                    <button style="margin-left: 10px;" onclick="filterType('resort')" id="btn-resort" class="btn-filter">RESORT <span style="font-size: 0.9em;" class='jml'></span></button>
+                                    <button style="margin-left: 10px;" onclick="filterType('divecenter')" id="btn-divecenter" class="btn-filter">DIVECENTER <span style="font-size: 0.9em;" class='jml'></span></button>
+                                    <button style="margin-left: 10px;" onclick="filterType('liveaboard')" id="btn-liveaboard" class="btn-filter">LIVEABOARD <span style="font-size: 0.9em;" class='jml'></span></button>
+                            </div>
+                        </div>
+                        <div class="text-right paging-section">
+                            <div style="float: left;">
+                                <small>Showing <span class='idx-start'>1</span> to <span class="idx-end">10</span> of <span class="length-record">57</span> entries</small>
+                            </div>
+                            <button style="margin-left: 10px;" onclick="prevShowAppend()" class="btn-paging btn-prev"> << prev <span style="font-size: 0.9em;" class='jml'></span></button>
+                            <button style="margin-left: 10px;" onclick="nextShowAppend()" class="btn-paging btn-next">next >> <span style="font-size: 0.9em;" class='jml'></span></button>
+                        </div>
+                        <div id="orderList">
+                            <div class="card rounded-0 mb-3 bg-white" >
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <div class="card-images h-100 p-2" style="background-color:#ddd;">
+                                            <div class="d-flex justify-content-center align-items-center h-100">
+                                                <div class="spinner-border mb-3" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-images h-100 p-2" style="background-color:#ddd">
+                                            <div class="d-flex justify-content-center align-items-center h-100">
+                                                <div class="spinner-border mb-3" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right paging-section" >
+                            <div style="float: left;">
+                                <small>Showing <span class='idx-start'>1</span> to <span class="idx-end">10</span> of <span class="length-record">57</span> entries</small>
+                            </div>
+                            <button style="margin-left: 10px;" onclick="prevShowAppend()" class="btn-paging btn-prev"> << prev <span style="font-size: 0.9em;" class='jml'></span></button>
+                            <button style="margin-left: 10px;" onclick="nextShowAppend()" class="btn-paging btn-next">next >> <span style="font-size: 0.9em;" class='jml'></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script>
+    
+    let statusTransaction = [];
+    let colorTransaction = []
+    let cancelLink = '';
+    let orderData ="";
+    var orderList = [];
+    var orderFiltered = [];
+    var idxShow = 0;
+
+
+    statusTransaction['c7999dce-19b7-4bfd-84cc-d2f0845a3d86'] = 'Created'
+    statusTransaction['d2f95bbe-159b-4447-9e07-33925e04c5e9'] = 'Created'
+    statusTransaction['59cfbb65-efff-4d25-aae1-b439efa62188'] = 'Created'
+    // statusTransaction['d2f95bbe-159b-4447-9e07-33925e04c5e9'] = 'Scheduled'
+    // statusTransaction['59cfbb65-efff-4d25-aae1-b439efa62188'] = 'Extra data'
+
+    statusTransaction['b648ff73-468f-45cb-bbbc-fd3659e4b8ac'] = 'Ordered'
+    statusTransaction['b648ff73-468f-45cb-babc-fd3459e4b8ac'] = 'Reserved'
+    statusTransaction['bbb8ff73-468f-45cb-babc-fd3444e4b8ac'] = 'Approved'
+    statusTransaction['bcc8ff73-468f-45cb-babc-fd34cce4b8ac'] = 'Rejected'
+    statusTransaction['bcc8ff37-468f-45cb-bccc-fd34cce4b8ac'] = 'Transfered'
+    statusTransaction['baa8ff37-468f-45cb-bccc-fd34aae4b8ac'] = 'Done'
+    statusTransaction['baa8ff37-468f-455b-b5c5-fc34aae4b8ac'] = 'Cancelled'
+
+    //created
+    colorTransaction['c7999dce-19b7-4bfd-84cc-d2f0845a3d86'] = '#2793f2'
+    colorTransaction['d2f95bbe-159b-4447-9e07-33925e04c5e9'] = '#2793f2'
+    colorTransaction['59cfbb65-efff-4d25-aae1-b439efa62188'] = '#2793f2'
+
+    //biru muda kaya di logo
+    colorTransaction['b648ff73-468f-45cb-bbbc-fd3659e4b8ac'] = '#8dbae0'
+    colorTransaction['b648ff73-468f-45cb-babc-fd3459e4b8ac'] = '#8dbae0'
+    
+    //approved .. ttetep warna orange
+    colorTransaction['bbb8ff73-468f-45cb-babc-fd3444e4b8ac'] = '#f0ad4e'
+
+    //rejected kuning lemon
+    colorTransaction['bcc8ff73-468f-45cb-babc-fd34cce4b8ac'] = '#FFF44F'
+    colorTransaction['bcc8ff37-468f-45cb-bccc-fd34cce4b8ac'] = 'Transfered'
+    
+    //done
+    colorTransaction['baa8ff37-468f-45cb-bccc-fd34aae4b8ac'] = '#befabe'
+    colorTransaction['baa8ff37-468f-455b-b5c5-fc34aae4b8ac'] = '#DDDDDD'
+
+
+    $(document).ready(function(){
+        loadOrder();
+    });
+    
+    function loadOrder(){
+        $.ajax({
+            url: `/api/my-order/`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    let totalAll = 0;
+                    for (let i = 0; i < result.data.length; i++) {
+                        totalAll += result.data[i].data.length;
+                        for (let j = 0; j < result.data[i].data.length; j++) {
+                            let pData = null;
+                            let statusId = null;
+                            let link = '';
+                            let buttonCancel = '';
+                            if (result.data[i].type=="resort") {
+                                pData = result.data[i].data[j].resort;
+                                statusId = result.data[i].data[j].transaction_resort_status_id;
+                                link = 'checkout-resort';
+                                cancelLink = `/transaction-resort/${result.data[i].data[j].id}/cancel`
+                            }else if (result.data[i].type=="divecenter") {
+                                pData = result.data[i].data[j].divecenter;
+                                statusId = result.data[i].data[j].transaction_divecenter_status_id
+                                link = 'checkout-divecenter';
+                                cancelLink = `/transaction-divecenter/${result.data[i].data[j].id}/cancel`
+                            }else if (result.data[i].type=="liveaboard") {
+                                pData = result.data[i].data[j].liveaboard;
+                                statusId = result.data[i].data[j].transaction_liveaboard_status_id
+                                link = 'checkout-liveaboards';
+                                cancelLink = `/transaction-liveaboard/${result.data[i].data[j].id}/cancel`
+                            }
+
+                            let actionButton = `<a href="/my-order/${result.data[i].type}/my-order-detail/${result.data[i].data[j].id}" class="list-group-item flex-grow-1 text-center"><i class="fas fa-eye fa-sm mr-2"></i>View Detail</a>`;
+
+                            if (statusId == "c7999dce-19b7-4bfd-84cc-d2f0845a3d86") {
+                                actionButton = `<a href="/${link}/${result.data[i].data[j].id}/${(result.data[i].type == 'liveaboard' ? 'room' : 'schedule')}" class="list-group-item flex-grow-1 text-center"><i class="fas fa-arrow-right fa-sm mr-2"></i>Chekout</a>`;
+                            }else if(statusId == "d2f95bbe-159b-4447-9e07-33925e04c5e9"){
+                                actionButton = `<a href="/${link}/${result.data[i].data[j].id}/extra" class="list-group-item flex-grow-1 text-center"><i class="fas fa-arrow-right fa-sm mr-2"></i>Chekout</a>`;
+                            }else if(statusId == "59cfbb65-efff-4d25-aae1-b439efa62188"){
+                                actionButton = `<a href="/${link}/${result.data[i].data[j].id}/guest" class="list-group-item flex-grow-1 text-center"><i class="fas fa-arrow-right fa-sm mr-2"></i>Chekout</a>`;
+                            }
+                            /*else if(statusId == "b648ff73-468f-45cb-bbbc-fd3659e4b8ac"){
+                                actionButton = ``;
+                            }*/
+                            if(
+                                statusId != 'bcc8ff73-468f-45cb-babc-fd34cce4b8ac' &&
+                                statusId != 'baa8ff37-468f-45cb-bccc-fd34aae4b8ac' &&
+                                statusId != 'baa8ff37-468f-455b-bccc-fd34cce4b8ac' &&
+                                statusId != 'baa8ff37-468f-455b-b5c5-fc34aae4b8ac' 
+                            ){
+                                buttonCancel = `<div class="dropdown">
+                                        <a class="list-group-item border-right-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#modalCancelBooking" data-toggle='modal' onClick="cancelOrder('${cancelLink}','${statusId}')">Cancel My Order</a>
+                                        </div>
+                                    </div>`;
+                            }else{
+                                buttonCancel = ``;
+                            }
+
+                            let brk = result.data[i].data[j].updated_at.split("T");
+                            let jm = brk[1].substr(0,8);
+                            let tgl = brk[0]+' '+jm;
+                            let dt = {};
+                            dt.type = result.data[i].type;
+                            dt.date = new Date(tgl);
+                            dt.data = `<div class="card rounded-0 mb-3 bg-white" >
+                                        <div class="row no-gutters">
+                                            <div class="col-md-4">
+                                                <div class="card-images h-100 p-2" style="background-image:url('${pData.photos[0].url}');">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                            <h5 class="m-0 mb-1">${pData.profile.name}</h5>
+                                            <ul class="list-inline list-inline-sm mb-4">
+                                                <li class="list-inline-item">${pData.profile.destination.name}, ${pData.profile.country.name}</li>
+                                                <li class="list-inline-item">${dateFormatMonth(result.data[i].data[j].createdAt)}</li>
+                                            </ul>
+                                            <h6 class="d-inline-block p-2 bg-light font-lg font-weight-normal mb-3 border">Booking number: <span class="font-weight-bold">${result.data[i].data[j].transaction_code}</span></h6>
+                                            <!--span >${tgl}</span-->
+                                            
+                                            <div class="list-group-custom list-group list-group-horizontal list-group-sm w-100">
+                                                <div class="dropdown">
+                                                    <!--<a class="list-group-item border-right-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                                    </a>-->
+                                                    ${buttonCancel}
+                                                </div>
+                                                <!--<div class="list-group-item bg-warning"><i class="fas fa-hourglass-start fa-sm mr-2"></i>In Confirmation</div>-->
+                                                <div class="list-group-item" style="background-color:${colorTransaction[statusId]}">${statusTransaction[statusId]}</div>
+                                                ${actionButton}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div></div>`;
+                            orderList.push(dt);                        
+                            
+                            
+                        }
+                        
+                        
+                        // const sortedList = orderList.sort((a, b) => b.date - a.date);
+                        // const sortedList = orderList.sort((a, b) => b.date - a.date);
+                        // console.log(sortedList);
+                        $('#totalOrder').text(totalAll);
+                    }
+                    filterType('');
+                    
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function cancelOrder(cancelLinkUpdated,statusId){
+        if (
+            statusId == 'c7999dce-19b7-4bfd-84cc-d2f0845a3d86' || //'Created'
+            statusId == 'd2f95bbe-159b-4447-9e07-33925e04c5e9' || //'Scheduled'
+            statusId == '59cfbb65-efff-4d25-aae1-b439efa62188' //'Extra data'
+        ) {
+            $(".cancel-info").hide();
+            $(".bank-info").hide();    
+        }else if(
+            statusId == 'b648ff73-468f-45cb-bbbc-fd3659e4b8ac' || //'Ordered'
+            statusId == 'b648ff73-468f-45cb-babc-fd3459e4b8ac' || //'Reserved'
+            statusId == 'bbb8ff73-468f-45cb-babc-fd3444e4b8ac' //'Approved'
+        ){
+            $(".cancel-info").show();
+            $(".bank-info").hide();
+        }else if(statusId == 'bcc8ff37-468f-45cb-bccc-fd34cce4b8ac') //'Transfered'
+        {
+            $(".cancel-info").show();
+            $(".bank-info").show();
+        }
+        cancelLink = cancelLinkUpdated;
+    }
+
+    function confirmCancel(){
+        let cancelReason = [];
+        $(".cancel-reason").each(function(){
+            if ($(this).is(':checked')) {
+                cancelReason.push($(this).val());
+            }
+        });
+
+        if ($("#other-cancel-reason").val() != '') {
+            cancelReason.push($("#other-cancel-reason").val());
+        }
+
+        let inputBank = $('#inputBank').val()
+        let inputAccountNumber = $('#inputAccountNumber').val()
+        let inputAccountName = $('#inputAccountName').val()
+        
+        Swal.fire({
+            title: "Cancel this order?",
+            text: "By clicking yes, you agree all terms and condition on canceling an order.",
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((respond) => {
+            if (respond.value) {
+                $.ajax({
+                    url: `/api${cancelLink}`,
+                    method: `PUT`,
+                    data:{
+                        cancelation_data:{
+                            cancel_reason:cancelReason,
+                            bank_name: inputBank,
+                            bank_account_number: inputAccountNumber,
+                            bank_account_name: inputAccountName
+                        }
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            window.location.reload();
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function filterType(type){
+
+        orderShow = []
+        idxShow = 0
+        $('.paging-section .btn-prev').prop('disabled',false);
+        $('.paging-section .btn-next').prop('disabled',false);
+        $(`.jml`).text('');
+
+        if (type != '') {
+            $(".btn-filter").removeClass("btn-filter-active");
+            $(`#btn-${type}`).addClass("btn-filter-active");
+            for (let idx = 0; idx < orderList.length; idx++) {
+                if (orderList[idx].type == type) {
+                    orderShow.push(orderList[idx]);
+                }
+            }
+            // $(`#btn-all .jml`).text(' - '+orderShow.length);
+
+        }else{
+            $(".btn-filter").removeClass("btn-filter-active");
+            $("#btn-all").addClass("btn-filter-active");
+            orderShow = orderList;
+            // $(`#btn-${type} .jml`).text(' - '+orderShow.length);
+        }
+        $('#orderList').html('');
+
+        orderShow.sort((a, b) => new Date(b.date) - new Date(a.date) );
+        
+        orderShowAppend();
+    }
+
+    function orderShowAppend(){
+
+        if (idxShow == 0) {
+            $('.paging-section .btn-prev').prop('disabled',true);
+        }
+        let limitShow = parseInt(idxShow)+10;
+        limitShow = limitShow > orderShow.length ? orderShow.length : limitShow;
+        $('.paging-section .length-record').text(orderShow.length)
+        $('.paging-section .idx-start').text(parseInt(idxShow)+1 )
+        $('.paging-section .idx-end').text(limitShow)
+        $('#orderList').html('');
+        for (let idx = idxShow; idx < limitShow; idx++) {
+            $('#orderList').append(orderShow[idx].data);
+        }
+    }
+
+    function prevShowAppend(){
+        if (idxShow > 0) {
+            idxShow -= 10;
+        }
+
+        $('.paging-section .btn-next').prop('disabled',false);
+        if (idxShow == 0) {
+            $('.paging-section .btn-prev').prop('disabled',true);
+        }
+        orderShowAppend()
+    }
+
+    function nextShowAppend(){
+        idxShow = parseInt(idxShow) + 10;
+        console.log(idxShow)
+
+        $('.paging-section .btn-prev').prop('disabled',false);
+        if (parseInt(idxShow) + 10 >= orderShow.length ) {
+            $('.paging-section .btn-next').prop('disabled',true);
+        }
+        orderShowAppend()
+    }
+
+</script>

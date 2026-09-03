@@ -1,0 +1,1469 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<!-- BANNER -->
+<div id="imageBackground" class="destination-banner have-curtain">
+    <div class="destination-banner--inner">
+        <div class="container">
+            <div class="destination-banner--text">
+                <div class="welcome-title--text mb-3">
+                    <h5 id="textLocation" class="color-accent"></h5>
+                    <h1 id="liveaboardName"></h1>
+                    <h5 id="textAbout" class="font-weight-normal"></h5>
+                </div>
+                
+                <div class="d-block mb-4">
+                    <small>Packages from</small><br>
+                    <h2 class="mb-0"><span class="font-size-sm">IDR</span> <span id="starterPricePackage"></span> <span class="font-size-sm font-weight-normal">/person</span></h2>
+                </div>
+                <div class="d-flex align-items-start">
+                    <a href="#package" class="btn btn-light mr-2 mb-3">View Dates & Prices</a>
+                    <a href="#lightgallery" class="btn btn-outline-light">View Pictures</a>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROMISES -->
+<div class="d-block bg-secondary">
+    <div class="container">
+        <div class="promise d-flex justify-content-center">
+            <div class="mx-2">
+                <div class="d-flex align-items-center">
+                    <img class="promise-image mr-1" src="/images/selected-icon/selected-wrecks.png" alt="">
+                    <div class="mb-1 font-weight-bold">Handcrafted Experiences</div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="d-flex align-items-center">
+                    <img class="promise-image mr-1" src="/images/selected-icon/selected-rays.png" alt="">
+                    <div class="mb-1 font-weight-bold">200+ Top Resort</div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="d-flex align-items-center">
+                    <img class="promise-image mr-1" src="/images/selected-icon/selected-reefs-walls.png" alt="">
+                    <div class="mb-1 font-weight-bold">Secure Booking</div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="d-flex align-items-center">
+                    <img class="promise-image mr-1" src="/images/selected-icon/selected-wrecks.png" alt="">
+                    <div class="mb-1 font-weight-bold">Greate Packages</div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="d-flex align-items-center">
+                    <img class="promise-image mr-1" src="/images/selected-icon/selected-rays.png" alt="">
+                    <div class="mb-1 font-weight-bold">Best Price</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TOP -->
+<div class="section section-xs d-block bg-white">
+    <div class="container pt-4 pb-4 text-black">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 mb-lg-0 mb-md-0 mb-3">
+                <h4 class="d-block mb-2 font-weight-bold">Hightlight</h4>
+                <ul class="list-base list-base-md" id="listHighlight">
+                    
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-lg-0 mb-md-0 mb-3">
+                <div class="d-block mb-2 font-weight-bold">Ideal For</div>
+                <div class="ideal-for-wrapper" id="listIdeal">
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- GALLERY -->
+<div id="lightgallery" class="gallery-wrap">
+    <!-- <div data-src="/images/diving-bali.jpeg" class="gallery-item" style="background-image: url('/images/diving-bali.jpeg');"><div>View Photos<img src="/images/diving-bali.jpeg"/></div></div>
+    <div data-src="/images/sailing-2.jpeg" class="gallery-item" style="background-image: url('/images/sailing-2.jpeg');"><div>View Photos<img src="/images/sailing-2.jpeg"/></div></div>
+    <div data-src="/images/resort-2.jpeg"  class="gallery-item" style="background-image: url('/images/liveaboard-img-2.jpg');"><div>View Photos<img src="/images/resort-2.jpeg"/></div></div>
+    <div data-src="/images/diving-raja-ampat.jpg" class="gallery-item" style="background-image: url('/images/diving-raja-ampat.jpg');"><div>View Photos<img src="/images/diving-raja-ampat.jpg"/></div></div>
+    <div data-src="/images/sailing-1.jpeg"  class="gallery-item" style="background-image: url('/images/sailing-1.jpeg');"><div>View Photos<img src="/images/sailing-1.jpeg"/></div></div>
+    <div data-src="/images/diving-raja-ampat.jpg" class="gallery-item" style="background-image: url('/images/diving-raja-ampat.jpg');"><div>View Photos<img src="/images/diving-raja-ampat.jpg"/></div></div> -->
+</div>
+<!-- Menu -->
+<div class="position-sticky sticky-navbarr" style="z-index:992;top:53px;left:0;right:0;">
+    <nav id="navScrollSpy" class="navbar navbar-light bg-white shadow-sm navbar-custom">
+        <div class="container text-center">
+            <ul class="nav nav-pills mx-auto nav-h-mobile">
+                <li class="nav-item">
+                    <a class="nav-link" href="#quick">Quick&nbsp;Checklist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#package">Packages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#cabins">Cabins</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#deckPlan">Deck&nbsp;Plan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#divingServices">Diving&nbsp;Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#boatAmenities">Boat&nbsp;Amenities</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+    </nav>
+</div>
+<!-- Modal Cabin Details -->
+<div class="modal" id="modalCabinDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body" id="modalCabinDetailsBody">
+                
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-neutral" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Trip Detail -->
+<div class="modal" id="modalTripDetail" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body">
+                <div id="modalTripDetailBody"></div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <a href="checkout" type="button" class="d-none btn btn-primary">Cabin Price</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content -->
+<div class="section section-sm border-bottom">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-12">
+                 <!-- Quick Checklist -->
+                 <div id="quick" class="d-block p-4 mb-5 bg-light">
+                    <h5 class="panel-title d-block mb-4">Quick Checklist</h5>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Number of Cabins</h6>
+                        <h6 class="list-panel-content"><span class="count-cabin"></span> Rooms</h6>
+                    </div>
+                    <div class="list-panel d-none">
+                        <h6 class="list-panel-title">Official Dive Center Rating</h6>
+                        <h6 class="list-panel-content">5 Stars Dive Resort</h6>
+                    </div>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Language</h6>
+                        <h6 class="list-panel-content" id="languageList"></h6>
+                    </div>
+                    <div class="list-panel d-none">
+                        <h6 class="list-panel-title">Courses Offered</h6>
+                        <h6 class="list-panel-content">Discover Scuba Diving, Bubble Makers, Open water, Advanced Open Water, Rescue Diver, Dive Master, IDC, MDST, numerous PADI specialities</h6>
+                    </div>
+                </div>
+                <!-- Packages -->
+                <div  id="package" class="d-block pt-4 mb-5 ">
+                    <div class="section-title d-flex align-items-center justify-content-between mb-4">
+                        <div class="section-title--col">
+                            <h5 class="panel-title m-0 mb-0">
+                                Trip Packages
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <button class="btn btn-outline-primary mr-2 mr-md-4" type="button" id="button-prev" disabled><i class="fas fa-arrow-left fa-sm mr-1"></i>prev month</button>
+                        <select class="form-control rounded-0" id="month-selector">
+                            <!-- <option>Upcoming Departure</option> -->
+                        </select>
+                        <button class="btn btn-outline-primary ml-2 ml-md-4" type="button" id="button-next">next month<i class="fas fa-arrow-right fa-sm ml-1"></i></button>
+                    </div>
+                    <div class="d-block p-3 pb-2 bg-light">
+                        <div id="listPackage"></div>
+                        
+                    </div>
+                </div>
+                <!-- Cabins 
+                <div id="cabins" class="d-block pt-4 mb-5 pb-4 border-bottom">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h5 class="panel-title d-block">Cabins</h5>
+                    </div>
+                    <div class="d-block mb-3" id="listRoom">
+                        
+                    </div>
+                </div>-->
+                <!-- About -->
+                <div id="about" class="d-block pt-4 mb-5 pb-4 border-bottom">
+                    <h5 class="panel-title d-block mb-4">About <span id="liveaboardName2"></span></h5>
+                    
+                </div>
+                <!-- Diving Services -->
+                <div id="divingServices" class="d-none pt-4 mb-5 pb-4 border-bottom">
+                    <h5 class="panel-title d-block mb-4">Diving Services</h5>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <h6>For Your Safety</h6>
+                            <ul class="list-unstyled">
+                                <li>Fire Alarm</li>
+                                <li>Life Rafts</li>
+                                <li>Vhf Radio</li>
+                                <li>Fire Extinguisher</li>
+                                <li>Emergency Kit</li>
+                                <li>Nautilus Lifeline</li>
+                                <li>Life Jackets</li>
+                                <li>First Aid Kits</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h6>Diving Gear</h6>
+                            <ul class="list-unstyled">
+                                <li>Tanks with Int (Yoke) Valves</li>
+                                <li>Tanks with Din Valves</li>
+                                <li>Din/Int Adapters</li>
+                                <li>Rental Equipment ($)</li>
+                                <li>15L Tanks Avalaible</li>
+                                <li>Dive Computer</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h6>Language Spoken</h6>
+                            <ul class="list-unstyled">
+                                <li>English</li>
+                                <li>Indonesia</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h6>Diving Facilities</h6>
+                            <ul class="list-unstyled">
+                                <li>Battery Charging Station</li>
+                                <li>Fish Id And Diving Books</li>
+                                <li>Warm Waters Showers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Deck Plan -->
+                <!-- inittially d-block -->
+                <div id="deckPlan" class="pt-4 mb-5 pb-4 border-bottom d-none">
+                    <h5 class="panel-title d-block mb-4">Deck Plan</h5>
+                    <div>Insert deck plan of a boat</div>
+                </div>
+                <!-- Boat Amenities -->
+                <div id="boatAmenities" class="d-block pt-4 border-bottom">
+                    <h5 class="panel-title d-block mb-4">Boat Amenities</h5>
+                    <div class="row" id="aminities-pool">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROMOTION BANNER -->
+<!-- <div class="container">
+    <img src="/images/banner-3.jpg" alt="" class="w-100 d-block">
+</div> -->
+
+<div class="cta-checkout">
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="mr-2"><div class="btn btn-light"><span class="font-weight-bolder">0</span> Room</div></div>
+                    <div><div class="btn btn-light"><span class="font-weight-bolder">0</span> Package</div></div>
+                </div>
+                <div>
+                    <button id="toggleCheckout" type="button" class="btn btn-outline-primary">View</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="overlay-checkout" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+    const id = "<%= id %>"
+
+    var listPackage = []
+    const monthNamesShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+        "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    
+    //var listPackageChoose = []
+    //var listPackageChooseSummary = []
+
+    var highlight = [];
+    var ideal = [];
+    let language_id = [];
+    let tripDetail = [];
+    let roomDetail = [];
+    let amenitiesList = {};
+    let languageList = [];
+    let aminities = {}
+    let listPackageBulan = [];
+    let bulanTahun = '';
+    let bulanActive = ''
+    let tahunActive = '';
+
+    let today = new Date();
+    let bulanNow = today.getMonth();
+    let tahunNow = today.getFullYear();
+    let bulanSelector = [];
+    let bulanSelectorBookmark = 0;
+    /* for (let mIdx = 0; mIdx < 12; mIdx++) {
+        if(bulanNow + mIdx >= 12 && (bulanNow +mIdx)%12 == 0 ){
+            tahunNow++;
+        }
+        bulanSelector = ((bulanNow+mIdx+1)%12 == 0 ? 12 : (bulanNow+mIdx+1)%12);
+        $("#month-selector").append(`<option value="${bulanSelector.toString().padStart(2,'0')}-${tahunNow}">${monthNames[(bulanNow+mIdx)%12]} ${tahunNow}</option>`);
+    } */
+
+    var priceList = [];
+
+    $(document).ready(function(){
+        let today = new Date();
+        loadLiveaboardById(id);
+
+        $('#button-next').click(function(){
+            bulanSelectorBookmark++;
+            cekButtonLimit(bulanSelectorBookmark);
+            showPackageBulan(bulanSelectorBookmark);
+            $('#month-selector').val(bulanSelectorBookmark);
+            // loadLiveaboardChangeMonth(id, bulanTahun);
+            // bulanTahun = bulanActive.toString().padStart(2,'0')+'-'+tahunActive;
+            // loadLiveaboardById(id, bulanTahun);
+        });
+
+        $('#button-prev').click(function(){
+            /* let activeDate = new Date(`${tahunActive}-${bulanActive}-01`);
+            let nextMonth = new Date(activeDate.getFullYear(), activeDate.getMonth()-1, 1);
+            bulanActive = nextMonth.getMonth()+1;
+            tahunActive = nextMonth.getFullYear();
+            bulanTahun = bulanActive.toString().padStart(2,'0')+'-'+tahunActive;
+            cekButtonLimit();
+            showPackageBulan(bulanTahun); */
+            bulanSelectorBookmark--;
+            cekButtonLimit(bulanSelectorBookmark);
+            showPackageBulan(bulanSelectorBookmark);
+            $('#month-selector').val(bulanSelectorBookmark);
+            // loadLiveaboardChangeMonth(id, bulanTahun);
+            // bulanTahun = bulanActive.toString().padStart(2,'0')+'-'+tahunActive;
+            // loadLiveaboardById(id, bulanTahun);
+        });
+
+        $("#month-selector").change(function(){
+            /* bulanTahun = $(this).val();
+            breakDate = bulanTahun.split('-');
+            bulanActive = parseInt(breakDate[0]);
+            tahunActive = breakDate[1];
+            cekButtonLimit();
+            showPackageBulan(bulanTahun); */
+            bulanSelectorBookmark = $(this).val();
+            cekButtonLimit(bulanSelectorBookmark);
+            showPackageBulan(bulanSelectorBookmark);
+            // loadLiveaboardChangeMonth(id, bulanTahun);
+        });
+
+    });
+
+    function cekButtonLimit(bulanSelectorBookmark){
+        // alert(`${bulanActive.toString().padStart(2,'0')}-${tahunActive}`);
+        /* $('#month-selector').val(`${bulanActive.toString().padStart(2,'0')}-${tahunActive}`);
+        if (parseFloat(bulanActive)-2 < today.getMonth() && parseFloat(tahunActive) == today.getFullYear() ) {
+            $('#button-prev').prop('disabled',true);
+            $('#button-next').prop('disabled',false);
+        }else if(parseFloat(bulanActive)+1 > today.getMonth() && parseFloat(tahunActive) == (today.getFullYear()+1)){
+            $('#button-prev').prop('disabled',false);
+            $('#button-next').prop('disabled',true);
+        }else{
+            $('#button-prev').prop('disabled',false);
+            $('#button-next').prop('disabled',false);
+        } */
+        if(bulanSelectorBookmark == 0){
+            $('#button-prev').prop('disabled',true);
+            $('#button-next').prop('disabled',false);
+        }else if (bulanSelectorBookmark == (bulanSelector.length-1)) {
+            $('#button-prev').prop('disabled',false);
+            $('#button-next').prop('disabled',true);
+        }else{
+            $('#button-prev').prop('disabled',false);
+            $('#button-next').prop('disabled',false);
+        }
+    }
+
+    function loadLiveaboardById(id){
+        $("#listPackage").html('');
+        $.ajax({
+            url: `/api/liveaboard/${id}?schedule=${bulanTahun}`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if(result.success){
+                    // var detailLocation = `${result.data.profile.sub_destination.name}, ${result.data.profile.destination.name} - ${result.data.profile.country.name}`
+
+                    // $('#highlightLoader').addClass('hideImportant');
+                    // $('#textLocation').text(`${result.data.profile.destination.name} - ${result.data.profile.sub_destination.name}`)
+                    // $('#divecenterName, #divecenterName2').text(`${result.data.profile.name}`)
+                    // $('#textAbout').text(`${result.data.profile.introduction}`)
+                    // $('#about').append(`<span class="font-serif">${result.data.profile.about}</span>`)
+
+                    //for get Ideal function ==important==
+                    ideal = result.data.profile.ideal;
+                    language_id = result.data.profile.language;
+                    aminities = result.data.amenities;
+                    
+
+                    $('#imageBackground').css("background-image", `url('${result.data.photos[0].url}')`);
+                    $('#textLocation').text(`${result.data.profile.destination.name} - ${result.data.profile.sub_destination.name}`)
+                    $('#liveaboardName, #liveaboardName2').text(`${result.data.profile.name}`)
+                    $('#textAbout').html(`${result.data.profile.introduction}`);
+                    $('#about').append(`<span class="font-serif">${result.data.profile.about}</span>`)
+
+                    highlight = result.data.highlight;
+                    for(var i = 0; i < highlight.length; i++){
+                        $('#listHighlight').append(`
+                            <li>${highlight[i].highlight}</li>
+                        `);
+                    }
+
+                    for(var i = 0; i < result.data.photos.length; i++){
+                        $('#lightgallery').append(`
+                            <div data-src="${result.data.photos[i].url}" class="gallery-item" style="background-image: url('${result.data.photos[i].url}');"><div>View Picture<img src="${result.data.photos[i].url}"/></div></div>
+                        `)
+                    }
+
+                        $('#lightgallery').lightGallery({
+                            selector: '.gallery-item',
+                            download: false,
+                            thumbnail: true
+                        });
+                    
+
+                        listPackage = result.data.packages;
+                        let pricePackage = ``;
+                        let harga = '';
+                        for(var i = 0; i < listPackage.length; i++){
+                            tripDetail[i] = [];
+
+                            let hargaPackage = listPackage[i].price.price;
+                            let packagePrice = 0;
+                            let roomLOB = listPackage[i].room_liveaboard;
+                            let durasi = listPackage[i].info.duration;
+                            for (let z = 0; z < roomLOB.length; z++) {
+                                pPrice = roomLOB[z].price;
+                                //console.log('tt',pPrice);
+                                if(roomLOB[z].discount != "" && roomLOB[z].discount != "0" && roomLOB[z].discount != 0 && roomLOB[z].discount != null && roomLOB[z].discount != "NaN"){    
+                                    pPrice = roomLOB[z].discount;
+                                }
+                                if (pricePackage == 0) {
+                                    pricePackage = pPrice;
+                                }else if (parseFloat(pricePackage) > parseFloat(pPrice) && parseFloat(pPrice) != 0) {
+                                    pricePackage = pPrice;
+                                }                                
+                            }
+                            console.log(formatRupiah(pricePackage));
+
+                            // priceList.push(hargaPackage);
+                            /* if(listPackage[i].price.discount != "0" && listPackage[i].price.discount != "" && listPackage[i].price.discount != null && listPackage[i].price.discount != 'NaN' && typeof listPackage[i].price.discount !== 'undefined'){
+                                pricePackage = `<h5 class="d-none m-0 normal-price discounted" class="">IDR ${formatRupiah(hargaPackage)}</h5>
+                                                            <h4 class="m-0 discount-price">IDR ${formatRupiah(packagePrice)}</h4>`
+                                priceList.push( listPackage[i].price.discount);
+                                harga=listPackage[i].price.discount;
+                            }else{
+                                pricePackage = `<h4 class="m-0 normal-price">IDR ${formatRupiah(hargaPackage)}</h4>`
+                                harga=listPackage[i].hargaPackage;
+                            } */
+                            let priceShow = `start from <h4 class="m-0 normal-price">IDR ${formatRupiah(pricePackage)}</h4>`
+                            priceList.push(pricePackage)
+
+                            let sortedDate = [];
+                            for(var x = 0; x < listPackage[i].schedules.length; x++){
+                                if (listPackage[i].schedules[x].schedule_status.name == "Open" && listPackage[i].schedules[x].schedule_status.active) {
+                                    let tgl =listPackage[i].schedules[x].schedule_date.split('-');
+                                    let schDate = new Date(reverseDate(listPackage[i].schedules[x].schedule_date));
+                                    let dateEnd = new Date(tgl.reverse().join('-'))
+                                    dateEnd.setDate(dateEnd.getDate()+ parseInt(durasi.day))
+                                    // console.log('-','+'+durasi.day, dateEnd);
+                                    let mo = dateEnd.getMonth()+1;
+                                    let tglEnd = dateEnd.getFullYear()+'-'+mo.toString().padStart(2,'0')+'-'+dateEnd.getDate().toString().padStart(2,0)
+                                    if(schDate.getTime() >= today.getTime() ){
+                                        sortedDate.push({
+                                            date: tgl.join('-'),
+                                            date_end: tglEnd ,
+                                            data: listPackage[i].schedules[x]
+                                        });
+                                    }
+                                }
+                            }
+
+                            sortedDate = sortedDate.sort(function(a,b){
+                                return new Date(a.date) - new Date(b.date);
+                            });
+
+                            // console.log('sd',sortedDate)
+                            
+                            for(var x = 0; x < sortedDate.length; x++){
+                                let dataS = sortedDate[x].data;
+                                let tgl = dataS.schedule_date.split('-');
+                                let inTgl = new Date(sortedDate[x].date) 
+                                let schDate = new Date(reverseDate(dataS.schedule_date));
+                                if(schDate.getTime() >= today.getTime() ){
+                                    if (typeof listPackageBulan[tgl[1]+'-'+tgl[2]] === 'undefined') {
+                                        listPackageBulan[tgl[1]+'-'+tgl[2]] = '';
+                                        // console.log(tgl[1]+'-'+tgl[2]);
+                                    }
+                                    if (bulanSelector.includes(tgl[2]+'-'+tgl[1]) == false) {
+                                        bulanSelector.push(tgl[2]+'-'+tgl[1]);
+                                    }
+
+                                    let tStart = sortedDate[x].date.split('-')
+                                    let tEnd = sortedDate[x].date_end.split('-')
+                                    listPackageBulan[tgl[1]+'-'+tgl[2]] += `<div class="card border-0 shadow-sm rounded-0 mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between lob-package-1">
+                                                    <div class="d-flex">
+                                                        <div style='max-height:90px' class=" d-flex flex-column align-items-center flex-shrink-0 text-center">
+                                                            <h3 class="m-0">${tStart[2]}</h3>
+                                                            <h6 style='font-size:0.9em' class="m-0">${monthNamesShort[tStart[1]-1]}<br/>${tStart[0]}</h6>
+                                                        </div>
+                                                        <div style='max-height:90px' class="d-flex flex-column align-items-center flex-shrink-0 text-center">
+                                                            <h4 class="m-0">-</h4>
+                                                            <h6 class="m-0"></h6>
+                                                            <h6 class="m-0"></h6>
+                                                        </div>
+                                                        <div style='max-height:90px' class="d-flex flex-column align-items-center flex-shrink-0 text-center">
+                                                            <h3 class="m-0">${tEnd[2]}</h3>
+                                                            <h6 style='font-size:0.9em' class="m-0">${monthNamesShort[tEnd[1]-1]}</h6>
+                                                            <h6 style='font-size:0.9em' class="m-0">${tEnd[0]}</h6>
+                                                        </div>
+                                                        <div class="ml-3">
+                                                            <h5 class="m-0">${listPackage[i].info.name}</h5>
+                                                            <div class="d-flex my-2">
+                                                                <button type="button" class="btn btn-light btn-sm" onClick="getTripDetail(${i},${x})" data-toggle="modal" data-target="#modalTripDetail"><i class="fas fa-eye fa-sm mr-2"></i>View trip detail</button>
+                                                                <!-- <button type="button" class="btn btn-outline-dark btn-sm ml-2"><i class="fas fa-suitcase fa-sm mr-2"></i>What's included</button> -->
+                                                            </div>
+                                                            <!-- <div class="d-block mt-2">
+                                                                <p class="text-sm mb-0">Escape for a weekend of diving and relaxation on Komodo</p>
+                                                                <small>at ${result.data.profile.destination.name} - ${result.data.profile.destination.country}</small>
+                                                            </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex ml-0 ml-md-3 flex-shrink-0 space-between-mbl mt-2 mt-md-0">
+                                                        <div class="text-md">
+                                                            <div class="d-block">${listPackage[i].info.duration.night} night ${listPackage[i].info.duration.day} days</div>
+                                                            <div class="d-block">${listPackage[i].info.dive_total} dives</div>
+                                                        </div>
+                                                        <div class="text-right flex-shrink-0 ml-4">
+                                                            <div class="d-flex flex-column">
+                                                                ${priceShow}
+                                                            </div>
+                                                            <!-- <span class="text-sm text-muted">per guest</span> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-end pt-3 mt-3 border-top">
+                                                    <!--<button class="btn btn-link mr-2 btn-sm btn-link-muted"><i class="fas fa-flag fa-sm mr-2"></i>Report this package</button>-->
+                                                    <a onClick="checkOutLiveaboard('${listPackage[i].id}','${listPackage[i].info.name}','${harga}','${listPackage[i].schedules[x].schedule_date}', '${listPackage[i].schedules[x].id}','${listPackage[i].info.duration.day}')" class="btn btn-primary btn-lg">Select Cabin</a>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                                }
+
+                                //=============================trip detail===================================
+                            
+                                let highlight_package_list = '';
+                                for (let h_idx = 0; h_idx < listPackage[i].highlight.length; h_idx++) {
+                                    highlight_package_list += `
+                                        <li>${listPackage[i].highlight[h_idx].text}</li>`;
+                                    
+                                }
+
+                                let itenary_list = '';
+                                for (let h_idx = 0; h_idx < listPackage[i].itenary.length; h_idx++) {
+                                    let tg = inTgl.getDate()+' '+monthNames[inTgl.getMonth()]+' '+inTgl.getFullYear();
+                                    // console.log('iT',inTgl.getFullYear()+'-'+monthNames[inTgl.getMonth()]+'-'+inTgl.getDate())
+                                    itenary_list += `
+                                        <div class="itenary-listing--item">
+                                            <div class="itenary-wrapper">
+                                                <div class="itenary-title font-weight-bold">${tg} (Day ${h_idx+1}) <i class="fas fa-angle-down ml-2 active"></i></div>
+                                                <div class="itenary-content active">
+                                                    <ul class="list-base">
+                                                        <li>${listPackage[i].itenary[h_idx].text}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                    inTgl.setDate(inTgl.getDate() + 1)
+                                    
+                                }
+
+                                let how_to = listPackage[i].info.how_to;
+                                let detail_info = '';
+                                if(typeof listPackage[i].detail_information !== 'undefined'){
+                                    detail_info = `<div class="departure-information--item">
+                                            <h4>Departure</h4>
+                                            <ul>
+                                                <li><i class="fas fa-calendar mr-2 fas-fix"></i>${detail_info.departure.date}</li>
+                                                <li><i class="fas fa-anchor mr-2 fas-fix"></i>${detail_info.departure.location}</li>
+                                                <li><i class="fas fa-clock mr-2 fas-fix"></i>${detail_info.departure.time}</li>
+                                                <li><i class="fas fa-plane mr-2 fas-fix"></i>${detail_info.departure.airport}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="departure-information--item">
+                                            <h4>Return</h4>
+                                            <ul>
+                                                <li><i class="fas fa-calendar mr-2 fas-fix"></i>${detail_info.return.date}</li>
+                                                <li><i class="fas fa-anchor mr-2 fas-fix"></i>${detail_info.return.location}</li>
+                                                <li><i class="fas fa-clock mr-2 fas-fix"></i>${detail_info.return.time}</li>
+                                                <li><i class="fas fa-plane mr-2 fas-fix"></i>${detail_info.return.airport}</li>
+                                            </ul>
+                                        </div>`;
+                                }else{
+                                    detail_info = `<div class="d-none departure-information--item">
+                                            <h4>Departure</h4>
+                                            <ul>
+                                                <li><i class="fas fa-calendar mr-2 fas-fix"></i>-</li>
+                                                <li><i class="fas fa-anchor mr-2 fas-fix"></i>-</li>
+                                                <li><i class="fas fa-clock mr-2 fas-fix"></i>-</li>
+                                                <li><i class="fas fa-plane mr-2 fas-fix"></i>-</li>
+                                            </ul>
+                                        </div>
+                                        <div class="d-none departure-information--item">
+                                            <h4>Return</h4>
+                                            <ul>
+                                                <li><i class="fas fa-calendar mr-2 fas-fix"></i>-</li>
+                                                <li><i class="fas fa-anchor mr-2 fas-fix"></i>-</li>
+                                                <li><i class="fas fa-clock mr-2 fas-fix"></i>-</li>
+                                                <li><i class="fas fa-plane mr-2 fas-fix"></i>-</li>
+                                            </ul>
+                                        </div>`;
+                                }
+
+                                tripDetail[i][x] = `<div class="d-block mb-3">
+                                        <div class="text-muted">${listPackage[i].info.name}</div>
+                                        <h4 class="flex-shrink-0">${result.data.profile.name} (${result.data.profile.destination.name} - ${result.data.profile.sub_destination.name})</h4>
+                                    </div>
+                                    <div class="d-block mt-2">
+                                    <div class="d-block p-3 bg-lighter mb-4">
+                                        <div class="departure-information">
+                                            ${detail_info}
+                                        </div>
+                                    </div>
+                                    <div class="d-block mb-4 pb-4 border-bottom">
+                                        <h5>Itenary Highlights</h5>
+                                        <ul class="list-base">
+                                            ${highlight_package_list}
+                                        </ul>
+                                    </div>
+                                    <!-- Itenary description -->
+                                    <div class="d-block mb-4">
+                                        <h5>Itenary Description</h5>
+                                        <div class="itenary-listing">
+                                            ${itenary_list}
+                                        </div>
+                                    </div>
+                                    <!-- How to get there -->
+                                    <div class="accordion-wrapper">
+                                        <div class="accordion-title">
+                                            <h5>Trip's Highlight</h5>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="d-block mb-3">
+                                                <h6>The begining of your trip</h6>
+                                                <ul class="list-base">
+                                                    ${how_to.begining}
+                                                </ul>
+                                            </div>
+                                            <div class="d-block mb-3">
+                                                <h6>During your trip</h6>
+                                                <ul class="list-base">
+                                                    ${how_to.during}
+                                                </ul>
+                                            </div>
+                                            <div class="d-block mb-3">
+                                                <h6>The end of your trip</h6>
+                                                <ul class="list-base">
+                                                    ${how_to.trip}
+                                                </ul>
+                                            </div>
+                                            <div class="d-block mb-3">
+                                                <h6>Other info</h6>
+                                                <ul class="list-base">
+                                                    <li>Guests are encouraged to overnight one night prior to boarding the Raja Ampat Aggressor</li>
+                                                    <li>Guests who are staying at a local hotel in the vicinity of where the yacht departs from, will be picked up from the local hotel at 12 pm and transferred to the yacht</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- What's included -->
+                                    <div class="accordion-wrapper" hidden>
+                                        <div class="accordion-title">
+                                            <h5>What's Included</h5>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <ul class="list-base">
+                                                <li>Free DAN dive accident insurance (if trip value > USD 1000 per person)</li>
+                                                <li>Transfer from/to the airport (round-trip, only on boat arrival & departure days)</li>
+                                                <li>Dive guides</li>
+                                                <li>Night dive</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- What's not included -->
+                                    <div class="accordion-wrapper" hidden>
+                                        <div class="accordion-title">
+                                            <h5>What's Not Included</h5>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <ul class="list-base">
+                                                <li>None</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Good to know -->
+                                    <div class="accordion-wrapper">
+                                        <div class="accordion-title">
+                                            <h5>Good to Know</h5>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <ul class="list-base">
+                                                ${how_to.gtk}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Payment & cancellation terms-->
+                                    <!-- <div class="accordion-wrapper">
+                                        <div class="accordion-title">
+                                            <h5>Payment & Cancellation Terms</h5>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <p class="font-weight-bolder">Payment Schedule</p>
+                                            <ul class="list-base">
+                                                <li>48 hours after booking confirmation: 50% (downpayment)</li>
+                                                <li>120 days before trip start: 100% (balance)</li>
+                                            </ul>
+                                            <br>
+                                            <p class="font-weight-bolder">Cancellation Fees</p>
+                                            <ul class="list-base">
+                                                <li>Free cancellation for 48h after confirmation (except for last minute bookings)</li>
+                                                <li>20% of the total booking amount will be charged if you cancel more than 120 days prior to arrival</li>
+                                                <li>40% will be charged if you cancel between 120 and 91 days prior to arrival</li>
+                                                <li>100% will be charged if you cancel less than 91 days prior to arrival</li>
+                                            </ul>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                `
+                            }
+                            
+                            bulanSelector.sort();
+                            $.each(bulanSelector,function(bs_idx, v_idx) {
+                                let breakData = v_idx.split('-');
+                                $("#month-selector").append(`<option value="${bs_idx}">${monthNames[parseInt(breakData[1])-1]} ${breakData[0]}</option>`);
+                            });
+                            showPackageBulan(0);
+                        }
+
+                        let oRoom = result.data.rooms;
+                        $('.count-cabin').html(oRoom.length);
+                        let listRoom = '';
+                        for (let i = 0; i < oRoom.length; i++) {
+                            let listPhotos = '';
+                            for (let lp_idx = 0; lp_idx < oRoom[i].photos.length; lp_idx++) {
+                                /* listPhotos += `<div class="glide__slide--photos">
+                                                <img data-lazy="${oRoom[i].photos[lp_idx].url}">
+                                            </div>`; */
+                                listPhotos += `<div class="glide__slide--photos" style="background-image: url('${oRoom[i].photos[lp_idx].url}');"></div>`
+                            }
+
+                            let roomAmenity = '';
+                            for (let ra_idx = 0; ra_idx < oRoom[i].info.room_aminities.length; ra_idx++) {
+                                roomAmenity += `<div class="col-md-4 mb-2 amenities-item">
+                                                <i class="far fa-check-square mr-2"></i><span class="ra-${oRoom[i].info.room_aminities[ra_idx]}"></span>
+                                            </div>
+                                            `;
+                            }
+
+                            listRoom += `<div class="card rounded-0 shadow-sm border-0">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <div class="d-block">
+                                            <span class="badge-photos badge badge-dark badge-pill rounded">${oRoom[i].photos.length} Photos</span>
+                                            <div class="slick">
+                                                ${listPhotos}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <h5>${oRoom[i].info.name}</h5>
+                                                    <div class="d-block py-1">
+                                                        <div class="d-block mb-2 text-sm">
+                                                            <i class="fas fa-user fa-sm mr-2"></i>${oRoom[i].rules.max_person} people max
+                                                        </div>
+                                                        <div class="d-block mb-2 text-sm">
+                                                            <i class="fas fa-bed fa-sm mr-2"></i>${oRoom[i].info.room_option[0].data.name}
+                                                        </div>
+                                                        <div class="d-block mb-2 text-sm">
+                                                            <i class="fas fa-arrows-alt fa-sm mr-2"></i>Room size</i>${oRoom[i].info.room_size.length} x ${oRoom[i].info.room_size.width}
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <button type="button" class="btn btn-light btn-sm" onClick="getRoomDetail(${i})" data-toggle="modal" data-target="#modalCabinDetails"><i class="far fa-eye mr-2"></i>View Cabin Details</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <p class="m-0 font-size-sm">${oRoom[i].info.description}</p>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                            
+                            roomDetail[i] = `<div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4>${oRoom[i].info.name}</h4>
+                                    <h6 class="text-muted">Cabin Details</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        ${oRoom[i].info.description}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <h6 class="mb-3">Cabin Info</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="list-panel border-bottom mb-2">
+                                                    <div class="list-panel-title">Room size</div>
+                                                    <div class="list-panel-content">${oRoom[i].info.room_size.length} x ${oRoom[i].info.room_size.width}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="list-panel border-bottom mb-2">
+                                                    <div class="list-panel-title">Max. occupancy</div>
+                                                    <div class="list-panel-content">${oRoom[i].rules.max_person}  guest</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="list-panel border-bottom mb-2">
+                                                    <div class="list-panel-title">Beds</div>
+                                                    <div class="list-panel-content">${oRoom[i].info.room_option[0].data.name}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="list-panel border-bottom mb-2">
+                                                    <div class="list-panel-title">Private Bathroom</div>
+                                                    <div class="list-panel-content">${oRoom[i].info.room_option[1].data.name}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="list-panel border-bottom mb-2">
+                                                    <div class="list-panel-title">Air Conditioning</div>
+                                                    <div class="list-panel-content">${oRoom[i].info.room_option[2].data.name}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="list-panel border-bottom mb-2">
+                                                    <div class="list-panel-title">WiFi in Room</div>
+                                                    <div class="list-panel-content">${oRoom[i].info.room_option[3].data.name}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <h6 class="mb-3">Amenities</h6>
+                                        <div class="row">
+                                            ${roomAmenity}
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+
+                            // $("#listRoom").append(listRoom);
+                            
+                        }
+
+                        console.log(priceList)
+                        var starterPricePackage = Math.min(...priceList);
+                        $("#starterPricePackage").text(formatRupiah(starterPricePackage));
+                        getIdeal();
+                        getRoomAmenities();
+                        getLanguage();
+                        getActivity()
+                        getFacility()
+                        getSport()
+
+                }else{
+
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function showPackageBulan(bulanSelectorIndex){
+        // console.log('choose',v);
+        // console.log(listPackageBulan[bulanTahunChoose]);
+        if (typeof bulanSelector[bulanSelectorIndex] !== 'undefined') {
+            
+            let breakData = bulanSelector[bulanSelectorIndex].split('-');
+            let bulanTahunChoose = breakData[1]+'-'+breakData[0];
+            $('#listPackage').html('');
+            if (typeof listPackageBulan[bulanTahunChoose] === 'undefined') {
+                let tglBreak = bulanTahunChoose.split('-');
+                listPackageBulan[bulanTahunChoose] = `<div class="card border-0 shadow-sm rounded-0 mb-3">
+                                                <div class="card-body">
+                                                    <div class="d-flex lob-package-1">
+                                                        <div class="d-flex">
+                                                            <div class="d-flex flex-column align-items-center flex-shrink-0 text-center">
+                                                                <h6 class="m-0">${monthNamesShort[parseInt(tglBreak[0])]}</h6>
+                                                                <h6 class="m-0">${tglBreak[1]}</h6>
+                                                            </div>
+                                                            <div class="ml-3">
+                                                                <h5 class="m-0">We're Sorry</h5>
+                                                                <div class="d-flex my-2">
+                                                                    Full book / maintenance
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>`;
+            }
+            $('#listPackage').append(listPackageBulan[bulanTahunChoose]);
+        }
+    }
+    
+    function getIdeal(){
+        $.ajax({
+            url: `/api/ideal`,
+            method: `GET`,
+            success: function (result) {
+                //console.log(result)
+                if (result.success) {
+                    $('#idealLoader').addClass('hideImportant');
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                    for(var i = 0; i < result.data.length; i++){
+                        if(ideal.includes(result.data[i].id)){
+                            // console.log(result.data[i]);
+                            if(result.data[i].name == "Single"){
+                                $('#listIdeal').append(`
+                                    <div class="ideal-for-item">
+                                        <div class="ideal-for-item--inner">
+                                            <img src="/images/dive-illustration/icon-ideal-single.svg">
+                                            Single
+                                        </div>
+                                    </div>
+                                `)
+                            }
+
+                            if(result.data[i].name == "Couple"){
+                                $('#listIdeal').append(`
+                                    <div class="ideal-for-item">
+                                        <div class="ideal-for-item--inner">
+                                            <img src="/images/dive-illustration/icon-ideal-couple.svg">
+                                            Couple
+                                        </div>
+                                    </div>
+                                `)
+                            }
+
+                            if(result.data[i].name == "Family"){
+                                $('#listIdeal').append(`
+                                    <div class="ideal-for-item">
+                                        <div class="ideal-for-item--inner">
+                                            <img src="/images/dive-illustration/icon-ideal-family.svg">
+                                            Family
+                                        </div>
+                                    </div>
+                                `)
+                            }
+
+                            if(result.data[i].name == "Group"){
+                                $('#listIdeal').append(`
+                                    <div class="ideal-for-item">
+                                        <div class="ideal-for-item--inner">
+                                            <img src="/images/dive-illustration/icon-ideal-group.svg">
+                                            Group
+                                        </div>
+                                    </div>
+                                `)
+                            }
+                        }
+                    }
+
+                    
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getRoomAmenities(){
+        $.ajax({
+            url: `/api/room-aminity`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for (let i = 0; i < result.data.length; i++) {
+                        amenitiesList['ra-'+result.data[i].id] = result.data[i].name;
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getLanguage(){
+        $.ajax({
+            url: `/api/language`,
+            method: `GET`,
+            success: function (result) {
+                //console.log(result)
+                if (result.success) {
+                    // $('#idealLoader').addClass('hideImportant');
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                    for(var i = 0; i < result.data.length; i++){
+                        if(language_id.includes(result.data[i].id)){
+                            // console.log(result.data[i]);
+                            languageList.push(result.data[i].name);
+                        }
+                        $("#languageList").html(languageList.join(', '));
+                    }
+
+                    
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getActivity(){
+        $.ajax({
+            url: `/api/activity`,
+            method: `GET`,
+            success: function (result) {
+                //console.log(result)
+                if (result.success) {
+                    $('#facilitiesList').show();
+                    $('#facilitiesLoader').addClass('hideImportant');
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                    let act_list = ``;
+                    for(var i = 0; i < result.data.length; i++){
+                        if(aminities.activity.includes(result.data[i].id)){
+                            act_list +=`<li>${result.data[i].name}</li>`;
+                        }
+                    }
+
+                    if(result.data.length > 0){
+                        $("#aminities-pool").append(`<div class="col-md-4 mb-4">
+                            <h6>Activities</h6>
+                            <ul class="list-unstyled" >
+                                ${act_list}
+                            </ul>
+                        </div>`);
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getFacility(){
+        $.ajax({
+            url: `/api/facility`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                    let fac_list = ``;
+                    for(var i = 0; i < result.data.length; i++){
+                        if(aminities.facility.includes(result.data[i].id)){
+                            fac_list +=`<li>${result.data[i].name}</li>`;
+                        }
+                    }
+
+                    if(result.data.length > 0){
+                        $("#aminities-pool").append(`<div class="col-md-4 mb-4">
+                            <h6>Facilities</h6>
+                            <ul class="list-unstyled" >
+                                ${fac_list}
+                            </ul>
+                        </div>`);
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getSport(){
+        $.ajax({
+            url: `/api/sport`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    let sport_list = ``;
+                    for(var i = 0; i < result.data.length; i++){
+                        if(aminities.sport.includes(result.data[i].id)){
+                            sport_list +=`<li>${result.data[i].name}</li>`;
+                        }
+                    }
+                    
+                    if(result.data.length > 0){
+                        $("#aminities-pool").append(`<div class="col-md-4 mb-4">
+                            <h6>Sports & Watersports </h6>
+                            <ul class="list-unstyled">
+                                ${sport_list}
+                            </ul>
+                        </div>`);
+                    }
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    // function addPackage(packageId){
+    //     var newData = true
+    //     var packageName = ""
+    //     var packagePrice = ""
+
+    //     for(var i = 0; i < listPackage.length; i++){
+    //         if(listPackage[i].id == packageId){
+    //             packageName = listPackage[i].info.name
+    //             if(listPackage[i].price.discount != "" && listPackage[i].price.discount != "0" && listPackage[i].price.discount != 0){
+    //                 packagePrice = listPackage[i].price.discount
+    //             }else{
+    //                 packagePrice = listPackage[i].price.price
+    //             }
+    //         }
+    //     }
+
+    //     for(var i = 0; i < listPackageChoose.length; i++){
+    //         if(listPackageChoose[i].id == packageId){
+    //             newData = false
+    //         }
+    //     }
+
+    //     if(newData){
+    //         listPackageChoose.push({
+    //             id : packageId,
+    //             packageName : packageName,
+    //             guest : 1,
+    //             packagePrice : packagePrice
+    //         })
+    //     }
+
+    //     loadModalPackage(packageId)
+    // }
+
+    // function loadModalPackage(packageId){
+    //     $('#modalPackageGuest').empty()
+    //     var packageHtml = ""
+    //     for(var i = 0; i < listPackageChoose.length; i++){
+    //         if(listPackageChoose[i].id == packageId){
+    //             packageHtml = `
+    //                 <div class="explore-card--item">
+    //                     <div class="explore-card--content p-12 shadow-sm text-black no-hover-animate  bg-white">
+    //                         <div class="d-flex align-items-center justify-content-between mb-2">
+    //                             <h6 class="m-0">Guest</h6>
+    //                         </div>
+    //                         <p class="text-sm">IDR${listPackageChoose[i].packagePrice}/person</p>
+    //                         <div class="input-group">
+    //                                 <div class="input-group-prepend">
+    //                                     <button onClick="minPackageGuest('${packageId}')" class="btn btn-outline-primary" type="button" id="${packageId}-add">-</button>
+    //                                 </div>
+    //                                 <input id="text-${packageId}" type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="${listPackageChoose[i].guest}">
+    //                                 <div class="input-group-append">
+    //                                     <button onClick="plusPackageGuest('${packageId}')" class="btn btn-outline-primary" type="button" id="${packageId}-min">+</button>
+    //                                 </div>
+    //                             </div>
+    //                     </div>
+    //                 </div>
+    //             `
+    //         }
+    //     }
+
+    //     for(var i =0; i < listPackage.length; i++){
+    //         if(listPackage[i].id == packageId){
+    //             $('#modalPackageGuest').append(`
+    //                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    //                 <div class="modal-content rounded-0 border-0">
+    //                     <div class="modal-body">
+    //                         <div class="d-flex align-items-start justify-content-between flex-column mb-3">
+    //                             <h4 class="flex-shrink-0">Select&nbsp;Guest</h4>
+    //                             <h6 class="text-muted">${listPackage[i].info.name}</h6>
+    //                         </div>
+    //                         <div class="d-block mt-2">
+    //                             <div class="explore-card">
+    //                                 <div id="packageItem" class="explore-card--list explore-card--100">
+    //                                     ${packageHtml}
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                     <div class="modal-footer justify-content-end">
+    //                         <div>
+    //                             <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+    //                             <button onClick="addPackageToMyTrip('${packageId}')" type="button" class="btn btn-primary" data-dismiss="modal">Add to My Trip</a>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             `)
+    //         }
+    //     }
+    // }
+
+    // function minPackageGuest(packageId){
+    //     for(var i = 0; i < listPackageChoose.length; i++){
+    //         if(listPackageChoose[i].id == packageId){
+    //             if(listPackageChoose[i].guest > 1){
+    //                 listPackageChoose[i].guest--
+    //                 $(`#text-${packageId}`).val(listPackageChoose[i].guest)
+    //                 $(`#span-${packageId}`).text(listPackageChoose[i].guest)
+    //             }
+    //         }
+    //     }
+    // }
+
+    // function plusPackageGuest(packageId){
+    //     var maxPackage = "";
+        
+    //     for(var i = 0; i < listPackage.length; i++){
+    //         if(listPackage[i].id == packageId){
+    //             maxPackage = listPackage[i].info.dive_total
+    //         }
+    //     }
+
+    //     for(var i = 0; i < listPackageChoose.length; i++){
+    //         if(listPackageChoose[i].id == packageId){
+    //             if(listPackageChoose[i].guest < maxPackage){
+    //                 listPackageChoose[i].guest++
+    //                 $(`#text-${packageId}`).val(listPackageChoose[i].guest)
+    //                 $(`#span-${packageId}`).text(listPackageChoose[i].guest)
+    //             }else{
+    //                 alert("Max person in package")
+    //             }
+    //         }
+    //     }
+    // }
+
+    // function addPackageToMyTrip(packageId){
+    //     var isAvailable = false
+    //     for(var i = 0; i < listPackageChooseSummary.length; i++){
+    //         if(listPackageChooseSummary[i].id == packageId){
+    //             isAvailable = true
+    //             listPackageChooseSummary[i] = listPackageChoose[i]
+    //         }
+    //     }
+    //     if(!isAvailable){
+    //         for(var i = 0; i < listPackageChoose.length; i++){
+    //             if(listPackageChoose[i].id == packageId){
+    //                 listPackageChooseSummary.push(listPackageChoose[i])
+    //             }
+    //         }
+    //     }
+
+    //     loadMySummary()
+    // }
+
+    // function loadMySummary(){
+    //     $('#listSummary').empty()
+
+    //     for(var i = 0; i < listPackageChooseSummary.length; i++){
+    //         $('#listSummary').append(`
+    //             <div class="d-block mb-3">
+    //                 <div class="d-flex align-items-center justify-content-between">
+    //                     <div class="font-weight-bold">${listPackageChooseSummary[i].packageName}</div>
+    //                     <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#modalPackageGuest"><i class="fas fa-pen fa-sm mr-2"></i>Edit</button>
+    //                 </div>
+    //                 <div class="d-block">
+    //                     <div class="list-panel list-panel-sm border-bottom mt-2">
+    //                         <div class="list-panel-title">Guest</div>
+    //                         <div class="list-panel-content"><i class="far fa-user fa-sm mr-2"></i>x${listPackageChooseSummary[i].guest}</div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         `)
+    //     }
+    // }
+
+    function checkOutLiveaboard(package_id, packageName, packagePrice, package_date, schedule_id, day){
+        var dateSplit = package_date.split("-")
+     //   if(listPackageChooseSummary.length > 0){
+
+            var dataCabin
+            for(var i = 0; i < listPackage.length; i++){
+                if(listPackage[i].id == package_id){
+                    dataCabin = listPackage[i].room_liveaboard
+                }
+            }
+
+            $("#overlay-checkout").removeClass('d-none');
+
+            $.ajax({
+                url: `/api/transaction-liveaboard`,
+                method: `POST`,
+                data : {
+                    liveaboard_id : id,
+                    package_data : {
+                        package: [
+                            {
+                                id : package_id,
+                                packageName : packageName,
+                                packagePrice : packagePrice,
+                                dataCabin : dataCabin,
+                                guest: 0,
+                                day: day,
+                                package_date: dateSplit[2]+"-"+dateSplit[1]+"-"+dateSplit[0]
+                            }
+                        ]
+                    }
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        location.href = `/checkout-liveaboards/${result.data.id}/room`
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+
+                    if (xhr.responseJSON.message == 'Token is required') {
+                        $("#overlay-checkout").addClass('d-none');
+                        loginRequired();
+                    }
+                }
+            })
+        // }else{
+        //     // alert('You must choose room or package')
+        //     Swal.fire(
+        //         "First choose your room or package",
+        //         "Don't forget to also add guests to your trip!"
+        //     )
+        //}
+    }
+
+    //==============get trip detail=========================
+    function getTripDetail(i,x){
+        $("#modalTripDetailBody").html(tripDetail[i][x]) ;
+    }
+
+    function getRoomDetail(i){
+        $('#modalCabinDetailsBody').html(roomDetail[i]).promise().done(function(){
+            $("#modalCabinDetailsBody").find(".amenities-item").each(function(){
+                let amenities_id = $(this).find('span').attr('class');
+                $(this).find('span').html(amenitiesList[amenities_id]);
+            });
+
+        });
+    }
+
+    $("#modalTripDetailBody").on('click','.accordion-title',function(){
+        $(this).children('.accordion-title .fas').toggleClass('active');
+        $(this).parent().children('.accordion-content').toggleClass('active');
+    });
+</script>

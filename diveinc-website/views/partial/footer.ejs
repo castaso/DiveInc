@@ -1,0 +1,124 @@
+        <!-- Script here... -->
+        <!-- <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="/js/jquery-3.4.1.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <!-- SCRIPT JS -->
+        <script src="/js/script.js"></script>
+        <!-- TOOLTIP -->
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+        <!-- GLIDE JS (Banner Slider)-->
+        <script src="/js/glide.min.js"></script>
+        <script>
+            // var sliders = document.querySelectorAll('.glide-card');
+
+            // for (var i = 0; i < sliders.length; i++) {
+            //     var glide = new Glide(sliders[i], {
+            //         type: 'carousel',
+            //         startAt: 0,
+            //         //perView: 5,
+            //         gap: 0,
+            //         breakpoints: {
+            //             991: {
+            //             perView: 3
+            //             },
+            //             767: {
+            //             perView: 2
+            //             }
+            //         }
+            //     });
+                
+            //     glide.mount();
+            // }
+        </script>
+        <script>
+            // var sliders = document.querySelectorAll('.glide');
+
+            // for (var i = 0; i < sliders.length; i++) {
+            //     var glide = new Glide(sliders[i], {
+            //         type: 'carousel',
+            //         startAt: 0,
+            //         perView: 1,
+            //         gap: 0,
+            //         autoplay: 3000
+            //     });
+                
+            //     glide.mount();
+            // }
+        </script>
+        <script>
+            var sliders = document.querySelectorAll('.glide-no-animation');
+
+            for (var i = 0; i < sliders.length; i++) {
+                var glide = new Glide(sliders[i], {
+                    type: 'carousel',
+                    startAt: 0,
+                    perView: 1,
+                    gap: 0
+                });
+                
+                glide.mount();
+            }
+        </script>
+        <!-- LIGHTGALLERY -->
+        <script src="/js/lightgallery.min.js"></script>
+        <script src="/js/lg-thumbnail.min.js"></script>
+        <script src="/js/lg-fullscreen.min.js"></script>
+        <script type="text/javascript">
+            // $('#lightgallery').lightGallery({
+            //     selector: '.gallery-item',
+            //     thumbnail: true
+            // });
+        </script>
+        <!-- SMOOTHSCROLL -->
+        <script src="/js/smooth-scroll.min.js"></script>
+        <script>
+            var scroll = new SmoothScroll('a[href*="#"]', {
+                offset: 80,
+                speed: 500,
+	            speedAsDuration: true
+            });
+        </script>
+        <script>
+            $('#modalSearchGeneral').on('shown.bs.modal', function (e) {
+                $('#inputSearch').focus();
+            });
+            $('a[href$="#modalPackageDetails"]').on( "click", function() {
+                $('#modalPackageDetails').modal('show');
+            });
+        </script>
+        <!-- SLICK SLIDER -->
+        <script src="/js/slick.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.slick').slick({
+                    infinite: false
+                });
+                // $('.slick').on('lazyLoaded', function (e, slick, image, imageSource) { 
+                //     image.parent().css('background-image', 'url("' + imageSource + '")'); 
+                //     image.hide(); 
+                // });
+            });   
+        </script>
+        
+        <!-- SWEETALERT -->
+        <script src="/js/sweetalert2.min.js"></script>
+        
+        <!-- CHECKOUT TOGGLE -->
+        <script>
+            $('#toggleCheckout').click(function(){
+                $('#toggleCheckoutContent').addClass('active');
+            });
+            $('#closeToggleCheckout').click(function(){
+                $('#toggleCheckoutContent').removeClass('active');
+            });
+        </script>
+
+        <!-- LITY JS -->
+        <script src="/js/lity.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,269 @@
+<!-- RESORT RECOMMENDATION -->
+<div class="section-spacer"></div>
+<div class="d-block mb-2">
+    <div class="container">
+        <div class="section-title d-flex align-items-center justify-content-between mb-3">
+            <div class="section-title--col">
+                <h5 class="m-0 mb-0">
+                    Liveaboards Recommendations
+                </h5>
+            </div>
+            <div class="section-title--col ml-5">
+                <a href="search-liveaboards" class="btn btn-link pr-0 pl-0">
+                    See&nbsp;all&nbsp;liveaboards
+                </a>
+            </div>
+        </div>
+        <div class="explore-card" id="listLiveAboard">
+            
+        </div>
+        <div id="exploreLoaderLiveaboard" class="explore-card">
+            <div class="explore-card--list explore-card--with-text explore-card--25">
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="search-liveaboards" class="btn btn-outline-primary btn-block mb-4 btn-lg view-mobile-only">
+            See&nbsp;all&nbsp;liveaboards
+        </a>
+    </div>
+</div>
+
+<script>
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+
+    let today = new Date();
+
+    $(document).ready(function(){
+       loadLiveAboardPublish();
+    });
+
+    function loadLiveAboardPublish(){
+        $.ajax({
+            url: `/api/liveaboard/publish`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    // var dataLength = 3;
+                    // if(result.data.length < 3) dataLength = result.data.length
+                    var dataLength = result.data.length
+                    var cnt= ''
+                    for(var i = 0; i < dataLength; i++){
+                        var htmlPhotos = ``
+                        var dataPhotos = result.data[i].photos
+                        for(var j = 0; j < dataPhotos.length; j++){
+                            htmlPhotos += `
+                                <div class="glide__slide--photos"  style="background-image: url('${dataPhotos[j].url}');">
+                                   
+                                </div>
+                            `
+                        }
+
+                        var pricePackage = "0";
+                        var dataPackage = result.data[i].packages;
+                        let tgl_awal = '';
+                        let tgl_akhir = '';
+                        let schedules_list = [];
+                        
+                        for(var j = 0; j < dataPackage.length; j++){
+                            if (dataPackage[j].active && dataPackage[j].publish) {
+
+                                let rooms = dataPackage[j].room_liveaboard;
+
+                                if (rooms) {
+                                    for (let k = 0; k < rooms.length; k++) {
+                                        pricePackage = (pricePackage != 0 ? (rooms[k].price < pricePackage ? rooms[k].price : pricePackage) : rooms[k].price);
+                                        if(rooms[k].discount != "" && rooms[k].discount != "0" && rooms[k].discount != 0 && rooms[k].discount != "NaN"){
+                                            pricePackage = (pricePackage != 0 ? (rooms[k].discount < pricePackage ? rooms[k].discount : pricePackage) : rooms[k].discount);
+                                        }
+                                    }
+                                }
+                                
+                            }
+
+                            let schedules = dataPackage[j].schedules;
+                            if (schedules) {
+                                for (let s_idx = 0; s_idx < schedules.length; s_idx++) {
+                                    let t_ori = schedules[s_idx].schedule_date.split('-');
+                                    if (t_ori[2].length == 4) {
+                                        let tgl = t_ori[2]+'-'+t_ori[1]+'-'+t_ori[0];
+                                        tgl = new Date(tgl);
+                                        if (tgl >= today) {
+                                            schedules_list.push(tgl);   
+                                        }
+                                    }
+                                }
+                                
+                            }
+
+                            // let maxD=new Date(Math.max.apply(null,schedules_list));
+                            // let minD=new Date(Math.min.apply(null,schedules_list));
+
+                            // tgl_awal = minD.getDate()+' '+monthNames[minD.getMonth()]+' '+minD.getFullYear();
+                            // tgl_akhir = maxD.getDate()+' '+monthNames[maxD.getMonth()]+' '+maxD.getFullYear();
+
+                        }
+
+                        if (schedules_list.length) {
+                            // console.log(schedules_list);
+                            let maxD=new Date(Math.max.apply(null,schedules_list));
+                            let minD=new Date(Math.min.apply(null,schedules_list));
+                            
+                            tgl_awal = minD.getDate()+' '+monthNames[minD.getMonth()]+' '+minD.getFullYear();
+                            tgl_akhir = maxD.getDate()+' '+monthNames[maxD.getMonth()]+' '+maxD.getFullYear();
+                            // console.log(tgl_awal,' ',tgl_akhir);
+                        }
+
+                        // console.log(${dataPackage[0].schedules.schedule_date})
+
+                        let spClass = 'glide__slide';
+
+                        cnt += `<div class="explore-card--item ${j==0 ? spClass : ''}"  >
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="d-block">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded">${dataPhotos.length} Photos</span>
+                                        <div class="slick2">
+                                            ${htmlPhotos}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="explore-card--details">
+                                        <h4>${result.data[i].profile.name}</h4>
+                                    </div>
+                                    <div class="explore-card--footer">
+                                        <div class="footer--details w-100">
+                                            <div class="row mb-2">
+                                                <div class="col-md-12">
+                                                    <div class="details-price">
+                                                        <small>Packages from </small><br>
+                                                        <h5 class="mb-0"><span class="font-size-sm">IDR</span> ${formatRupiah(pricePackage)} <span class="font-size-sm font-weight-normal">/person</span></h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-block">
+                                                <small class="text-ellipsis"><i class="fas fa-map-marker-alt mr-1"></i>${result.data[i].profile.sub_destination.name}, ${result.data[i].profile.destination.name} - ${result.data[i].profile.country.name}</small>
+                                                <!--<small class="d-block"><i class="fas fa-swimmer fas-fix mr-1 text-secondary"></i>Including 12 dives</small>-->
+                                                <small class="d-block"><i class="fas fa-calendar fas-fix mr-1 text-secondary"></i>${tgl_awal} - ${tgl_akhir}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="explore-card--action">
+                                        <a href="/liveaboards/${result.data[i].id}" class="btn btn-primary mb-2 btn-block">View LiveAbord</a>
+                                    </div>
+                                </div>
+                            </div>`
+                    }
+                    
+                    $('#exploreLoaderLiveaboard').hide();
+
+                    if (dataLength > 4) {
+                        $('#listLiveAboard').append(`<div class="glide-card explore-card--list explore-card--with-text explore-card--100">
+                                <div class="glide__track" data-glide-el="track">
+                                    <ul class="glide__slides">
+                                        ${cnt}
+                                    </ul>
+                                </div>
+                                <div class="glide__arrows glide__arrows-custom" data-glide-el="controls">
+                                    <button class="glide__arrow glide__arrow--left shadow-sm" data-glide-dir="<"><i class="fas fa-angle-left"></i></button>
+                                    <button class="glide__arrow glide__arrow--right shadow-sm" data-glide-dir=">"><i class="fas fa-angle-right"></i></button>
+                                </div>
+                            </div>`)
+    
+                        var sliders = document.querySelectorAll('#listLiveAboard .glide-card');
+                        // console.log('slide',sliders);
+    
+                        for (var i = 0; i < sliders.length; i++) {
+                            var glide = new Glide(sliders[i], {
+                                type: 'carousel',
+                                startAt: 0,
+                                perView: 4,
+                                gap: 0,
+                                breakpoints: {
+                                    991: {
+                                    perView: 3
+                                    },
+                                    767: {
+                                    perView: 2
+                                    }
+                                }
+                            });
+                            
+                            glide.mount();
+                        }
+                            
+                        
+                    }else{
+                        $('#listLiveAboard').append(`
+                            <div class="explore-card--list explore-card--25">
+                                ${cnt}
+                            </div>
+                        `)
+                    }
+
+                    
+                    $('.slick2').slick({
+                        infinite: true
+                    });
+                    // $('.slick').on('lazyLoaded', function (e, slick, image, imageSource) { 
+                    //     image.parent().css('background-image', 'url("' + imageSource + '")'); 
+                    //     image.hide(); 
+                    // });
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+</script>

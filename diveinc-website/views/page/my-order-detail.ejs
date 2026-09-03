@@ -1,0 +1,621 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<!-- Modal Guest Detail -->
+<div class="modal" id="modalGuestDetail" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body" id="modalBodyGuestDetail">
+                <div class="d-block mb-3">
+                    <h5 class="flex-shrink-0">Guest Detail</h5>
+                </div>
+                
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Cancel Booking -->
+<div class="modal" id="modalCancelBooking" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body">
+                <div class="d-block mb-3">
+                    <h4 class="flex-shrink-0 mb-2">Cancel your order?</h4>
+                    <p class="mb-1">Please tell us the reason why you canceled this order.</p>
+                    <div class="d-block p-2 border bg-lighter">
+                        <p class="text-xs text-muted m-0">This info is very important for us to improve in the future. Thank you.</p>
+                    </div>
+                    <form class="d-block mt-2">
+                        <div class="select-card-wrapper">
+                            <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                <label class="select-card-inner select-card-inner-h">
+                                    <input type="checkbox" class='cancel-reason' name="cancel-reason"  value='Waiting too long for the confirmation'/>
+                                    <div class="select-card-content">
+                                        <h6 class="mb-0 font-weight-normal">Waiting too long for the confirmation</h6>
+                                    </div>
+                                    <div class="select-card-checkbox"></div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="select-card-wrapper">
+                            <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                <label class="select-card-inner select-card-inner-h">
+                                    <input type="checkbox" class='cancel-reason' name="cancel-reason" value='Change schedule'/>
+                                    <div class="select-card-content">
+                                        <h6 class="mb-0 font-weight-normal">Change schedule</h6>
+                                    </div>
+                                    <div class="select-card-checkbox"></div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="select-card-wrapper">
+                            <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                <label class="select-card-inner select-card-inner-h">
+                                    <input type="checkbox" class='cancel-reason' name="cancel-reason" value='Change guest'/>
+                                    <div class="select-card-content">
+                                        <h6 class="mb-0 font-weight-normal">Change guest</h6>
+                                    </div>
+                                    <div class="select-card-checkbox"></div>
+                                </label>
+                            </div>
+                        </div>
+                        <textarea class="form-control d-block mt-2" id='other-cancel-reason' placeholder="Please tell us another reason you canceled this order..."></textarea>
+                        <hr/>
+                        <p class="mb-3 bank-info">Inform us your Bank Account.<br/>
+                            <small class="text-xs text-muted m-0">*Please read terms and condition about our refund policy.</small>
+                        </p>
+                        
+                        <div class="form-row mb-0 bank-info">
+                            <label for="bank_name" class="col-sm-3 col-form-label">Bank</label>
+                            <div class="col-sm-9">
+                                <input id="inputBank" type="text" class="form-control rounded-0 text-capitalize" name="bank" placeholder="Bank Name" required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-0 bank-info">
+                            <label for="account_number" class="col-sm-3 col-form-label">Account No.</label>
+                            <div class="col-sm-9">
+                                <input id="inputAccountNumber" type="text" class="form-control rounded-0 text-capitalize" name="account_number" placeholder="Account Number" required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4 bank-info">
+                            <label for="account_name" class="col-sm-3 col-form-label">Account Name</label>
+                            <div class="col-sm-9">
+                                <input id="inputAccountName" type="text" class="form-control rounded-0 text-capitalize" name="account_name" placeholder="Account Name" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-neutral" onclick="cancelOrder()" data-dismiss="modal">Submit & Cancel Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- --->
+<div class="header-spacer"></div>
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <%-include ../partial/sidebar-nav %>
+            <div class="col-lg-9">
+                <ul class="progress-step-wrapper list-unstyled pt-0 shift-left on-bg-lighter">
+                    <li>
+                        <a href="/my-account" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li>
+                        <a href="/my-order" class="btn btn-white btn-sm">My Order</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="btn btn-white btn-sm vendorName">Bali Dive Resort</a>
+                    </li>
+                </ul>
+                <div class="card shadow-sm border-0 rounded-0 card-account">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2 vendorName">Bali Dive Resort</h5>
+                            </div>
+                            <a href="#" class="btn btn-light"><i class="fas fa-question-circle fa-sm text-muted mr-2"></i>Help</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6 class="d-inline-block p-2 bg-light font-lg font-weight-normal mb-3 border">Booking number: <span class="font-weight-bold" id="bookingNumber">AA141007</span></h6>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-block mb-4 p-3 border">
+                                   <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="m-0 mb-3">Booking Status</h6>
+                                            <div class="btn btn-warning" ><i class="fas fa-hourglass-start fa-sm mr-2"></i><span id="bookingStatus">-</span> </div>
+                                            <div class="d-flex p-2 bg-lighter border mt-2">
+                                                <div class="mr-3 pl-2">
+                                                    <i class="fas fa-info text-xs text-muted"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-xs text-muted d-block mb-1" id='bookingStatusMessage'>
+                                                    </p>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6 class="m-0 mb-3">Payment Status</h6>
+                                            <div class="btn btn-light">Not Confirmed</div>
+                                        </div>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="orderCardList">
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-summary">
+                                    <div class="checkout-summary--list">
+                                        <ul class="list-group list-group-flush" id="orderSummary">
+                                            
+                                        </ul>
+                                        <div class="list-total">
+                                            <div class="d-none list-total-item">
+                                                <div>VAT 10%</div>
+                                                <div id="vat"></div>
+                                            </div>
+                                            <div class="list-total-item">
+                                                <div>Total Price*</div>
+                                                <div id='total'></div>
+                                            </div>
+                                            <div class="text-right"><i style="font-size:12px">*Total Price included tax </i></div> 
+                                        </div>
+                                        <div class="d-block p-3">
+                                            <button type="button" class="btn btn-neutral btn-block" data-toggle="modal" data-target="#modalGuestDetail">Guest Detail</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-block mt-4 text-center" id='cancelButtonDiv'>
+                            <button type="button" class="btn btn-link text-muted" data-toggle="modal" data-target="#modalCancelBooking">Cancel this order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script>
+    const id = "<%= id %>"
+    const tipeVendor = "<%= type %>"
+    let packageData;
+    let vendorData;
+    let summaryRoom = 0;
+    let summaryPackage = 0;
+    let statusId = '';
+    let statusDescription;
+    let cancelLink = '';
+
+    let roomList = [];
+    let packageList = [];
+    console.log(id);
+    let statusTransaction = [];
+    let messageTransaction = [];
+
+    messageTransaction['b648ff73-468f-45cb-bbbc-fd3659e4b8ac'] = `We've received your booking enquiry and will now double check availability with the Vendor. We'll send you a final Booking Confirmation Email on averate within 24 hours. <br><span class="text-danger">We advise you to not making any book flight or other travel managements</span>`;
+    messageTransaction['bbb8ff73-468f-45cb-babc-fd3444e4b8ac'] = `Congratulations, your order have been Accepted!`;
+    messageTransaction['bcc8ff73-468f-45cb-babc-fd34cce4b8ac'] = `We're very sorry, Your Booking Have been rejected the date/room/package is full booked!`;
+    messageTransaction['baa8ff37-468f-45cb-bccc-fd34aae4b8ac'] = `Thank you for your book, we hope you enjoy the trip`;
+    messageTransaction['baa8ff37-468f-455b-b5c5-fc34aae4b8ac'] = `Your cancellation is success.`;
+    // messageTransaction['waiting'] = `While the host confirms that they are holding the space(s) for you, we will send you an email with your booking details information. <br><span class="text-danger">Do not book any flight yet!</span>`;
+    // messageTransaction['waiting'] = `While the host confirms that they are holding the space(s) for you, we will send you an email with your booking details information. <br><span class="text-danger">Do not book any flight yet!</span>`;
+
+    $(document).ready(function(){
+        loadOrder();
+    });
+    
+    function loadOrder(){
+        $.ajax({
+            url: `/api/transaction-${tipeVendor}/${id}`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    packageData = result.data.package_data;
+                    
+                    // alert(tipeVendor);
+                    if (tipeVendor == 'resort') {
+                        vendorData = result.data.resort;
+                        statusId = result.data.transaction_resort_status_id;
+                        statusDescription = result.data.transaction_resort_status.description
+                        cancelLink = `/transaction-resort/${result.data.id}/cancel`
+                    }else if(tipeVendor == 'divecenter'){
+                        vendorData = result.data.divecenter
+                        statusId = result.data.transaction_divecenter_status_id;
+                        statusDescription = result.data.transaction_divecenter_status.description
+                        cancelLink = `/transaction-divecenter/${result.data.id}/cancel`
+                    }else if(tipeVendor=='liveaboard'){
+                        vendorData = result.data.liveaboard
+                        statusId = result.data.transaction_liveaboard_status_id;
+                        statusDescription = result.data.transaction_liveaboard_status.description
+                        cancelLink = `/transaction-liveaboard/${result.data.id}/cancel`
+                    }
+
+                    if (statusId == 'bcc8ff37-468f-45cb-bccc-fd34cce4b8ac') {
+                        $(".bank-info").show();
+                    }else{
+                        $(".bank-info").hide();
+                    }
+
+                    if(statusId == 'baa8ff37-468f-455b-b5c5-fc34aae4b8ac'){
+                        $('#cancelButtonDiv').removeClass('d-block').addClass('d-none');
+                    }
+
+                    $(".vendorName").text(vendorData.profile.name);
+                    $("#bookingNumber").text(result.data.transaction_code);
+                    $("#bookingStatus").text(statusDescription);
+                    let message = (typeof messageTransaction[statusId] !== 'undefined' ? messageTransaction[statusId] : '');
+                    $('#bookingStatusMessage').html(message);
+
+                    if (typeof vendorData.rooms !== "undefined" && typeof packageData.room !== 'undefined') {
+                        
+                        for (let r_idx = 0; r_idx < vendorData.rooms.length; r_idx++) {
+                            roomList[vendorData.rooms[r_idx].id] = vendorData.rooms[r_idx];
+                        }
+
+                        if (tipeVendor != 'liveaboard') {
+                            const from = new Date(packageData.room_date.from);
+                            const to = new Date(packageData.room_date.to);
+                            const diffTime = Math.abs(to - from);
+                            var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        }else{
+                            var diffDays = 1;
+                        }
+
+
+                        console.log('rd', roomList)
+                        console.log('pd', packageData.room)
+                        for (let p_idx = 0; p_idx < packageData.room.length; p_idx++) {
+                            let roomData;
+                            if (tipeVendor == 'liveaboard') {
+                                roomData = roomList[packageData.room[p_idx].roomId];
+                            }else{
+                                roomData = roomList[packageData.room[p_idx].id];
+                            }
+                            console.log('pd-', roomData)
+                            if (tipeVendor != 'liveaboard') {
+                                $("#orderCardList").append(`<div class="d-block mb-4 p-3 border">
+                                    <h6 class="m-0 mb-3">${roomData.info.name} - Check In Dates</h6>
+                                    <div class="departure-information">
+                                        <div class="departure-information--item">
+                                            <h4>Check In</h4>
+                                            <ul>
+                                                <li><i class="far fa-calendar mr-2 fas-fix text-muted"></i>${dateFormatSM(packageData.room_date.from)}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="departure-information--item">
+                                            <h4>Check Out</h4>
+                                            <ul>
+                                                <li><i class="far fa-calendar mr-2 fas-fix text-muted"></i>${dateFormatSM(packageData.room_date.to)}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <button class="d-none btn btn-sm btn-neutral mt-2" disabled>Save to Google Calendar</button>
+                                </div>`);
+                            
+                            }
+                            
+                            
+                            let roomItem = packageData.room[p_idx].roomItem;
+                            for (let t_idx = 0; t_idx < roomItem.length; t_idx++) {
+                                let addItem = '';
+                                let subService = 0;
+                                let guestMultiply = 1;
+                                if (packageData.room[p_idx].sharingRoom == "yes") {
+                                    guestMultiply = roomItem[t_idx].guest;
+                                }
+
+                                if (roomItem[t_idx].service) {
+                                    for (let t = 0; t < roomItem[t_idx].service.length; t++) {
+                                        if (roomItem[t_idx].service[t].qty > 0) {
+                                            addItem += `<div class="list-person--item text-muted">
+                                                    <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${formatRupiah(roomItem[t_idx].service[t].price)} x ${roomItem[t_idx].service[t].qty}</div>
+                                                    <div>${formatRupiah(roomItem[t_idx].service[t].price * roomItem[t_idx].service[t].qty)}</div>
+                                                </div>
+                                                `;
+                                            subService += parseFloat(roomItem[t_idx].service[t].price * roomItem[t_idx].service[t].qty);
+                                        }
+                                    }
+
+                                }
+
+                                summaryRoom += parseFloat(packageData.room[p_idx].roomPrice*diffDays*guestMultiply) + parseFloat(subService);
+                                // alert(summaryRoom);
+                                $("#orderSummary").append(`<li class="list-group-item">
+                                    <div class="list-person">
+                                        <div class="list-person--title">
+                                            <div>${roomData.info.name} [${(tipeVendor != 'liveabord' ? 'Room' : 'Cabin')} ${t_idx+1}]</div>
+                                            <div>${formatRupiah(packageData.room[p_idx].roomPrice * diffDays*guestMultiply)}</div>
+                                        </div>
+                                        <div class="list-person--item text-muted">
+                                            <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>${formatRupiah(packageData.room[p_idx].roomPrice)} x${diffDays}</div>
+                                            <div>${formatRupiah(packageData.room[p_idx].roomPrice * diffDays *guestMultiply)}</div>
+                                        </div>
+                                        ${addItem}
+                                        <div class="list-person--item text-muted">
+                                            <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x${roomItem[t_idx].guest}</div>
+                                        </div>
+                                    </div>
+                                </li>`);
+                            
+                                if (tipeVendor != 'liveaboard') {
+                                    let detailGuest = '';
+                                    for (let g_idx = 0; g_idx < roomItem[t_idx].detail_guest.length; g_idx++) {
+                                        detailGuest += `<div class="d-block mt-1">
+                                            <div class="text-muted text-sm">Guest ${g_idx+1}</div>
+                                            <div>${roomItem[t_idx].detail_guest[g_idx].title} ${roomItem[t_idx].detail_guest[g_idx].first_name} ${roomItem[t_idx].detail_guest[g_idx].last_name} - ${roomItem[t_idx].detail_guest[g_idx].nationality}</div>
+                                        </div>`;
+                                    }
+                                    $("#modalBodyGuestDetail").append(`<div class="d-block p-3 border mb-3">
+                                        <div class="font-weight-bolder d-block">${roomData.info.name} [Room ${t_idx+1}]</div>
+                                        ${detailGuest}
+                                    </div>`);
+                                }
+                            }
+                        }
+                    }
+
+                    if (typeof vendorData.packages !== "undefined" && typeof packageData.package !== 'undefined' ) {
+                        for (let r_idx = 0; r_idx < vendorData.packages.length; r_idx++) {
+                            packageList[vendorData.packages[r_idx].id] = vendorData.packages[r_idx];
+                        }
+
+                        for (let p_idx = 0; p_idx < packageData.package.length; p_idx++) {
+                            let packageGuest = '';
+                            let pData = packageList[packageData.package[p_idx].id];
+                            console.log(pData);
+                            if (tipeVendor != 'liveaboard') {
+                                let pItem = packageData.package[p_idx].packageItem;
+                                for (let q_idx = 0; q_idx < pItem.length; q_idx++) {
+                                    $("#orderCardList").append(`
+                                        <div class="d-block mb-4 p-3 border">
+                                            <h6 class="m-0 mb-3">${pData.info.name}</h6>
+                                            <div class="departure-information">
+                                                <div class="departure-information--item">
+                                                    <h4>Trip</h4>
+                                                    <ul>
+                                                        <li><i class="far fa-calendar mr-2 fas-fix text-muted"></i>${dateFormatSM(pItem[q_idx].package_date)}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <button class="d-none btn btn-sm btn-neutral mt-2" disabled>Save to Google Calendar</button>
+                                        </div>`);        
+                                    let addItem = '';
+                                    let subService = 0;
+                                    for (let t = 0; t < pItem[q_idx].service.length; t++) {
+                                        if (pItem[q_idx].service[t].qty > 0) {
+                                            addItem += `<div class="list-person--item text-muted">
+                                                    <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${formatRupiah(pItem[q_idx].service[t].price)} x ${pItem[q_idx].service[t].qty}</div>
+                                                    <div>${formatRupiah(pItem[q_idx].service[t].price * pItem[q_idx].service[t].qty)}</div>
+                                                </div>
+                                                `;
+                                            subService += parseFloat(pItem[q_idx].service[t].price * pItem[q_idx].service[t].qty);
+                                        }
+                                    }
+                                    summaryPackage += parseFloat(packageData.package[p_idx].packagePrice*pItem[q_idx].guest) + parseFloat(subService);
+
+                                    $("#orderSummary").append(`<li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>${pData.info.name} [package ${q_idx+1}]</div>
+                                                <div>${formatRupiah(packageData.package[p_idx].packagePrice)}</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>${formatRupiah(packageData.package[p_idx].packagePrice)} x${pItem[q_idx].guest}</div>
+                                                <div>${formatRupiah(packageData.package[p_idx].packagePrice * pItem[q_idx].guest)}</div>
+                                            </div>
+                                            ${addItem}
+                                        </div>
+                                    </li>`);
+
+                                    for (let g_idx = 0; g_idx < pItem[q_idx].detail_guest.length; g_idx++) {
+                                        packageGuest += `<div class="d-block mt-1">
+                                                <div class="text-muted text-sm">Guest ${g_idx+1}</div>
+                                                <div>${pItem[q_idx].detail_guest[g_idx].title} ${pItem[q_idx].detail_guest[g_idx].first_name} ${pItem[q_idx].detail_guest[g_idx].last_name} - ${pItem[q_idx].detail_guest[g_idx].nationality}</div>
+                                            </div>`;
+                                        
+                                    }
+                                }
+                                
+                            }else{
+                                let pItem = packageData.package;
+                                let room = packageData.room;
+                                console.log('pi',pItem);
+                                for (let q_idx = 0; q_idx < pItem.length; q_idx++) {
+                                    $("#orderCardList").append(`
+                                        <div class="d-block mb-4 p-3 border">
+                                            <h6 class="m-0 mb-3">${pItem[q_idx].packageName}</h6>
+                                            <div class="departure-information">
+                                                <div class="departure-information--item">
+                                                    <h4>Trip</h4>
+                                                    <ul>
+                                                        <li><i class="far fa-calendar mr-2 fas-fix text-muted"></i>${dateFormatSM(pItem[q_idx].package_date)}</li>
+                                                    </ul>
+                                                    <ul>
+                                                        <lu><i class="far fa-moon fa-sm fas-fix mr-1"></i>${pData.info.duration.day} day${pData.info.duration.day > 1 ? 's' : ''} / ${pData.info.duration.night} night${pData.info.duration.night > 1 ? 's' : ''}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <button class="d-none btn btn-sm btn-neutral mt-2" disabled>Save to Google Calendar</button>
+                                        </div>`);        
+                                    let addItem = '';
+                                    let subService = 0;
+
+                                    if (tipeVendor != 'liveaboard') {
+                                        for (let t = 0; t < pItem[q_idx].service.length; t++) {
+                                            if (pItem[q_idx].service[t].qty > 0) {
+                                                addItem += `<div class="list-person--item text-muted">
+                                                        <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${formatRupiah(pItem[q_idx].service[t].price)} x ${pItem[q_idx].service[t].qty}</div>
+                                                        <div>${formatRupiah(pItem[q_idx].service[t].price * pItem[q_idx].service[t].qty)}</div>
+                                                    </div>
+                                                    `;
+                                                subService += parseFloat(pItem[q_idx].service[t].price * pItem[q_idx].service[t].qty);
+                                            }
+                                        }
+                                        summaryPackage += parseFloat(packageData.package[p_idx].packagePrice*pItem[q_idx].guest) + parseFloat(subService);
+                                        
+                                        $("#orderSummary").append(`<li class="list-group-item">
+                                            <div class="list-person">
+                                                <div class="list-person--title">
+                                                    <div>${pData.info.name} [package ${q_idx+1}]</div>
+                                                    <div>${formatRupiah(packageData.package[p_idx].packagePrice)}</div>
+                                                </div>
+                                                <div class="list-person--item text-muted">
+                                                    <div><i class="far fa-user fa-sm fas-fix mr-1"></i>${formatRupiah(packageData.package[p_idx].packagePrice)} x${pItem[q_idx].guest}</div>
+                                                    <div>${formatRupiah(packageData.package[p_idx].packagePrice * pItem[q_idx].guest)}</div>
+                                                </div>
+                                                ${addItem}
+                                            </div>
+                                        </li>`);
+                                    }else{
+                                        for (let t = 0; t < pItem[q_idx].service.length; t++) {
+                                            if (pItem[q_idx].service[t].qty > 0) {
+                                                addItem += `
+                                                    <div class="list-person--title">
+                                                        <div>${pItem[q_idx].service[t].name}</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${formatRupiah(pItem[q_idx].service[t].price)} x ${pItem[q_idx].service[t].qty}</div>
+                                                        <div>${formatRupiah(pItem[q_idx].service[t].price * pItem[q_idx].service[t].qty)}</div>
+                                                    </div>
+                                                    `;
+                                                subService += parseFloat(pItem[q_idx].service[t].price * pItem[q_idx].service[t].qty);
+                                            }
+                                        }
+                                        summaryPackage += parseFloat(packageData.package[p_idx].packagePrice*pItem[q_idx].guest) + parseFloat(subService);
+                                        
+                                        $("#orderSummary").append(`<li class="list-group-item">
+                                            <div class="list-person">
+                                                
+                                                ${addItem}
+                                            </div>
+                                        </li>`);
+                                    }
+                                }
+                                
+                                for (let f_idx = 0; f_idx < room.length; f_idx++) {
+                                    const rItem = room[f_idx].roomItem;
+                                    for (let g_idx = 0; g_idx < rItem.length; g_idx++) {
+                                        const guest = rItem[g_idx].detail_guest;
+                                        for (let h_idx = 0; h_idx < guest.length; h_idx++) {
+                                            packageGuest += `<div class="d-block mt-1">
+                                                    <div class="text-muted text-sm">Guest ${g_idx+1}</div>
+                                                    <div>${guest[h_idx].title} ${guest[h_idx].first_name} ${guest[h_idx].last_name} - ${guest[h_idx].nationality}</div>
+                                                </div>`;
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                            $("#modalBodyGuestDetail").append(`<div class="d-block p-3 border mb-3">
+                                    <div class="font-weight-bolder d-block">${pData.info.name}</div>
+                                    ${packageGuest}
+                                </div>`);
+                            
+                        
+                        }
+                    }
+
+                    loadSummary();
+                    
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function loadSummary(){
+        let subTotal = parseFloat(summaryRoom) + parseFloat(summaryPackage);
+        let vat = subTotal*0.1;
+        let total = parseFloat(subTotal) + parseFloat(vat);
+        $('#vat').text(formatRupiah(vat));
+        $('#total').text(formatRupiah(total));
+    }
+
+    function cancelOrder(){
+        let cancelReason = [];
+        $(".cancel-reason").each(function(){
+            if ($(this).is(':checked')) {
+                cancelReason.push($(this).val());
+            }
+        });
+
+        if ($("#other-cancel-reason").val() != '') {
+            cancelReason.push($("#other-cancel-reason").val());
+        }
+
+        let inputBank = $('#inputBank').val()
+        let inputAccountNumber = $('#inputAccountNumber').val()
+        let inputAccountName = $('#inputAccountName').val()
+
+        // console.log(cancelReason);
+        Swal.fire({
+            title: "Cancel this order?",
+            text: "By clicking yes, you agree all terms and condition on canceling an order.",
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((respond) => {
+            if (respond.value) {
+                $.ajax({
+                    url: `/api${cancelLink}`,
+                    method: `PUT`,
+                    data:{
+                        cancelation_data:{
+                            cancel_reason:cancelReason,
+                            bank_name: inputBank,
+                            bank_account_number: inputAccountNumber,
+                            bank_account_name: inputAccountName
+                        }
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // window.location.reload();
+                            window.location.href = `/my-order`
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+</script>

@@ -1,0 +1,960 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+
+<section class="bg-primary">
+    <div class="header-spacer"></div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <ul class="progress-step-wrapper list-unstyled pt-0">
+                    <li>
+                        <a href="/my-divecenter" class="btn btn-white btn-sm"><i class="fas fa-arrow-left mr-1"></i> Go Back</a>
+                    </li>
+                </ul>
+                <h3 class="mb-4 text-white">Verify My Divecenter</h3>
+                    <div class="card border-0 shadow mb-3">
+                        <div class="card-header">
+                            Business Details
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="form-row mb-3">
+                                <label for="business_type" class="col-sm-12 col-form-label">Business Type</label>
+                                <div class="col-sm-12">
+                                    <select id="inputBusinessType" class="form-control rounded-0" name="business_type">
+                                        <option value="PT">PT</option>
+                                        <option value="CV">CV</option>
+                                        <option value="Individu">Individu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="business_name" class="col-sm-12 col-form-label">Business Name <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <input id="inputBusinessName" type="text" class="form-control rounded-0 text-capitalize" name="business_name" placeholder="Business name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="website_socialmedia" class="col-sm-12 col-form-label">Website / social media profile</label>
+                                <div class="col-sm-12">
+                                    <input id="inputBusinessSosmed" type="text" class="form-control rounded-0" name="website_socialmedia" placeholder="https://socialmedia/youraccount">
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="business_address" class="col-sm-12 col-form-label">Business address <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <textarea id="inputBusinessAddress" class="form-control" name="business_address"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <label for="business_country" class="col-sm-12 col-form-label">Country & City <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <select id="inputCountry" class="form-control rounded-0">
+                                            <option value="">Select Country</option>
+                                        </select>
+                                        <select id="inputCity" class="form-control rounded-0">
+                                            <option value="">Select City</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card border-0 shadow mb-3">
+                        <div class="card-header">Personal Details
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row mb-3">
+                                <label for="full_name" class="col-sm-12 col-form-label">Full Name <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <input id="inputName" type="text" class="form-control rounded-0 text-capitalize" name="full_name" placeholder="Full name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-4">
+                                <label for="phone_number" class="col-sm-12 col-form-label">Phone Number <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <input id="inputPhone" type="text" class="form-control rounded-0 text-capitalize" name="phone_number" placeholder="(+62) 1234 5678 90" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-4">
+                                <label for="phone_number" class="col-sm-12 col-form-label">Phone Number 2 (optional)</label>
+                                <div class="col-sm-12">
+                                    <input id="inputPhone2" type="text" class="form-control rounded-0 text-capitalize" name="phone_number" placeholder="(+62) 1234 5678 90" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <h6>Bank Account Details</h6>
+                            <!-- <small class="d-block mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam obcaecati aspernatur in explicabo a est, unde eveniet nisi omnis labore consequatur inventore quis eaque nemo? Sed rerum eligendi totam cupiditate?</small class="d-block mb-4"> -->
+                            <div class="form-row mb-3">
+                                <label for="bank_name" class="col-sm-12 col-form-label">Bank Name <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <select id="inputBankName" class="form-control rounded-0 text-capitalize" name="bank_name" placeholder="Resort name" required >
+                                        <option value="ACEH">BPD Aceh</option>
+                                        <option value="ACEH_UUS">BPD Aceh UUS</option>
+                                        <option value="AGRIS">Bank Agris</option>
+                                        <option value="AGRONIAGA">Bank BRI Agroniaga</option>
+                                        <option value="AMAR">Bank Amar Indonesia (formerly Anglomas International Bank)</option>
+                                        <option value="ANZ">Bank ANZ Indonesia</option>
+                                        <option value="ARTA_NIAGA_KENCANA">Bank Arta Niaga Kencana</option>
+                                        <option value="ARTHA">Bank Artha Graha International</option>
+                                        <option value="ARTOS">Bank Artos Indonesia</option>
+                                        <option value="BALI">BPD Bali</option>
+                                        <option value="BAML">Bank of America Merill-Lynch</option>
+                                        <option value="BANGKOK">Bangkok Bank</option>
+                                        <option value="BANTEN">BPD Banten (formerly Bank Pundi Indonesia)</option>
+                                        <option value="BCA">Bank Central Asia (BCA)</option>
+                                        <option value="BCA_SYR">Bank Central Asia (BCA) Syariah</option>
+                                        <option value="BENGKULU">BPD Bengkulu</option>
+                                        <option value="BISNIS_INTERNASIONAL">Bank Bisnis Internasional</option>
+                                        <option value="BJB">Bank BJB</option>
+                                        <option value="BJB_SYR">Bank BJB Syariah</option>
+                                        <option value="BNI">Bank Negara Indonesia (BNI)</option>
+                                        <option value="BNI_SYR">Bank BNI Syariah</option>
+                                        <option value="BNP_PARIBAS">Bank BNP Paribas</option>
+                                        <option value="BOC">Bank of China (BOC)</option>
+                                        <option value="BRI">Bank Rakyat Indonesia (BRI)</option>
+                                        <option value="BRI_SYR">Bank Syariah BRI</option>
+                                        <option value="BTN">Bank Tabungan Negara (BTN)</option>
+                                        <option value="BTN_UUS">Bank Tabungan Negara (BTN) UUS</option>
+                                        <option value="BTPN_SYARIAH">BTPN Syariah (formerly Bank Sahabat Purba Danarta and Bank Tabungan Pensiunan Nasional UUS)</option>
+                                        <option value="BUKOPIN">Bank Bukopin</option>
+                                        <option value="BUKOPIN_SYR">Bank Syariah Bukopin</option>
+                                        <option value="BUMI_ARTA">Bank Bumi Arta</option>
+                                        <option value="CAPITAL">Bank Capital Indonesia</option>
+                                        <option value="CCB">China Construction Bank Indonesia (formerly Bank Antar Daerah and Bank Windu Kentjana International)</option>
+                                        <option value="CENTRATAMA">Centratama Nasional Bank</option>
+                                        <option value="CHINATRUST">Bank Chinatrust Indonesia</option>
+                                        <option value="CIMB">Bank CIMB Niaga</option>
+                                        <option value="CIMB_UUS">Bank CIMB Niaga UUS</option>
+                                        <option value="CITIBANK">Citibank</option>
+                                        <option value="COMMONWEALTH">Bank Commonwealth</option>
+                                        <option value="DAERAH_ISTIMEWA">BPD Daerah Istimewa Yogyakarta (DIY)</option>
+                                        <option value="DAERAH_ISTIMEWA_UUS">BPD Daerah Istimewa Yogyakarta (DIY) UUS</option>
+                                        <option value="DANAMON">Bank Danamon</option>
+                                        <option value="DANAMON_UUS">Bank Danamon UUS</option>
+                                        <option value="DBS">Bank DBS Indonesia</option>
+                                        <option value="DEUTSCHE">Deutsche Bank</option>
+                                        <option value="DINAR_INDONESIA">Bank Dinar Indonesia</option>
+                                        <option value="DKI">Bank DKI</option>
+                                        <option value="DKI_UUS">Bank DKI UUS</option>
+                                        <option value="EXIMBANK">Indonesia Eximbank (formerly Bank Ekspor Indonesia)</option>
+                                        <option value="FAMA">Bank Fama International</option>
+                                        <option value="GANESHA">Bank Ganesha</option>
+                                        <option value="GOPAY">GoPay</option>
+                                        <option value="HANA">Bank Hana</option>
+                                        <option value="HARDA_INTERNASIONAL">Bank Harda Internasional</option>
+                                        <option value="HSBC">Hongkong and Shanghai Bank Corporation (HSBC) (formerly Bank Ekonomi Raharja)</option>
+                                        <option value="ICBC">Bank ICBC Indonesia</option>
+                                        <option value="INA_PERDANA">Bank Ina Perdania</option>
+                                        <option value="INDEX_SELINDO">Bank Index Selindo</option>
+                                        <option value="INDIA">Bank of India Indonesia</option>
+                                        <option value="JAMBI">BPD Jambi</option>
+                                        <option value="JAMBI_UUS">BPD Jambi UUS</option>
+                                        <option value="JASA_JAKARTA">Bank Jasa Jakarta</option>
+                                        <option value="JAWA_TENGAH">BPD Jawa Tengah</option>
+                                        <option value="JAWA_TENGAH_UUS">BPD Jawa Tengah UUS</option>
+                                        <option value="JAWA_TIMUR">BPD Jawa Timur</option>
+                                        <option value="JAWA_TIMUR_UUS">BPD Jawa Timur UUS</option>
+                                        <option value="JPMORGAN">JP Morgan Chase Bank</option>
+                                        <option value="JTRUST">Bank JTrust Indonesia (formerly Bank Mutiara)</option>
+                                        <option value="KALIMANTAN_BARAT">BPD Kalimantan Barat</option>
+                                        <option value="KALIMANTAN_BARAT_UUS">BPD Kalimantan Barat UUS</option>
+                                        <option value="KALIMANTAN_SELATAN">BPD Kalimantan Selatan</option>
+                                        <option value="KALIMANTAN_SELATAN_UUS">BPD Kalimantan Selatan UUS</option>
+                                        <option value="KALIMANTAN_TENGAH">BPD Kalimantan Tengah</option>
+                                        <option value="KALIMANTAN_TIMUR">BPD Kalimantan Timur</option>
+                                        <option value="KALIMANTAN_TIMUR_UUS">BPD Kalimantan Timur UUS</option>
+                                        <option value="KESEJAHTERAAN_EKONOMI">Bank Kesejahteraan Ekonomi</option>
+                                        <option value="LAMPUNG">BPD Lampung</option>
+                                        <option value="MALUKU">BPD Maluku</option>
+                                        <option value="MANDIRI">Bank Mandiri</option>
+                                        <option value="MANDIRI_ECASH">Mandiri E-Cash</option>
+                                        <option value="MANDIRI_SYR">Bank Syariah Mandiri</option>
+                                        <option value="MANDIRI_TASPEN">Mandiri Taspen Pos (formerly Bank Sinar Harapan Bali)</option>
+                                        <option value="MASPION">Bank Maspion Indonesia</option>
+                                        <option value="MAYAPADA">Bank Mayapada International</option>
+                                        <option value="MAYBANK">Bank Maybank (formerly BII)</option>
+                                        <option value="MAYBANK_SYR">Bank Maybank Syariah Indonesia</option>
+                                        <option value="MAYORA">Bank Mayora</option>
+                                        <option value="MEGA">Bank Mega</option>
+                                        <option value="MEGA_SYR">Bank Syariah Mega</option>
+                                        <option value="MESTIKA_DHARMA">Bank Mestika Dharma</option>
+                                        <option value="MITRA_NIAGA">Bank Mitra Niaga</option>
+                                        <option value="MITSUI">Bank Sumitomo Mitsui Indonesia</option>
+                                        <option value="MIZUHO">Bank Mizuho Indonesia</option>
+                                        <option value="MNC_INTERNASIONAL">Bank MNC Internasional</option>
+                                        <option value="MUAMALAT">Bank Muamalat Indonesia</option>
+                                        <option value="MULTI_ARTA_SENTOSA">Bank Multi Arta Sentosa</option>
+                                        <option value="NATIONALNOBU">Bank Nationalnobu</option>
+                                        <option value="NUSA_TENGGARA_BARAT">BPD Nusa Tenggara Barat</option>
+                                        <option value="NUSA_TENGGARA_BARAT_UUS">BPD Nusa Tenggara Barat UUS</option>
+                                        <option value="NUSA_TENGGARA_TIMUR">BPD Nusa Tenggara Timur</option>
+                                        <option value="NUSANTARA_PARAHYANGAN">Bank Nusantara Parahyangan</option>
+                                        <option value="OCBC">Bank OCBC NISP</option>
+                                        <option value="OCBC_UUS">Bank OCBC NISP UUS</option>
+                                        <option value="OKE">Bank Oke Indonesia (formerly Bank Andara)</option>
+                                        <option value="OVO">OVO</option>
+                                        <option value="PANIN">Bank Panin</option>
+                                        <option value="PANIN_SYR">Bank Panin Syariah</option>
+                                        <option value="PAPUA">BPD Papua</option>
+                                        <option value="PERMATA">Bank Permata</option>
+                                        <option value="PERMATA_UUS">Bank Permata UUS</option>
+                                        <option value="PRIMA_MASTER">Prima Master Bank</option>
+                                        <option value="QNB_INDONESIA">Bank QNB Indonesia (formerly Bank QNB Kesawan)</option>
+                                        <option value="RABOBANK">Bank Rabobank International Indonesia</option>
+                                        <option value="RBS">Royal Bank of Scotland (RBS)</option>
+                                        <option value="RESONA">Bank Resona Perdania</option>
+                                        <option value="RIAU_DAN_KEPRI">BPD Riau Dan Kepri</option>
+                                        <option value="RIAU_DAN_KEPRI_UUS">BPD Riau Dan Kepri UUS</option>
+                                        <option value="ROYAL">Bank Royal Indonesia</option>
+                                        <option value="SAHABAT_SAMPOERNA">Bank Sahabat Sampoerna</option>
+                                        <option value="SBI_INDONESIA">Bank SBI Indonesia</option>
+                                        <option value="SHINHAN">Bank Shinhan Indonesia (formerly Bank Metro Express)</option>
+                                        <option value="SINARMAS">Sinarmas</option>
+                                        <option value="SINARMAS_UUS">Bank Sinarmas UUS</option>
+                                        <option value="STANDARD_CHARTERED">Standard Charted Bank</option>
+                                        <option value="SULAWESI">BPD Sulawesi Tengah</option>
+                                        <option value="SULAWESI_TENGGARA">BPD Sulawesi Tenggara</option>
+                                        <option value="SULSELBAR">BPD Sulselbar</option>
+                                        <option value="SULSELBAR_UUS">BPD Sulselbar UUS</option>
+                                        <option value="SULUT">BPD Sulut</option>
+                                        <option value="SUMATERA_BARAT">BPD Sumatera Barat</option>
+                                        <option value="SUMATERA_BARAT_UUS">BPD Sumatera Barat UUS</option>
+                                        <option value="SUMSEL_DAN_BABEL">BPD Sumsel Dan Babel</option>
+                                        <option value="SUMSEL_DAN_BABEL_UUS">BPD Sumsel Dan Babel UUS</option>
+                                        <option value="SUMUT">BPD Sumut</option>
+                                        <option value="SUMUT_UUS">BPD Sumut UUS</option>
+                                        <option value="TABUNGAN_PENSIUNAN_NASIONAL">Bank Tabungan Pensiunan Nasional</option>
+                                        <option value="TOKYO">Bank of Tokyo Mitsubishi UFJ</option>
+                                    </select>
+                                    <!-- <input id="inputBankName" type="text" class="form-control rounded-0 text-capitalize" name="bank_name" placeholder="Resort name" required> -->
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="account_number" class="col-sm-12 col-form-label">Account Number <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <input id="inputBankAccountNumber" type="number" class="form-control rounded-0 text-capitalize" name="account_number" placeholder="Account number" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <label for="account_name" class="col-sm-12 col-form-label">Account Name <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <input id="inputBankAccountName" type="text" class="form-control rounded-0 text-capitalize" name="account_name" placeholder="Account name" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card border-0 shadow mb-3">
+                        <div class="card-header">Requirement File
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row mb-3">
+                                <label for="siup_file" class="col-sm-12 col-form-label">Statement Letter <span class="text-danger">*</span> &nbsp; <a href="/lorem-ipsum.pdf" download>download</a></label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFile1">
+                                        <label id="chooseFile1" class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="akta_pendirian_file" class="col-sm-12 col-form-label">Akta Pendirian <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFile2">
+                                        <label id="chooseFile2" class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="NPWP" class="col-sm-12 col-form-label">NPWP <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFile3">
+                                        <label id="chooseFile3" class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="NIB" class="col-sm-12 col-form-label">NIB <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFile4">
+                                        <label id="chooseFile4" class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <label for="NIB" class="col-sm-12 col-form-label">Buku Tabungan <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFile5">
+                                        <label id="chooseFile5" class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <label for="NIB" class="col-sm-12 col-form-label">Verifikasi Kemenhumkam <span class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFile6">
+                                        <label id="chooseFile6" class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-block py-2">
+                        <small>
+                            <span class="text-danger">*</span> <span class="text-white">Requirement</span> 
+                        </small>
+                        
+                    </div>
+                    <button onClick="vendorRegister();" class="btn btn-white btn-block btn-lg mb-3">Verify My Company</button>
+            </div>
+        </div>
+    </div>
+    <div class="header-spacer"></div>
+</section>
+
+
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script>
+
+    var fileUrl1 = "";
+    var filePath1 = "";
+    var fileBaseUrl1 = "";
+
+    var fileUrl2 = "";
+    var filePath2 = "";
+    var fileBaseUrl2 = "";
+
+    var fileUrl3 = "";
+    var filePath3 = "";
+    var fileBaseUrl3 = "";
+
+    var fileUrl4 = "";
+    var filePath4 = "";
+    var fileBaseUrl4 = "";
+
+    var fileUrl5 = "";
+    var filePath5 = "";
+    var fileBaseUrl5 = "";
+
+    var fileUrl6 = "";
+    var filePath6 = "";
+    var fileBaseUrl6 = "";
+
+    $(document).ready(function(){
+        $('#customFile1').change(function(){
+            $('#chooseFile1').text("Please Wait ...")
+            makeFileRequestUpload1('/api/upload/file', [], this.files).then((result) => {
+                console.log(result)
+            }, (error) => {
+                console.error(error)
+            })
+        });
+
+        $('#customFile2').change(function(){
+            $('#chooseFile2').text("Please Wait ...")
+            makeFileRequestUpload2('/api/upload/file', [], this.files).then((result) => {
+                console.log(result)
+            }, (error) => {
+                console.error(error)
+            })
+        })
+
+        $('#customFile3').change(function(){
+            $('#chooseFile3').text("Please Wait ...")
+            makeFileRequestUpload3('/api/upload/file', [], this.files).then((result) => {
+                console.log(result)
+            }, (error) => {
+                console.error(error)
+            })
+        })
+
+        $('#customFile4').change(function(){
+            $('#chooseFile4').text("Please Wait ...")
+            makeFileRequestUpload4('/api/upload/file', [], this.files).then((result) => {
+                console.log(result)
+            }, (error) => {
+                console.error(error)
+            })
+        })
+
+        $('#customFile5').change(function(){
+            $('#chooseFile5').text("Please Wait ...")
+            makeFileRequestUpload5('/api/upload/file', [], this.files).then((result) => {
+                console.log(result)
+            }, (error) => {
+                console.error(error)
+            })
+        })
+
+        $('#customFile6').change(function(){
+            $('#chooseFile6').text("Please Wait ...")
+            makeFileRequestUpload6('/api/upload/file', [], this.files).then((result) => {
+                console.log(result)
+            }, (error) => {
+                console.error(error)
+            })
+        })
+
+        $('#inputCountry').change(function(){
+            if($('#inputCountry').val() != ""){
+                loadCity($('#inputCountry').val())
+            }
+        })
+
+        loadCountry();
+        loadBank();
+    });
+
+    function makeFileRequestUpload1(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'File too large',
+                'Please make sure the data to be uploaded is under 20MB.'
+            )
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      $('#chooseFile1').text(files[0].name)
+                      var response = JSON.parse(xhr.response)
+                      fileUrl1 = response.data.location
+                      filePath1 = response.data.key
+                      fileBaseUrl1 = response.data.baseUrl
+                    }else {
+                      console.log(xhr.response)
+                      $('#chooseFile1').text("Choose File")
+                    //   alert("Upload file gagal")
+                        Swal.fire(
+                            'Upload failed',
+                            'We apologize in advance for the inconvenience. please try again to upload your data.'
+                        )
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function makeFileRequestUpload2(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'File too large',
+                'Please make sure the data to be uploaded is under 20MB.'
+            )
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      $('#chooseFile2').text(files[0].name)
+                      var response = JSON.parse(xhr.response)
+                      fileUrl2 = response.data.location
+                      filePath2 = response.data.key
+                      fileBaseUrl2 = response.data.baseUrl
+                    }else {
+                      console.log(xhr.response)
+                      $('#chooseFile2').text("Choose File")
+                    //   alert("Upload file gagal")
+                        Swal.fire(
+                            'Upload failed',
+                            'We apologize in advance for the inconvenience. please try again to upload your data.'
+                        )
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function makeFileRequestUpload3(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'File too large',
+                'Please make sure the data to be uploaded is under 20MB.'
+            )
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      $('#chooseFile3').text(files[0].name)
+                      var response = JSON.parse(xhr.response)
+                      fileUrl3 = response.data.location
+                      filePath3 = response.data.key
+                      fileBaseUrl3 = response.data.baseUrl
+                    }else {
+                      console.log(xhr.response)
+                      $('#chooseFile3').text("Choose File")
+                    //   alert("Upload file gagal")
+                        Swal.fire(
+                            'Upload failed',
+                            'We apologize in advance for the inconvenience. please try again to upload your data.'
+                        )
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function makeFileRequestUpload4(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'File too large',
+                'Please make sure the data to be uploaded is under 20MB.'
+            )
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      $('#chooseFile4').text(files[0].name)
+                      var response = JSON.parse(xhr.response)
+                      fileUrl4 = response.data.location
+                      filePath4 = response.data.key
+                      fileBaseUrl4 = response.data.baseUrl
+                    }else {
+                      console.log(xhr.response)
+                      $('#chooseFile4').text("Choose File")
+                    //   alert("Upload file gagal")
+                        Swal.fire(
+                            'Upload failed',
+                            'We apologize in advance for the inconvenience. please try again to upload your data.'
+                        )
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function makeFileRequestUpload5(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'File too large',
+                'Please make sure the data to be uploaded is under 20MB.'
+            )
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      $('#chooseFile5').text(files[0].name)
+                      var response = JSON.parse(xhr.response)
+                      fileUrl5 = response.data.location
+                      filePath5 = response.data.key
+                      fileBaseUrl5 = response.data.baseUrl
+                    }else {
+                      console.log(xhr.response)
+                      $('#chooseFile5').text("Choose File")
+                    //   alert("Upload file gagal")
+                        Swal.fire(
+                            'Upload failed',
+                            'We apologize in advance for the inconvenience. please try again to upload your data.'
+                        )
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function makeFileRequestUpload6(url, params, files){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 20400000){
+                // alert("Size must be less than 20MB")
+                Swal.fire(
+                    'File too large',
+                    'Please make sure the data to be uploaded is under 20MB.'
+                )
+            }else{
+                formData.append("upload", files[0], files[0].name)
+
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            $('#chooseFile6').text(files[0].name)
+                            var response = JSON.parse(xhr.response)
+                            fileUrl6 = response.data.location
+                            filePath6 = response.data.key
+                            fileBaseUrl6 = response.data.baseUrl
+                        }else {
+                            console.log(xhr.response)
+                            $('#chooseFile6').text("Choose File")
+                        //   alert("Upload file gagal")
+                            Swal.fire(
+                                'Upload failed',
+                                'We apologize in advance for the inconvenience. please try again to upload your data.'
+                            )
+                        }
+                    }
+                }
+
+                xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+                xhr.addEventListener("load", completeHandlerBackground, false);
+                xhr.addEventListener("error", errorHandlerBackground, false);
+                xhr.addEventListener("abort", abortHandlerBackground, false);
+
+                xhr.open("POST", url, true)
+
+                xhr.send(formData)
+            }
+        })
+    }
+
+      function progressHandlerBackground(event) {
+        // var percent = (event.loaded / event.total) * 100
+        // $("#progressBackground").val(Math.round(percent))
+        // if(percent == 100){
+        //     $("#statusBackground").text("Upload Success")
+        // }else{
+        //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        // }
+      }
+
+      function completeHandlerBackground(event) {
+        //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+      }
+
+      function errorHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Failed")
+      }
+
+      function abortHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Aborted")
+      }
+
+      function vendorRegister() {
+        listIncomplete = formValidate();
+        if (listIncomplete.length > 0) {
+            Swal.fire({
+                title:"Incomplete",
+                text:"Please make sure you fill all required field"
+            });
+        }else{
+            $.ajax({
+                url: `/api/transaction-creator`,
+                method: `POST`,
+                data : {
+                    type : "divecenter",
+                    file : [
+                        {
+                            key : "file 1",
+                            value : {
+                                url : fileUrl1,
+                                baseUrl : fileBaseUrl1,
+                                path : filePath1
+                            }
+                        },
+                        {
+                            key : "file 2",
+                            value : {
+                                url : fileUrl2,
+                                baseUrl : fileBaseUrl2,
+                                path : filePath2
+                            }
+                        },
+                        {
+                            key : "file 3",
+                            value : {
+                                url : fileUrl3,
+                                baseUrl : fileBaseUrl3,
+                                path : filePath3
+                            }
+                        },
+                        {
+                            key : "file 4",
+                            value : {
+                                url : fileUrl4,
+                                baseUrl : fileBaseUrl4,
+                                path : filePath4
+                            }
+                        },
+                        {
+                            key : "file 5",
+                            value : {
+                                url : fileUrl5,
+                                baseUrl : fileBaseUrl5,
+                                path : filePath5
+                            }
+                        },
+                        {
+                            key : "file 6",
+                            value : {
+                                url : fileUrl6,
+                                baseUrl : fileBaseUrl6,
+                                path : filePath6
+                            }
+                        }
+                    ],
+                    data : {
+                        user : {
+                            name : $('#inputName').val(),
+                            phone_number : $('#inputPhone').val(),
+                            phone_number_2 : $('#inputPhone2').val(),
+                            bank_name : $('#inputBankName').val(),
+                            bank_account_number : $('#inputBankAccountNumber').val(),
+                            bank_account_name : $('#inputBankAccountName').val(),
+                            balance: 0
+                        },
+                        business : {
+                            type : $('#inputBusinessType').val(),
+                            name : $('#inputBusinessName').val(),
+                            social_media : $('#inputBusinessSosmed').val(),
+                            address : $('#inputBusinessAddress').val(),
+                            country : {
+                                id: $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            city : {
+                                id: $('#inputCity').val(),
+                                name : $('#inputCity option:selected').text()
+                            },
+                        }
+                    }
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        Swal.fire({
+                            title: "Your data has been sent",
+                            text: "Thank you for registering your divecenter, we will immediately inform you of the status of your divecenter."
+                        }).then(function() {
+                            location.href = "/my-divecenter";
+                        });
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            });     
+        }
+    }
+
+    function loadCountry(){
+        $.ajax({
+            url: `/api/country`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.reload() 
+                    for(var i = 0; i < result.data.length; i++){
+                        $('#inputCountry').append(`
+                            <option value="${result.data[i].id}">${result.data[i].name}</option>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function loadCity(id){
+        $.ajax({
+            url: `/api/city/${id}/country`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.reload() 
+                    for(var i = 0; i < result.data.length; i++){
+                        $('#inputCity').append(`
+                            <option value="${result.data[i].id}">${result.data[i].name}</option>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function loadBank(){
+        $.ajax({
+            url: `/api/bank`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.reload() 
+                    for(var i = 0; i < result.data.length; i++){
+                        $('#inputBankName').append(`
+                            <option value="${result.data[i].kode}">${result.data[i].name}</option>    
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+
+    function formValidate(){
+        $(document).find(".text-field-warning").remove();
+        let listIncomplete = [];
+
+        ($('#inputName').val().length < 3 ? listIncomplete.push({inputId:"inputName", message: "Name is too short" }) : '' );
+        ($('#inputPhone').val().length < 6 ? listIncomplete.push({inputId:"inputPhone", message: "Phone is too short" }) : '' );
+        ($('#inputBankName').val() == null ||  $('#inputBankName').val().length == 0 ? listIncomplete.push({inputId:"inputBankName", message: "Bank Name can't be blank" }) : '' );
+        ($('#inputBankAccountNumber').val().length == 0 ? listIncomplete.push({inputId:"inputBankAccountNumber", message: "Bank Account Number can't be blank" }) : '' );
+        ($('#inputBankAccountName').val().length == 0 ? listIncomplete.push({inputId:"inputBankAccountName", message: "Bank Account Name can't be blank" }) : '' );
+        ($('#inputBusinessName').val().length < 3 ? listIncomplete.push({inputId:"inputBusinessName", message: "Business Name is too short" }) : '' );
+        ($('#inputBusinessAddress').val().length < 3 ? listIncomplete.push({inputId:"inputBusinessAddress", message: "Business Address is too short" }) : '' );
+        ($('#inputCountry').val() == "" ? listIncomplete.push({inputId:"inputCountry", message: "Country can't be blank&nbsp&nbsp" }) : '' );
+        ($('#inputCity').val() == "" ? listIncomplete.push({inputId:"inputCity", message: "City can't be blank" }) : '' );
+        
+        ($('#customFile1').val() == "" ? listIncomplete.push({inputId:"customFile1", message: "Please provide this file" }) : '' );
+        ($('#customFile2').val() == "" ? listIncomplete.push({inputId:"customFile2", message: "Please provide this file" }) : '' );
+        ($('#customFile3').val() == "" ? listIncomplete.push({inputId:"customFile3", message: "Please provide this file" }) : '' );
+        ($('#customFile4').val() == "" ? listIncomplete.push({inputId:"customFile4", message: "Please provide this file" }) : '' );
+        ($('#customFile5').val() == "" ? listIncomplete.push({inputId:"customFile5", message: "Please provide this file" }) : '' );
+        ($('#customFile6').val() == "" ? listIncomplete.push({inputId:"customFile6", message: "Please provide this file" }) : '' );
+        // (dataImage.length == 0 ? listIncomplete.push({inputId:"listPhotos", message: "Please provide 1 or more photos" }) : '' );
+
+        showIncompleteFieldMessage(listIncomplete);
+        return listIncomplete;
+        
+    }
+
+    function showIncompleteFieldMessage(listIncomplete){
+        let earliestInput = "";
+        $.each(listIncomplete,function(i,v){
+            earliestInput = (i==0 ? v.inputId : earliestInput);
+            if(!$(`#${v.inputId}`).parent().hasClass("input-group")){
+                $(`#${v.inputId}`).parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+            }else{
+                $(`#${v.inputId}`).parent().parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+            }
+        });
+
+        let el = document.getElementById(`${earliestInput}`);
+        (earliestInput != '' ? el.scrollIntoView() : '');
+    }
+
+</script>

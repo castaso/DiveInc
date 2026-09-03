@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Diveinc - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+
+    <!-- CSS -->
+    <%- include('../../partials/mainstyle') %>
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <!-- Topbar Start -->
+      <%- include('../../partials/mainheader') %>
+      <!-- end Topbar -->
+
+      <!-- Menu Start -->
+      <%- include('../../partials/mainmenu') %>
+      <!-- end menu -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="wrapper">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
+                  <li class="breadcrumb-item active">Datatables</li>
+                </ol>
+              </div>
+              <h4 class="page-title">Datatables User</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <!-- Responsive modal -->
+                <button
+                  id="addModal"
+                  type="button"
+                  class="btn btn-success waves-effect waves-light mb-3"
+                  data-toggle="modal"
+                  data-target="#con-close-modal"
+                >
+                  Add User
+                </button>
+                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <!-- end card body-->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col-->
+        </div>
+        <!-- end row-->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <%- include('../../partials/mainfooter') %>
+    </footer>
+    <!-- end Footer -->
+
+    <!-- modal start -->
+    <div
+      id="con-close-modal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      style="display: none;"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Modal Content is Responsive</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          </div>
+          <form action="" id="formUser" data-parsley-validate>
+            <div class="modal-body p-4">
+              <div class="form-group">
+                <label for="inputUserId" class="control-label">User ID</label>
+                <input type="text" name="inputUserId" class="form-control" id="inputUserId" placeholder="User ID" required />
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputFirstName" class="col-form-label">First Name</label>
+                      <input type="text" id="inputFirstName" name="inputFirstName" class="form-control" placeholder="Firs Name" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputLastName" class="col-form-label">Last Name</label>
+                      <input type="text" id="inputLastName" name="inputLastName" class="form-control" placeholder="Last Name" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputEmail" class="control-label">Email</label>
+                <input type="email" name="inputEmail" class="form-control" id="inputEmail" placeholder="Email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="inputPassword" class="control-label">Password</label>
+                <input type="password" name="inputPassword" class="form-control" id="inputPassword" placeholder="Password" required />
+              </div>
+
+              <div class="form-group">
+                <label for="inputRePassword" class="control-label">Retype Password</label>
+                <input
+                  type="password"
+                  name="inputRePassword"
+                  class="form-control"
+                  id="inputRePassword"
+                  placeholder="Retype Password"
+                  data-parsley-equalto="#inputPassword"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">User Role</label>
+                <select id="selectRole" class="custom-select "> </select>
+              </div>
+
+              <div class="form-group">
+                <label for="inputAddress" class="col-form-label">Address</label>
+                <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="Jl. Sarikaso No.6A, Sarijadi" required />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputSubdistrict" class="col-form-label">Subdistrict</label>
+                  <input type="text" class="form-control" id="inputSubdistrict" placeholder="Subdistrict" />
+                </div>
+                <div class="form-group col-md-5">
+                  <label for="inputCity" class="col-form-label">City</label>
+                  <input type="text" class="form-control" id="inputCity" placeholder="City" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="inputZip" class="col-form-label">Zip</label>
+                  <input type="text" class="form-control" id="inputZip" placeholder="Postal Code" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputProvince" class="col-form-label">Province</label>
+                <input type="text" class="form-control" id="inputProvince" placeholder="Province" />
+              </div>
+
+              <div class="form-group">
+                <label for="inputImages" class="control-label">Images</label>
+                <input name="image" type="file" class="form-control-file" id="inputImages" required />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="add" type="submit" class="btn btn-info waves-effect waves-light ladda-button" data-style="expand-right">
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- end modal -->
+
+    <!-- Vendor js -->
+    <script src="../assets/js/vendor.min.js"></script>
+
+    <!-- third party js -->
+    <%- include('../../partials/mainjs.ejs') %>
+
+    <!-- Datatables init -->
+    <!-- <script src="/assets/js/pages/datatables.init.js"></script> -->
+
+    <!-- App js-->
+    <script src="../assets/js/app.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("#formUser")
+          .parsley()
+          .on("field:validated", function() {
+            var e = 0 === $(".parsley-error").length;
+            $(".alert-info").toggleClass("d-none", !e), $(".alert-warning").toggleClass("d-none", e);
+          })
+          .on("form:submit", function() {
+            const data = {
+              role_id: $("#selectRole")[0].value,
+              user_id: $("#inputUserId")[0].value,
+              data_register: {
+                data: {
+                  email: $("#inputEmail")[0].value,
+                  password: $("#inputPassword")[0].value
+                },
+                type: "CMS"
+              },
+              profile: {
+                name: {
+                  first_name: $("#inputFirstName")[0].value,
+                  last_name: $("#inputLastName")[0].value
+                },
+                address: {
+                  postal_code: $("#inputZip")[0].value,
+                  street: $("#inputAddress")[0].value,
+                  city: $("#inputCity")[0].value,
+                  subdistrict: $("#inputSubdistrict")[0].value,
+                  province: $("#inputProvince")[0].value
+                }
+              }
+            };
+
+            console.log(data);
+            const dataForm = new FormData($("#formUser")[0]);
+            dataForm.append("data", JSON.stringify(data));
+
+            if ($("#add")[0]) {
+              Ladda.create($("#add")[0]).start();
+              inputDataWithFile("user", dataForm);
+            }
+            if ($("#update")[0]) {
+              Ladda.create($("#update")[0]).start();
+              const id = $("#update")[0].value;
+              updateDataWithFile("user", id, dataForm);
+            }
+            return false;
+          });
+
+        // load datatabel
+        $("#datatable-buttons").DataTable({
+          processing: true,
+          serverSide: true,
+          searching: true,
+          columnDefs: [
+            {
+              targets: "_all",
+              orderable: true
+            }
+          ],
+          ajax: "/api/user/datatable"
+        });
+
+        $("#addModal").click(() => {
+          $(".modal-title").html("Add User");
+          $("#update").removeAttr("value");
+          $("#update").attr("id", "add");
+          $("#inputUserId")[0].value = "";
+          $("#inputEmail")[0].value = "";
+          $("#inputPassword")[0].value = "";
+          $("#inputFirstName")[0].value = "";
+          $("#inputLastName")[0].value = "";
+        });
+      });
+
+      // role load
+      $.ajax({
+        url: `/api/role`,
+        method: `GET`,
+        success: function(result) {
+          if (result.meta.success) {
+            console.log(result);
+            const select = result.data.map(data => {
+              return `<option value="${data.id}">${data.name}</option>`;
+            });
+            $("#selectRole").html(select);
+          } else {
+            console.log(result);
+          }
+        },
+        error(xhr, status, error) {
+          console.log(xhr.responseJSON);
+        }
+      });
+
+      function editData(id) {
+        $(".modal-title").html("edite User");
+        $("#add").attr("value", id);
+        $("#add").attr("id", "update");
+        $.ajax({
+          url: `/api/user/${id}`,
+          method: `GET`,
+          success: function(result) {
+            if (result.meta.success) {
+              console.log(result);
+              $("#inputUserId")[0].value = result.data.user_id;
+              $("#inputEmail")[0].value = result.data.data_register.data.email;
+              $("#inputFirstName")[0].value = result.data.profile.name.first_name;
+              $("#inputLastName")[0].value = result.data.profile.name.last_name;
+              $("#inputZip")[0].value = result.data.profile.address.postal_code;
+              $("#inputAddress")[0].value = result.data.profile.address.street;
+              $("#inputCity")[0].value = result.data.profile.address.city;
+              $("#inputSubdistrict")[0].value = result.data.profile.address.subdistrict;
+              $("#inputProvince")[0].value = result.data.profile.address.province;
+            } else {
+              console.log(result);
+            }
+          },
+          error(xhr, status, error) {
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,594 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<style>
+    #unavailableDatesInfo ul li{
+        list-style-type: disc;
+        margin: 0px 0px 0px 20px;
+        padding: 0px;
+    }
+
+    #unavailableDatesInfo{
+        font-size: 12px;
+        padding-left: 20px;
+    }
+</style>
+
+<!-- DESTINATION BANNER -->
+<div class="modal" id="modalPackageDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <div class="d-flex align-items-start justify-content-between flex-column mb-3">
+                    <h4 class="flex-shrink-0 divecenterName"></h4>
+                </div>
+                <!-- Itenary description -->
+                <div class="d-block mb-4">
+                    <h5>Itenary Description</h5>
+                    <div class="itenary-listing" id="list-iten">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="enquiry-banner have-curtain mb-0" style="background-image: url('/images/post-1.jpg');">
+    <div class="enquiry-banner--inner">
+        <div class="container">
+            <div class="destination-banner--text">
+                <div class="welcome-title--text mb-3">
+                    <h1 class="divecenterName"></h1>
+                    <div class="d-block mb-4">
+                        <p class="mb-0"><i class="fas fa-map fa-sm mr-2"></i><span class="divecenterLocation"></span></p>
+                        <!-- <p class="mb-0"><i class="fas fa-calendar-alt fa-sm mr-2"></i>3 nights: 1 Dec 2020 - 3 Dec 2020</p> -->
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <a data-target="#modalPackageDetails" data-toggle="modal" class="btn btn-outline-light btn-sm mr-2 mb-3">Itenary Details</a></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section section-xs bg-light">
+    <div class="container">
+        <div class="btn-group mb-4 btn-group-resort">
+            <a class="btn btn-lg btn-primary">1. Choose Date</a>
+            <a href="checkout-divecenter-2" class="btn btn-lg btn-outline-primary disabled">2. Add Extras</a>
+            <a href="checkout-divecenter-3" class="btn btn-lg btn-outline-primary disabled">3. Guest Detail</a>
+            <a href="checkout-divecenter-4" class="btn btn-lg btn-outline-primary disabled">4. Reserve</a>
+        </div>
+        <div class="card rounded-0 py-2 mb-5">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="panel-title d-block">Unavailable Dates</h5>
+                            </div>
+                            <div id="unavailableDatesInfo">
+                                
+                            </div>
+                        </div>
+                        <div id="packageDate" style="display: none !important;" class="d-block mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h5 class="panel-title d-block">Choose Trip Date</h5>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-end w-100">
+                            <button type="button" onClick="checkout()" class="hide-mobile btn btn-lg btn-primary">Continue to Step 2</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="checkout-summary">
+                            <div class="checkout-summary--head">
+                                <div class="checkout-summary--img backgroundImage"></div>
+                                <div class="checkout-summary--title">
+                                    <h4 class="divecenterName"></h4>
+                                    <div class="d-block">
+                                        <p class="mb-0"><i class="fas fa-map fa-sm mr-2"></i><span class="divecenterLocation"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout-summary--list">
+                                <ul class="list-group list-group-flush">
+                                    <div id="listPackage"></div>
+                                    <!-- <li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>Komodo Weekender</div>
+                                                <div>$2310</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>$770 x3</div>
+                                                <div>$2310</div>
+                                            </div>
+                                        </div>
+                                    </li> -->
+                                    </ul>
+                                    <div class="list-total">
+                                    <!-- <div class="list-total-item">
+                                        <div>VAT 10%</div>
+                                        <div id="totalResorPrice">$279</div>
+                                    </div> -->
+                                    <div class="list-total-item">
+                                        <div>Total Price</div>
+                                        <div id="totalResorPrice">IDR 0</div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="view-mobile-only mt-4">
+                            <button type="button" onClick="checkout()" class="btn btn-block btn-lg btn-primary">Continue to Step 2</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    
+        </div>
+    </div>
+</div>
+
+<section id="overlay-checkout" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script src="/js/bootstrap-datepicker.min.js"></script>
+<script>
+
+    var id = "<%= id %>"
+
+    var package_data
+
+    var totalPriceData
+    var totalPrice = 0
+
+    let listIten = '';
+    var someDate = new Date();
+    var numberOfDaysToAdd = 1;
+
+    var unDates = []
+    var unDatesAnnual = []
+    var unDatesOnce = []
+
+    var unDatesAnnualStart = []
+    var unDatesAnnualEnd = []
+    var unDatesOnceStart = []
+    var unDatesOnceEnd = []
+
+
+    someDate.setDate(someDate.getDate() + numberOfDaysToAdd); 
+
+    $(document).ready(function(){
+        console.log("result")
+        loadTransactionById()
+    })
+
+    $(document).on("focus", ".datePackagePlan", function(){
+        let tgl = $(this).val();
+        console.log(tgl)
+        if (tgl == '') {
+            $(this).datepicker({
+                // format: "yyyy-mm-dd",
+                format: "dd MM yyyy",
+                todayHighlight: true,
+                autoclose: true,
+                startDate: '+1d'
+            });
+        }else{
+            // $(this).datepicker('setDate',tgl);
+            $(this).datepicker({
+                // format: "yyyy-mm-dd",
+                format: "dd MM yyyy",
+                todayHighlight: true,
+                autoclose: true,
+                setDate: tgl
+            });
+        } 
+    });
+
+    function loadTransactionById(){
+        $.ajax({
+            url: `/api/transaction-divecenter/${id}`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    $('#checkoutCover').addClass('hideImportant');
+                    $('.backgroundImage').css("background-image", `url('${result.data.divecenter.photos[0].url}')`)
+                    $('.divecenterName').text(result.data.divecenter.profile.name)
+                    $('.divecenterLocation').text(`${result.data.divecenter.profile.sub_destination.name} - ${result.data.divecenter.profile.destination.name}, ${result.data.divecenter.profile.country.name}`)
+                    if (result.data.transaction_divecenter_status_id == 'b648ff73-468f-45cb-bbbc-fd3659e4b8ac') {
+                        window.location.replace(`/checkout-divecenter/${result.data.id}/reserve`);
+                    }
+                    package_data = result.data.package_data
+
+                    unDates = result.data.divecenter.unavailable_dates
+
+                    packages = result.data.divecenter.packages;
+                    if(result.data.package_data.package){
+                        $('#packageDate').show()
+                        var packageDetail = result.data.package_data.package
+                        var htmlPackageDate = ``
+                        for(var i = 0; i < packageDetail.length; i++){
+
+                            var itemPackage = packageDetail[i].packageItem
+                            var htmlItemPackage = ``
+
+                            for(var j = 0; j < itemPackage.length; j++){
+                                htmlItemPackage += `
+                                    <div class="col-md-12">
+                                        <label for="checkin_date">Select date package plan ${j + 1} (${itemPackage[j].guest} guest) </label>
+                                        <input onChange="addPackageDate('${packageDetail[i].id}','${itemPackage[j].id}')" id="packageDateFrom-${packageDetail[i].id}-${itemPackage[j].id}" type="text" class="form-control datePicker packageDateList datePackagePlan" value="${(typeof itemPackage[j].package_date !== 'undefined' ? dateFormatMonth(itemPackage[j].package_date) : '')}" required>
+                                    </div>
+                                `
+
+                                $('#listPackage').append(`
+                                    <li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>${packageDetail[i].packageName} [Package plan - ${j+1}]</div>
+                                                <div style="min-width:120px; font-weight:500; position:relative" class='text-right'>
+                                                    <div style='position:absolute;right:0px; bottom:0px'>IDR ${formatRupiah(packageDetail[i].packagePrice)}</div>
+                                                </div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>IDR ${formatRupiah(parseFloat(packageDetail[i].packagePrice))} x${packageDetail[i].packageItem[j].guest}</div>
+                                                <div>IDR ${formatRupiah(parseFloat(packageDetail[i].packagePrice)*parseFloat(packageDetail[i].packageItem[j].guest))} </div>
+                                            </div>
+                                        </div>
+                                    </li> 
+                                `)
+
+                                totalPrice += parseFloat(packageDetail[i].packagePrice)*parseFloat(packageDetail[i].packageItem[j].guest)
+                            }
+
+                            $('#packageDate').append(`
+                                <div class="d-block p-3 bg-lighter border">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            
+                                            <div class="text-muted">Package plan ${i+1}</div>
+                                            <h5 class="m-0">${packageDetail[i].packageName}</h5>
+                                        </div><br><br>
+                                        ${htmlItemPackage}
+                                        <!-- div class="col-md-6">
+                                            <label for="checkin_date">Select date</label>
+                                            <input onChange="addPackageDate('${packageDetail[i].id}')" id="packageDateFrom-${packageDetail[i].id}" type="text" class="form-control datePicker packageDateList" required>
+                                        </div -->
+                                    </div>
+                                </div>
+                            `)
+                        
+                            for(var j = 0; j < packages.length; j++){
+                                if(package_data.package[i].id == packages[j].id){
+                                    for (let i_idx = 0; i_idx < packages[j].itenary.length; i_idx++) {
+                                        listIten += `<div class="itenary-listing--item">
+                                            <div class="itenary-wrapper">
+                                                <div class="itenary-title font-weight-bold">Day ${i_idx+1}<i class="fas fa-angle-down ml-2 active"></i></div>
+                                                <div class="itenary-content active">
+                                                    <ul class="list-base">
+                                                        ${packages[j].itenary[i_idx].text}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                                    }
+                                }
+                            }
+                            $('#list-iten').append(listIten);
+
+                        }
+                    }
+
+                    $('#totalResorPrice').text(`IDR ${formatRupiah(totalPrice)}`)
+                    showUnavailableDates();
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function checkout(){
+
+        var dateData = ""
+        if(package_data.package){
+            for (let p_idx = 0; p_idx < package_data.package.length; p_idx++) {
+                let package_id = package_data.package[i].id;
+
+                let packageItem = package_data.package[i].packageItem;
+
+                for(var j = 0; j < packageItem.length; j++){
+                    if($('#packageDateFrom-'+package_id+'-'+packageItem[j].id).val() == ""){
+                    // return alert("Invalid date")
+                        return Swal.fire(
+                            'Oops!',
+                            'Make sure your travel dates are selected.'
+                        )
+                    }
+                    if(dateData == ""){
+                        // console.log("kosong")
+                        dateData = dateFormatForDB($('#packageDateFrom-'+package_id+'-'+packageItem[j].id).val())
+                    }else{
+                        // console.log("kosong")
+                        if(new Date(dateData) - new Date(dateFormatForDB($('#packageDateFrom-'+package_id+'-'+packageItem[j].id).val())) > 0){
+                            dateData = dateFormatForDB($('#packageDateFrom-'+package_id+'-'+packageItem[j].id).val())
+                        }
+                    }
+                    // package_data.package[p_idx].packageItem[j].package_date = {
+                    //     from : $('#packageDateFrom-'+package_id+'-'+packageItem[j].id).val()
+                    // }
+                }
+            }
+        }
+
+        if (checkAllPackageDates()) {
+            $("#overlay-checkout").removeClass('d-none');
+            $.ajax({
+                url: `/api/transaction-divecenter/${id}/schedule`,
+                method: `PUT`,
+                data : {
+                    begin_time : new Date(dateData),
+                    package_data : package_data
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        location.href = `/checkout-divecenter/${result.data.id}/extra`
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                        $("#overlay-checkout").addClass('d-none');
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+    
+                    if (xhr.responseJSON.message == 'Token is required') {
+                        $("#overlay-checkout").addClass('d-none');
+                        loginRequired();
+                    }
+                }
+            })        
+        }
+    }
+
+    function showUnavailableDates(){
+        var info = '';
+        const today = new Date();
+        for (let i = 0; i < unDates.length; i++) {
+            let t = new Date(unDates[i].date_end)
+            console.log(today,' vs ', t)
+            if (unDates[i].annually == "true") {
+                let tgl_start = unDates[i].date_start;
+                let tgl_end = unDates[i].date_end;
+                unDatesAnnualStart.push(tgl_start);
+                unDatesAnnualEnd.push(tgl_end);
+                tgl_start = dateFormatMonth(tgl_start);
+                tgl_end = dateFormatMonth(tgl_end);
+                if (tgl_start == tgl_end) {
+                    info += `<li> Every <b>${tgl_start.substr(0, tgl_start.length - 5)}</b> due to ${unDates[i].name}</li>`;
+                }else{
+                    info += `<li> Every <b>${tgl_start.substr(0, tgl_start.length - 5)} - ${tgl_end.substr(0, tgl_end.length - 5)}</b> due to ${unDates[i].name}</li>`;
+                }
+            }else{
+                // console.log()
+                if(today <= t){
+                    let tgl_start = unDates[i].date_start;
+                    let tgl_end = unDates[i].date_end;
+                    unDatesOnceStart.push(tgl_start)
+                    unDatesOnceEnd.push(tgl_end)
+                    if (tgl_start == tgl_end) {
+                        info += `<li> <b>${dateFormatMonth(unDates[i].date_start)}</b> due to ${unDates[i].name}</li>`;
+                    }else{
+                        info += `<li> <b>${dateFormatMonth(unDates[i].date_start)} - ${dateFormatMonth(unDates[i].date_end)}</b> due to ${unDates[i].name}</li>`;
+                    }
+                }
+            }        
+        }
+
+        // console.log(unDatesAnnual)
+        // console.log(unDatesOnce)
+
+        if (info != '') {
+            $(`#unavailableDatesInfo`).html("We're unavailable on these dates : <br/><ul>"+info+"</ul>");
+        }else{
+            $(`#unavailableDatesInfo`).html("Currently all dates are available");
+        }
+    }
+
+    function addPackageDate(packageId, packageItemId){
+        for(var i=0; i<package_data.package.length; i++){
+            for(var j= 0; j < package_data.package[i].packageItem.length; j++){
+                if(package_data.package[i].id == packageId && package_data.package[i].packageItem[j].id == packageItemId){
+                    checkUnavailableDatesPackage(`packageDateFrom-${packageId}-${packageItemId}`);
+                    package_data.package[i].packageItem[j].package_date = dateFormatForDB($(`#packageDateFrom-${packageId}-${packageItemId}`).val())
+                }
+            }
+        }
+    }
+
+    function checkUnavailableDatesPackage(inputId){
+        let tgl = dateFormatForDB($(`#${inputId}`).val())
+        let tglUmum = new Date(tgl)
+        
+        let y1 = tglUmum.getFullYear();
+
+        for (let m = 0; m < unDatesAnnualStart.length; m++) {
+
+            let udStart = unDatesAnnualStart[m]
+            let udEnd = unDatesAnnualEnd[m]
+
+            let tS = new Date(udStart)
+            let tE = new Date(udEnd)
+
+            let diff = tE.getTime() - tS.getTime()
+            let dayDiff = Math.ceil(diff/(1000*3600*24))
+            console.log('diff',dayDiff)
+
+            let udStartGet = y1+'-'+udStart.toString().substr(5);
+            let udEndGet = y1+'-'+udEnd.toString().substr(5);
+            
+            let tSNow = new Date(udStartGet)
+            let tENow = new Date(udEndGet)
+            
+            let text = '';
+            if (udStart.toString() == udEnd.toString()) {
+                text = dateFormatMonth(udStart)
+            }else{
+                text = `${dateFormatMonth(udStart)} - ${dateFormatMonth(udEnd)} `;
+            }
+
+            if (tSNow >= tglUmum && tSNow <= tglUmum) {
+                Swal.fire({
+                    title: 'We Apologize',
+                    html: `Resort <span style='color:red'>unavailable</span> on ${text}`
+                })
+                return false
+            }else if (tENow >= tglUmum && tENow <= tglUmum) {
+                Swal.fire({
+                    title: 'We Apologize',
+                    html: `Resort <span style='color:red'>unavailable</span> on ${text}`
+                })
+                return false
+            }
+        }
+
+        for (let m = 0; m < unDatesOnceStart.length; m++) {
+            let udStart = unDatesOnceStart[m]
+            let udEnd = unDatesOnceEnd[m]
+
+            let tS = new Date(udStart)
+            let tE = new Date(udEnd)
+
+            // console.log(`${t1} >= ${tglStart}`,t1 >= tglStart);
+            // console.log(`${t1} <= ${tglEnd}`,t1 <= tglEnd);
+
+            let text = '';
+            if (udStart.toString() == udEnd.toString()) {
+                text = dateFormatMonth(udStart)
+            }else{
+                text = `${dateFormatMonth(udStart)} - ${dateFormatMonth(udEnd)} `;
+            }
+            if (tS <= tglUmum && tE >= tglUmum) {
+                Swal.fire({
+                    title: 'We Apologize',
+                    html: `Resort <span style='color:red'>unavailable</span> on ${text}`
+                })
+                return false
+            }
+        }
+
+        return true
+    }
+
+    function checkAllPackageDates(){
+        var result = true;
+        $(".packageDateList").each(function(){
+            let inputId = $(this).attr('id')
+            let res = checkUnavailableDatesPackage(inputId)
+            if (!res) {
+                result = false
+            }
+        })
+
+        return result;
+    }
+    
+    function calculateDate(){
+        totalPrice = 0;
+        if($('#roomDateFrom').val() == "" || $('#roomDateTo').val() == ""){
+            return
+        }
+
+        if(new Date($('#roomDateFrom').val()) > new Date($('#roomDateTo').val())){
+            // alert("Invalid date")
+            return Swal.fire(
+                'Oops!',
+                'Be sure to choose the correct date.'
+            )
+            $('#roomDateTo').val("")
+            $('#roomDateFrom').val("")
+            // return
+        }
+
+        let tStart = dateFormatForDB($('#roomDateFrom').val())
+        let tEnd = dateFormatForDB($('#roomDateTo').val())
+
+        let tglStart = new Date(tStart)
+        let tglEnd = new Date(tEnd)
+        var night = (tglEnd - tglStart) / (1000 * 3600 * 24)
+
+        
+        if(package_data.room){
+            checkUnavailableDates()
+            
+            var dataRoom = package_data.room
+            for(var i = 0; i < dataRoom.length; i++){
+                for(var j = 0; j < dataRoom[i].roomItem.length; j++){
+                    $(`#night${dataRoom[i].roomItem[j].id}`).text(night)
+                    var summaryPrice = 0
+                    if(dataRoom[i].sharingRoom == "yes"){
+                        summaryPrice = parseFloat(night) * parseFloat(dataRoom[i].roomPrice) * parseFloat(dataRoom[i].roomItem[j].guest)
+                    }else{
+                        summaryPrice = parseFloat(night) * parseFloat(dataRoom[i].roomPrice)
+                    }
+                    $(`#${dataRoom[i].roomItem[j].id}`).text(`IDR ${formatRupiah(summaryPrice)}`)
+                    $(`#total${dataRoom[i].roomItem[j].id}`).text(formatRupiah(summaryPrice))
+                    totalPrice += summaryPrice
+                }
+            }
+        }
+
+        if(package_data.package){
+            var dataPackage = package_data.package
+            for(var i = 0; i < dataPackage.length; i++){
+                for(var j = 0; j < dataPackage[i].packageItem.length; j++){
+                    //$(`#night${dataRoom[i].roomItem[j].id}`).text(night)
+                    var summaryPrice = parseFloat(dataPackage[i].packageItem[j].guest) * parseFloat(dataPackage[i].packagePrice)
+                    //$(`#${dataRoom[i].roomItem[j].id}`).text(formatRupiah(summaryPrice))
+                    //$(`#total${dataRoom[i].roomItem[j].id}`).text(formatRupiah(summaryPrice))
+                    totalPrice += summaryPrice
+                }
+            }
+        }
+
+        $('#totalResorPrice').text(`IDR ${formatRupiah(parseFloat(totalPrice))}`)
+    }
+
+</script>

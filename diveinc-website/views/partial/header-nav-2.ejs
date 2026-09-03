@@ -1,0 +1,141 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white shadow-sm" style="z-index: 999;">
+    <a class="navbar-brand" href="/">
+        <img class="header-logo" src="/images/logo/logo-dive-blue.svg">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <!-- <li class="nav-item">
+                <a class="btn btn-white" href="personal-question-1">Create Yours</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="btn btn-white" href="/search">Resorts</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-white" href="/search-liveaboards">Liveaboards</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-white" href="/search-divecenter">Dive Center</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle btn btn-white" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Destination
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div id="menuLoaderNavbar" class="mx-2 d-flex flex-column justify-content-center align-items-center px-2 py-5 bg-light text-center">
+                        <div class="spinner-border mb-3" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="text-muted">Please wait...</div>
+                    </div>
+                    <div id="layoutDestinationHeader">
+                        <!-- <a class="dropdown-item" href="destination">Bali</a>
+                        <a class="dropdown-item" href="#">Lombok</a>
+                        <a class="dropdown-item" href="#">Nusa Penida</a>
+                        <a class="dropdown-item" href="#">Raja Ampat</a>
+                        <a class="dropdown-item" href="#">Komodo</a> -->
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/all-destination">View all destination</a>   
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-white" href="/search-contribution">Contribution</a>
+            </li>
+        </ul>
+        <div id="layoutLogin" style="display:none;">
+            <a href="/signin" class="btn btn-primary mr-2">Sign In</a>
+            <a href="/signup" class="btn btn-light">Sign Up</a>
+        </div>
+        <div id="layoutLogout" style="display:none;">
+            <a href="/my-account" class="btn btn-primary mr-2"><i class="fas fa-user fa-sm mr-2"></i>My Account</a>
+            <a onclick="logout()" href="#" class="btn btn-light"><i class="fas fa-sign-out-alt fa-sm mr-2"></i>Logout</a>
+        </div>
+    </div>
+    <!-- <a href="/search" class="btn btn-white mr-2"><i class="fas fa-search fa-sm mr-2"></i>Search</a> -->
+    <!-- <div class="actionLoginNav">
+
+    </div>
+     -->
+</nav>
+
+<script>
+
+    $(document).ready(function(){
+        if(getCookie("accessTokenDiveincWebsite")){
+            $('#layoutLogout').show()
+            $('#layoutLogin').hide()
+        }else{
+            $('#layoutLogout').hide()
+            $('#layoutLogin').show()
+        }
+        loadDestinationHeader()
+    })
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function logout(){
+        Swal.fire({
+            title: `Log Out ?`,
+            text: "You will redirect to home screen.",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Logout'
+        }).then((respond) => {
+            if (respond.value) {
+                deleteCookie("accessTokenDiveincWebsite")
+                deleteCookie("refreshTokenDiveincWebsite")
+                location.href = '/'
+            }
+        });
+        
+    }
+
+    function deleteCookie(name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;';
+    }
+
+    function loadDestinationHeader(){
+        $.ajax({
+            url: `/api/destination`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    $('#menuLoaderNavbar').addClass('hideImportant')
+                    for(var i = 0; i < result.data.length; i++){
+                        $('#layoutDestinationHeader').append(`
+                            <a class="dropdown-item" href="/destination/${result.data[i].id}">${result.data[i].name}</a>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+</script>

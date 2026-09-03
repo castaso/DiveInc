@@ -1,0 +1,540 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<style>
+    .tableExtraMobile tr td, .tableExtraMobile tr th{
+        vertical-align: top !important;
+        /* font-size: 17px; */
+    }
+</style>
+
+<!-- DESTINATION BANNER -->
+<div class="modal" id="modalPackageDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <div class="d-flex align-items-start justify-content-between flex-column mb-3">
+                    <h4 class="flex-shrink-0 divecenterName"></h4>
+                </div>
+                <!-- Itenary description -->
+                <div class="d-block mb-4">
+                    <h5>Itenary Description</h5>
+                    <div class="itenary-listing" id="list-iten">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="enquiry-banner have-curtain mb-0" style="background-image: url('/images/post-1.jpg');">
+    <div class="enquiry-banner--inner">
+        <div class="container">
+            <div class="destination-banner--text">
+                <div class="welcome-title--text mb-3">
+                    <h1 class="divecenterName"></h1>
+                    <div class="d-block mb-4">
+                        <p class="mb-0"><i class="fas fa-map fa-sm mr-2"></i><span class="divecenterLocation"></span></p>
+                        <!-- <p class="mb-0"><i class="fas fa-calendar-alt fa-sm mr-2"></i>3 nights: 1 Dec 2020 - 3 Dec 2020</p> -->
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <a data-target="#modalPackageDetails" data-toggle="modal" class="btn btn-outline-light btn-sm mr-2 mb-3">Itenary Details</a></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section section-xs bg-light">
+    <div class="container">
+        <div class="btn-group mb-4  btn-group-resort">
+            <a id="link-cd-1" href="checkout-divecenter" class="btn btn-lg btn-outline-primary">1. Choose Date</a>
+            <a class="btn btn-lg btn-primary">2. Add Extras</a>
+            <a href="checkout-divecenter-3" class="btn btn-lg btn-outline-primary disabled">3. Guest Detail</a>
+            <a href="checkout-divecenter-4" class="btn btn-lg btn-outline-primary disabled">4. Reserve</a>
+        </div>
+        <div class="card rounded-0 py-2">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="panel-title d-block">Add Extras</h5>
+                    <!-- <a href="checkout-resort-3" class="btn btn-lg btn-outline-primary">Skip this Step</a> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-block">
+                            <div class="card rounded-0 mb-4">
+                                <div id="listPackage" class="card-body d-none d-sm-block" style="overflow: auto;">
+                                    <!-- <div class="d-block">
+                                        <h5>Komodo Weekender</h5>
+                                        <table class="table w-100">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th class="w-100">Item</th>
+                                                    <th>Quantity</th>
+                                                    <th class="px-4">Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="font-weight-bold">Extra Oxygen Tanks</span></td>
+                                                    <td>
+                                                        <div class="input-group" style="width: 140px;">
+                                                            <div class="input-group-prepend">
+                                                                <button class="btn btn-outline-primary" type="button" id="button-addon1">-</button>
+                                                            </div>
+                                                            <input type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="0">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-primary" type="button" id="button-addon1">+</button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-4"><span class="font-weight-bold">$8</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="font-weight-bold">Iternet 20GB</span></td>
+                                                    <td>
+                                                        <div class="input-group" style="width: 140px;">
+                                                            <div class="input-group-prepend">
+                                                                <button class="btn btn-outline-primary" type="button" id="button-addon1">-</button>
+                                                            </div>
+                                                            <input type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="0">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-primary" type="button" id="button-addon1">+</button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-4"><span class="font-weight-bold">$9</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div> -->
+                                </div>
+                                <div id="listPackageMobile" class="card-body d-block d-sm-none"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end w-100">
+                            <a onClick="checkout()" href="#" class="hide-mobile btn btn-lg btn-primary">Continue to Step 3</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="checkout-summary">
+                            <div class="checkout-summary--head">
+                                <div class="checkout-summary--img backgroundImage"></div>
+                                <div class="checkout-summary--title">
+                                    <h4 class="divecenterName"></h4>
+                                    <div class="d-block">
+                                        <p class="mb-0"><i class="fas fa-map fa-sm mr-2"></i><span class="divecenterLocation"></span></p>
+                                        <p class="mb-0" id="travelDate"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout-summary--list">
+                                <ul class="list-group list-group-flush">
+                                    <div id="listDataPackage"></div>
+                                    <!-- <li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>Komodo Weekender</div>
+                                                <div>$2310</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>$770 x3</div>
+                                                <div>$2310</div>
+                                            </div>
+                                        </div>
+                                    </li> -->
+                                    </ul>
+                                    <div class="list-total">
+                                    <!-- <div class="list-total-item">
+                                        <div>VAT 10%</div>
+                                        <div id="totalResorPrice">$279</div>
+                                    </div> -->
+                                    <div class="list-total-item">
+                                        <div>Total Price</div>
+                                        <div id="totalResorPrice">IDR 0</div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="view-mobile-only mt-4">
+                            <a onClick="checkout()" href="#" class="btn btn-block btn-lg btn-primary">Continue to Step 3</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+</div>
+
+<section id="overlay-checkout" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+
+    var id="<%= id %>"
+
+    var packageData
+    var packages
+    let listIten = '';
+
+    $(document).ready(function(){
+        $('#link-cd-1').attr('href',`/checkout-divecenter/${id}/schedule`);
+        loadTransactionById()
+    })
+
+    function loadTransactionById(){
+        $.ajax({
+            url: `/api/transaction-divecenter/${id}`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    console.log(result)
+                    $('#checkoutCover, #checkout2Loader').addClass('hideImportant');
+
+                    packageData = result.data.package_data
+                    packages = result.data.divecenter.packages
+
+                    $('.backgroundImage').css("background-image", `url('${result.data.divecenter.photos[0].url}')`)
+                    $('.divecenterName').text(result.data.divecenter.profile.name)
+                    $('.divecenterLocation').text(`${result.data.divecenter.profile.sub_destination.name} - ${result.data.divecenter.profile.destination.name}, ${result.data.divecenter.profile.country.name}`)
+                    if (result.data.transaction_divecenter_status_id == 'b648ff73-468f-45cb-bbbc-fd3659e4b8ac') {
+                        window.location.replace(`/checkout-divecenter/${result.data.id}/reserve`);
+                    }
+
+                    if(packageData.package){
+                        for(var i = 0; i < packageData.package.length; i++){
+                            
+                            var packageItem = packageData.package[i].packageItem;
+
+                            for(var x = 0; x < packageData.package[i].packageItem.length; x++){
+                                $('#travelDate').append('<i class="fas fa-calendar fa-sm mr-2"></i> '+dateFormatMonth(packageData.package[i].packageItem[x].package_date)+'<br/>');
+                                $('#listDataPackage').append(`
+                                    <li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>${packageData.package[i].packageName} [Package plan - ${x + 1}]</div>
+                                                <div style="min-width:120px; font-weight:500; position:relative" class='text-right'>
+                                                    <div style='position:absolute;right:0px; bottom:0px'>IDR <span id="summaryTotal${packageData.package[i].packageItem[x].id}">${parseFloat(packageData.package[i].packagePrice)*parseFloat(packageData.package[i].packageItem[x].guest)}</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>IDR&nbsp; ${formatRupiah(packageData.package[i].packagePrice)} x${packageData.package[i].packageItem[x].guest}</div>
+                                                <div>IDR&nbsp; <span id="total${packageData.package[i].packageItem[x].id}">${formatRupiah(parseFloat(packageData.package[i].packagePrice)*parseFloat(packageData.package[i].packageItem[x].guest))}</span></div>
+                                            </div>
+                                            <div class="all-extra" id="extra${packageData.package[i].packageItem[x].id}"></div>
+                                        </div>
+                                    </li>
+                                `)
+                            }
+
+                            for(var x = 0; x < packageItem.length; x++){
+
+                                var htmlExtraPackage = ""
+                                var htmlExtraPackageMobile = ""
+                                var namePackage = ""
+
+                                var pService = [];
+                                if (typeof packageItem[x].service !== 'undefined' ) {
+                                    for (let p_idx = 0; p_idx < packageItem[x].service.length; p_idx++) {
+                                        pService[`${packageItem[x].service[p_idx].id}`] = packageItem[x].service[p_idx].qty; 
+                                    }                                    
+                                }
+
+                                for(var j = 0; j < packages.length; j++){
+                                    if(packageData.package[i].id == packages[j].id){
+                                        if(namePackage == ""){
+                                            namePackage = packages[j].info.name + ` - Package plan ${x+1}`
+                                        }
+
+                                        var dataService = []
+                                        packageItem[x].service = []
+
+                                        for(var k = 0; k < packages[j].service.length; k++){
+                                            htmlExtraPackage += `
+                                                <tr>
+                                                    <td><span class="font-weight-bold">${packages[j].service[k].name}</span></td>
+                                                    <td>
+                                                        <div class="input-group" style="width: 140px;">
+                                                            <div class="input-group-prepend">
+                                                                <button onClick="minButtonPackage('${packageData.package[i].id}','${packages[j].service[k].id}', '${packageItem[x].id}','${packages[j].service[k].price}')" class="btn btn-outline-primary btn-number" type="button" data-type="minus" data-field="quant[1]">-</button>
+                                                            </div>
+                                                            <input id="inputExtraPackage-${packages[j].service[k].id}-${packageData.package[i].id}-${packageItem[x].id}" type="text" class="form-control input-number text-center" value="${(typeof pService[packages[j].service[k].id] !== 'undefined' ? pService[packages[j].service[k].id] : 0)}">
+                                                            <div class="input-group-append">
+                                                                <button onClick="plusButtonPackage('${packageData.package[i].id}','${packages[j].service[k].id}','${packageItem[x].id}','${packages[j].service[k].price}', '${packages[j].service[k].qty}')" class="btn btn-outline-primary btn-number" type="button" data-type="plus" data-field="quant[1]">+</button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-4"><span class="font-weight-bold">${formatRupiah(packages[j].service[k].price)}</span></td>
+                                                </tr>
+                                            `
+
+                                            let opt = ''
+                                            let mx = packages[j].service[k].qty;
+                                            let extraQty = (typeof pService[packages[j].service[k].id] !== 'undefined' ? pService[packages[j].service[k].id] : 0);
+                                            if (mx == '' || mx == 0) {
+                                                mx = 10
+                                            }
+                                            for (let x = 0; x <= mx; x++) {
+                                                opt += `<option ${(extraQty == x ? 'selected': '')} value='${x}'>${x}</option>`
+                                            }
+
+                                            let srvShow = `<select class='form-control' style='max-width:90px' onchange="changePackageQty('${packageData.package[i].id}','${packages[j].service[k].id}', '${packageItem[x].id}','${packages[j].service[k].price}')" id="packageQty-${packages[j].service[k].id}">
+                                                                ${opt}
+                                                            </select>`
+
+
+                                            htmlExtraPackageMobile += `
+                                                <tr>
+                                                    <td><span class="font-weight-bold">${packages[j].service[k].name}</span></td>
+                                                    <td style='min-width:140px; text-align:left;'>
+                                                        <div class='mb-2'>
+                                                            ${srvShow}
+                                                        </div>
+                                                        x IDR ${formatRupiah(packages[j].service[k].price)}
+                                                    </td>
+                                                </tr>
+                                            `
+                                            dataService.push({
+                                                id : packages[j].service[k].id,
+                                                name : packages[j].service[k].name,
+                                                price : packages[j].service[k].price,
+                                                qty : (typeof pService[packages[j].service[k].id] !== 'undefined' ? pService[packages[j].service[k].id] : 0)
+                                            })
+                                        }
+
+                                        packageItem[x].service = dataService
+
+                                        for (let i_idx = 0; i_idx < packages[j].itenary.length; i_idx++) {
+                                            listIten += `<div class="itenary-listing--item">
+                                                <div class="itenary-wrapper">
+                                                    <div class="itenary-title font-weight-bold">Day ${i_idx+1}<i class="fas fa-angle-down ml-2 active"></i></div>
+                                                    <div class="itenary-content active">
+                                                        <ul class="list-base">
+                                                            ${packages[j].itenary[i_idx].text}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>`;
+                                        }
+                                    
+                                    }
+                                    $('#list-iten').append(listIten);
+                                }
+
+                                $('#listPackage').append(`
+                                    <div class="d-block">
+                                        <h5>${namePackage}</h5>
+                                        <table class="table mb-5 w-100">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th class="w-100 text-sm">Item</th>
+                                                    <th class="text-sm">Quantity</th>
+                                                    <th class="px-4 text-sm">Price&nbsp(IDR)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${htmlExtraPackage}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                `)
+
+                                $('#listPackageMobile').append(`
+                                    <div class="d-block table-scroll-x">
+                                        <h5>${packageData.package[i].packageName}</h5>
+                                        <table class="table mb-5 w-100 tableExtraMobile">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th class="w-100 text-sm">Item</th>
+                                                    <th class="text-sm">Quantity<br/>x Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${htmlExtraPackageMobile}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                `)
+                                
+                            }
+                        }
+                    }
+
+                    
+
+                    loadItem()
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function plusButtonPackage(packageId, serviceId, packageItemId, packagePrice, packageQty){
+        var dataCount = $(`#inputExtraPackage-${serviceId}-${packageId}-${packageItemId}`).val()
+        if(dataCount < parseInt(packageQty)){
+            dataCount++
+            $(`#inputExtraPackage-${serviceId}-${packageId}-${packageItemId}`).val(dataCount)
+            for(var i = 0; i < packageData.package.length; i++){
+                if(packageData.package[i].id == packageId){
+                    for(var x = 0; x < packageData.package[i].packageItem.length; x++){
+                        if(packageData.package[i].packageItem[x].id == packageItemId){
+                            for(var j = 0; j < packageData.package[i].packageItem[x].service.length; j++){
+                                if(packageData.package[i].packageItem[x].service[j].id == serviceId){
+                                    packageData.package[i].packageItem[x].service[j].qty = dataCount
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            alert("Max quantity")
+        }
+        loadItem()
+    }
+
+    function minButtonPackage(packageId, serviceId, packageItemId, packagePrice){
+        var dataCount = $(`#inputExtraPackage-${serviceId}-${packageId}-${packageItemId}`).val()
+        if(dataCount > 0){
+            dataCount--
+            $(`#inputExtraPackage-${serviceId}-${packageId}-${packageItemId}`).val(dataCount)
+            for(var i = 0; i < packageData.package.length; i++){
+                if(packageData.package[i].id == packageId){
+                    for(var x = 0; x < packageData.package[i].packageItem.length; x++){
+                        if(packageData.package[i].packageItem[x].id == packageItemId){
+                            for(var j = 0; j < packageData.package[i].packageItem[x].service.length; j++){
+                                if(packageData.package[i].packageItem[x].service[j].id == serviceId){
+                                    packageData.package[i].packageItem[x].service[j].qty = dataCount
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        loadItem()
+    }
+
+    function loadItem(){
+
+        console.log(packageData.package)
+        $('.all-extra').empty()
+
+        var totalPrice = 0
+
+        if(packageData.package){
+            for(var i = 0; i< packageData.package.length; i++){
+
+                for(var j = 0; j < packageData.package[i].packageItem.length; j++){
+                    var totalSummary = 0
+                    var summaryPrice = parseFloat(packageData.package[i].packagePrice) * parseFloat(packageData.package[i].packageItem[j].guest)
+                    $(`#total${packageData.package[i].packageItem[j].id}`).text(formatRupiah(summaryPrice))
+                    totalSummary += summaryPrice
+
+                    for(var k = 0; k < packageData.package[i].packageItem[j].service.length; k++){
+                        if(packageData.package[i].packageItem[j].service[k].qty > 0){
+                            $(`#extra${packageData.package[i].packageItem[j].id}`).append(`
+                                <div class="list-person--item text-muted">
+                                    <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${packageData.package[i].packageItem[j].service[k].name} (IDR&nbsp;${formatRupiah(packageData.package[i].packageItem[j].service[k].price)} x${packageData.package[i].packageItem[j].service[k].qty})</div>
+                                    <div class="list-price">IDR&nbsp; ${formatRupiah(parseFloat(packageData.package[i].packageItem[j].service[k].price) * parseFloat(packageData.package[i].packageItem[j].service[k].qty))}</div>
+                                </div>
+                            `)
+
+                            totalSummary += (parseFloat(packageData.package[i].packageItem[j].service[k].price) * parseFloat(packageData.package[i].packageItem[j].service[k].qty))
+                        }
+                    }
+
+                    $(`#summaryTotal${packageData.package[i].packageItem[j].id}`).text(formatRupiah(totalSummary)) 
+                    totalPrice += totalSummary
+                }
+            }
+        }
+        
+        $('#totalResorPrice').text(`IDR ${formatRupiah(totalPrice)}`)
+    }
+
+    function checkout(){
+
+        $("#overlay-checkout").removeClass('d-none');
+        $.ajax({
+            url: `/api/transaction-divecenter/${id}/extra`,
+            method: `PUT`,
+            data : {
+                package_data : packageData
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    location.href = `/checkout-divecenter/${result.data.id}/guest`
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                    $("#overlay-checkout").addClass('d-none');
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+
+                if (xhr.responseJSON.message == 'Token is required') {
+                    $("#overlay-checkout").addClass('d-none');
+                    loginRequired();
+                }
+
+            }
+        })
+    }
+
+    function changePackageQty(packageId, serviceId, packageItemId, packagePrice){
+        var dataCount = $(`#packageQty-${serviceId}`).val()
+        $(`#inputExtraPackageMobile-${serviceId}-${packageId}`).val(dataCount)
+        $(`#inputExtraPackage-${serviceId}-${packageId}-${packageItemId}`).val(dataCount)
+        
+        for(var i = 0; i < packageData.package.length; i++){
+            if(packageData.package[i].id == packageId){
+                for(var x = 0; x < packageData.package[i].packageItem.length; x++){
+                    if(packageData.package[i].packageItem[x].id == packageItemId){
+                        for(var j = 0; j < packageData.package[i].packageItem[x].service.length; j++){
+                            if(packageData.package[i].packageItem[x].service[j].id == serviceId){
+                                packageData.package[i].packageItem[x].service[j].qty = dataCount
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        loadItem()
+    }
+
+</script>

@@ -1,0 +1,693 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <%-include ../partial/sidebar-nav--toggle %>
+        <div class="row">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <%-include ../partial/sidebar-nav %>
+            <div class="col-lg-9">
+                <!-- <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="btn btn-white btn-sm">My Resort</a>
+                    </li>
+                </ul> -->
+                <div class="card shadow-sm border-0 rounded-0 card-account">
+                    <!-- Term List -->
+                    <div id="layoutWaitResort" style="display:none;" class="card-body">
+                        <div class="card bg-lighter">
+                            <div class="card-body">
+                                <h4>Thank you for registering your resort</h4>
+                                <p>Your resort documents are in the process of being reviewed by our team. This registration requires only one time, you can immediately add your room or travel package when this registration is complete.</p>
+                                <hr>
+                                <p class="mb-0">Please also read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="layoutRegisterResort" style="display:none;" class="card-body">
+                        <div class="card bg-lighter">
+                            <div class="card-body">
+                                <h4>Want to create & manage your resort?</h4>
+                                <br>
+                                <p>To create and manage a resort, you must fill out the form below & attach some mandatory requirements to be verified by the team. After everything is finished, our team will contact you as soon as possible.</p>
+                                <p>Please also read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a>.</p>
+                                <hr>
+                                <br>
+                                <h5 class="mb-3">Terms List</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6>PT</h6>
+                                        <ul class="list-base">
+                                            <li>Akta Pendirian PT;</li>
+                                            <li>Akta Pendirian PT;</li>
+                                            <li>NPWP;</li>
+                                            <li>NIB/SIUP/ dan TDP</li>
+                                            <li>Foto Buku Tabungan</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>CV</h6>
+                                        <ul class="list-base">
+                                            <li>Akta Pendirian CV;</li>
+                                            <li>Akta Pendirian CV;</li>
+                                            <li>NPWP;</li>
+                                            <li>NIB</li>
+                                            <li>Foto Buku Tabungan</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Individu</h6>
+                                        <ul class="list-base">
+                                            <li>Surat Perjanjian & Pernyataan;</li>
+                                            <li>Foto KTP;</li>
+                                            <li>Foto Diri & Pernyataan;</li>
+                                            <li>Rekening</li>
+                                            <li>Foto Buku Tabungan</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- <p>* Please upload in one file zip</p> -->
+                                <div class="d-block">
+                                    <!-- <h5 class="mb-3">Attach File</h5>
+                                    <div id="listDataRequest"></div>
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFile" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
+                                        <label id="chooseFile" class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New File</button>
+                                            <button id="sendFile" style="display:none;" type="button" class="btn btn-primary"><i class="fas fa-paper-plane mr-2"></i>Send File</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="select-card-wrapper mb-2">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input type="checkbox" name="dive-email-update" id="termsConditions"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0">I've read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a></h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <a href="/verify-company-resort" class="btn btn-primary disabled" id="verifyTermsButton">Start Verify Your Company <i class="ml-3 fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="layoutRejectResort" style="display:none;" class="card-body">
+                        <div class="card bg-lighter">
+                            <div class="card-body">
+                                <h4>Your request has been rejected. Want to try again?</h4>
+                                <br>
+                                <p>To create and manage a resort, you must fill out the form below & attach some mandatory requirements to be verified by the team. After everything is finished, our team will contact you as soon as possible.</p>
+                                <p>Please also read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a>.</p>
+                                <hr>
+                                <br>
+                                <h5 class="mb-3">Terms List</h5>
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="card bg-white">
+                                            <div class="card-body">
+                                                <h6>PT (Private Company)</h6>
+                                                <ul class="list-small-2">
+                                                    <li>Akta Pendirian PT dan akta perubahan terakhir (Deed of establishment of the company and its last amendment);</li>
+                                                    <li>NPWP-Nomor Pokok Wajib Pajak (Taxpayer Identification Number);</li>
+                                                    <li>NIB-Nomor Induk Berusaha (Business Identification Number) or SIUP-Surat Izin Usaha Perdagangan (Business Trade License) or TDP-Tanda Daftar Perusahaan (Company Registration Certificate);</li>
+                                                    <li>Statement rekening penerima sama dengan rekening PT.</li>
+                                                    <li>Foto Buku Tabungan</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <div class="card bg-white">
+                                            <div class="card-body">
+                                                <h6>CV (Limited Partnership)</h6>
+                                                <ul class="list-small-2">
+                                                    <li>Akta Pendirian PT dan akta perubahan terakhir (Deed of establishment of the Limited Partnership and its last amendment;</li>
+                                                    <li>NPWP-Nomor Pokok Wajib Pajak (Taxpayer Identification Number);</li>
+                                                    <li>NIB-Nomor Induk Berusaha (Business Identification Number) or SIUP-Surat Izin Usaha Perdagangan (Business Trade License) or TDP-Tanda Daftar Perusahaan (Company Registration Certificate).</li>
+                                                    <li>Foto Buku Tabungan</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <div class="card bg-white">
+                                            <div class="card-body">
+                                                <h6>Perorangan (Individu)</h6>
+                                                <ul class="list-small-2">
+                                                    <li>Perjanjian dan Surat Penyataan dari pemilik (Agreement & Statement Letter from the owner);</li>
+                                                    <li>KTP-Kartu Tanda Penduduk atau passport dari pemilik (Indonesian ID Card or Passport of the owner);</li>
+                                                    <li>Foto dari pemilik dengan buku tabungan dan KTP atau passport (Photo of the owner with bank account and KTP or passport).</li>
+                                                    <li>Foto Buku Tabungan</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-block">
+                                    <div id="listDocument"></div>
+                                    <!-- <h5 class="mb-3">Attach File</h5>
+                                    <div class="custom-file mb-2">
+                                        <input type="file" class="custom-file-input" id="customFileReject" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
+                                        <label id="chooseFileReject" class="custom-file-label" for="customFileReject">Choose file</label>
+                                        <input type="file" class="custom-file-input" id="customFileReject">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div> -->
+                                    <!-- <div class="d-flex justify-content-end">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New File</button>
+                                            <button id="sendFile" type="button" class="btn btn-primary buttonSubmit"><i class="fas fa-paper-plane mr-2"></i>Send File</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="select-card-wrapper mb-2">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input type="checkbox" name="dive-email-update" id="termsConditions2"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0">I've read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a></h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <a href="/verify-company-resort" class="btn btn-primary disabled" id="verifyTermsButton2">Start Verify Your Company <i class="ml-3 fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="layoutMyResort" style="display:none;" class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">My Resort</h5>
+                                <span id="totalResort" class="badge badge-primary rounded">0</span>
+                            </div>
+                            <a href="my-resort-create" class="btn btn-outline-primary">Create New</a>
+                        </div>
+                        
+                        <div id="listMyResort"></div>
+                        <div id="listMyResortEmpty"  class="d-none card rounded-0 mb-3 bg-white">
+                                <div class="card-body">
+                                    <div class="d-block bg-light p-4">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <h5>Congratulation!</h5>
+                                                <p>Now you can start to register your resort and create room or package for customers, by clicking
+                                                    <a href="my-resort-create" class="btn btn-outline-primary">Create New</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <!--<div id="listMyResortEmpty" class="card rounded-0 mb-3 bg-white">
+                            <div class="card-body">
+                                <div class="d-block bg-light p-4">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h5>Create the best experience</h5>
+                                            You don't have a resort right now, design your resort right now and feel the best experience with your guests.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                        
+                        <!-- <div class="card rounded-0 mb-3 bg-white">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <div class="card-body">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">3 Photos</span>
+                                        <div class="slick rounded">
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/komodo-resort.jpg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body card-body-flex-y pl-0">
+                                        <div class="card-content">
+                                            <h5 class="m-0 mb-1">Bali's Dive Resort</h5>
+                                            <ul class="list-inline list-inline-sm mb-2">
+                                                <li class="list-inline-item">Bali, Indonesia</li>
+                                                <li class="list-inline-item">Created 4/5/2019</li>
+                                            </ul>
+                                            <div class="meta-user text-black">
+                                                <div class="meta-user-img" style="background-image: url('/images/ocean-research-logo.jpg');"></div>
+                                                <div class="meta-user-detail">
+                                                    <h6 class="text-sm mb-0">Nusantara Resort</h6>
+                                                    <div class="text-success text-xs">Verified</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="list-group list-group-horizontal list-group-sm w-100">
+                                            <div class="dropdown">
+                                                <a class="list-group-item" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="my-resort-create">Edit Resort</a>
+                                                    <a class="dropdown-item" href="#">Upgrade Storage</a>
+                                                    <a class="dropdown-item" href="#">Add to Promotion</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Delete Resort</a>
+                                                </div>
+                                            </div>
+                                            <a href="resort" class="list-group-item" target="_blank"><i class="fas fa-eye fa-sm mr-2"></i>View</a>
+                                            <button type="button" class="list-group-item text-danger"><i class="fas fa-toggle-off fa-sm mr-2"></i>Unpublished</button>
+                                            <a href="my-resort-booking-management" class="list-group-item flex-grow-1 text-center"><i class="fas fa-book fa-sm mr-2"></i>Booking (4)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div id="layoutLoading" class="card-body">
+                        <div class="d-block py-5">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 text-center">
+                                    <div class="spinner-border text-primary mb-2" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div><br>
+                                    Please wait...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script>
+
+    var fileUrl = ""
+    var filePath = ""
+    var fileBaseUrl = ""
+
+    var listDataResort = []
+
+    $(document).ready(function() {
+        loadPermission()
+
+        $(`#customFile`).on(`change`, function(){
+          
+          $('#sendFile').hide()
+          $('#chooseFile').text("Please Wait ...")
+          makeFileRequestUpload('/api/upload/file', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $(`#customFileReject`).on(`change`, function(){
+          
+          $('#sendFile').hide()
+          $('#chooseFileReject').text("Please Wait ...")
+          makeFileRequestUpload('/api/upload/file', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $('#sendFile').click(function(){
+            vendorRegister()
+        })
+    })
+
+    function loadPermission() {
+        $.ajax({
+            url: `/api/my-permission`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    var permission = result.data.profile.permission
+                    for(var i = 0; i < permission.length; i++){
+                        console.log('permisi',permission[i].status_name);
+                        if(permission[i].type == "resort" && permission[i].status_name == "Accessed"){
+                            $('#layoutMyResort').show()
+                            $('#layoutLoading').hide()
+                            getMyResort()
+                        }
+                        if(permission[i].type == "resort" && permission[i].status_name == "No Access"){
+                            $('#layoutRegisterResort').show()
+                            $('#layoutLoading').hide()
+                        }
+                        if(permission[i].type == "resort" && permission[i].status_name == "Request"){
+                            $('#layoutWaitResort').show()
+                            $('#layoutLoading').hide()
+                        }
+                        if(permission[i].type == "resort" && permission[i].status_name == "Rejected"){
+                            $('#layoutRejectResort').show()
+                            $('#layoutLoading').hide()
+                        }
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function vendorRegister() {
+        $.ajax({
+            url: `/api/transaction-creator`,
+            method: `POST`,
+            data : {
+                type : "resort",
+                file : {
+                    url : fileUrl,
+                    baseUrl : fileBaseUrl,
+                    path : filePath
+                }
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.reload() 
+                    Swal.fire({
+                        title: "Your data has been sent",
+                        text: "Thank you for registering your resort, we will immediately inform you of the status of your resort."
+                    }).then(function() {
+                        window.location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function activeResort(resortId, statusPublish){
+
+        if(statusPublish){
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will unpublish your resort",
+                icon: "warning",
+                showCancelButton : true,
+            }).then(function(isConfirm) {
+                console.log(isConfirm)
+                if (isConfirm.value) {
+                    unpublishResort(resortId)
+                } else {
+                    swal("Cancelled", "Your data safe :)", "error");
+                }
+            })
+        }else{
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will publish your resort",
+                icon: "warning",
+                showCancelButton : true,
+            }).then(function(isConfirm) {
+                console.log(isConfirm)
+                if (isConfirm.value) {
+                    publishResort(resortId)
+                } else {
+                    swal("Cancelled", "Your data safe :)", "error");
+                }
+            })
+        }
+    }
+
+    function unpublishResort(resortId){
+        $.ajax({
+            url: `/api/resort/${resortId}/publish`,
+            method: `PUT`,
+            data : {
+                publish : false
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    Swal.fire({
+                        title: "Your resort has been unpublished",
+                        text: "Thank you."
+                    }).then(function() {
+                        window.location.reload()
+                    });
+                } else {
+                    Swal.fire(
+                        'Publish Failed',
+                        result.message
+                    )
+                    //alert(result.message)
+                    //console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function publishResort(resortId){
+        //alert(resortId)
+        var canPublish = false
+        for(var i = 0; i < listDataResort.length; i++){
+            if(listDataResort[i].id == resortId){
+                for(var x = 0; x < listDataResort[i].packages.length; x++){
+                    if(listDataResort[i].packages[x].publish){
+                        canPublish = true
+                    }
+                }
+
+                for(var x = 0; x < listDataResort[i].rooms.length; x++){
+                    if(listDataResort[i].rooms[x].publish){
+                        canPublish = true
+                    }
+                }
+            }
+        }
+
+        if(canPublish){
+            $.ajax({
+                url: `/api/resort/${resortId}/publish`,
+                method: `PUT`,
+                data : {
+                    publish : true
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        Swal.fire({
+                            title: "Your resort has been active",
+                            text: "Thank you for acivating your resort."
+                        }).then(function() {
+                            window.location.reload()
+                        });
+                    } else {
+                        Swal.fire(
+                            'Publish Failed',
+                            result.message
+                        )
+                        //alert(result.message)
+                        //console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }else{
+            Swal.fire(
+                'Publish Failed',
+                `You can't published resort with empty room or package`
+            )
+        }
+    }
+
+    function getMyResort(){
+        // $('#listMyResortEmpty').show();
+        $.ajax({
+            url: `/api/my-resort`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    listDataResort = result.data
+                    $('#totalResort').text(result.data.length)
+                    if (result.data.length == 0) {
+                        $('#listMyResortEmpty').removeClass('d-none');
+                    }
+                    for(var i = 0; i < result.data.length; i++){
+
+                        var publish = result.data[i].publish
+                        console.log(publish)
+
+                        $('#listMyResortEmpty').hide();
+                        $('#listMyResort').append(`
+                            <div class="card rounded-0 mb-3 bg-white">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <div class="card-body">
+                                            <span class="badge-photos badge-photos-2 badge badge-dark badge-pill rounded">${result.data[i].photos.length} Photos</span>
+                                            <div class="slick rounded">
+                                                <div class="glide__slide--photos" style="background-image:url('${result.data[i].photos[0].url}');"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body card-body-flex-y pl-0">
+                                            <div class="card-content">
+                                                <a href="resort/${result.data[i].id}" class="btn btn-sm btn-secondary text-white mb-2" target="_blank">View Resort</a>
+                                                <a href="resort/${result.data[i].id}" target="_blank" class="text-decoration-none">
+                                                    <h5 class="m-0 mb-1">${result.data[i].profile.name}</h5>
+                                                </a>
+                                                <ul class="list-inline list-inline-sm mb-2">
+                                                    <li class="list-inline-item">${result.data[i].profile.destination.name}, ${result.data[i].profile.country.name}</li>
+                                                    <li class="list-inline-item">Created ${dateFormatMonth(result.data[i].created_at)}</li>
+                                                </ul>
+                                                <div class="meta-user text-black">
+                                                    <div class="meta-user-img" style="background-image: url('../images/user-diveinc.png');"></div>
+                                                    <div class="meta-user-detail">
+                                                        <h6 class="text-sm mb-0">${result.data[i].profile.name}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="hide-mobile list-group-custom list-group list-group-horizontal list-group-sm w-100">
+                                                
+                                                <a href="/my-resort-create/${result.data[i].id}" class="list-group-item pr-3" data-toggle="tooltip" data-placement="top" title="Edit your resort"><i class="fas fa-edit fa-sm mr-2"></i>Edit</a>
+                                                <a onClick="activeResort('${result.data[i].id}', ${publish});" type="button" class="list-group-item ${publish ? "text-success" : "text-danger"}" data-toggle="tooltip" data-placement="top" title="Select to publish or unpublish"><i class="fas ${publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${publish ? "Published" : "Unpublished"}</a>
+                                                <a href="my-resort-booking-management?id=${result.data[i].id}" class="list-group-item flex-grow-1 text-center" data-toggle="tooltip" data-placement="top" title="View my booking list"><i class="fas fa-book fa-sm mr-2"></i>Booking</a>
+                                            </div>
+
+                                            <div class="view-mobile-only">
+                                                
+                                                <a href="/my-resort-create/${result.data[i].id}" class="btn btn-block btn-outline-primary pr-3" data-toggle="tooltip" data-placement="top" title="Edit your resort"><i class="fas fa-edit fa-sm mr-2"></i>Edit</a>
+                                                <a onClick="activeResort('${result.data[i].id}', ${publish});" type="button" class="btn btn-block btn-outline-primary ${publish ? "text-success" : "text-danger"}" data-toggle="tooltip" data-placement="top" title="Select to publish or unpublish"><i class="fas ${publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${publish ? "Published" : "Unpublished"}</a>
+                                                <a href="my-resort-booking-management?id=${result.data[i].id}" class="btn btn-block btn-outline-primary flex-grow-1 text-center" data-toggle="tooltip" data-placement="top" title="View my booking list"><i class="fas fa-book fa-sm mr-2"></i>Booking</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        $(function () {
+                            $('[data-toggle="tooltip"]').tooltip()
+                        })
+                    }
+                    
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                    $('#listMyResortEmpty').show();
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function makeFileRequestUpload(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'File too large',
+                'Please make sure the data to be uploaded is under 20MB.'
+            )
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      $('#sendFile').show()
+                      $('#chooseFile').text(files[0].name)
+                      $('#chooseFileReject').text(files[0].name)
+                      var response = JSON.parse(xhr.response)
+                      fileUrl = response.data.location
+                      filePath = response.data.key
+                      fileBaseUrl = response.data.baseUrl
+                    }else {
+                      console.log(xhr.response)
+                      $('#chooseFile').text("Choose File")
+                    //   alert("Upload file gagal")
+                        Swal.fire(
+                            'Upload failed',
+                            'We apologize in advance for the inconvenience. please try again to upload your data.'
+                        )
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function progressHandlerBackground(event) {
+        // var percent = (event.loaded / event.total) * 100
+        // $("#progressBackground").val(Math.round(percent))
+        // if(percent == 100){
+        //     $("#statusBackground").text("Upload Success")
+        // }else{
+        //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        // }
+      }
+
+      function completeHandlerBackground(event) {
+        //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+      }
+
+      function errorHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Failed")
+      }
+
+      function abortHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Aborted")
+      }
+</script>

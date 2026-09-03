@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Diveinc - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link href="/assets/libs/ladda/ladda-themeless.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- App css -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body class="authentication-bg authentication-bg-pattern">
+    <div class="account-pages mt-5 mb-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6 col-xl-5">
+            <div class="card bg-pattern">
+              <div class="card-body p-4">
+                <div class="text-center w-75 m-auto">
+                  <a href="">
+                    <span style="font-size: xx-large;font-weight: bolder;">Diveinc.co</span>
+                  </a>
+                  <p class="text-muted mb-4 mt-3">
+                    Enter your email address and password to access admin panel.
+                  </p>
+                </div>
+
+                <form action="#">
+                  <div class="form-group mb-3">
+                    <label for="emailaddress">Email address</label>
+                    <input class="form-control" type="email" id="inputEmail" required="" placeholder="Enter your email" />
+                  </div>
+
+                  <div class="form-group mb-3">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" required="" id="inputPassword" placeholder="Enter your password" />
+                  </div>
+
+                  <div class="form-group mb-3">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="rememberMe" checked />
+                      <label class="custom-control-label" for="rememberMe">Remember me</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group mb-0 text-center">
+                    <button id="loginButton" class="ladda-button btn btn-primary btn-block" data-style="zoom-in">
+                      Login
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <!-- end card-body -->
+            </div>
+            <!-- end card -->
+
+            <div class="row mt-3">
+              <div class="col-12 text-center">
+                <p>
+                  <a href="/forgot-password" class="text-white-50 ml-1">Forgot your password?</a>
+                </p>
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end page -->
+
+    <footer class="footer footer-alt">
+      2019 &copy; Powered by <a style="color: #91a6b7;" href="">mrgxxd</a>
+    </footer>
+
+    <%- include('../partials/mainjs.ejs') %>
+
+    <!-- App js -->
+    <script src="/assets/js/app.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $(`#loading`).hide();
+
+        if (getCookie(`rememberMe`) && getCookie(`email`)) {
+          $(`#rememberMe`).prop("checked", true);
+          $(`#inputEmail`).val(getCookie(`email`));
+        }
+
+        $(`#loginButton`).click(function(e) {
+          e.preventDefault();
+          if (checkParam()) {
+            Ladda.create(this).start();
+            callApiLogin();
+          } else {
+            alert(`lengkapi form`);
+          }
+        });
+      });
+
+      function checkParam() {
+        if ($(`#inputEmail`).val() == `` || $(`#inputPassword`).val() == ``) return false;
+        return true;
+      }
+
+      function callApiLogin() {
+        $(`#loading`).show();
+        $(`#loginButton`)
+          .removeClass(`btn-primary`)
+          .addClass(`btn-disabled disabled`);
+        $.ajax({
+          url: `/api/login`,
+          method: `POST`,
+          data: {
+            email: $(`#inputEmail`).val(),
+            password: $(`#inputPassword`).val()
+          },
+          success: function(result) {
+            $(`#loading`).hide();
+            $(`#loginButton`)
+              .removeClass(`btn-disabled disabled`)
+              .addClass(`btn-primary`);
+            if (result.success) {
+              console.log(result);
+              if ($(`#rememberMe`).prop("checked")) {
+                const expYear = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+                setCookie(`rememberMe`, true, expYear);
+                setCookie(`email`, $(`#inputEmail`).val(), expYear);
+              } else {
+                setCookie(`rememberMe`, false, 365);
+              }
+              setCookie(`accessToken`, result.data.accessToken, 1);
+              setCookie(`refreshToken`, result.data.refreshToken, 7);
+
+              location.href = "/";
+            } else {
+              console.log(result);
+              Ladda.create($(`#loginButton`)[0]).stop();
+            }
+          },
+          error(xhr, status, error) {
+            $(`#loading`).hide();
+            $(`#loginButton`)
+              .removeClass(`btn-disabled disabled`)
+              .addClass(`btn-primary`);
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+    </script>
+  </body>
+</html>

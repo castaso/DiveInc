@@ -1,0 +1,939 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<!-- DESTINATION BANNER -->
+<div class="enquiry-banner have-curtain mb-0" style="background-image: url('/images/liveaboard-img-1.jpg');">
+    <div class="enquiry-banner--inner">
+        <div class="container">
+            <div class="destination-banner--text">
+                <div class="welcome-title--text mb-3">
+                    <h1 class="liveaboardName"></h1>
+                    <div class="d-block mb-4" id="liveaboardsDesc">
+                        <p class="mb-0"><i class="fas fa-map fa-sm mr-2"></i><span class="resortLocation"></span> </p>
+                        <p class="mb-0"><i class="fas fa-calendar-alt fa-sm mr-2"></i><span class="liveaboardDate"></span></p>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <a data-target="#modalItenary" data-toggle="modal" class="btn btn-outline-light btn-sm mr-2 mb-3">Itenary Details</a></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cabin Details -->
+<div class="modal" id="modalCabinDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body" id="modalCabinDetailsBody">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h4>Double Cabin - Upper Deck</h4>
+                    <h6 class="text-muted">Cabin Details</h6>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        Perfect for 2 people traveling together. The twin bungalows are equipped with 2 twin beds, aircon, fan, a private open-air bathroom, and a balcony with hammock, table and chairs.
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <h6 class="mb-3">Cabin Info</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Room size</div>
+                                    <div class="list-panel-content">12m2</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Max. occupancy</div>
+                                    <div class="list-panel-content">2 guest</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Beds</div>
+                                    <div class="list-panel-content">Double or Twin</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Private Bathroom</div>
+                                    <div class="list-panel-content">Yes</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Air Conditioning</div>
+                                    <div class="list-panel-content">Yes</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">WiFi in Room</div>
+                                    <div class="list-panel-content">No</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <h6 class="mb-3">Amenities</h6>
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Air Conditioning
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Hair dryer
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>TV
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Private bathroom
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>In-room safe
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Fresh water-shower
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Wi-Fi (Free)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-neutral" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Itenary Details -->
+<div class="modal" id="modalItenary" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <div class="d-flex align-items-start justify-content-between flex-column mb-3">
+                    <h4 class="flex-shrink-0 liveaboardName"></h4>
+                    <h6 class="text-muted">Itenary Details</h6>
+                </div>
+                <!-- Itenary description -->
+                <div class="d-block mb-4">
+                    <h5>Itenary Description</h5>
+                    <div class="itenary-listing" id="list-iten">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section section-xs bg-light">
+    <div class="container">
+        <div class="btn-group mb-4 btn-group-resort">
+            <a class="btn btn-lg btn-primary">1. Select Your Cabin</a>
+            <a href="checkout-2" class="btn btn-lg btn-outline-primary disabled">2. Add Extras</a>
+            <a href="checkout-3" class="btn btn-lg btn-outline-primary disabled">3. Guest Detail</a>
+            <a href="checkout-4" class="btn btn-lg btn-outline-primary disabled">4. Reserve</a>
+        </div>
+        <div class="card rounded-0 py-2">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="panel-title d-block">Select Your Cabins</h5>
+                </div>
+                <div id="cabinList" class="d-block">
+                    <!-- <div class="d-block mb-3">
+                        <div class="card rounded-0 shadow-sm border-0">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <div class="d-block">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded">3 Photos</span>
+                                        <div class="slick">
+                                            <div class="glide__slide--photos" style="background-image: url('/images/room-1.jpeg');">
+                                                <img data-lazy="/images/room-1.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-2.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-3.jpeg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <h5>Double Cabin - Upper Deck</h5>
+                                                <div class="d-block py-1">
+                                                    <div class="d-block mb-2 text-sm">
+                                                        <i class="fas fa-user fa-sm mr-2"></i>2 people max
+                                                    </div>
+                                                    <div class="d-block mb-2 text-sm">
+                                                        <i class="fas fa-bed fa-sm mr-2"></i>Twin bed
+                                                    </div>
+                                                    <div class="d-block mb-2 text-sm">
+                                                        <i class="fas fa-arrows-alt fa-sm mr-2"></i>Room size
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <button type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#modalCabinDetails"><i class="far fa-eye mr-2"></i>View Cabin Details</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 text-left">
+                                                <div class="d-block mb-2">
+                                                    <div class="d-flex flex-column">
+                                                        <h5 class="m-0 normal-price discounted" class="">$770</h5>
+                                                        <h3 class="m-0">$699</h3>
+                                                    </div>
+                                                    <div class="text-sm text-muted">Per persons</div>
+                                                </div>
+                                                <div class="d-flex flex-column align-items-start w-100 mb-4">
+                                                    <select class="form-control rounded-0 mb-2" style="width: 180px;">
+                                                        <option>1 person</option>
+                                                        <option>2 people</option>
+                                                    </select>
+                                                    <div class="text-xs text-muted text-left">Please choose how many guest.</div>
+                                                </div>
+                                                
+                                                <div class="select-card-wrapper select-card-wrapper-sm">
+                                                    <div class="select-card select-card-100 mb-1">
+                                                        <label class="select-card-inner select-card-inner-h shadow-sm">
+                                                            <input type="checkbox" name="selectCabin"/>
+                                                            <div class="select-card-content">
+                                                                <h6 class="mb-0">Select cabin</h6>
+                                                            </div>
+                                                            <div class="select-card-checkbox"></div>
+                                                            <div class="select-card-checked"></div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="d-block mb-3">
+                        <div class="card rounded-0 shadow-sm border-0">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <div class="d-block">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded">3 Photos</span>
+                                        <div class="slick">
+                                            <div class="glide__slide--photos" style="background-image: url('/images/room-1.jpeg');">
+                                                <img data-lazy="/images/room-1.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-2.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-3.jpeg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <h5>Double Cabin - Lower Deck</h5>
+                                                <div class="d-block py-1">
+                                                    <div class="d-block mb-2 text-sm">
+                                                        <i class="fas fa-user fa-sm mr-2"></i>2 people max
+                                                    </div>
+                                                    <div class="d-block mb-2 text-sm">
+                                                        <i class="fas fa-bed fa-sm mr-2"></i>Twin bed
+                                                    </div>
+                                                    <div class="d-block mb-2 text-sm">
+                                                        <i class="fas fa-arrows-alt fa-sm mr-2"></i>Room size
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <button type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#modalCabinDetails"><i class="far fa-eye mr-2"></i>View Cabin Details</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 text-left">
+                                                <div class="d-block mb-2">
+                                                    <div class="d-flex flex-column">
+                                                        <h5 class="m-0 normal-price discounted" class="">$770</h5>
+                                                        <h3 class="m-0">$699</h3>
+                                                    </div>
+                                                    <div class="text-sm text-muted">Per persons</div>
+                                                </div>
+                                                <div class="d-flex flex-column align-items-start w-100 mb-4">
+                                                    <select class="form-control rounded-0 mb-2" style="width: 180px;">
+                                                        <option>1 person</option>
+                                                        <option>2 people</option>
+                                                    </select>
+                                                    <div class="text-xs text-muted text-left">Please choose how many guest.</div>
+                                                </div>
+                                                <div class="select-card-wrapper select-card-wrapper-sm">
+                                                    <div class="select-card select-card-100 mb-1">
+                                                        <label class="select-card-inner select-card-inner-h shadow-sm">
+                                                            <input type="checkbox" name="selectCabin"/>
+                                                            <div class="select-card-content">
+                                                                <h6 class="mb-0">Select cabin</h6>
+                                                            </div>
+                                                            <div class="select-card-checkbox"></div>
+                                                            <div class="select-card-checked"></div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="d-flex justify-content-end w-100">
+                    <a onClick="checkout()" class="hide-mobile btn btn-lg btn-primary">Continue to Step 2</a>
+                </div>
+                <div class="view-mobile-only">
+                    <a onClick="checkout()" class="btn btn-block btn-lg btn-primary">Continue to Step 2</a>
+                </div>
+            </div>
+            
+    
+        </div>
+    </div>
+</div>
+
+<section id="overlay-checkout" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+    var id = "<%= id %>"
+
+    var package_data
+    let packageListData = []
+
+    var totalPriceData
+    var totalPrice = 0
+
+    var listRoom = []
+    var listRoomsChoose = []
+
+    let roomDetail = []
+    let listRoomOption = {};
+    let listRoomAmenities = {};
+    let packageList = {}
+    let packageListGuest = []
+    let tglShow = '';
+
+    $(document).ready(function(){
+        //alert("hai")
+        getRoomOption()
+        getAminity()
+        loadTransactionById()
+    })
+
+    function loadTransactionById(){
+        $.ajax({
+             url: `/api/transaction-liveaboard/${id}`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    
+                    package_data = result.data.package_data
+                    packageListGuest = result.data.package_data.package;
+                    let liveaboard = result.data.liveaboard;
+                    let packageOri = liveaboard.packages;
+                    $('.liveaboardName').text(result.data.liveaboard.profile.name)
+                    $('.resortLocation').text(`${result.data.liveaboard.profile.sub_destination.name} - ${result.data.liveaboard.profile.destination.name}, ${result.data.liveaboard.profile.country.name}`)
+
+                    if (result.data.transaction_liveaboard_status_id == 'b648ff73-468f-45cb-bbbc-fd3659e4b8ac') {
+                        window.location.replace(`/checkout-liveaboards/${result.data.id}/reserve`);
+                    }
+
+                    for (let p_idx = 0; p_idx < packageOri.length; p_idx++) {
+                        if (packageOri[p_idx].itenary !== "undefined") {
+                            let itenary = packageOri[p_idx].itenary;
+                            for (let i_idx = 0; i_idx < itenary.length; i_idx++) {
+                                $("#list-iten").append(`<div class="itenary-listing--item">
+                                            <div class="itenary-wrapper">
+                                                <div class="itenary-title font-weight-bold">Day ${i_idx+1}<i class="fas fa-angle-down ml-2 active"></i></div>
+                                                <div class="itenary-content active">
+                                                    <ul class="list-base">
+                                                        ${itenary[i_idx].text}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>`);
+                            }
+                        }
+                    }
+
+                    for (let p_idx = 0; p_idx < packageListGuest.length; p_idx++) {
+                        let tgl_start = packageListGuest[p_idx].package_date;
+                        let tgl_start_add = new Date(tgl_start);
+                        let dS = new Date();
+                        let dayCount = packageListGuest[p_idx].day
+                        let tgl_end = new Date(dS.setDate(tgl_start_add.getDate() + parseInt(dayCount) - 1));
+                        let tgl_end_show = dateFormatSM(tgl_end.getFullYear()+'-'+(tgl_end.getMonth()+1)+'-'+tgl_end.getDate());
+                        tglShow = dateFormatSM(tgl_start)+ '-' + tgl_end_show;
+                        $('.liveaboardDate').append(`${dayCount} days `);
+                        // $('.liveaboardDate').append(dateFormatSM(tgl_start)+ '-');
+                        $('.liveaboardDate').append(tglShow);
+                        // $('.liveaboardDate').append(packageList[packageListGuest[p_idx].id].night+' night');
+                                                
+                    }
+                    
+                    // 10 nights: 1 Dec 2020 - 10 Dec 2020
+                    // loadRoomById()
+                    //location.href = `/checkout-resort/${result.data.id}/extra`
+
+                    // console.log("KJASHDKJASHDKASHDKJASHDKJAHSDKJHSDKJA")
+                    // console.log(package_data)
+                    let packageRoom = package_data.room;
+                    listRoom = package_data.package[0].dataCabin
+                    let guestRoom = []; 
+                    if (typeof packageRoom !== 'undefined') {
+                        for (let j = 0; j < packageRoom.length; j++) {
+                            listRoomsChoose.push({...packageRoom[j]});
+                            guestRoom[`${packageRoom[j].id}`] = packageRoom[j].roomItem[0].guest;                            
+                        }
+                        
+                    }
+
+                    // console.log('LRIC',listRoomsChoose);
+                    for(var i = 0; i < package_data.package[0].dataCabin.length; i++){
+                        console.log('GR',guestRoom);
+                        var guestHtml = ``
+                        let selected = false;
+                        for(var x = 0; x < package_data.package[0].dataCabin[i].data.rules.max_person; x++){
+                            let guestNumber = 1;
+                            if (typeof guestRoom[package_data.package[0].dataCabin[i].id] !== 'undefined') {
+                                guestNumber = guestRoom[package_data.package[0].dataCabin[i].id];
+                                selected = true;
+                            }
+                            guestHtml += `<option ${(guestNumber == x+1 ? 'selected' : '')} value="${x+1}">${x+1} Person</option>`
+                        }
+                        // alert(selected);
+
+                        let pricePackage = ``;
+                        // <h5 class="m-0 normal-price discounted" class="">$770</h5>
+                        //                                         <h3 class="m-0">$699</h3>
+                        
+                        if(package_data.package[0].dataCabin[i].discount != "0" && package_data.package[0].dataCabin[i].discount != "" && package_data.package[0].dataCabin[i].discount != null && package_data.package[0].dataCabin[i].discount != 'NaN' && typeof package_data.package[0].dataCabin[i].discount !== 'undefined'){
+                            pricePackage = `<h5 class="m-0 normal-price discounted" class="">IDR ${formatRupiah(package_data.package[0].dataCabin[i].price)}</h5>
+                                                        <h4 class="m-0 price-package discount-price">IDR ${formatRupiah(package_data.package[0].dataCabin[i].discount)}</h4>`
+                        }else{
+                            pricePackage = `<h4 class="m-0 normal-price price-package">IDR ${formatRupiah(package_data.package[0].dataCabin[i].price)}</h4>`
+                        }
+                        $('#cabinList').append(`
+                            <div class="d-block mb-3">
+                                <div class="card rounded-0 shadow-sm border-0">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <div class="d-block">
+                                                <span class="badge-photos badge badge-dark badge-pill rounded">3 Photos</span>
+                                                <div class="slick">
+                                                    <div class="glide__slide--photos" style="background-image: url('/images/room-1.jpeg');">
+                                                        <img data-lazy="/images/room-1.jpeg">
+                                                    </div>
+                                                    <div class="glide__slide--photos">
+                                                        <img data-lazy="/images/room-2.jpeg">
+                                                    </div>
+                                                    <div class="glide__slide--photos">
+                                                        <img data-lazy="/images/room-3.jpeg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-5 col-md-6">
+                                                        <h5 class="cabin-name">${package_data.package[0].dataCabin[i].data.info.name}</h5>
+                                                        <div class="d-block py-1">
+                                                            <div class="d-block mb-2 text-sm">
+                                                                <i class="fas fa-user fa-sm mr-2"></i>${package_data.package[0].dataCabin[i].data.rules.max_person} people max
+                                                            </div>
+                                                            <div class="d-block mb-2 text-sm">
+                                                                <i class="fas fa-bed fa-sm mr-2"></i> ${package_data.package[0].dataCabin[i].data.info.room_option[0].data.name}
+                                                            </div>
+                                                            <div class="d-block mb-2 text-sm">
+                                                                <i class="fas fa-arrows-alt fa-sm mr-2"></i>${package_data.package[0].dataCabin[i].data.info.room_size.width} x ${package_data.package[0].dataCabin[i].data.info.room_size.length}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-7 col-md-6 text-left">
+                                                        <div class="d-block mb-2">
+                                                            <div class="d-flex flex-column">
+                                                                ${pricePackage}
+                                                            </div>
+                                                            <div class="text-sm text-muted">Per persons</div>
+                                                        </div>
+                                                        <div class="d-flex flex-column align-items-start w-100 mb-4">
+                                                            <select onChange="changePerson('${package_data.package[0].dataCabin[i].id}')" id="inputGuest${package_data.package[0].dataCabin[i].id}" class="form-control rounded-0 mb-2" style="width: 180px;">
+                                                                ${guestHtml}
+                                                            </select>
+                                                            <div class="text-xs text-muted text-left">Please choose how many guest.</div>
+                                                        </div>
+                                                        
+                                                        
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <button type="button" class="btn btn-light btn-sm" onClick="getRoomDetail(${i})" data-toggle="modal" data-target="#modalCabinDetails"><i class="far fa-eye mr-2"></i>View Cabin Details</button>
+                                                        </div>
+                                                        <div class="select-card-wrapper select-card-wrapper-sm">
+                                                            <div class="select-card select-card-100 mb-1">
+                                                                <label class="select-card-inner select-card-inner-h shadow-sm">
+                                                                    <input id="inputCabin-${package_data.package[0].dataCabin[i].id}" ${(selected ? 'checked' : '')} onClick="selectCabin('${package_data.package[0].dataCabin[i].id}')" type="checkbox" name="selectCabin"/>
+                                                                    <div class="select-card-content">
+                                                                        <h6 class="mb-0">Select cabin</h6>
+                                                                    </div>
+                                                                    <div class="select-card-checkbox"></div>
+                                                                    <div class="select-card-checked"></div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        
+                        let oRoom = package_data.package[0].dataCabin[i].data;
+                        let rOption = `<div class="col-md-6">
+                                    <div class="list-panel border-bottom mb-2">
+                                        <div class="list-panel-title">Room Size</div>
+                                        <div class="list-panel-content">${oRoom.info.room_size.width}x${oRoom.info.room_size.length}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="list-panel border-bottom mb-2">
+                                        <div class="list-panel-title">Max Person</div>
+                                        <div class="list-panel-content">${oRoom.rules.max_person}</div>
+                                    </div>
+                                </div>`; 
+                        let rAmenity = ``;
+                        for (let r_idx = 0; r_idx < oRoom.info.room_option.length; r_idx++) {
+                            rOption += `<div class="col-md-6">
+                                    <div class="list-panel border-bottom mb-2">
+                                        <div class="list-panel-title">${listRoomOption[oRoom.info.room_option[r_idx].id]}</div>
+                                        <div class="list-panel-content">${oRoom.info.room_option[r_idx].data.name}</div>
+                                    </div>
+                                </div>`;
+                        }
+
+                        
+                        for (let r_idx = 0; r_idx < oRoom.info.room_aminities.length; r_idx++) {
+                            rAmenity += `<div class="col-md-4 mb-2">
+                                    <i class="far fa-check-square mr-2"></i>${listRoomAmenities[oRoom.info.room_aminities[r_idx]]}
+                                </div>`;
+                        }
+
+                        roomDetail[i] = `<div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4>${oRoom.info.name}</h4>
+                                    <h6 class="text-muted">Cabin Details</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        ${oRoom.info.description}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <h6 class="mb-3">Cabin Info</h6>
+                                        <div class="row">
+                                            ${rOption}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <h6 class="mb-3">Amenities</h6>
+                                        <div class="row">
+                                            ${rAmenity}
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+
+                    }
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function loadRoomById(roomIdSelected){
+        //alert("test" + id)
+        // console.log('ro', roomIdSelected)
+        $.ajax({
+            url: `/api/liveaboard-package/${id}/room`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    listRoom = result.data
+                    for(var i = 0; i < result.data.length; i++){
+
+                        let selected = '';
+                        let guest = '';
+                        for (let r_idx = 0; r_idx < roomIdSelected.length; r_idx++) {
+                            if (roomIdSelected[r_idx].id == result.data[i].id) {
+                                console.log('ro', roomIdSelected[r_idx])
+                                selected = true;
+                                guest = roomIdSelected[r_idx].data.roomItem[0].guest;
+                                listRoomsChoose.push({...roomIdSelected[r_idx].data})
+                            }
+                        }
+
+                        var guestHtml = ``
+                        for(var x = 0; x < result.data[i].rules.max_person; x++){
+                            guestHtml += `<option ${(selected && x+1 == guest ? 'selected' : '' )} value="${x+1}">${x+1} Person</option>`
+                        }
+
+                        let pricePackage = ``;
+                        // <h5 class="m-0 normal-price discounted" class="">$770</h5>
+                        //                                         <h3 class="m-0">$699</h3>
+                        
+                        if(result.data[i].price.discount != "0" && result.data[i].price.discount != "" && result.data[i].price.discount != null && result.data[i].price.discount != 'NaN' && typeof result.data[i].price.discount !== 'undefined'){
+                            pricePackage = `<h5 class="m-0 normal-price discounted" class="">IDR ${formatRupiah(result.data[i].price.price)}</h5>
+                                                        <h4 class="m-0 price-package discount-price">IDR ${formatRupiah(result.data[i].price.discount)}</h4>`
+                        }else{
+                            pricePackage = `<h4 class="m-0 normal-price price-package">IDR ${formatRupiah(result.data[i].price.price)}</h4>`
+
+                        }
+                        $('#cabinList').append(`
+                            <div class="d-block mb-3">
+                                <div class="card rounded-0 shadow-sm border-0">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <div class="d-block">
+                                                <span class="badge-photos badge badge-dark badge-pill rounded">3 Photos</span>
+                                                <div class="slick">
+                                                    <div class="glide__slide--photos" style="background-image: url('/images/room-1.jpeg');">
+                                                        <img data-lazy="/images/room-1.jpeg">
+                                                    </div>
+                                                    <div class="glide__slide--photos">
+                                                        <img data-lazy="/images/room-2.jpeg">
+                                                    </div>
+                                                    <div class="glide__slide--photos">
+                                                        <img data-lazy="/images/room-3.jpeg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-5 col-md-6">
+                                                        <h5 class="cabin-name">${result.data[i].info.name}</h5>
+                                                        <div class="d-block py-1">
+                                                            <div class="d-block mb-2 text-sm">
+                                                                <i class="fas fa-user fa-sm mr-2"></i>${result.data[i].rules.max_person} people max
+                                                            </div>
+                                                            <div class="d-block mb-2 text-sm">
+                                                                <i class="fas fa-bed fa-sm mr-2"></i> ${result.data[i].info.room_option[0].data.name}
+                                                            </div>
+                                                            <div class="d-block mb-2 text-sm">
+                                                                <i class="fas fa-arrows-alt fa-sm mr-2"></i>${result.data[i].info.room_size.width} x ${result.data[i].info.room_size.length}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-7 col-md-6 text-left">
+                                                        <div class="d-block mb-2">
+                                                            <div class="d-flex flex-column">
+                                                                ${pricePackage}
+                                                            </div>
+                                                            <div class="text-sm text-muted">Per persons</div>
+                                                        </div>
+                                                        <div class="d-flex flex-column align-items-start w-100 mb-4">
+                                                            <select onChange="changePerson('${result.data[i].id}')" id="inputGuest${result.data[i].id}" class="form-control rounded-0 mb-2" style="width: 180px;">
+                                                                ${guestHtml}
+                                                            </select>
+                                                            <div class="text-xs text-muted text-left">Please choose how many guest.</div>
+                                                        </div>
+                                                        
+                                                        
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <button type="button" class="btn btn-light btn-sm" onClick="getRoomDetail(${i})" data-toggle="modal" data-target="#modalCabinDetails"><i class="far fa-eye mr-2"></i>View Cabin Details</button>
+                                                        </div>
+                                                        <div class="select-card-wrapper select-card-wrapper-sm">
+                                                            <div class="select-card select-card-100 mb-1">
+                                                                <label class="select-card-inner select-card-inner-h shadow-sm">
+                                                                    <input ${selected ? 'checked' : ''} id="inputCabin-${package_data.package[0].dataCabin[i].id}" onClick="selectCabin('${result.data[i].id}')" type="checkbox" name="selectCabin"/>
+                                                                    <div class="select-card-content">
+                                                                        <h6 class="mb-0">Select cabin</h6>
+                                                                    </div>
+                                                                    <div class="select-card-checkbox"></div>
+                                                                    <div class="select-card-checked"></div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        
+                        let oRoom = result.data[i];
+                        let rOption = `<div class="col-md-6">
+                                    <div class="list-panel border-bottom mb-2">
+                                        <div class="list-panel-title">Room Size</div>
+                                        <div class="list-panel-content">${oRoom.info.room_size.width}x${oRoom.info.room_size.length}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="list-panel border-bottom mb-2">
+                                        <div class="list-panel-title">Max Person</div>
+                                        <div class="list-panel-content">${oRoom.rules.max_person}</div>
+                                    </div>
+                                </div>`; 
+                        let rAmenity = ``;
+                        for (let r_idx = 0; r_idx < oRoom.info.room_option.length; r_idx++) {
+                            rOption += `<div class="col-md-6">
+                                    <div class="list-panel border-bottom mb-2">
+                                        <div class="list-panel-title">${listRoomOption[oRoom.info.room_option[r_idx].id]}</div>
+                                        <div class="list-panel-content">${oRoom.info.room_option[r_idx].data.name}</div>
+                                    </div>
+                                </div>`;
+                        }
+
+                        
+                        for (let r_idx = 0; r_idx < oRoom.info.room_aminities.length; r_idx++) {
+                            rAmenity += `<div class="col-md-4 mb-2">
+                                    <i class="far fa-check-square mr-2"></i>${listRoomAmenities[oRoom.info.room_aminities[r_idx]]}
+                                </div>`;
+                        }
+
+                        roomDetail[i] = `<div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4>${oRoom.info.name}</h4>
+                                    <h6 class="text-muted">Cabin Details</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        ${oRoom.info.description}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <h6 class="mb-3">Cabin Info</h6>
+                                        <div class="row">
+                                            ${rOption}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <h6 class="mb-3">Amenities</h6>
+                                        <div class="row">
+                                            ${rAmenity}
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getRoomOption() {
+        $.ajax({
+            url: `/api/room-option`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        listRoomOption[result.data[i].id] = result.data[i].name;
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getAminity() {
+        $.ajax({
+            url: `/api/room-aminity`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        listRoomAmenities[result.data[i].id] = result.data[i].name;
+                    }   
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function changePerson(cabinId){
+        // alert(cabinId)
+        for(var j = 0; j < listRoomsChoose.length; j++){
+            if(listRoomsChoose[j].id == cabinId){
+                listRoomsChoose[j].roomItem[0].guest =  $(`#inputGuest${cabinId}`).val()
+            }
+        }
+        console.log(listRoomsChoose)
+    }
+
+    function selectCabin(cabinId){
+        // alert(cabinId);
+        if($(`#inputCabin-${cabinId}`).prop("checked") == true){
+            console.log("masuk sini"+cabinId)
+            for(var j = 0; j < listRoom.length; j++){
+                console.log(listRoom[j])
+                if(listRoom[j].id == cabinId){
+
+
+                    var roomPrice =  listRoom[j].price
+                    if(listRoom[j].discount != 0 && listRoom[j].discount != "0" && listRoom[j].discount != "" && listRoom[j].discount != null){
+                        roomPrice =  listRoom[j].discount
+                    }
+                    var newObj = {
+                        id : cabinId,
+                        roomItem: [
+                            {
+                                id: "cabin-"+ new Date().getTime(),
+                                guest: $(`#inputGuest${cabinId}`).val(),
+                                service: [] // ini ganti
+                            }
+                        ],
+                        roomId : listRoom[j].room_id,
+                        roomName : listRoom[j].data.info.name,
+                        roomPrice : roomPrice,
+                        sharing_room : listRoom[j].data.rules.sharing_room,
+                        data : listRoom[j].data
+                    }
+                    console.log('NO',newObj);
+
+                    listRoomsChoose.push({...newObj})
+                }
+            }
+        }else{
+            listRoomsChoose = listRoomsChoose.filter(function( obj ) {
+                return obj.id !== cabinId
+            })
+        }
+
+        console.log('lrc',listRoomsChoose)
+    }
+
+    function checkout(){
+        if(listRoomsChoose.length == 0){
+            return Swal.fire(
+                'Oops!',
+                'Make sure you select the cabin.'
+            )
+        }else{
+            var dateData = package_data.package[0].package_date
+            $("#overlay-checkout").removeClass('d-none');
+            package_data.room = listRoomsChoose
+            var totalGuest = 0
+            for(var i = 0; i < listRoomsChoose.length; i++){
+                for(var j = 0; j < listRoomsChoose[i].roomItem.length; j++){
+                    totalGuest += parseInt(listRoomsChoose[i].roomItem[j].guest)
+                }
+            }
+            package_data.package[0].guest = totalGuest.toString()
+            // return
+            $.ajax({
+                url: `/api/transaction-liveaboard/${id}/schedule`,
+                method: `PUT`,
+                data : {
+                    begin_time : new Date(dateData),
+                    package_data : package_data
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        location.href = `/checkout-liveaboards/${result.data.id}/extra`
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+
+                    if (xhr.responseJSON.message == 'Token is required') {
+                        $("#overlay-checkout").addClass('d-none');
+                        loginRequired();
+                    }
+                }
+            })
+        }
+    }
+
+    function getRoomDetail(i){
+        $('#modalCabinDetailsBody').html(roomDetail[i]).promise().done(function(){
+            $("#modalCabinDetailsBody").find(".amenities-item").each(function(){
+                let amenities_id = $(this).find('span').attr('class');
+                $(this).find('span').html(amenitiesList[amenities_id]);
+            });
+
+        });
+    }
+</script>

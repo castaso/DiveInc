@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>City</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <!-- <link rel="shortcut icon" href="/assets/images/favicon.ico" /> -->
+    <!-- CSS -->
+    <%- include('../../partials/mainstyle') %>
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <!-- Topbar Start -->
+      <%- include('../../partials/mainheader') %>
+      <!-- end Topbar -->
+
+      <!-- Menu Start -->
+      <%- include('../../partials/mainmenu') %>
+      <!-- end menu -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="wrapper">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Diveinc.co</a></li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">City</a></li>
+                  <li class="breadcrumb-item active">Add</li>
+                </ol>
+              </div>
+              <h4 class="page-title">Add City</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <!-- MAIN CONTENT -->
+                <p class="text-muted font-13">
+                    FYI : * is required
+                </p>
+                <div class="form-group">
+                  <label class="col-form-label">*Country</label>
+                  <select id="inputCountry" class="form-control">
+                    <option value="">-- Select Country --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">*Name</label>
+                    <input id="inputName" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">*Description</label>
+                    <textarea id="inputDescription" type="text" class="form-control"></textarea>
+                </div>
+                <div class="form-group text-right m-b-0">
+                    <button id="buttonSubmit" class="btn btn-primary waves-effect waves-light">
+                        Submit
+                    </button>
+                    <button id="buttonCancel" class="btn btn-secondary waves-effect m-l-5">
+                        Cancel
+                    </button>
+                </div>
+              </div>
+              <!-- end card body-->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col-->
+        </div>
+        <!-- end row-->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <%- include('../../partials/mainfooter') %>
+    </footer>
+    <!-- end Footer -->
+
+    <!-- modal start -->
+    <!-- end modal -->
+
+    <!-- Vendor js -->
+    <script src="/assets/js/vendor.min.js"></script>
+
+    <!-- third party js -->
+    <%- include('../../partials/mainjs.ejs') %>
+
+    <!-- App js-->
+    <script src="/assets/js/app.min.js"></script>
+    <script>
+      $(document).ready(function() {
+
+        loadCountry()
+        
+        $('#buttonSubmit').click(function(){
+            add();
+        });
+
+        $('#buttonCancel').click(function(){
+            window.history.back();
+        });
+      });
+
+      function add(){
+        if(isValid()){
+            callApiAdd()
+        }else{
+            alert("Form is not valid")
+        }
+      }
+
+      function isValid(){
+          if(
+              $('#inputName').val.length <= 0
+              || $('#inputDesctiption').val.length <= 0
+          ) return false
+          return true
+      }
+
+      function loadCountry(){
+        $.ajax({
+          url: `/api/country`,
+          method: `GET`,
+          success: function(result) {
+            if(result.success){
+              for(var i = 0; i < result.data.length; i++){
+                $('#inputCountry').append(`
+                  <option value="${result.data[i].id}">${result.data[i].name}</option>
+                `);
+              }
+            }else{
+              console.log(result.message)
+            }
+          },
+          error(xhr, status, error){
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function callApiAdd(){
+        // $(`#loading`).show();
+        // $(`#loginButton`)
+        //   .removeClass(`btn-primary`)
+        //   .addClass(`btn-disabled disabled`);
+        $.ajax({
+          url: `/api/city`,
+          method: `POST`,
+          data: {
+            country_id: $(`#inputCountry`).val(),
+            name: $(`#inputName`).val(),
+            description: $(`#inputDescription`).val()
+          },
+          success: function(result) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            if (result.success) {
+              alert("Success")
+              location.href = "/city";
+            } else {
+              console.log(result);
+              //Ladda.create($(`#loginButton`)[0]).stop();
+            }
+          },
+          error(xhr, status, error) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Creature</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <!-- <link rel="shortcut icon" href="/assets/images/favicon.ico" /> -->
+    <!-- CSS -->
+    <%- include('../../partials/mainstyle') %>
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <!-- Topbar Start -->
+      <%- include('../../partials/mainheader') %>
+      <!-- end Topbar -->
+
+      <!-- Menu Start -->
+      <%- include('../../partials/mainmenu') %>
+      <!-- end menu -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="wrapper">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Diveinc.co</a></li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Creature</a></li>
+                  <li class="breadcrumb-item active">Add</li>
+                </ol>
+              </div>
+              <h4 class="page-title">Add Creature</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <!-- MAIN CONTENT -->
+                <p class="text-muted font-13">
+                    FYI : * is required
+                </p>
+                <div class="form-group">
+                    <label class="col-form-label">*Name</label>
+                    <input id="inputName" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">*Introduction</label>
+                  <textarea id="inputIntroduction" type="text" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">*Description</label>
+                    <textarea id="inputDescription" type="text" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">*Article ID</label>
+                  <select id="inputArticle" class="custom-select ">
+                    <option value="">Open this select menu</option>
+                  </select>
+                </div>
+                
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">*Background Image</label>
+                  <div class="col-sm-10">
+                      <div id="dataBackgroundImage" class="row">
+                          <div id="addBackgroundImage" style="background-image: url('/assets/images/add_image.png');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+                          </div>
+                      </div>
+                      <input id="inputBackgroundImage" type="file" style="display:none;">
+                      <progress id="progressBackground" value="0" max="100" style="width:300px;"></progress><br><span id="statusBackground"></span>
+                  </div>
+                </div>
+
+                <br><br>
+                <hr>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">*Icon Image</label>
+                  <div class="col-sm-10">
+                      <div id="dataIconImage" class="row">
+                          <div id="addIconImage" style="background-image: url('/assets/images/add_image.png');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+                          </div>
+                      </div>
+                      <input id="inputIconImage" type="file" style="display:none;">
+                      <progress id="progressIcon" value="0" max="100" style="width:300px;"></progress><br><span id="statusIcon"></span>
+                  </div>
+                </div>
+
+                <div class="form-group text-right m-b-0">
+                    <button id="buttonSubmit" class="btn btn-primary waves-effect waves-light">
+                        Submit
+                    </button>
+                    <button id="buttonCancel" class="btn btn-secondary waves-effect m-l-5">
+                        Cancel
+                    </button>
+                </div>
+              </div>
+              <!-- end card body-->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col-->
+        </div>
+        <!-- end row-->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <%- include('../../partials/mainfooter') %>
+    </footer>
+    <!-- end Footer -->
+
+    <!-- modal start -->
+    <!-- end modal -->
+
+    <!-- Vendor js -->
+    <script src="/assets/js/vendor.min.js"></script>
+
+    <!-- third party js -->
+    <%- include('../../partials/mainjs.ejs') %>
+
+    <!-- App js-->
+    <script src="/assets/js/app.min.js"></script>
+    <script>
+      var dataBackgroundImage = [];
+      var dataIconImage = [];
+
+      $(document).ready(function() {
+        
+        $('#buttonSubmit').click(function(){
+            add();
+        });
+
+        $('#buttonCancel').click(function(){
+            window.history.back();
+        });
+
+        $(`#addBackgroundImage`).click(function(){
+          $(`#inputBackgroundImage`).click()
+        })
+
+        $(`#addIconImage`).click(function(){
+          $(`#inputIconImage`).click()
+        })
+
+        $(`#inputBackgroundImage`).on(`change`, function(){
+          makeFileRequestBackground('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $(`#inputIconImage`).on(`change`, function(){
+          makeFileRequestIcon('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+          callApiArticle()
+      });
+
+      function callApiArticle(){
+        $.ajax({
+          url: `/api/article`,
+          method: `GET`,
+          success: function(result) {
+            if(result.success){
+              for(var i = 0; i < result.data.length; i++){
+                $("#inputArticle").append(`
+                  <option value="${result.data[i].id}">${result.data[i].name}</option>
+                `);
+              }
+            }
+          },
+          error(xhr, status, error) {
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function add(){
+        if(isValid()){
+            callApiAdd()
+        }else{
+            alert("Form is not valid")
+        }
+      }
+
+      function isValid(){
+          if(
+              $('#inputName').val().length <= 0
+              || $('#inputIntroduction').val().length <= 0
+              || $('#inputDescription').val().length <= 0
+              || dataBackgroundImage.length <= 0
+              || dataIconImage.length <= 0
+          ) return false
+          return true
+      }
+
+      function callApiAdd(){
+        // $(`#loading`).show();
+        // $(`#loginButton`)
+        //   .removeClass(`btn-primary`)
+        //   .addClass(`btn-disabled disabled`);
+        var data = {
+          article_id : $('#inputArticle').val(),
+          name : $('#inputName').val(),
+          introduction : $('#inputIntroduction').val(),
+          description : $('#inputDescription').val(),
+          image_background : dataBackgroundImage,
+          image_icon : dataIconImage,
+        }
+
+        console.log(data)
+        $.ajax({
+          url: `/api/creature`,
+          method: `POST`,
+          data: data,
+          success: function(result) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            if (result.success) {
+              alert("Success")
+              location.href = "/creature";
+            } else {
+              console.log(result);
+              //Ladda.create($(`#loginButton`)[0]).stop();
+            }
+          },
+          error(xhr, status, error) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function makeFileRequestBackground(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 10200000){
+            alert("Size must be less than 10MB")
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      var response = JSON.parse(xhr.response)
+                      var newImage = {};
+                      newImage.id = "img-"+new Date().getTime().toString()
+                      newImage.url = response.data.location
+                      newImage.path = response.data.key
+                      newImage.baseUrl = response.data.baseUrl
+                      dataBackgroundImage.push(newImage)
+                      loadDataBackgroundImage()
+                    }else {
+                      console.log(xhr.response)
+                      alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function progressHandlerBackground(event) {
+        var percent = (event.loaded / event.total) * 100
+        $("#progressBackground").val(Math.round(percent))
+        if(percent == 100){
+            $("#statusBackground").text("Upload Success")
+        }else{
+            $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        }
+      }
+
+      function completeHandlerBackground(event) {
+        $("#progressBackground").val(0) //wil clear progress bar after successful upload
+      }
+
+      function errorHandlerBackground(event) {
+        $("#statusBackground").text("Upload Failed")
+      }
+
+      function abortHandlerBackground(event) {
+        $("#statusBackground").text("Upload Aborted")
+      }
+
+      function loadDataBackgroundImage(){
+        $(`.data-add-background`).remove()
+        for(var i = 0; i < dataBackgroundImage.length; i++){
+          $(`#dataBackgroundImage`).prepend(`
+            <div class="data-add-background" id="${dataBackgroundImage[i].id}" style="background-image: url('${dataBackgroundImage[i].url}');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+              <button onClick="deleteBackgroundImage('${dataBackgroundImage[i].id}');" style="float:right;">x</button>
+            </div>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteBackgroundImage(id){
+        dataBackgroundImage = dataBackgroundImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        $(`#${id}`).remove()
+      }
+
+      function makeFileRequestIcon(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 10200000){
+            alert("Size must be less than 10MB")
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      var response = JSON.parse(xhr.response)
+                      var newImage = {};
+                      newImage.id = "img-"+new Date().getTime().toString()
+                      newImage.url = response.data.location
+                      newImage.path = response.data.key
+                      newImage.baseUrl = response.data.baseUrl
+                      dataIconImage.push(newImage)
+                      loadDataIconImage()
+                    }else {
+                      console.log(xhr.response)
+                      alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerIcon, false);
+            xhr.addEventListener("load", completeHandlerIcon, false);
+            xhr.addEventListener("error", errorHandlerIcon, false);
+            xhr.addEventListener("abort", abortHandlerIcon, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function progressHandlerIcon(event) {
+        var percent = (event.loaded / event.total) * 100
+        $("#progressIcon").val(Math.round(percent))
+        if(percent == 100){
+            $("#statusIcon").text("Upload Success")
+        }else{
+            $("#statusIcon").text(Math.round(percent) + "% uploaded... please wait")
+        }
+      }
+
+      function completeHandlerIcon(event) {
+        $("#progressIcon").val(0) //wil clear progress bar after successful upload
+      }
+
+      function errorHandlerIcon(event) {
+        $("#statusIcon").text("Upload Failed")
+      }
+
+      function abortHandlerIcon(event) {
+        $("#statusIcon").text("Upload Aborted")
+      }
+
+      function loadDataIconImage(){
+        $(`.data-add-icon`).remove()
+        for(var i = 0; i < dataIconImage.length; i++){
+          $(`#dataIconImage`).prepend(`
+            <div class="data-add-icon" id="${dataIconImage[i].id}" style="background-image: url('${dataIconImage[i].url}');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+              <button onClick="deleteIconImage('${dataIconImage[i].id}');" style="float:right;">x</button>
+            </div>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteIconImage(id){
+        dataIconImage = dataIconImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        $(`#${id}`).remove()
+      }
+    </script>
+  </body>
+</html>

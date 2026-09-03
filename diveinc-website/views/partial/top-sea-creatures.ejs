@@ -1,0 +1,187 @@
+<!-- TOP DESTINATION -->
+<div id="viewCreatures" class="d-block mb-5 mt-5">
+    <div class="container">
+        <div class="section-title d-flex align-items-center justify-content-between">
+            <div class="section-title--col">
+                <h5 class="m-0 mb-3">
+                    Best sites for...
+                </h5>
+            </div>
+            <div class="section-title--col ml-5">
+                <a href="all-creatures" role="button" class="btn btn-link pr-0 pl-0">
+                    See&nbsp;all&nbsp;creatures
+                </a>
+            </div>
+        </div>
+        <div class="explore-card" id="cta-container">
+            <div class="glide-card explore-card--list explore-card--with-text explore-card--100">
+                <div class="glide__track" data-glide-el="track">
+                    <ul id="layoutCreature" class="glide__slides">
+                        <!-- <li>
+                            <a href="article-read-2" class="explore-card--item mb-0">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="explore-card--image" style="background-image: url('/images/seacreatures-ray.jpg');">
+                                        <div class="explore-card--text-inside">
+                                            <h4 class="mt-0">Manta</h4>
+                                            <p>If sharks make you lose your cool, then mantas will play it cool around you and your diving buddies</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="glide__slide">
+                            <a href="article-read-mola-mola" class="explore-card--item mb-0">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="explore-card--image" style="background-image: url('/images/mola-mola.jpg');background-position: left;">
+                                        <div class="explore-card--text-inside">
+                                            <h4 class="mt-0">Mola-mola</h4>
+                                            <p>Mola Mola is one of the heaviest bony fish in the world. One fine adult weighs around 1,000 kg making it one of the behemoth underwater.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="article-read-sharks" class="explore-card--item mb-0">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="explore-card--image" style="background-image: url('/images/seacreatures-shark.jpg');">
+                                        <div class="explore-card--text-inside">
+                                            <h4 class="mt-0">Sharks</h4>
+                                            <p>Diving with sharks seems to be scary, until...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="article-read-turtles" class="explore-card--item mb-0">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="explore-card--image" style="background-image: url('/images/seacreatures-turtle.jpg');">
+                                        <div class="explore-card--text-inside">
+                                            <h4 class="mt-0">Turtles</h4>
+                                            <p>An encounter with sea turtles will always be a special moment for every divers</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="article-read-2" class="explore-card--item mb-0">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="explore-card--image" style="background-image: url('/images/seacreatures-schoolingfish.jpg');">
+                                        <div class="explore-card--text-inside">
+                                            <h4 class="mt-0">Schooling Fish</h4>
+                                            <p>Lorem ipsumdolor sit amet consectetur adipisicing elit acusantium illum debitis.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="article-read-2" class="explore-card--item mb-0">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="explore-card--image" style="background-image: url('/images/seacreatures-reefwalls.jpg');">
+                                        <div class="explore-card--text-inside">
+                                            <h4 class="mt-0">Reef & Walls</h4>
+                                            <p>Lorem ipsumdolor sit amet consectetur adipisicing elit acusantium illum debitis.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="glide__arrows glide__arrows-custom" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left shadow-sm" data-glide-dir="<"><i class="fas fa-angle-left"></i></button>
+                    <button class="glide__arrow glide__arrow--right shadow-sm" data-glide-dir=">"><i class="fas fa-angle-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        loadCreature()
+    })
+
+    function loadCreature(){
+        $.ajax({
+            url: `/api/creature`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        if(i == 0){
+                            $('#layoutCreature').append(`
+                                <li class="glide__slide">
+                                    <a href="#" onClick="goTo('${result.data[i].article_id}')" class="explore-card--item mb-0">
+                                        <div class="explore-card--content shadow-sm">
+                                            <div class="explore-card--image" style="background-image: url('${result.data[i].image_background[0].url}');">
+                                                <div class="explore-card--text-inside">
+                                                    <h4 class="mt-0 text-ellipsis">${result.data[i].name}</h4>
+                                                    <p>${result.data[i].introduction}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            `)
+                        }else{
+                            $('#layoutCreature').append(`
+                                <li>
+                                    <a href="#" onClick="goTo('${result.data[i].article_id}')" class="explore-card--item mb-0">
+                                        <div class="explore-card--content shadow-sm">
+                                            <div class="explore-card--image" style="background-image: url('${result.data[i].image_background[0].url}');">
+                                                <div class="explore-card--text-inside">
+                                                    <h4 class="mt-0 text-ellipsis">${result.data[i].name}</h4>
+                                                    <p>${result.data[i].introduction}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            `)
+                        }
+                    }
+
+                    var sliders2 = document.querySelectorAll('#cta-container .glide-card');
+
+                    for (var i = 0; i < sliders2.length; i++) {
+                        var glide2 = new Glide(sliders2[i], {
+                            type: 'carousel',
+                            startAt: 0,
+                            perView: 5,
+                            gap: 0,
+                            breakpoints: {
+                                991: {
+                                perView: 3
+                                },
+                                767: {
+                                perView: 2
+                                }
+                            }
+                        });
+                        
+                        glide2.mount();
+                    }
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function goTo(id){
+        if(id != null && id != "" && id != "null"){
+            location.href = `/article-read/${id}`
+        }
+    }
+</script>

@@ -1,0 +1,602 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<div class="section section-sm bg-lighter pt-4">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <!-- FILTERING -->
+            <!--
+            | ----------------------------------------------|
+            | Temporary Hide for Future Development         |
+            | -> to open, remove 'd-none' on col-md-3 below |
+            | --------------------------------------------- |
+            -->
+            <div class="col-md-3 d-none">
+                <div id="filteringPanel" class="filtering-panel">
+                    <div class="filtering-panel--header">
+                        <div class="filtering-panel--title">Filter search</div>
+                        <div><button type="button" class="btn btn-light finishFiltering"><i class="fas fa-times mr-2"></i>Close</button></div>
+                    </div>
+                     <!-- Travel Type Select -->
+                    <div class="card rounded-0 shadow-sm border-0 mb-2">
+                        <div class="card-body p-3">
+                            <h6 class="m-0 mb-3">Type of Holiday</h6>
+                            <div class="select-card-wrapper select-card-wrapper-sm">
+                                <div class="select-card select-card-100 mb-1">
+                                    <label class="select-card-inner select-card-inner-h shadow-sm">
+                                        <input type="checkbox" name="pickTypeHoliday"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Resort</h6>
+                                        </div>
+                                        <div class="select-card-checkbox"></div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-100 mb-1">
+                                    <label class="select-card-inner select-card-inner-h shadow-sm">
+                                        <input type="checkbox" name="pickTypeHoliday"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Liveaboards</h6>
+                                        </div>
+                                        <div class="select-card-checkbox"></div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-100 mb-1">
+                                    <label class="select-card-inner select-card-inner-h shadow-sm">
+                                        <input type="checkbox" name="pickTypeHoliday" checked="checked"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Divecenter</h6>
+                                        </div>
+                                        <div class="select-card-checkbox"></div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Animal Type Select -->
+                    <div class="card rounded-0 shadow-sm border-0 mb-2">
+                        <div class="card-body p-3">
+                            <h6 class="m-0 mb-3">What Do You Want to See?</h6>
+                            <div class="select-card-wrapper select-card-wrapper-sm">
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickAnimals"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Sharks</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickAnimals"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Rays</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickAnimals"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Turtles</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickAnimals"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Macro Creatures</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickAnimals"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Reefs & Walls</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickAnimals"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Mammals & Pelagic</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Location Type Select -->
+                    <div class="card rounded-0 shadow-sm border-0 mb-2">
+                        <div class="card-body p-3">
+                            <h6 class="m-0 mb-3">Where Do You Want to Travel?</h6>
+                            <div class="select-card-wrapper select-card-wrapper-sm">
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickLocation"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Bali</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickLocation"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Lombok</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickLocation"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Raja Ampat</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="checkbox" name="pickLocation"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">Bunaken</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Price Type Select -->
+                    <div class="card rounded-0 shadow-sm border-0 mb-2">
+                        <div class="card-body p-3">
+                            <h6 class="m-0 mb-3">Price</h6>
+                            <div class="select-card-wrapper select-card-wrapper-sm">
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickPrice"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">$0 - $1000</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickPrice"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">$1000 - $2000</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickPrice"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">$2000 - $3000</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-50 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickPrice"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">$3000+</h6>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Date Type Select -->
+                    <div class="card rounded-0 shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <h6 class="m-0 mb-3">When do You Want to Travel?</h6>
+                            <div class="select-card-wrapper select-card-wrapper-sm">
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">NOV</h6>
+                                            <div class="text-muted text-sm">2019</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">DES</h6>
+                                            <div class="text-muted text-sm">2019</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">JAN</h6>
+                                            <div class="text-muted text-sm">2020</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">FEB</h6>
+                                            <div class="text-muted text-sm">2020</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">MAR</h6>
+                                            <div class="text-muted text-sm">2020</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">APR</h6>
+                                            <div class="text-muted text-sm">2020</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">MAY</h6>
+                                            <div class="text-muted text-sm">2020</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">JUN</h6>
+                                            <div class="text-muted text-sm">2020</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                                <div class="select-card select-card-33 mb-1">
+                                    <label class="select-card-inner shadow-sm">
+                                        <input type="radio" name="pickDate"/>
+                                        <div class="select-card-content text-center">
+                                            <h6 class="mb-1">JUL</h6>
+                                            <div class="text-muted text-sm">2020</div>
+                                        </div>
+                                        <div class="select-card-checked"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filtering-panel--action mt-3">
+                        <button class="btn btn-outline-primary btn-block finishFiltering">Finish filtering & close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h3 class="mt-4 mb-4">All Dive Center in Indonesia</h3>
+                <!--
+                | ----------------------------------------------|
+                | Temporary Hide for Future Development         |
+                | -> to open, change 'd-none' to 'd-flex' below |
+                | --------------------------------------------- |
+                -->
+                <div class="d-none align-items-center">
+                    <div class="mr-2">
+                        Sort by:
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary"><i class="fas fa-star fa-sm mr-2"></i>Featured</button>
+                        <button type="button" class="btn btn-neutral">Cheapest</button>
+                        <button type="button" class="btn btn-neutral">Guest Ratings</button>
+                    </div>
+                </div>
+
+                <!-- CONTENT -->
+                
+                <!-- FILTERING -->
+                <div class='row row-sm align-items-end'>
+                    <div class="col-md-5 mb-3 mb-md-0">
+                        <label for='destination'>Destination</label>                          
+                        <select class="form-control" name="destination" id="destination-select">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5 mb-3 mb-md-0">
+                        <label for='sub-destination'>Sub Destination</label>
+                        <select class="form-control" title='Please select destination first' name="sub_destination" id="sub-destination-select">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="filterDestination" type="button" class="btn btn-outline-primary mb-1 btn-block">Filter</button>
+                    </div>
+                </div>
+                
+                <div class="d-block py-3">
+                    <div id="listDivecenterLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center rounded" style="height:400px;">
+                        <div class="spinner-border mb-3" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="text-muted">Please wait...</div>
+                    </div>
+                    <div class="explore-card">
+                        <div id="listPackage" class="explore-card--list explore-card--33">
+                            <!-- -->
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                | ----------------------------------------------|
+                | Temporary Hide for Future Development         |
+                | -> to open, change 'd-none' to 'd-flex' below |
+                | --------------------------------------------- |
+                -->
+
+                <div class="d-none justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-arrow-left fa-sm"></i></a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-arrow-right fa-sm"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="filteringTogglePanel">
+    <div class="card border-0 shadow-sm">
+        <div class="card-body py-2">
+            <div class="d-none">
+                <button id="toggleFiltering" type="button" class="btn btn-outline-primary btn-block"><i class="fas fa-filter mr-2"></i>Filter Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+<script>
+    $('#toggleFiltering').click(function(){
+        $('#filteringPanel').addClass('active');
+    })
+    $('.finishFiltering').click(function(){
+        $('#filteringPanel').removeClass('active');
+    })
+</script>
+<script>
+    let destinationList;
+    let destination_id = '';
+    let subdestination_id='';
+    $(document).ready(function(){
+       loadPackagePublish()
+       importDestination()
+    })
+
+    function importDestination(){   
+        $.ajax({
+            url: `/api/destination`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    destinationList = result.data;
+                    for (let d_idx = 0; d_idx < destinationList.length; d_idx++) {
+                        $("#destination-select").append(`<option value="${destinationList[d_idx].id}">${destinationList[d_idx].name}</option>` );            
+                        // console.log(destinationList[d_idx].id);
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    
+    }
+
+    function loadPackagePublish(){
+        $.ajax({
+            url: `/api/divecenter/publish?destination=${destination_id}&sub_destination=${subdestination_id}`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    
+                    $('#listDivecenterLoader').addClass('hideImportant')
+                    
+                    for(var i = 0; i < result.data.length; i++){
+
+                        var htmlPhotos = ``
+                        var dataPhotos = result.data[i].photos
+                        for(var j = 0; j < dataPhotos.length; j++){
+                            htmlPhotos += `
+                                <div class="glide__slide--photos" style="background-image: url('${dataPhotos[j].url}');">
+                                   
+                                </div>
+                            `
+                        }
+
+                        var pricePackage = "0"
+                        let dvcShow =  false;
+                        var dive_pack = 0;
+                        var dataPackage = result.data[i].packages
+                        for(var j = 0; j < dataPackage.length; j++){
+                            if (dataPackage[j].active && dataPackage[j].publish) {
+                                dvcShow = true;
+                                if(parseFloat(pricePackage) == 0){
+                                    if(dataPackage[j].price.discount != "" && dataPackage[j].price.discount != "0" && dataPackage[j].price.discount != 0 && dataPackage[j].price.discount != "NaN" ){
+                                        pricePackage = dataPackage[j].price.discount
+                                    }else{
+                                        pricePackage = dataPackage[j].price.price
+                                    }
+                                            dive_pack = dataPackage[j].info.dive_total
+                                }else{
+                                    if(dataPackage[j].price.discount != "" && dataPackage[j].price.discount != "0" && dataPackage[j].price.discount != 0 && dataPackage[j].price.discount != "NaN" ){
+                                        if(parseFloat(pricePackage) > parseFloat(dataPackage[j].price.discount)){
+                                            pricePackage = dataPackage[j].price.discount
+                                            dive_pack = dataPackage[j].info.dive_total
+                                        }
+                                    }else {
+                                        if(parseFloat(pricePackage) > parseFloat(dataPackage[j].price.price)){
+                                            pricePackage = dataPackage[j].price.price
+                                            dive_pack = dataPackage[j].info.dive_total
+                                        }
+                                    }
+                                }        
+                            }
+                        }
+
+                        if (dvcShow) {
+                            $('#listPackage').append(`
+                                <div class="explore-card--item">
+                                    <div class="explore-card--content shadow-sm">
+                                        <div class="d-block">
+                                            <span class="badge-photos badge badge-dark badge-pill rounded">3 Photos</span>
+                                            <div class="slick2">
+                                                ${htmlPhotos}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="explore-card--details">
+                                            <h4>${result.data[i].profile.name}</h4>
+                                        </div>
+                                        <div class="explore-card--footer">
+                                            <div class="footer--details w-100">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-12">
+                                                        <div class="details-price">
+                                                            <small>Packages from </small><br>
+                                                            <h5 class="mb-0"><span class="font-size-sm">IDR</span> ${formatRupiah(pricePackage)} <span class="font-size-sm font-weight-normal">/person</span></h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-block">
+                                                    <small class="text-ellipsis"><i class="fas fa-map-marker-alt mr-1"></i>${result.data[i].profile.sub_destination.name}, ${result.data[i].profile.destination.name} - ${result.data[i].profile.country.name}</small>
+                                                    <small class="d-block"><i class="fas fa-swimmer fas-fix mr-1 text-secondary"></i>Including ${dive_pack} dives</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="explore-card--action">
+                                            <a href="/divecenter/${result.data[i].id}" class="btn btn-primary mb-2 btn-block">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `)
+                        
+                            
+                        }
+                    }
+
+                    $('.slick2').slick({
+                        infinite: false
+                    });
+                    // $('.slick').on('lazyLoaded', function (e, slick, image, imageSource) { 
+                    //     image.parent().css('background-image', 'url("' + imageSource + '")'); 
+                    //     image.hide(); 
+                    // });
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    $("#destination-select").change(function(){
+        destination_id = $(this).val();
+        loadSubDestination();
+    });
+
+    $("#filterDestination").click(function(){
+        destination_id = $("#destination-select").val();
+        subdestination_id = $("#sub-destination-select").val();
+        $('#listDivecenterLoader').removeClass('hideImportant')
+        $('#listPackage').html('');
+        loadPackagePublish()
+
+    });
+    function loadSubDestination(){
+        if (destination_id != '') {
+            $.ajax({
+                url: `/api/sub-destination/${destination_id}/destination`,
+                method: `GET`,
+                success: function (result) {
+                    if (result.success) {
+                        console.log(result)
+                        $("#sub-destination-select").html('');
+                        let subdestinationList = result.data;
+                        $("#sub-destination-select").append(`<option value="">All</option>` );
+                        for (let d_idx = 0; d_idx < subdestinationList.length; d_idx++) {
+                            $("#sub-destination-select").append(`<option value="${subdestinationList[d_idx].id}">${subdestinationList[d_idx].name}</option>` );
+                        }
+                    } else {
+                        
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })            
+        }else{
+            $("#sub-destination-select").html('');
+            $("#sub-destination-select").append(`<option value="">All</option>` );
+        }
+    }
+
+</script>

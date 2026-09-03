@@ -1,0 +1,118 @@
+<!-- RESORT RECOMMENDATION -->
+<div class="section-spacer"></div>
+<div class="d-block mb-5">
+    <div class="container">
+        <div class="section-title d-flex align-items-center justify-content-between mb-3">
+            <div class="section-title--col">
+                <h5 class="m-0 mb-0">
+                   Read our Article
+                </h5>
+            </div>
+            <div class="section-title--col">
+                <a href="article" role="button" class="btn btn-link pr-0 pl-0">
+                    See all post
+                </a>
+            </div>
+        </div>
+        <div class="explore-card explore-card--post">
+            <div id="listArticle" class="explore-card--list explore-card--25">
+                <!-- <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/post-1.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Trip, August 26th</div>
+                                <h4 class="mb-0">Last Minute Holiday</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/post-2.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Planning, August 26th</div>
+                                <h4 class="mb-0">Where to Sail: November & December</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/post-3.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Destination, August 26th</div>
+                                <h4 class="mb-0">Destination Guide Bali & Lombok</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/post-4.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Tips & Trick, August 26th</div>
+                                <h4 class="mb-0">Diving for Newbie 101</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        console.log("hai")
+        loadArticle()
+    })
+
+    function loadArticle() {
+        $.ajax({
+            url: `/api/article`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        $('#listArticle').append(`
+                            <a href="/article-read/${result.data[i].id}" class="explore-card--item">
+                                <div class="explore-card--content">
+                                    <div class="explore-card--image" style="background-image: url('${result.data[i].images[0].url}');">
+                                        <div class="explore-card--details">
+                                            <div class="text-white d-block mb-3">${result.data[i].article_category.name}</div>
+                                            <h4 class="mb-0">${result.data[i].name}</h4>
+                                        </div>
+                                        <div class="explore-card--footer">
+                                            <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+</script>

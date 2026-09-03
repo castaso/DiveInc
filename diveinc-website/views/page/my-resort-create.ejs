@@ -1,0 +1,3226 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<style>
+    .unavailableDatesName{
+        min-height: 64px;
+    }
+
+    textarea{
+        resize: none;
+        padding-bottom: 12px;
+    }
+</style>
+<div class="header-spacer"></div>
+<div class="modal" id="modalSetHighlight" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Highlight</span>
+            </div>
+            <div class="modal-body">
+                <div id="listHighlightModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addHighlightItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateHighlight()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalSetArrival" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Arrival</span>
+            </div>
+            <div class="modal-body">
+                <div id="listArrivalModal"></div>
+            </div>
+            <div class="modal-footer bt-4">
+                <button onClick="addArrivalItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateArrival()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalSetDeparture" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Departure</span>
+            </div>
+            <div class="modal-body">
+                <div id="listDepartureModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addDepartureItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateDeparture()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalSetUnavailableDates" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Unavailable Dates</span>
+            </div>
+            <div class="modal-body">
+                <div id="listUnavailableDatesModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addUnavailableDates()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateUnavailableDates()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <div class="col-lg-9">
+                <!-- Resort Create 1 -->
+                <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <!-- <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li> -->
+                    <li>
+                        <a href="/my-resort" class="btn btn-white btn-sm">My Resort</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="btn btn-white btn-sm">Resort</a>
+                    </li>
+                </ul>
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom d-flex-mobile">
+                            <div class="d-flex align-items-center text-center-mobile mb-2 mb-md-0">
+                                <h5 class="m-0 mr-2"><span class="formTitle">Create New</span> Resort</h5>
+                            </div>
+                            <div id="resortButton" style="display:none !important;" class="d-flex">
+                                <button type="button" onClick="saveDraft()" class="btn btn-light mr-2 saveDraftBtn">
+                                    Save Draft
+                                </button>
+                                <button type="button" class="btn btn-light mr-2 saveDraftLoading">
+                                    <div class="spinner-border spinner-border-sm text-white" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
+                                <button type="button" onClick="savePublish(false)" class="btn btn-primary savePublishBtn"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</button>
+                                <button type="button" class="btn btn-primary savePublishLoading">
+                                    <div class="spinner-border spinner-border-sm text-white" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-block">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Resort Profile</h5>
+                            <div class="form-row mb-3">
+                                <label for="resort_name" class="col-sm-2 col-form-label">Resort Name<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputName" type="text" class="form-control rounded-0 text-capitalize" name="resort_name" placeholder="Resort name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="resort_address" class="col-sm-2 col-form-label">Address<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputAddress" type="text" class="form-control rounded-0 text-capitalize" name="resort_address" placeholder="Resort address" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="resort_name" class="col-sm-2 col-form-label">Country & City<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-mobile">
+                                        <select id="inputCountry" class="form-control rounded-0 mb-2 mb-md-0">
+                                            <option value="">Select Country</option>
+                                        </select>
+                                        <select id="inputDestination" class="form-control rounded-0 mb-2 mb-md-0">
+                                            <option value="">Select Destination</option>
+                                        </select>
+                                        <select id="inputSubDestination" class="form-control rounded-0 mb-2 mb-md-0">
+                                            <option value="">Select Sub Destination</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="resort_description" class="col-sm-2 col-form-label">Resort Introduction<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="inputIntroduction" class="form-control rounded-0" name="resort_description" placeholder="Resort short introduction" required rows="6"></textarea>
+                                    <div class="alert alert-info border-0 mt-2 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Writes your resort introduction in 400 characters. Your guest will read this first when opening your page.</div></div></div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="resort_description" class="col-sm-2 col-form-label">About Your Resort<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="inputAbout" class="form-control rounded-0" name="resort_description" placeholder="About your resort" required rows="6"></textarea>
+                                    <div class="alert alert-info border-0 mt-2 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Writes your resort about in 800 characters. Tell your guest about your resort</div></div></div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="ideal_for" class="col-sm-2 col-form-label">Ideal For<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listIdeal" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="language" class="col-sm-2 col-form-label">Language<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listLanguage" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Resort Highlight -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Resort Highlight<span class="required text-danger">*</span></h5>
+                            <div>
+                                <ul id="listHighlight" class="list-base list-base-md font-serif">
+
+                                </ul>
+                                
+                            </div>
+                            <div class="d-none p-2 border mb-2 bg-lighter">
+                                <div class="d-flex">
+                                    <div class="mr-2 flex-grow-1 d-none">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <input id="inputHighlight" type="text" class="form-control" placeholder="Write your resort highlight">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button id="saveHighlight" type="button" class="btn btn-outline-primary">Add</button>
+                                            <!-- <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#modalSetHighlight" data-toggle="modal" onclick="loadHighlight()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+
+                            <!-- <button class="btn btn-outline-primary btn-sm" type="button">Add Item</button> -->
+                        </div>
+                        <div class="alert alert-info border-0 mt-3 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Write your resort highlight to inform the guest with quick best value of your resort.</div></div></div>
+                    </div>
+                </div>
+                
+                <!-- Resort Photos -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                       <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Resort Photos<span class="required text-danger">*</span></h5>
+                            <div class="form-row">
+                                <div class="col-sm-12">
+                                    <div class="d-block w-100 mb-3">
+                                        <div class="custom-file mb-2">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                        <!-- <div class="btn-group">
+                                            <div class="btn btn-outline-primary btn-sm">Clear</div>
+                                            <div class="btn btn-outline-primary btn-sm"><i class="fas fa-upload mr-2"></i>Upload Photos</div>
+                                        </div> -->
+                                    </div>
+                                    <div id="listPhotos" class="photo-gallery-create">
+                                        <!-- <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-info border-0 mt-0 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Please use better photos for best experience when the guest browse your resort. Please put up your photo with the size not more than 20 MB</div></div></div>
+                    </div>
+                </div>
+                <!-- Resort Amenities -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Resort Amenities</h5>
+                            <div class="form-row mb-3">
+                                <label for="resort_activities" class="col-sm-2 col-form-label">Activities<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listActivity" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="resort_facilities" class="col-sm-2 col-form-label">Facilities<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listFacility" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="resort_sport" class="col-sm-2 col-form-label">Sports<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listSport" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Resort Direction -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">How to Get There</h5>
+                            <div class="form-row mb-3">
+                                <label for="resort_arrival" class="col-sm-2 col-form-label">Arrival<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <ul id="listArrival"  class="list-base list-base-md font-serif" ></ul>
+                                    </div>
+                                    
+                                    <div class="d-none p-2 border mb-2 bg-lighter">
+                                        <div class="d-flex">
+                                            <div class="mr-2 flex-grow-1">
+                                                <div class="form-row">
+                                                    <div class="col-md-12">
+                                                        <input id="inputArrival" type="text" class="form-control" placeholder="Write direction here...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="addArrival" class="d-none btn btn-outline-primary btn-sm" type="button">Add</button>
+                                    <a href="#modalSetArrival" data-toggle="modal" onclick="loadArrival()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="resort_departure" class="col-sm-2 col-form-label">Departure<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <ul id="listDeparture"  class="list-base list-base-md font-serif" ></ul>
+                                    </div>
+                                    <div class="d-none p-2 border mb-2 bg-lighter">
+                                        <div class="d-flex">
+                                            <div class="mr-2 flex-grow-1">
+                                                <div class="form-row">
+                                                    <div class="col-md-12">
+                                                        <input id="inputDeparture" type="text" class="form-control" placeholder="Write direction here...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="addDeparture" class="d-none btn btn-outline-primary btn-sm" type="button">Add</button>
+                                    <a href="#modalSetDeparture" data-toggle="modal" onclick="loadDeparture()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-info border-0 mt-3 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>To help your guests come to your place, try to design the guest arrival instructions.</div></div></div>
+                    </div>
+                </div>
+                <!-- Resort Unavailable Date -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Unavailable Dates</h5>
+                            <div>
+                                <ul id="listUnavailableDates" class="list-base list-base-md font-serif"></ul>
+                            </div>
+
+                            <a href="#modalSetUnavailableDates" data-toggle="modal" onclick="loadUnavailableDates()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                            <!-- <button class="btn btn-outline-primary btn-sm" type="button">Add Item</button> -->
+                        </div>
+                        <div class="alert alert-info border-0 mt-3 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>List your unavailable dates to inform the guest your holiday / days off,  etc .</div></div></div>
+                    </div>
+
+                    <div class="card-footer"  id="resortButtonBottom">
+                        <div class='hide-mobile'>
+                            <div class="d-flex align-items-center justify-content-between mt-2 mb-2 pt-2 pb-2">
+                                <div class="d-flex align-items-center text-center-mobile mb-2 mb-md-0">
+                                    <a href="/my-resort" class="btn btn-outline-primary"><i class="fas fa-arrow-left fa-sm mr-2"></i>My Resort</a>
+                                </div>
+                                <div class='text-right'>
+                                    <button type="button" onClick="saveDraft()" class="btn btn-light mr-2 saveDraftBtn">
+                                        Save Draft
+                                    </button>
+                                    <button type="button" class="btn btn-light mr-2 saveDraftLoading">
+                                        <div class="spinner-border spinner-border-sm text-white" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </button>
+                                    <button type="button" onClick="savePublish(false)" class="btn btn-primary savePublishBtn"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</button>
+                                    <button type="button" class="btn btn-primary savePublishLoading">
+                                        <div class="spinner-border spinner-border-sm text-white" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='view-mobile-only'>
+                            <a href="/my-resort" class="btn btn-block btn-outline-primary"><i class="fas fa-arrow-left fa-sm mr-2"></i>My Resort</a>
+                            <button type="button" onClick="saveDraft()" class="btn btn-block btn-light mr-2 saveDraftBtn">
+                                Save Draft
+                            </button>
+                            <button type="button" class="btn btn-block btn-light mr-2 saveDraftLoading">
+                                <div class="spinner-border spinner-border-sm text-white" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </button>
+                            <button type="button" onClick="savePublish(false)" class="btn btn-block btn-primary savePublishBtn"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</button>
+                            <button type="button" class="btn btn-block btn-primary savePublishLoading">
+                                <div class="spinner-border spinner-border-sm text-white" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Button Save -->
+                <div id="cardSave" style="display:none;" class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Is the resort data complete?</h5>
+                            </div>
+                            <div class="d-flex">
+                                <a onClick="saveDraft()" class="btn btn-primary btn-lg ml-2"><i class="mr-2 far fa-save"></i>Save & Continue</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end py-2">
+                            <div>Next, you will creating resort rooms & package<i class="ml-2 fas fa-arrow-right"></i></div> 
+                        </div>
+                    </div>
+                </div>
+                <!-- Resort Rooms -->
+                <div id="layoutResortRoom" class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Resort Rooms</h5>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" onClick="setUpRoom();" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New Rooms</button>
+                            </div>
+                        </div>
+                        <div id="listRoom">
+                            <div id="listRoomEmpty" class="card rounded-0">
+                                <div class="card-body bg-lighter">
+                                    <div class="d-block">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h5>You don't have any room</h5>
+                                                In order to publish your resort, please create your resort rooms & it's detail.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card rounded-0 mb-3 bg-white">
+                            <div class="row no-gutters align-items-start">
+                                <div class="col-md-4">
+                                    <div class="card-body pr-md-0">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">3 Photos</span>
+                                        <div class="slick rounded">
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-1.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-2.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-3.jpeg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start justify-content-between mb-2">
+                                            <div>
+                                                <h5 class="m-0 mb-1">Deluxe Bungalow</h5>
+                                                <span class="text-sm text-muted">Created 20/1/2019 - 12:44</span>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="d-flex flex-column">
+                                                    <h5 class="m-0 normal-price" class="">$120</h5>
+                                                    <h5 class="m-0 discount-price">$120</h5>
+                                                </div>
+                                                <span class="text-sm text-muted">per nights</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-block py-1">
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-user fa-sm mr-2"></i>2 people max
+                                            </div>
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-bed fa-sm mr-2"></i>Twin bed
+                                            </div>
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-arrows-alt fa-sm mr-2"></i>Room size
+                                            </div>
+                                        </div>
+                                        <div class="list-group list-group-horizontal list-group-sm w-100">
+                                            <div class="dropdown">
+                                                <a class="list-group-item" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#">Delete Rooms</a>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="list-group-item" data-toggle="modal" data-target="#modalRoomDetails"><i class="fas fa-eye fa-sm"></i></button>
+                                            <button type="button" class="list-group-item text-danger"><i class="fas fa-toggle-off fa-sm mr-2"></i>Closed</button>
+                                            <a href="#" class="list-group-item flex-grow-1 text-center"><i class="fas fa-edit fa-sm mr-2"></i>Edit Rooms</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="card rounded-0 mb-0 bg-white">
+                            <div class="row no-gutters align-items-start">
+                                <div class="col-md-4">
+                                    <div class="card-body pr-md-0">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">3 Photos</span>
+                                        <div class="slick rounded">
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-1.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-2.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/room-3.jpeg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start justify-content-between mb-2">
+                                            <div>
+                                                <h5 class="m-0 mb-1">Deluxe Bungalow</h5>
+                                                <span class="text-sm text-muted">Created 20/1/2019 - 12:44</span>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="d-flex flex-column">
+                                                    <h5 class="m-0 normal-price discounted" class="">$120</h5>
+                                                    <h5 class="m-0 discount-price">$80</h5>
+                                                </div>
+                                                <span class="text-sm text-muted">per nights</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-block py-1">
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-user fa-sm mr-2"></i>2 people max
+                                            </div>
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-bed fa-sm mr-2"></i>Twin bed
+                                            </div>
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-arrows-alt fa-sm mr-2"></i>Room size
+                                            </div>
+                                        </div>
+                                        <div class="list-group list-group-horizontal list-group-sm w-100">
+                                            <div class="dropdown">
+                                                <a class="list-group-item" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#">Delete Rooms</a>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="list-group-item" data-toggle="modal" data-target="#modalRoomDetails"><i class="fas fa-eye fa-sm"></i></button>
+                                            <button type="button" class="list-group-item text-success"><i class="fas fa-toggle-on fa-sm mr-2"></i>Opened</button>
+                                            <a href="my-resort-create-room" class="list-group-item flex-grow-1 text-center"><i class="fas fa-edit fa-sm mr-2"></i>Edit Rooms</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <!-- Resort Package -->
+                <div id="layoutResortPackage" class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Dive Package</h5>
+                            </div>
+                            <div class="d-flex">
+                                <a onClick="setUpPackage();" href="#" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New Package</a>
+                            </div>
+                        </div>
+                        <div id="listPackage">
+                            <div id="listPackageEmpty" class="card rounded-0">
+                                <div class="card-body bg-lighter">
+                                    <div class="d-block">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h5>You don't have any packge</h5>
+                                                In order to publish your resort, please create your resort pacakge & it's detail.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card rounded-0 mb-3 bg-white">
+                            <div class="row no-gutters align-items-start">
+                                <div class="col-md-4">
+                                    <div class="card-body pr-md-0">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">2 Photos</span>
+                                        <div class="slick rounded">
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/trip-1.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/trip-1.jpeg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start justify-content-between mb-2">
+                                            <div>
+                                                <h5 class="m-0 mb-1">Komodo Weekender</h5>
+                                                <span class="text-sm text-muted">Created 20/1/2019 - 12:44</span>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="d-flex flex-column">
+                                                    <h5 class="m-0 normal-price discounted" class="">$770</h5>
+                                                    <h5 class="m-0 discount-price">$599</h5>
+                                                </div>
+                                                <span class="text-sm text-muted">per guest</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-block py-1">
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-clock fa-sm mr-2"></i>3 day activity
+                                            </div>
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-archive fa-sm mr-2"></i>2 additional item
+                                            </div>
+                                        </div>
+                                        <div class="d-block my-2">
+                                            <p class="text-sm mb-0">Escape for a weekend of diving and relaxation on Komodo</p>
+                                            <small>at Gili, Lombok - Indonesia</small>
+                                        </div>
+                                        <div class="list-group list-group-horizontal list-group-sm w-100">
+                                            <div class="dropdown">
+                                                <a class="list-group-item" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#">Delete Package</a>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="list-group-item "><i class="fas fa-eye fa-sm"></i></a>
+                                            <a href="#" class="list-group-item text-danger"><i class="fas fa-toggle-off fa-sm mr-2"></i>Closed</a>
+                                            <a href="#" class="list-group-item flex-grow-1 text-center"><i class="fas fa-edit fa-sm mr-2"></i>Edit Package</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal Room Details -->
+<div class="modal" id="modalRoomDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body" id="modalRoomDetailsBody">
+                
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-neutral" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="overlay-loader" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+<script src="/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+
+    var id = "<%= id %>"
+
+    var dataCountry = {}
+    var dataDestination = {}
+    var dataSubDestination = {}
+    var statusPublishResort = false;
+
+    var canPublish = false
+
+    initData()
+
+    var dataHighlight = []
+    var dataImage = [
+        // {
+        //     id: '21423534523982',
+        //     baseUrl: 'https://cache.desktopnexus.com/',
+        //     url : 'https://cache.desktopnexus.com/thumbseg/2318/2318166-bigthumbnail.jpg',
+        //     path : 'thumbseg/2318/2318166-bigthumbnail.jpg'
+        // }
+    ]
+    var dataAmenities = []
+    var dataUnavailableDates = [];
+
+    var dataArrival = []
+    var dataDeparture = []
+    var dataIdeal = []
+    var dataLanguage = []
+    var dataActivity = []
+    var dataFacility = []
+    var dataSport = []
+
+    var listRoomDetails = [];
+    var listRoomOption = {};
+    var listRoomAmenities = {};
+
+    var listPackageDetails = [];
+
+    var listDataRoom = [];
+    var listDataPackage = [];
+
+    var totalAktif= 0;
+    var totalNonAktif = [];
+    
+
+    $(document).ready(function(){
+
+        $('#inputCountry').change(function(){
+            getDestination()
+        })
+
+        $('#inputDestination').change(function(){
+            getSubDestination()
+        })
+
+        $(`#saveHighlight`).click(function(){
+          if($('#inputHighlight').val().length > 0){
+            addHighlight();
+          }else{
+            // alert("Form not valid")
+            Swal.fire(
+                'Oops!',
+                'Write the highlight resort then press "add item" button.'
+            )
+            $('.saveDrafthBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+          }
+        })
+
+        $(`#addArrival`).click(function(){
+          if($('#inputArrival').val().length > 0){
+            addArrival();
+          }else{
+            // alert("Form not valid")
+            Swal.fire(
+                'Oops!',
+                'First write the arrival direction then press "add item" button.'
+            )
+            $('.saveDrafthBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+          }
+        })
+
+        $(`#addDeparture`).click(function(){
+          if($('#inputDeparture').val().length > 0){
+            addDeparture();
+          }else{
+            // alert("Form not valid")
+            Swal.fire(
+                'Oops!',
+                'First write the departure direction then press "add item" button.'
+            )
+            $('.saveDrafthBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+          }
+        })
+
+        $(`#customFile`).on(`change`, function(){
+
+          makeFileRequestUpload('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $(document).on("focus", ".unavailableDatePicker", function(){
+            $(this).datepicker({
+                // format: "yyyy-mm-dd",
+                format: "dd MM yyyy",
+                todayHighlight: true,
+                autoclose: true
+            });
+        });
+    })
+
+    function initData() {
+        if(id){
+            $(".formTitle").html('Edit')
+            $('#cardSave').hide()
+            $('#layoutResortRoom').show()
+            $('#layoutResortPackage').show()
+            $('#resortButton').show()
+            $('#resortButtonBottom').show()
+            getRoomOption();
+            getAminity();
+            loadResortById();
+        }else{
+            $('#cardSave').show()
+            $('#layoutResortRoom').hide()
+            $('#layoutResortPackage').hide()
+            $('#resortButton').hide()
+            $('#resortButtonBottom').hide()
+            //console.log("naha asup dieu")
+            getIdeal()
+            getLanguage()
+            getCountry()
+            getActivity()
+            getFacility()
+            getSport()
+        }
+    }
+
+    function loadResortById() {
+        $('#listRoomEmpty, #listPackageEmpty').show();
+        
+        $.ajax({
+            url: `/api/resort/${id}`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    statusPublishResort = result.data.publish;
+                    $('#inputName').val(result.data.profile.name)
+                    $('#inputAddress').val(result.data.profile.address)
+                    $('#inputIntroduction').val(result.data.profile.introduction)
+                    $('#inputAbout').val(result.data.profile.about)
+
+                    dataCountry = result.data.profile.country
+                    dataDestination = result.data.profile.destination
+                    dataSubDestination = result.data.profile.sub_destination
+                    getCountry()
+
+                    dataImage = result.data.photos
+                    loadImage()
+
+                    dataHighlight = result.data.highlight
+                    // loadHighlight()
+                    loadHighlightItem()
+
+                    dataArrival = (typeof result.data.how_to.arrival !== "undefined" ? result.data.how_to.arrival : [])
+                    // loadArrival()
+                    loadArrivalItem()
+
+                    dataDeparture = (typeof result.data.how_to.departure !== "undefined" ? result.data.how_to.departure : [])
+                    // loadDeparture()
+                    loadDepartureItem()
+
+                    dataIdeal = result.data.profile.ideal
+                    getIdeal()
+                    dataLanguage = result.data.profile.language
+                    getLanguage()
+                    dataActivity = result.data.amenities.activity
+                    getActivity()
+                    dataFacility = result.data.amenities.facility
+                    getFacility()
+                    dataSport = result.data.amenities.sport
+                    getSport()
+
+                    listDataRoom = result.data.rooms
+                    listDataPackage = result.data.packages
+
+                    dataUnavailableDates = (typeof result.data.unavailable_dates !== 'undefined' ? result.data.unavailable_dates : [])
+                    loadUnavailableDatesItem()
+
+                    for(var i =0; i < result.data.packages.length; i++){
+
+                        //$('#listRoomEmpty').hide();
+
+                        $('#listPackageEmpty').hide();
+
+                        var publish = result.data.packages[i].publish
+                        if(publish){
+                            canPublish = true
+                            totalAktif++;
+                        }else{
+                            totalNonAktif.push({
+                                nama:`${result.data.packages[i].info.name}`,
+                                tipe:'package',
+                                id: result.data.packages[i].id
+                            });
+                        }
+
+                        var htmlPhotos = ``
+                        var dataPhotos = result.data.packages[i].photos
+                        for(var j = 0; j < dataPhotos.length; j++){
+                            htmlPhotos += `
+                                <div class="glide__slide--photos" style="background-image: url('${dataPhotos[j].url}');"></div>
+                            `
+                        }
+                        
+
+                        var htmlPrice = ""
+                        if(result.data.packages[i].price.discount != "" && result.data.packages[i].price.discount != "0" && result.data.packages[i].price.discount != "NaN"){
+                            htmlPrice = `
+                                <h5 class="m-0 normal-price discounted" class="">IDR&nbsp;${formatRupiah(result.data.packages[i].price.price)}</h5>
+                                <h5 class="m-0 discount-price">IDR&nbsp;${formatRupiah(result.data.packages[i].price.discount)}</h5>
+                            `
+                        }else{
+                            htmlPrice = `
+                                <h5 class="m-0 normal-price" class="">IDR&nbsp;${formatRupiah(result.data.packages[i].price.price)}</h5>
+                            `
+                        }
+
+                        let listPackage = result.data.packages;
+                        let list_highlight = '';
+                            for (let idx = 0; idx < listPackage[i].highlight.length ; idx++) {
+                                list_highlight += `<li>${listPackage[i].highlight[idx].text}</li>`;
+                            }
+
+                            let list_iten = '';
+                            for (let idx = 0; idx < listPackage[i].itenary.length ; idx++) {
+                                list_iten += `<div class="itenary-listing--item">
+                                            <div class="itenary-wrapper">
+                                                <div class="itenary-title font-weight-bold">Day ${idx + 1}<i class="fas fa-angle-down ml-2 active"></i></div>
+                                                <div class="itenary-content active">
+                                                    <ul class="list-base">
+                                                        ${listPackage[i].itenary[idx].text}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                            }
+
+                        $('#listPackage').append(`
+                            <div class="card rounded-0 mb-3 bg-white">
+                                <div class="row no-gutters align-items-start">
+                                    <div class="col-md-4">
+                                        <div class="card-body pr-md-0">
+                                            <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">${result.data.packages[i].photos.length}  Photos</span>
+                                            <div class="slick rounded">
+                                                ${htmlPhotos}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-start justify-content-between mb-2 d-flex-mobile">
+                                                <div class="mb-3 mb-md-0">
+                                                    <h5 class="m-0 mb-1">${result.data.packages[i].info.name}</h5>
+                                                    <span class="text-sm text-muted">Created ${dateFormatMonth(result.data.packages[i].created_at)}</span>
+                                                </div>
+                                                <div class="text-right text-left-mobile mb-2 mb-md-0">
+                                                    <div class="d-flex flex-column">
+                                                        ${htmlPrice}
+                                                    </div>
+                                                    <span class="text-sm text-muted">per guest</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-block py-1">
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-clock fa-sm mr-2"></i>${result.data.packages[i].info.duration.day} day activity
+                                                </div>
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-archive fa-sm mr-2"></i>${result.data.packages[i].service.length} additional item
+                                                </div>
+                                            </div>
+                                            <div class="d-block my-2">
+                                                <p class="text-sm mb-0">${typeof result.data.packages[i].info.description !== 'undefined' ? result.data.packages[i].info.description : '' }</p>
+                                                <small>at ${result.data.profile.name}, ${result.data.profile.destination.name} - ${result.data.profile.country.name}</small>
+                                            </div>
+                                            <div class="list-group list-group-horizontal list-group-sm w-100">
+
+                                                <!-- button type="button" class="list-group-item" data-toggle="modal" onClick="getPackageDetails(${i})" data-target="#modalRoomDetails"><i class="fas fa-eye fa-sm"></i></button -->
+                                                <!--<a onClick="activePackage('${result.data.packages[i].id}', ${publish});" type="button" class="d-none list-group-item activePublishPackage" style="height:45px;" data-toggle="tooltip" data-placement="top" title="${publish ? "Unpublish" : "Publish"} your resort?">${publish ? "Publish" : "Unpublish"}</a>-->
+                                                <button onClick="activePackage('${result.data.packages[i].id}', ${publish});" type="button" class="list-group-item activePublishPackage ${publish ? "text-success" : "text-danger"}" style="height:45px;"><i class="fas ${publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${publish ? "Published" : "Unpublished"}</button>
+                                                <a type="button" class="d-none list-group-item publishPackageLoading" style="height:45px;display:none;">
+                                                    <div class="spinner-border text-primary spinner-border-sm" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </a>
+                                                <a href="/my-resort-create/${id}/my-resort-create-package/${result.data.packages[i].id}" class="list-group-item flex-grow-1 text-center">Edit Package</a>
+                                            </div>
+                                            <div class="text-center d-block mt-2">
+                                                <button type="button" onclick="deletePackageConfirm('${result.data.packages[i].id}','${result.data.packages[i].info.name}', ${publish})" class="btn btn-sm btn-link">Delete Package</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        $(function () {
+                            $('[data-toggle="tooltip"]').tooltip()
+                        })
+                    
+                        listPackageDetails[i] = `<div class="d-flex align-items-start justify-content-between flex-column mb-3">
+                                    <h4 class="flex-shrink-0">${listPackage[i].info.name}</h4>
+                                    <h6 class="text-muted">Package Details</h6>
+                                </div>
+                                <div class="d-block mt-2 border-bottom mb-4 pb-3">
+                                    <h5>Package Highlight</h5>
+                                    <ul class="list-base">
+                                        ${list_highlight}
+                                    </ul>
+                                </div>
+                                <div class="d-block mt-2 border-bottom mb-4 pb-3">
+                                    <h5>Package Info</h5>
+                                    <p class="text-sm"></p>
+                                </div>
+                                <!-- Itenary description -->
+                                <div class="d-block mb-4">
+                                    <h5>Itenary Description</h5>
+                                    <div class="itenary-listing">
+                                        ${list_iten}
+                                    </div>
+                                </div>
+                                <!-- How to get there -->
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>How to Get There</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="d-block mb-3">
+                                            <h6>The begining of your trip</h6>
+                                            <ul class="list-base">
+                                                ${listPackage[i].info.how_to.begining}
+                                            </ul>
+                                        </div>
+                                        <div class="d-block mb-3">
+                                            <h6>During your trip</h6>
+                                            <ul class="list-base">
+                                                ${listPackage[i].info.how_to.during}
+                                            </ul>
+                                        </div>
+                                        <div class="d-block mb-3">
+                                            <h6>The end of your trip</h6>
+                                            <ul class="list-base">
+                                                ${listPackage[i].info.how_to.trip}
+                                            </ul>
+                                        </div>
+                                        <div class="d-block mb-3">
+                                            <h6>Other info</h6>
+                                            <ul class="list-base">
+                                                <li>Guests are encouraged to overnight one night prior to boarding the Raja Ampat Aggressor</li>
+                                                <li>Guests who are staying at a local hotel in the vicinity of where the yacht departs from, will be picked up from the local hotel at 12 pm and transferred to the yacht</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- What's included -->
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>What's Included</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <ul class="list-base">
+                                        
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- What's excluded -->
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>What's Excluded</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <ul class="list-base">
+                                    
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Good to know -->
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>Good to Know</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <ul class="list-base">
+                                            ${listPackage[i].info.how_to.gtk}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Payment & cancellation terms-->
+                                <!-- <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>Payment & Cancellation Terms</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="font-weight-bolder">Payment Schedule</p>
+                                        <ul class="list-base">
+                                            <li>48 hours after booking confirmation: 50% (downpayment)</li>
+                                            <li>120 days before trip start: 100% (balance)</li>
+                                        </ul>
+                                        <br>
+                                        <p class="font-weight-bolder">Cancellation Fees</p>
+                                        <ul class="list-base">
+                                            <li>Free cancellation for 48h after confirmation (except for last minute bookings)</li>
+                                            <li>20% of the total booking amount will be charged if you cancel more than 120 days prior to arrival</li>
+                                            <li>40% will be charged if you cancel between 120 and 91 days prior to arrival</li>
+                                            <li>100% will be charged if you cancel less than 91 days prior to arrival</li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+
+                            `;
+
+                    }
+
+                    // Load Room
+                    for(var i = 0; i < result.data.rooms.length; i++){
+
+                        $('#listRoomEmpty').hide();
+
+                        var publish = result.data.rooms[i].publish
+                        if(publish){
+                            canPublish = true
+                            totalAktif++;
+                        }else{
+                            totalNonAktif.push({
+                                nama:`${result.data.rooms[i].info.name}`,
+                                tipe:'room',
+                                id: result.data.rooms[i].id
+                            });
+                        }
+
+                        var htmlPhotos = ``
+                        var dataPhotos = result.data.rooms[i].photos
+                        for(var j = 0; j < dataPhotos.length; j++){
+                            htmlPhotos += `
+                                <div class="glide__slide--photos" style="background-image: url('${dataPhotos[j].url}');"></div>
+                            `
+                        }
+
+                        var htmlPrice = ""
+                        if(result.data.rooms[i].price.discount != "" && result.data.rooms[i].price.discount != "0" && result.data.rooms[i].price.discount != "NaN"){
+                            htmlPrice = `
+                                <h5 class="m-0 normal-price discounted" class="">IDR&nbsp;${formatRupiah(result.data.rooms[i].price.price)}</h5>
+                                <h5 class="m-0 discount-price">IDR&nbsp;${formatRupiah(result.data.rooms[i].price.discount)}</h5>
+                            `
+                        }else{
+                            htmlPrice = `
+                                <h5 class="m-0 normal-price" class="">IDR&nbsp;${formatRupiah(result.data.rooms[i].price.price)}</h5>
+                            `
+                        }
+                        
+                        $('#listRoom').append(`
+                            <div class="card rounded-0 mb-3 bg-white">
+                                <div class="row no-gutters align-items-start">
+                                    <div class="col-md-4">
+                                        <div class="card-body pr-md-0">
+                                            <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">${result.data.rooms[i].photos.length} Photos</span>
+                                            <div class="slick rounded">
+                                                ${htmlPhotos}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-start justify-content-between mb-3 mb-md-3 d-flex-mobile">
+                                                <div class="mb-2 mb-md-0">
+                                                    <h5 class="m-0 mb-1">${result.data.rooms[i].info.name}</h5>
+                                                    <span class="text-sm text-muted">Created ${dateFormatMonth(result.data.rooms[i].created_at)}</span>
+                                                </div>
+                                                <div class="text-right text-left-mobile">
+                                                    <div class="d-flex flex-column">
+                                                        ${htmlPrice}
+                                                    </div>
+                                                    <span class="text-sm text-muted">per nights</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-block py-1">
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-user fa-sm mr-2"></i>${result.data.rooms[i].rules.max_person} people max
+                                                </div>
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-bed fa-sm mr-2"></i>${result.data.rooms[i].info.room_option[0].data.name}
+                                                </div>
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-arrows-alt fa-sm mr-2"></i>${result.data.rooms[i].info.room_size.length}x${result.data.rooms[i].info.room_size.width}
+                                                </div>
+                                            </div>
+                                            <div class="list-group list-group-horizontal list-group-sm w-100">
+                                                <!-- type="button" class="list-group-item" data-toggle="modal" onClick="setRoomDetailModal(${i})" data-target="#modalRoomDetails"><i class="fas fa-eye fa-sm"></i></button -->
+                                                <!-- <a onClick="activeRoom('${result.data.rooms[i].id}', ${publish});" type="button" class="list-group-item d-none" style="height:45px;" data-toggle="tooltip" data-placement="top" title="${publish ? "Unpublish" : "Publish"} your room?">${publish ? "Publish" : "Unpublish"}</a>-->
+                                                <button onClick="activeRoom('${result.data.rooms[i].id}', ${publish});" type="button" class="list-group-item ${publish ? "text-success" : "text-danger"}" style="height:45px;"><i class="fas ${publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${publish ? "Published" : "Unpublished"}</button>
+                                                <a type="button" class="list-group-item publishRoomLoading" style="height:45px;display:none;">
+                                                    <div class="spinner-border text-primary spinner-border-sm" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </a>
+                                                <a href="/my-resort-create/${id}/my-resort-create-room/${result.data.rooms[i].id}" class="list-group-item flex-grow-1 text-center">Edit Rooms</a>
+                                            </div>
+                                            <div class="text-center d-block mt-2">
+                                                <button type="button" onClick="deleteRoomConfirm('${result.data.rooms[i].id}','${result.data.rooms[i].info.name}', ${publish})" class="btn btn-sm btn-link">Delete Room</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        $(function () {
+                            $('[data-toggle="tooltip"]').tooltip()
+                        })
+                        
+                        let oRoom = result.data.rooms;
+                        let roomOption = ``;
+                        let roomAmenities = ``;
+                        let objOpt = oRoom[i].info.room_option;
+                        let objAme = oRoom[i].info.room_amenities;
+                        
+                        if (objOpt) {
+                            for(let o_idx = 0; o_idx < oRoom[i].info.room_option.length; o_idx++){
+                                let opt_id = objOpt[o_idx].id;
+                                roomOption += `<div class="col-md-6">
+                                        <div class="list-panel border-bottom mb-2">
+                                            <div class="list-panel-title">${listRoomOption[opt_id]}</div>
+                                            <div class="list-panel-content">${objOpt[o_idx].data.name}</div>
+                                        </div>
+                                    </div>`;
+                            }
+                        }
+
+                        if (objAme) {
+                            for(let o_idx = 0; o_idx < oRoom[i].info.room_aminities.length; o_idx++){
+                                let opt_id = objAme[o_idx].id;
+                                roomAmenities += `<div class="col-md-4 mb-2">
+                                        <i class="far fa-check-square mr-2"></i>${listRoomAmenities[opt_id]}
+                                    </div>`;
+                            }
+                        }
+                        
+                        
+
+                        listRoomDetails[i] = `
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4>${oRoom[i].info.name}</h4>
+                                    <h6 class="text-muted">Room Details</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        ${oRoom[i].info.description}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <h6 class="mb-3">Room Info</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="list-panel border-bottom mb-2">
+                                                    <div class="list-panel-title">Room size</div>
+                                                    <div class="list-panel-content">${oRoom[i].info.room_size.width}x${oRoom[i].info.room_size.length}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="list-panel border-bottom mb-2">
+                                                    <div class="list-panel-title">Max. occupancy</div>
+                                                    <div class="list-panel-content">${oRoom[i].rules.max_person} guest</div>
+                                                </div>
+                                            </div>
+                                            ${roomOption}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <h6 class="mb-3">Amenities</h6>
+                                        <div class="row">
+                                            ${roomAmenities}
+                                        </div>
+                                    </div>
+                                </div>`;
+                    }
+                
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getRoomOption() {
+        $.ajax({
+            url: `/api/room-option`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        listRoomOption[result.data[i].id] = result.data[i].name;
+                    }
+                } else {
+                    alert(result.message)
+                    // console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getAminity() {
+        $.ajax({
+            url: `/api/room-aminity`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        listRoomAmenities[result.data[i].id] = result.data[i].name;
+                    }   
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getCountry() {
+        $.ajax({
+            url: `/api/country`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var selected = ""
+                        if(dataCountry){
+                            if(dataCountry.id == result.data[i].id){
+                                selected = "selected"
+                            }
+                        }
+                        $('#inputCountry').append(`
+                            <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                        `)
+                        if(dataCountry){
+                            getDestination()
+                        }
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getDestination() {
+        // console.log("MANATAP")
+        // console.log($('#inputCountry').val())
+        if($('#inputCountry').val() != null && $('#inputCountry').val() != ""){
+            var idCountry = $('#inputCountry').val()
+            $.ajax({
+                url: `/api/destination/${idCountry}/country`,
+                method: `GET`,
+                success: function (result) {
+                    // console.log(result)
+                    if (result.success) {
+                        for(var i = 0; i < result.data.length; i++){
+                            var selected = ""
+                            if(dataDestination){
+                                if(dataDestination.id == result.data[i].id){
+                                    selected = "selected"
+                                    //getSubDestination()
+                                }
+                            }
+                            $('#inputDestination').append(`
+                                <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                            `)
+                            if(dataDestination){
+                                getSubDestination()
+                            }
+                        } 
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+        
+    }
+
+    function getSubDestination() {
+
+        if($('#inputDestination').val() != null && $('#inputDestination').val() != ""){
+            var idDestination = $('#inputDestination').val()
+            $('#inputSubDestination').empty();
+            $.ajax({
+                url: `/api/sub-destination/${idDestination}/destination`,
+                method: `GET`,
+                success: function (result) {
+                    if (result.success) {
+                        for(var i = 0; i < result.data.length; i++){
+                            var selected = ""
+                            if(dataSubDestination){
+                                if(dataSubDestination.id == result.data[i].id){
+                                    selected = "selected"
+                                }
+                            }
+                            $('#inputSubDestination').append(`
+                                <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                            `)
+                        } 
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+        
+    }
+
+    function getIdeal() {
+        $.ajax({
+            url: `/api/ideal`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataIdeal.length; j++){
+                            if(dataIdeal[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listIdeal').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="idealClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function idealClick(cb){
+        if(cb.checked){
+            dataIdeal.push(cb.value)
+        }else{
+            dataIdeal = dataIdeal.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+        console.log(dataIdeal)
+    }
+
+    function getActivity() {
+        $.ajax({
+            url: `/api/activity`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataActivity.length; j++){
+                            if(dataActivity[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listActivity').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="activityClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function activityClick(cb){
+        if(cb.checked){
+            dataActivity.push(cb.value)
+        }else{
+            dataActivity = dataActivity.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+        console.log(dataActivity)
+    }
+
+    function getFacility() {
+        $.ajax({
+            url: `/api/facility`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataFacility.length; j++){
+                            if(dataFacility[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listFacility').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onCLick="facilityClick(this)" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function facilityClick(cb){
+        if(cb.checked){
+            dataFacility.push(cb.value)
+        }else{
+            dataFacility = dataFacility.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+        console.log(dataFacility)
+    }
+
+    function getSport() {
+        $.ajax({
+            url: `/api/sport`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataSport.length; j++){
+                            if(dataSport[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listSport').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="sportClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function sportClick(cb){
+        if(cb.checked){
+            dataSport.push(cb.value)
+        }else{
+            dataSport = dataSport.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+        console.log(dataSport)
+    }
+
+    function getLanguage() {
+        $.ajax({
+            url: `/api/language`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataLanguage.length; j++){
+                            if(dataLanguage[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listLanguage').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="languageClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function languageClick(cb){
+        if(cb.checked){
+            dataLanguage.push(cb.value)
+        }else{
+            dataLanguage = dataLanguage.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+        console.log(dataLanguage)
+    }
+
+    //========================================highlight======================================
+
+        /*function addHighlight(){
+            populateHighlight();
+            var objHighlight = {}
+            objHighlight.id = "highlight-"+new Date().getTime().toString()
+            objHighlight.highlight = $(`#inputHighlight`).val()
+            dataHighlight.push(objHighlight)
+            $('#inputHighlight').val("")
+            loadHighlight()
+        }*/
+
+        function addHighlightItem(){
+            var objHighlight = {}
+            objHighlight.id = "Highlight-"+new Date().getTime().toString()
+            objHighlight.highlight = ''
+            dataHighlight.push(objHighlight);   
+            $(`#listHighlightModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${objHighlight.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${objHighlight.id}" rows='2' maxlength='140' class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${objHighlight.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow');
+                $(`#${objHighlight.id}`).focus();
+            
+            // loadHighlight()
+        }
+
+        function loadHighlightItem(){
+            $(`#listHighlight`).html('');
+            for(var i = 0; i < dataHighlight.length; i++){
+                /* $('#listHighlight').append(`
+                    <div class="d-block p-2 mb-2 bg-lighter data-highlight">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="col-md-12">
+                                        <!--<input type="text" class="form-control" value="${dataHighlight[i].highlight}" disabled>-->
+                                        <p>${dataHighlight[i].highlight}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `) */
+
+                $("#listHighlight").append(`<li class="mb-3">
+                    ${dataHighlight[i].highlight}
+                    </li>`);
+            }
+        
+        }
+
+        function loadHighlight(){
+            //console.log(dataHighlight)
+            $(`.data-highlight`).remove()
+            for(var i = 0; i < dataHighlight.length; i++){
+                $('#listHighlightModal').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${dataHighlight[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${dataHighlight[i].id}" rows='2' maxlength='140' class="form-control">${dataHighlight[i].highlight}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${dataHighlight[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+        }
+
+        function deleteHighlight(id){
+            dataHighlight = dataHighlight.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadHighlight()
+        }
+
+        function populateHighlight(){
+            let result = true;
+            for (let i = 0; i < dataHighlight.length; i++) {
+                dataHighlight[i].highlight = $(`#${dataHighlight[i].id}`).val();
+                if(dataHighlight[i].highlight.length == 0){
+                    result = false;
+                }
+            }
+
+            if (!result) {
+                return Swal.fire("Fail", "Please <b>fill all</b> highlight field <b>or</b> <br/> <b>remove all blank</b> highlight using the <i class='far fa-trash-alt fa-sm'></i> button on the right side of the field");
+            }else{
+                loadHighlightItem();
+                $("#modalSetHighlight").modal('toggle');
+            }
+        }
+        
+    //========================================Arrival======================================
+        /*function addArrival(){
+            populateArrival();
+            var objHighlight = {}
+            objHighlight.id = "arrival-"+new Date().getTime().toString()
+            objHighlight.text = $(`#inputArrival`).val()
+            dataArrival.push(objHighlight)
+            $('#inputArrival').val("")
+            loadArrival()
+        }*/
+
+        function addArrivalItem(){
+            var objArrival = {}
+            objArrival.id = "Arrival-"+new Date().getTime().toString()
+            objArrival.text = ""
+            dataArrival.push(objArrival);
+            $(`#listArrivalModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-arrival" id="div-${objArrival.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${objArrival.id}" class="form-control highlight-added-field" rows='3' maxlength='275'></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteArrival('${objArrival.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow');
+                $(`#${objArrival.id}`).focus();
+
+            
+            // loadArrival()
+        }
+
+        function loadArrivalItem(){
+            $(`#listArrival`).html('');
+            for(var i = 0; i < dataArrival.length; i++){
+                /*$('#listArrival').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-arrival">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" value="${dataArrival[i].text}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)*/
+                $('#listArrival').append(`
+                    <li>${dataArrival[i].text}</li>`)
+            }
+            
+        }
+
+        function loadArrival(){
+            //console.log(dataArrival)
+            $(`.data-arrival`).remove()
+            for(var i = 0; i < dataArrival.length; i++){
+                $('#listArrivalModal').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-arrival" id="div-${dataArrival[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${dataArrival[i].id}" class="form-control" rows=3, maxlength='275'>${dataArrival[i].text}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteArrival('${dataArrival[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+        }
+
+        function deleteArrival(id){
+            dataArrival = dataArrival.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+        }
+
+        function populateArrival(){
+            let result = true;
+            for (let i = 0; i < dataArrival.length; i++) {
+                dataArrival[i].text = $(`#${dataArrival[i].id}`).val();
+                if(dataArrival[i].text.length == 0){
+                    result = false;
+                }
+            }
+
+            if (!result) {
+                return Swal.fire("Arrival Note", "Arrival can't be blank");
+            }else{
+                loadArrivalItem();
+                $("#modalSetArrival").modal('toggle');
+            }
+        }
+
+    //========================================Departure======================================
+
+        /*function addDeparture(){
+            populateDeparture();
+            var objHighlight = {}
+            objHighlight.id = "departure-"+new Date().getTime().toString()
+            objHighlight.text = $(`#inputDeparture`).val()
+            dataDeparture.push(objHighlight)
+            $('#inputDeparture').val("")
+            loadDeparture()
+        }*/
+
+        function addDepartureItem(){
+            var objDeparture = {}
+            objDeparture.id = "Departure-"+new Date().getTime().toString()
+            objDeparture.text = ""
+            dataDeparture.push(objDeparture);
+            $(`#listDepartureModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-departure" id="div-${objDeparture.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea type="text" id="${objDeparture.id}" class="form-control highlight-added-field" rows='3' maxlength='400' ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteDeparture('${objDeparture.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow');
+                $(`#${objDeparture.id}`).focus();
+            
+            // loadDeparture()
+        }
+
+        function loadDepartureItem(){
+            $(`#listDeparture`).html('');
+            $(`.data-departure`).remove()
+            for(var i = 0; i < dataDeparture.length; i++){
+                /*$('#listDeparture').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-departure">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" value="${dataDeparture[i].text}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)*/
+                $('#listDeparture').append(`<li>${dataDeparture[i].text}</li>`);
+                
+            }
+            
+        }
+
+        function loadDeparture(){
+            //console.log(dataDeparture)
+            $(`.data-departure`).remove()
+            for(var i = 0; i < dataDeparture.length; i++){
+                $('#listDepartureModal').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-departure" id="div-${dataDeparture[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea id="${dataDeparture[i].id}" class="form-control" value="${dataDeparture[i].text}" rows='3' maxlength='275'></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteDeparture('${dataDeparture[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+        }
+
+        function deleteDeparture(id){
+            dataDeparture = dataDeparture.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+
+        }
+        
+        function populateDeparture(){
+            let result = true;
+            for (let i = 0; i < dataDeparture.length; i++) {
+                dataDeparture[i].text = $(`#${dataDeparture[i].id}`).val();
+                if(dataDeparture[i].text.length == 0){
+                    result = false;
+                }
+            }
+
+            if (!result) {
+                return Swal.fire("Departure Note", "Departure can't be blank");
+            }else{
+                loadDepartureItem();
+                $("#modalSetDeparture").modal('toggle');
+            }
+        }
+
+    // ==============================================================================
+    
+
+    function makeFileRequestUpload(url, params, files){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'Oops!',
+                'The image size must be less than 20 MB.'
+            )
+            }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        $('#sendFile').show()
+                        $('#chooseFile').text(files[0].name)
+                        var response = JSON.parse(xhr.response)
+                        var objUrl = {}
+                        console.log(response)
+                        objUrl.id = "image-"+ new Date().getTime()
+                        objUrl.url = response.data.location
+                        objUrl.path = response.data.key
+                        objUrl.baseUrl = response.data.baseUrl
+                        dataImage.push(objUrl)
+                        loadImage()
+                    }else {
+                        console.log(xhr.response)
+                        $('#chooseFile').text("Choose File")
+                        alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+            }
+        })
+    }
+
+    function progressHandlerBackground(event) {
+        // var percent = (event.loaded / event.total) * 100
+        // $("#progressBackground").val(Math.round(percent))
+        // if(percent == 100){
+        //     $("#statusBackground").text("Upload Success")
+        // }else{
+        //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        // }
+    }
+
+    function completeHandlerBackground(event) {
+        //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+    }
+
+    function errorHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Failed")
+    }
+
+    function abortHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Aborted")
+    }
+
+    function loadImage(){
+        // console.log(dataImage)
+        $(`.data-photos`).remove()
+        for(var i = 0; i < dataImage.length; i++){
+            $(`#listPhotos`).append(`
+                <div class="photo-gallery--item data-photos" style="background-image:url('${dataImage[i].url}');"><div onClick="deleteImage('${dataImage[i].id}')" class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+            `).fadeIn('slow')
+        }
+    }
+
+    function deleteImage(id){
+        dataImage = dataImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadImage()
+    }
+
+    $('.saveDraftLoading').hide();
+
+    function saveDraft() {
+        //alert("hai")
+        $('.saveDraftBtn').hide();
+        $('.saveDraftLoading').show();
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            // return alert("form is not valid")
+            $('.saveDraftBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+            return Swal.fire(
+                'Oops!',
+                `Please complete all forms to get to the next step.
+                <ul style='padding-left:20px'>
+                </ul>
+                `
+            )
+        }else{
+            
+            if(id){
+                $.ajax({
+                    url: `/api/resort/${id}`,
+                    method: `PUT`,
+                    data: {
+                        publish : false,
+                        profile : {
+                            name : $('#inputName').val(),
+                            address : $('#inputAddress').val(),
+                            country : {
+                                id : $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            destination : {
+                                id : $('#inputDestination').val(),
+                                name : $('#inputDestination option:selected').text()
+                            },
+                            sub_destination : {
+                                id : $('#inputSubDestination').val(),
+                                name : $('#inputSubDestination option:selected').text()
+                            },
+                            introduction : $('#inputIntroduction').val(),
+                            about : $('#inputAbout').val(),
+                            ideal : dataIdeal,
+                            language : dataLanguage
+                        },
+                        highlight : dataHighlight,
+                        photos : dataImage,
+                        amenities : {
+                            activity : dataActivity,
+                            facility : dataFacility,
+                            sport : dataSport
+                        },
+                        how_to : {
+                            arrival : dataArrival,
+                            departure : dataDeparture
+                        },
+                        unavailable_dates : dataUnavailableDates,
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // alert("Success")
+                            // location.href = `/my-resort-create/${result.data.id}`
+                            Swal.fire({
+                                title: "Resort data saved!",
+                                text: "The basic information of your resort has been successfully saved, please continue designing the resort rooms & packages.",
+                                confirmButtonText: 'Great, continue to rooms & package'
+                            }).then(function() {
+                                window.location.href = `/my-resort-create/${result.data.id}#layoutResortRoom`
+                               
+                            });
+                            $('.saveDraftBtn').show();
+                            $('.saveDraftLoading').hide();
+
+                            $('.savePublishBtn').show();
+                            $('.savePublishLoading').hide();
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }else{
+                $.ajax({
+                    url: `/api/resort`,
+                    method: `POST`,
+                    data: {
+                        profile : {
+                            name : $('#inputName').val(),
+                            address : $('#inputAddress').val(),
+                            country : {
+                                id : $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            destination : {
+                                id : $('#inputDestination').val(),
+                                name : $('#inputDestination option:selected').text()
+                            },
+                            sub_destination : {
+                                id : $('#inputSubDestination').val(),
+                                name : $('#inputSubDestination option:selected').text()
+                            },
+                            introduction : $('#inputIntroduction').val(),
+                            about : $('#inputAbout').val(),
+                            ideal : dataIdeal,
+                            language : dataLanguage
+                        },
+                        highlight : dataHighlight,
+                        photos : dataImage,
+                        amenities : {
+                            activity : dataActivity,
+                            facility : dataFacility,
+                            sport : dataSport
+                        },
+                        how_to : {
+                            arrival : dataArrival,
+                            departure : dataDeparture
+                        },
+                        unavailable_dates : dataUnavailableDates
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // alert("Success")
+                            // location.href = `/my-resort-create/${result.data.id}`
+                            Swal.fire({
+                                title: "Resort data saved!",
+                                text: "The basic information of your resort has been successfully saved, please continue designing the resort rooms & packages.",
+                                confirmButtonText: 'Great, continue to rooms & package'
+                            }).then(function() {
+                                window.location.href = `/my-resort-create/${result.data.id}#layoutResortRoom`
+                                
+                            });
+                            $('.saveDraftBtn').show();
+                            $('.saveDraftLoading').hide();
+
+                            $('.savePublishBtn').show();
+                            $('.savePublishLoading').hide();
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }
+        }
+    
+    }
+
+    $('.savePublishLoading').hide();
+
+    function savePublish(canPublish) {
+
+        $('.savePublishBtn').hide();
+        $('.savePublishLoading').show();
+        
+        // var canPublish = false
+        for(var x = 0; x < listDataPackage.length; x++){
+            if(listDataPackage[x].publish){
+                canPublish = true
+            }
+        }
+
+        for(var x = 0; x < listDataRoom.length; x++){
+            if(listDataRoom[x].publish){
+                canPublish = true
+            }
+        }
+
+        if(!canPublish){
+            $('.saveDrafthBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+            // return alert("Cannot publish, resort must be has open room or package")
+            return Swal.fire({
+                title: "Publish Failed",
+                html: `Make sure your resort have at least one room or package in order to publish your resort.<br/>
+                    <hr/>
+                    <div style="font-size:14px;">
+                        <b>Tips <i class='fas fa-info-circle'></i>: </b><br/>
+                        To change your unpublish to publish, click 
+                        <button type="button" class="btn activePublishPackage text-danger" style="font-size:12px; border:1px solid #ddd; padding:5px;"><i class="fas fa-toggle-off fa-sm mr-2"></i>Unpublished</button> to
+                        <button type="button" class="btn activePublishPackage text-success" style="font-size:12px; border:1px solid #ddd; padding:5px;"><i class="fas fa-toggle-on fa-sm mr-2"></i>Published</button>
+                    </div>
+                    `
+            });
+            $('.saveDrafthBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+            
+        }
+
+        
+        $.each(dataHighlight, function(i,v){
+            console.log("Highlight");
+            console.log(i,v);
+        })
+
+        // populateHighlight();
+        // populateArrival();
+        // populateDeparture();
+            
+
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            
+            // return alert("form is not valid")
+            // Swal.fire(
+            //     'Oops!',
+            //     'Please complete all forms to save this room in the list.'
+            // )
+            $('.saveDrafthBtn').show();
+            $('.saveDraftLoading').hide();
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+        }else{
+            if(id){
+                if (totalNonAktif.length > 0) {
+                    let html = '';
+                    let hRoom = [];
+                    let hPack = [];
+                    for (let i = 0; i < totalNonAktif.length; i++) {
+                        if (totalNonAktif[i].tipe == 'room') {
+                            hRoom.push(totalNonAktif[i].nama);
+                        }else{
+                            hPack.push(totalNonAktif[i].nama);
+                        }
+                    }
+
+                    html += `This resort still have unpublished room/package, are you sure want to publish ? 
+                    ${(hRoom.length > 0 ? "<br/><b>Room : </b>"+hRoom.join(', ') : '')}
+                    ${(hPack.length > 0 ? "<br/><b>Package : </b>"+hPack.join(', ') : '')}`
+                    html += `<hr/>
+                        <div style="font-size:14px;">
+                            <b>Tips <i class='fas fa-info-circle'></i>: </b><br/>
+                            To change your unpublish to publish, click 
+                            <button type="button" class="btn activePublishPackage text-danger" style="font-size:12px; border:1px solid #ddd; padding:5px;"><i class="fas fa-toggle-off fa-sm mr-2"></i>Unpublished</button> to
+                            <button type="button" class="btn activePublishPackage text-success" style="font-size:12px; border:1px solid #ddd; padding:5px;"><i class="fas fa-toggle-on fa-sm mr-2"></i>Published</button>
+                        </div>`
+                    
+                    Swal.fire({
+                        title: "Reminder",
+                        html: html,
+                        icon: "warning",
+                        confirmButtonText: 'Yes',
+                        showCancelButton : true,
+                    }).then(function(isConfirm) {
+                        if (isConfirm.value) {
+                            publishData();
+                        } else {
+                            $('.savePublishBtn').show();
+                            $('.savePublishLoading').hide();
+                        }
+                    }) 
+                }else{
+                    publishData();
+                }
+
+            }else{
+                // alert("You cant publish this resort , please complete the data")
+                Swal.fire(
+                    'Please create rooms or dive package.',
+                    'In order to publish your resort, the resort must have resort rooms or dive package.'
+                )
+                $('.saveDrafthBtn').show();
+                $('.saveDraftLoading').hide();
+                $('.savePublishBtn').show();
+                $('.savePublishLoading').hide();
+            }
+        }
+    }
+
+    function publishData(){
+        // console.log(dataUnavailableDates);
+        var nData = {
+                publish : true,
+                profile : {
+                    name : $('#inputName').val(),
+                    address : $('#inputAddress').val(),
+                    country : {
+                        id : $('#inputCountry').val(),
+                        name : $('#inputCountry option:selected').text()
+                    },
+                    destination : {
+                        id : $('#inputDestination').val(),
+                        name : $('#inputDestination option:selected').text()
+                    },
+                    sub_destination : {
+                        id : $('#inputSubDestination').val(),
+                        name : $('#inputSubDestination option:selected').text()
+                    },
+                    introduction : $('#inputIntroduction').val(),
+                    about : $('#inputAbout').val(),
+                    ideal : dataIdeal,
+                    language : dataLanguage
+                },
+                highlight : dataHighlight,
+                photos : dataImage,
+                amenities : {
+                    activity : dataActivity,
+                    facility : dataFacility,
+                    sport : dataSport
+                },
+                how_to : {
+                    arrival : dataArrival,
+                    departure : dataDeparture
+                },
+                unavailable_dates : dataUnavailableDates,
+            };
+
+        console.log('ndata', nData);
+        $.ajax({
+            url: `/api/resort/${id}`,
+            method: `PUT`,
+            data: nData,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-resort-create/${result.data.id}`
+                    Swal.fire({
+                        title: "Resort data saved!",
+                        text: "The basic information of your resort has been successfully saved, please continue designing the resort rooms & packages.",
+                        confirmButtonText: 'Great, continue to rooms & package'
+                    }).then(function(isConfirm) {
+                        // window.location.href = `/my-resort-create/${id}#layoutResortRoom`;
+                        // return false;
+                        window.location.reload();
+                    });
+                    $('.saveDraftBtn').show();
+                    $('.saveDraftLoading').hide();
+
+                    $('.savePublishBtn').show();
+                    $('.savePublishLoading').hide();
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                    $('.saveDrafthBtn').show();
+                    $('.saveDraftLoading').hide();
+                    $('.savePublishBtn').show();
+                    $('.savePublishLoading').hide();
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    
+    }
+
+    function activeRoom(roomId, statusPublish){
+
+        if(statusPublish){
+            $('.publishRoomLoading').show();
+            let text = '';
+            if (totalAktif == 1 && statusPublishResort == true) {
+                text = "Since this is the only active room/package,<br/> this will <b style='color:red'>automatically unpublish your resort</b>.";
+            }else{
+                text = "You will unpublish your room";  
+            }
+            Swal.fire({
+                title: "Unpublish your room?",
+                html: text,
+                icon: "warning",
+                showCancelButton : true,
+            }).then(function(isConfirm) {
+                console.log(isConfirm)
+                if (isConfirm.value) {
+                    $("#overlay-loader").removeClass('d-none');
+                    console.log('sT',totalAktif, statusPublishResort);
+                    if (totalAktif == 1 && statusPublishResort == true) {
+                        unpublishResort(id, roomId, 1);
+                    }else{
+                        publishRoom(roomId, statusPublish)
+                    }
+                    $('.publishRoomLoading').hide();
+                } else {
+                    Swal.fire(
+                        'Cancelled', 
+                        'Your data safe :)',
+                        'error'
+                    );
+                    $('.publishRoomLoading').hide();
+                }
+            })        
+        
+        }else{
+            $('.publishRoomLoading').show();
+            Swal.fire({
+                title: "Publish your room?",
+                text: "You will publish your room",
+                icon: "warning",
+                showCancelButton : true,
+            }).then(function(isConfirm) {
+                console.log(isConfirm)
+                if (isConfirm.value) {
+                    $("#overlay-loader").removeClass('d-none');
+                    publishRoom(roomId, statusPublish)
+                    $('.publishRoomLoading').hide();
+                } else {
+                    Swal.fire(
+                        'Cancelled', 
+                        'Your data safe :)',
+                        'error'
+                    );
+                    $('.publishRoomLoading').hide();
+                }
+            })
+        }
+    }
+
+    function activePackage(packageId, statusPublish){
+        // $('.activePublishPackage').hide();
+        
+        
+        if(statusPublish){
+            $('.publishPackageLoading').show();
+            let html = '';
+            if (totalAktif == 1 && statusPublishResort == false) {
+                html= "Since this is the only active room/package,<br/> this will <b style='color:red'>automatically unpublish your resort</b>.";
+            }else {
+                html = "You will unpublish your package";
+            }
+            Swal.fire({
+                title: "Unpublish your package?",
+                html: html,
+                icon: "warning",
+                showCancelButton: true,
+            }).then(function(isConfirm) {
+                console.log(isConfirm)
+                if (isConfirm.value) {
+                    $("#overlay-loader").removeClass('d-none');
+                    if (totalAktif >= 1 && statusPublishResort == false) {
+                        publishPackage(packageId, statusPublish)
+                    }else{
+                        unpublishResort(id, packageId, 2);
+                    }
+                    
+                    $('.publishPackageLoading').hide();
+                } else {
+                    Swal.fire(
+                        'Cancelled', 
+                        'Your data safe :)', 
+                        'error'
+                    );
+                    $('.publishPackageLoading').hide();
+                }
+            })
+        }else{
+            $('.publishPackageLoading').show();
+            Swal.fire({
+                title: "Publish your package?",
+                text: "You will publish your package",
+                icon: "warning",
+                showCancelButton : true,
+            }).then(function(isConfirm) {
+                console.log(isConfirm)
+                if (isConfirm.value) {
+                    $("#overlay-loader").removeClass('d-none');
+                    publishPackage(packageId, statusPublish)
+                    $('.publishPackageLoading').hide();
+                } else {
+                    Swal.fire(
+                        'Cancelled', 
+                        'Your data safe :)', 
+                        'error'
+                    );
+                    $('.publishPackageLoading').hide();
+                }
+            })
+        }
+    }
+    function publishRoom(roomId, statusPublish) {
+        $.ajax({
+            url: `/api/room/${roomId}/publish`,
+            method: `PUT`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-resort-create/${id}`
+                    let text ='';
+                    if (statusPublish) {
+                        text = "Your room has been published.";
+                    }else{
+                        text = "Your room has been unpublished."
+                    }
+
+                    if (statusPublish == false && statusPublishResort == false) {
+                        Swal.fire({
+                            title: "Publish your resort too ?",
+                            text: "You resort status is unpublished",
+                            showCancelButton : true,
+                            cancelButtonText : "No",
+                        }).then(function(isConfirm) {
+                            console.log(isConfirm)
+                            if (isConfirm.value) {
+                                $("#overlay-loader").removeClass('d-none');
+                                for (let i = 0; i < totalNonAktif.length; i++) {
+                                    if (totalNonAktif[i].tipe == 'room') {
+                                        if (totalNonAktif[i].id == roomId) {
+                                            totalNonAktif[i].tipe = '';
+                                            totalNonAktif[i].nama = '';
+                                            totalNonAktif[i].id = '';
+                                        }
+                                    }
+                                }   
+                                savePublish(true);
+                            } else {
+                                Swal.fire(
+                                    'Cancelled', 
+                                    'OK', 
+                                    'error'
+                                );
+                                location.reload();
+                            }
+                        })
+                    }else{
+                        Swal.fire({
+                            title: "Room Status Updated!",
+                            text: text,
+                            confirmButtonText: 'Great'
+                        }).then(function() {
+                            location.reload();
+                        });
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                    $("#overlay-loader").addClass('d-none');
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function setUpRoom(){
+        location.href = `/my-resort-create/${id}/my-resort-create-room`
+    }
+
+    function publishPackage(packageId, statusPublish) {
+        $.ajax({
+            url: `/api/package/${packageId}/publish`,
+            method: `PUT`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-resort-create/${id}`
+                    let text = '';
+                    if (statusPublish) {
+                        text = 'Your package has been published';
+                    }else{
+                        text = 'Your package has been unpublished';
+                    }
+
+                    if (statusPublish == false && statusPublishResort == false) {
+                        Swal.fire({
+                            title: "Publish your resort too ?",
+                            text: "You resort status is unpublished",
+                            showCancelButton : true,
+                            cancelButtonText : "No",
+                        }).then(function(isConfirm) {
+                            console.log(isConfirm)
+                            if (isConfirm.value) {
+                                $("#overlay-loader").removeClass('d-none');
+                                for (let i = 0; i < totalNonAktif.length; i++) {
+                                    if (totalNonAktif[i].tipe == 'package') {
+                                        if (totalNonAktif[i].id == packageId) {
+                                            totalNonAktif[i].tipe = '';
+                                            totalNonAktif[i].nama = '';
+                                            totalNonAktif[i].id = '';
+                                        }
+                                    }
+                                }   
+                                savePublish(true);
+                            } else {
+                                Swal.fire(
+                                    'Cancelled', 
+                                    'OK', 
+                                    'error'
+                                );
+                                location.reload();
+                            }
+                        })
+                    }else{
+                        Swal.fire({
+                            title: "Package status updated!",
+                            text: text,
+                            confirmButtonText: 'Great'
+                        }).then(function() {
+                            location.reload()
+                            //window.location.href = `/my-divecenter-create/${id}#layoutDivecenterPackage`
+                        });
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function setUpPackage(){
+        location.href = `/my-resort-create/${id}/my-resort-create-package`
+    }
+
+    function setRoomDetailModal(room_idx){
+        $("#modalRoomDetailsBody").html(listRoomDetails[room_idx]);
+    }
+
+    function getPackageDetails(package_index){
+        $("#modalRoomDetailsBody").html(listPackageDetails[package_index]);
+    }
+
+    $("#modalRoomDetailsBody").on('click','.accordion-title',function(){
+        $(this).children('.accordion-title .fas').toggleClass('active');
+        $(this).parent().children('.accordion-content').toggleClass('active');
+    });
+
+    function formValidate(){
+        $(document).find(".text-field-warning").remove();
+        listIncomplete = [];
+        ($('#inputName').val().length < 3 ? listIncomplete.push({inputId:"inputName", message: "Name is too short" }) : '' );
+        ($('#inputAddress').val().length < 3 ? listIncomplete.push({inputId:"inputAddress",message:"Address is too short"}) : '' );
+        ($('#inputCountry').val().length == "" ? listIncomplete.push({inputId:"inputCountry",message:"Country cannot be blank"}) : '' );
+        ($('#inputDestination').val().length == "" ? listIncomplete.push({inputId:"inputDestination",message:"Destination cannot be blank"}) : '' );
+        ($('#inputSubDestination').val().length == "" ? listIncomplete.push({inputId:"inputSubDestination",message:"Sub Destination cannot be blank"}) : '' );
+        ($('#inputIntroduction').val().length < 3 ? listIncomplete.push({inputId:"inputIntroduction",message:"Introduction is too short"}) : '' );
+        ($('#inputAbout').val().length < 3 ? listIncomplete.push({inputId:"inputAbout",message:"About is too short"}) : '' );
+        (dataIdeal.length == 0 ? listIncomplete.push({inputId:"listIdeal",message:"Please choose 1 or more ideal for"}) : '' );
+        (dataLanguage.length == 0 ? listIncomplete.push({inputId:"listLanguage",message:"Please choose 1 or more language"}) : '' );
+        (dataHighlight.length == 0 ? listIncomplete.push({inputId:"inputHighlight",message:"Please provide 1 or more highlight"}) : '' );
+        (dataImage.length == 0 ? listIncomplete.push({inputId:"listPhotos",message:"Image: Please provide 1 image or more"}) : '' );
+        (dataActivity.length == 0 ? listIncomplete.push({inputId:"listActivity",message:"Please choose 1 or more activities"}) : '' );
+        (dataFacility.length == 0 ? listIncomplete.push({inputId:"listFacility",message:"Please choose 1 or more facilities"}) : '' );
+        (dataSport.length == 0 ? listIncomplete.push({inputId:"listSport",message:"Please choose 1 or more sports"}) : '' );
+        (dataArrival.length == 0 ? listIncomplete.push({inputId:"inputArrival",message:"Arrival cannot be blank"}) : '' );
+        (dataDeparture.length == 0 ? listIncomplete.push({inputId:"inputDeparture",message:"Departure cannot be blank"}) : '' );
+        showIncompleteFieldMessage(listIncomplete);
+        return listIncomplete;
+    }
+
+    function showIncompleteFieldMessage(listIncomplete){
+        let earliestInput = "";
+        $.each(listIncomplete,function(i,v){
+            earliestInput = (i==0 ? v.inputId : earliestInput);
+            if(v.inputId !='inputCountry' && v.inputId != 'inputDestination' && v.inputId != 'inputSubDestination' ){
+                $(`#${v.inputId}`).parent().append(`<i class='text-danger text-field-warning' style="font-size:12px">*${v.message}</i>`);
+            }else{
+                $(`#${v.inputId}`).closest('div').parent().append(`<i class='text-danger text-field-warning' style="font-size:12px; margin-right:10px">*${v.message}</i>`);
+            }
+        });
+
+        let el = document.getElementById(`${earliestInput}`);
+        (earliestInput != '' ? el.scrollIntoView() : '');
+    }
+
+    function deleteRoomConfirm(roomId, roomName, statusPublish) {
+        let text = '';
+        if (statusPublish && totalAktif == 1 && statusPublishResort) {
+            text = "Since this is the only active room/package,<br/> this will <b style='color:red'>automatically unpublish your resort</b>.";
+        }else{
+            text = "This will remove this room from list.";
+        }
+        Swal.fire({
+            title: `Delete Room "${roomName}"?`,
+            html: text,
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete It'
+        }).then((respond) => {
+            if (respond.value) {
+                if (statusPublish && totalAktif == 1) {
+                    unpublishResort(id, roomId+'??'+roomName, 3);
+                }else{
+                    deleteRoom(roomId, roomName);
+                }
+            }
+        });
+        
+    }
+
+    function deleteRoom(roomId, roomName){
+        // alert(`Room "${roomName}" Removed`);
+        $.ajax({
+            url: `/api/room/${roomId}`,
+            method: `DELETE`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    Swal.fire({
+                        title: `Room "${roomName}" Removed`,
+                        text: "Success."
+                    }).then(function() {
+                        location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        });
+    
+    }
+
+    function deletePackageConfirm(packageId, packageName, statusPublish) {
+        let text = '';
+        if (statusPublish && totalAktif == 1 && statusPublishResort) {
+            text = "Since this is the only active room/package,<br/> this will <b style='color:red'>automatically unpublish your resort</b>.";
+        }else{
+            text = "This will remove this room from list.";
+        }
+        
+        Swal.fire({
+            title: `Delete Package "${packageName}"?`,
+            html: text,
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete It'
+        }).then((respond) => {
+            if (respond.value) {
+                if (statusPublish && totalAktif == 1) {
+                    unpublishResort(id, packageId+'??'+packageName, 4);
+                }else{
+                    deletePackage(roomId, roomName);
+                }
+            }
+        });
+    }
+
+    function deletePackage(packageId, packageName) {
+        $.ajax({
+            url: `/api/package/${packageId}`,
+            method: `DELETE`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    Swal.fire({
+                        title: `Package "${packageName}" Removed`,
+                        text: "Success."
+                    }).then(function() {
+                        location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    //=========================unpublish resort==================
+    function unpublishResort(resortId, rId, type){
+        $.ajax({
+            url: `/api/resort/${resortId}/publish`,
+            method: `PUT`,
+            data : {
+                publish : false
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    if (type==1) {
+                        publishRoom(rId,false);
+                    }else if(type==2){
+                        publishPackage(rId, false)
+                    }else if(type==3){
+                        let r = rId.split('??');
+                        let roomId = r[0];
+                        let roomName = r[1];
+                        deleteRoom(roomId, roomName);
+                    }else if(type==4){
+                        let r = rId.split('??');
+                        let roomId = r[0];
+                        let roomName = r[1];
+                        deletePackage(roomId, roomName);    
+                    }
+                } else {
+                    $("#overlay-loader").addClass('d-none');
+                    let alrt = 'Unpublish Room & Resort Failed';
+                    if (type==2) {
+                        alrt = 'Unpublish Package & Resort Failed';
+                    }else if(type==3){
+                        alrt = 'Delete Room & Unpublished Resort Failed';
+                    }else if(type==4){
+                        alrt = 'Delete Package & Unpublished Resort Failed';
+                    }
+                    Swal.fire({
+                        title: "Warning",
+                        text: alrt                        
+                    })
+                    //alert(result.message)
+                    //console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    //==============unavailable dates==================================
+
+    function addUnavailableDates(){
+        var objUnavailableDates = {}
+        objUnavailableDates.id = "unavailableDates-"+new Date().getTime().toString()
+        objUnavailableDates.date_start = '';
+        objUnavailableDates.date_end = '';
+        objUnavailableDates.name = '';
+        objUnavailableDates.annually = false;
+        dataUnavailableDates.push(objUnavailableDates)
+        $(`#listUnavailableDatesModal`).append(`
+            <div class="d-block p-2 border mb-2 bg-lighter data-service" id="divUD-${objUnavailableDates.id}">
+                <div class="d-flex">
+                    <div class="mr-2 flex-grow-1">
+                        <div class="form-row pb-2" style='font-size:12px;font-weight:bold'>
+                            <div class="col-md-3 text-center"><span style='padding:2px 5px'>From / To</span></div>
+                            <div class="col-md-6 text-center">Information</div>
+                            <div class="col-md-3 text-left">Annually</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <input type="text" class="unavailableDatePicker form-control mb-2" onchange="countDays('${objUnavailableDates.id}')" id='unavailableDatesStart-${objUnavailableDates.id}' placeholder="From">
+                                <input type="text" class="unavailableDatePicker form-control" onchange="countDays('${objUnavailableDates.id}')"  id='unavailableDatesEnd-${objUnavailableDates.id}' placeholder="To" >
+                                <div class='text-center' id='daysInfo-${objUnavailableDates.id}'></div>
+                            </div>
+                            <div class="col-md-6">
+                                <textarea type="text" rows='3' class="form-control unavailableDatesName" min="0" id='unavailableDatesName-${objUnavailableDates.id}' placeholder="New Year / Renovation" >${objUnavailableDates.name}</textarea>
+                            </div>
+                            <div class="col-md-3">
+                                <!-- value="1" -->
+                                <label>
+                                <input type="checkbox" name="annually" id="unavailableDatesAnnually-${objUnavailableDates.id}"/> Repeated <br/>Every Year</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button onClick="deleteUnavailableDates('${objUnavailableDates.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `).fadeIn('slow')
+        $(`#unavailableDates-${objUnavailableDates.id}`).focus();
+
+        
+        // loadService()
+    }
+
+
+    function loadUnavailableDates(){
+        $(`#listUnavailableDatesModal`).empty()
+        for(var i = 0; i < dataUnavailableDates.length; i++){
+            let ann = (dataUnavailableDates[i].annually == "true" || dataUnavailableDates[i].annually == true ? true : false)
+            let tS = (typeof dataUnavailableDates[i].date_start !== 'undefined' ? dataUnavailableDates[i].date_start : dataUnavailableDates[i].dates)
+            let tE = (typeof dataUnavailableDates[i].date_end !== 'undefined' ? dataUnavailableDates[i].date_end : dataUnavailableDates[i].dates)
+                    
+            $(`#listUnavailableDatesModal`).append(`
+                <div class="d-block p-2 border mb-2 bg-lighter data-service" id="divUD-${dataUnavailableDates[i].id}">
+                    <div class="d-flex">
+                        <div class="mr-2 flex-grow-1">
+                            <div class="form-row pb-2" style='font-size:12px;font-weight:bold'>
+                                <div class="col-md-3 text-center"><span style='padding:2px 5px'>From / To</span></div>
+                                <div class="col-md-6 text-center">Information</div>
+                                <div class="col-md-3 text-left">Annually</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <input type="text" class="unavailableDatePicker form-control mb-2" onchange="countDays('${dataUnavailableDates[i].id}')" id='unavailableDatesStart-${dataUnavailableDates[i].id}' placeholder="Dates" value="${dateFormatMonth(tS)}">
+                                    <input type="text" class="unavailableDatePicker form-control" onchange="countDays('${dataUnavailableDates[i].id}')" id='unavailableDatesEnd-${dataUnavailableDates[i].id}' placeholder="Dates" value="${dateFormatMonth(tE)}">
+                                    <div class='text-center' id='daysInfo-${dataUnavailableDates[i].id}'></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea type="text" rows='3' class="form-control unavailableDatesName" min="0" id='unavailableDatesName-${dataUnavailableDates[i].id}' placeholder="New Year / Renovation" >${dataUnavailableDates[i].name}</textarea>
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- value="1" -->
+                                    <label>
+                                    <input ${(ann ? 'checked' : '')} type="checkbox" name="annually" id="unavailableDatesAnnually-${dataUnavailableDates[i].id}"/> Repeated <br/>Every Year</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button onClick="deleteUnavailableDates('${dataUnavailableDates[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).fadeIn('slow')
+        }
+
+    }
+
+    function populateUnavailableDates(){
+        let dataTemp = [];
+        let respond = true;
+        // console.log('ddd',dataUnavailableDates);
+
+        for (let i = 0; i < dataUnavailableDates.length; i++) {
+            console.log('ddu',dataUnavailableDates[i]);
+            let tglStart = $(`#unavailableDatesStart-${dataUnavailableDates[i].id}`).val();
+            let tglEnd = $(`#unavailableDatesEnd-${dataUnavailableDates[i].id}`).val();
+            let date_start = dateFormatForDB(tglStart);
+            let date_end = dateFormatForDB(tglEnd);
+            
+            dataUnavailableDates[i].date_start = date_start;
+            dataUnavailableDates[i].date_end = date_end;
+            dataUnavailableDates[i].name = $(`#unavailableDatesName-${dataUnavailableDates[i].id}`).val();
+            dataUnavailableDates[i].annually = $(`#unavailableDatesAnnually-${dataUnavailableDates[i].id}`).is(":checked");
+            console.log(dataUnavailableDates[i].id, dataUnavailableDates[i].dates, dataUnavailableDates[i].name.length );
+            if(dataUnavailableDates[i].date_start.length == 0 || dataUnavailableDates[i].date_end.length == 0 || dataUnavailableDates[i].name.length == 0 ){
+                respond = false;
+            }
+        }
+        console.log('ddu',dataUnavailableDates);
+
+        if(respond == true){
+            loadUnavailableDatesItem();
+            $("#modalSetUnavailableDates").modal('toggle');
+        }else{
+            Swal.fire('Unavailable Dates',
+                'Please complete all field. Date and Name cannot be blanked');
+                // return false;
+        }
+    }
+
+
+    function loadUnavailableDatesItem(){
+        $(`#listUnavailableDates`).html(``);
+        if (dataUnavailableDates.length) {
+            for(var i = 0; i < dataUnavailableDates.length; i++){
+                let ann = (dataUnavailableDates[i].annually == "true" || dataUnavailableDates[i].annually == true ? true : false)
+                /* <div class="d-block p-2 border mb-2 bg-lighter data-unavailableDates">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="UnavailableDates item" value="${dateFormatMonth(dataUnavailableDates[i].date_start)}"  disabled>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="UnavailableDates item" value="${dateFormatMonth(dataUnavailableDates[i].date_end)}"  disabled>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" value="${dataUnavailableDates[i].name}" disabled>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" value="${(ann ? "Repeated Every Year" : "Only Once")}" disabled>
+                                        <!--<p>${(dataUnavailableDates[i].annually ? "Repeated Every Year" : "Only Once")}</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> */
+                    let tS = (typeof dataUnavailableDates[i].date_start !== 'undefined' ? dataUnavailableDates[i].date_start : dataUnavailableDates[i].dates)
+                    let tE = (typeof dataUnavailableDates[i].date_end !== 'undefined' ? dataUnavailableDates[i].date_end : dataUnavailableDates[i].dates)
+                    
+                $(`#listUnavailableDates`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-service" id="divUD-${dataUnavailableDates[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row pb-2" style='font-size:12px;font-weight:bold'>
+                                    <div class="col-md-3 text-center"><span style='padding:2px 5px'>From / To</span></div>
+                                    <div class="col-md-6 text-center">Information</div>
+                                    <div class="col-md-3 text-left">Annually</div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <input type="text" class="unavailableDatePicker form-control mb-2" disabled value="${dateFormatMonth(tS)}">
+                                        <input type="text" class="unavailableDatePicker form-control" disabled value="${dateFormatMonth(tE)}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <textarea type="text" rows='3' class="form-control unavailableDatesName" min="0" disabled >${dataUnavailableDates[i].name}</textarea>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- value="1" -->
+                                        <label>
+                                        ${(ann ? 'Repeated <br/>Every Year' : 'Only Once')}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow')
+            }
+            
+        }else{
+            $(`#listUnavailableDates`).append("No Data")
+        }
+    
+    }
+
+    function deleteUnavailableDates(id){
+        let temp = [];
+        dataUnavailableDates : dataUnavailableDates.filter(function( obj ) {
+            if(obj.id !== id){
+                temp.push({...obj});
+            }
+        })
+
+        dataUnavailableDates = [];
+        dataUnavailableDates = temp;
+        console.log('ddus',dataUnavailableDates);
+
+        $(`#divUD-${id}`).remove();
+        // loadUnavailableDates()
+    }
+
+    function countDays(udId){
+        let t1 = $(`#unavailableDatesStart-${udId}`).val();
+        let t2 = $(`#unavailableDatesEnd-${udId}`).val();
+
+        // dateFormatForDB
+        if (t1 != '' && t2 != '') {
+            let tgl1 = new Date(t1)                
+            let tgl2 = new Date(t2)
+            let diff = tgl2.getTime() - tgl1.getTime()
+            if (diff >= 0) {
+                var days = Math.ceil(diff / (1000 * 3600 * 24)); 
+                let text = (parseInt(days+1) == 1 ? ' day off' : ' days off')
+                console.log(days + ' days off');
+                $(`#daysInfo-${udId}`).text((parseInt(days) + 1)+text );                
+            }else{
+                Swal.fire(
+                    'Oops!',
+                    `'From' date is bigger than 'To' date.`
+                )
+            }
+        }
+    }
+    
+</script>

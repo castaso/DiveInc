@@ -1,0 +1,46 @@
+<!-- ION Slider -->
+<link href="/assets/libs/ion-rangeslider/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
+
+<!-- third party css -->
+<link href="/assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="/assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="/assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="/assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+<!-- third party css end -->
+
+<link href="/assets/libs/summernote/summernote-bs4.css" rel="stylesheet" type="text/css" />
+
+<link href="/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+<link href="/assets/libs/ladda/ladda-themeless.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+<style>
+  ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+  }
+
+  ol > li {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 0.6em;
+  }
+
+  ol > li:before {
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: 0.6em;
+  }
+
+  li ol > li {
+    margin: 0;
+  }
+
+  li ol > li:before {
+    content: counters(item, ".") " ";
+  }
+</style>

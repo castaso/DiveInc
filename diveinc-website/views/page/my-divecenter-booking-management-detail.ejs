@@ -1,0 +1,386 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+    
+    <!-- Modal Guest Detail -->
+    <div class="modal" id="modalGuestDetail" tabindex="-1" role="dialog"aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-body" id="modalGuestDetailBody">
+                    <div class="d-block mb-3">
+                        <h5 class="flex-shrink-0">Guest Detail</h5>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <div>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="section bg-lighter">
+        <div class="header-spacer"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <div class="card shadow-sm border-0 rounded-0 card-account">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <a href="/my-divecenter-booking-management" class="btn btn-outline-primary btn-sm mr-2"> <i class="fas fa-arrow-left"></i> </a>
+                            <h5 class="m-0 mr-2">Booking List</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6 class="d-inline-block p-2 bg-light font-lg font-weight-normal mb-3 border">Booking ID: <span class="font-weight-bold" id="booking-id">AA141007</span></h6>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="layoutPackage" class="d-block mb-4 p-3 border">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-summary">
+                                    <div class="checkout-summary--list">
+                                        <ul class="list-group list-group-flush">
+                                        <div id="listDataRoom">
+                                            <!-- <li class="list-group-item">
+                                                <div class="list-person">
+                                                    <div class="list-person--title">
+                                                        <div>Twin Bungalow [Room 1]</div>
+                                                        <div>$255</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>$120 x2</div>
+                                                        <div>$240</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Extra Bed $4 x2</div>
+                                                        <div>$8</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Internet 20GB $9 x1</div>
+                                                        <div>$9</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x2</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="list-person">
+                                                    <div class="list-person--title">
+                                                        <div>Twin Bungalow [Room 2]</div>
+                                                        <div>$240</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>$120 x2</div>
+                                                        <div>$240</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x1</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="list-person">
+                                                    <div class="list-person--title">
+                                                        <div>Komodo Weekender</div>
+                                                        <div>$2319</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-user fa-sm fas-fix mr-1"></i>$770 x3</div>
+                                                        <div>$2310</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Internet 20GB $9 x1</div>
+                                                        <div>$9</div>
+                                                    </div>
+                                                </div>
+                                            </li> -->
+                                        </ul>
+                                        <div class="list-total">
+                                            <div class="list-total-item">
+                                                <div>Total</div>
+                                                <div id="totalSummary"></div>
+                                            </div>
+                                            <div class="list-total-item">
+                                                <div>VAT 10%</div>
+                                                <div id="taskTotal"></div>
+                                            </div>
+                                            <div class="list-total-item">
+                                                <div>Total Price</div>
+                                                <div id="totalPrice"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-block p-3">
+                                            <button type="button" class="btn btn-neutral btn-block" data-toggle="modal" data-target="#modalGuestDetail">Guest Detail</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-md-3">
+                                <div class="d-flex" id="btn-action-list">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-spacer"></div>
+    </section>
+    
+    
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script>
+
+    var id="<%= id %>"
+
+    var packageData
+    var rooms;
+    let guestList = '';
+    const monthNamesShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+        "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    
+
+    $(document).ready(function(){
+        loadTransactionById()
+    });
+
+    function dateFormatF(tanggal){
+        if(tanggal != ''){
+            let tgl = tanggal.split('-').reverse();
+            return tgl[0]+' '+monthNamesShort[tgl[1]-1]+' '+tgl[2];
+        }else{
+            return tanggal;
+        }
+    }
+
+    function loadTransactionById(){
+        $.ajax({
+            url: `/api/transaction-divecenter/${id}`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    console.log(result.data);
+                    packageData = result.data.package_data
+                    console.log(packageData);
+
+                    $("#booking-id").html(result.data.id);
+                    
+                    guestData = '';
+                    for (let i = 0; i < packageData.package.length; i++) {
+
+                        for(var j = 0; j < packageData.package[i].packageItem.length; j++){
+                            $('#listDataRoom').append(`
+                                    <li id="${packageData.package[i].packageItem[j].id}" class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>${packageData.package[i].packageName} [Package ${i+1}]</div>
+                                                <div>IDR <span id="summaryTotal${packageData.package[i].packageItem[j].id}">${formatRupiah(parseFloat(packageData.package[i].packagePrice))}</span></div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x${packageData.package[i].packageItem[j].guest}</div>
+                                            </div>
+                                            <div class="all-extra" id="service${packageData.package[i].packageItem[j].id}"></div>
+                                        </div>
+                                    </li>
+                                `)
+                        
+                        
+                        $("#layoutPackage").append(`<h6 class="m-0 mb-3">${packageData.package[i].packageName}</h6>
+                            <div class="departure-information">
+                                <div class="departure-information--item">
+                                    <h4>Date Trip</h4>
+                                    <ul>
+                                        <li><i class="far fa-calendar mr-2 fas-fix text-muted"></i>${dateFormatF(packageData.package[i].packageItem[j].package_date)}</li>
+                                    </ul>
+                                </div>
+                            </div>`);
+
+                            guestList = packageData.package[i].packageItem[j].detail_guest;
+                            console.log(guestList)
+                            for (let g_idx = 0; g_idx < guestList.length; g_idx++) {
+                                guestData += `<div class="d-block mt-1">
+                                    <div class="text-muted text-sm">Guest ${g_idx+1}</div>
+                                    <div>${guestList[i].title}${guestList[i].first_name} ${guestList[i].last_name} - ${guestList[i].nationality}</div>
+                                </div>`;
+                            }
+                            
+                            $('#modalGuestDetailBody').append(`<div class="d-block p-3 border mb-3">
+                                <div class="font-weight-bolder d-block">${packageData.package[i].packageName}</div>
+                                ${guestData}
+                            </div>`);
+                        }
+                        
+                    }
+
+                    loadItem()
+
+                    // alert(result.data.transaction_divecenter_status_id);
+                    if (result.data.transaction_divecenter_status_id == "b648ff73-468f-45cb-bbbc-fd3659e4b8ac") {
+                        $('#btn-action-list').append(`<button onClick="confirm();" class="btn btn-success flex-grow-1 mr-1"><i class="fas fa-check"></i></button>
+                                        <button onClick="decline();" class="btn btn-danger flex-grow-1"><i class="fas fa-times"></i></button>`);
+                        
+                    }
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    // function loadItem(){
+    //     $('.all-extra').empty()
+
+    //     var totalPrice = 0
+
+    //     if(packageData.package){
+
+    //         for(var i = 0; i < packageData.package.length; i++){
+    //             var totalSummary = 0
+    //             totalSummary += parseFloat(packageData.package[i].packagePrice);
+    //             for(var x = 0; x < packageData.package[i].service.length; x++){
+    //                 if(packageData.package[i].service[x].qty > 0){
+    //                     $(`#service${packageData.package[i].id}`).append(`
+    //                         <div class="list-person--item text-muted">
+    //                             <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${packageData.package[i].service[x].name} IDR${formatRupiah(packageData.package[i].service[x].price)} x${packageData.package[i].service[x].qty}</div>
+    //                             <div>IDR ${formatRupiah(parseFloat(packageData.package[i].service[x].price) * parseFloat(packageData.package[i].service[x].qty))}</div>
+    //                         </div>
+    //                     `)
+    //                     totalSummary += (parseFloat(packageData.package[i].service[x].price) * parseFloat(packageData.package[i].service[x].qty));
+    //                 }
+    //             }
+    //             $(`#summaryTotal${packageData.package[i].id}`).text(formatRupiah(totalSummary)) 
+                    
+    //             totalPrice += totalSummary
+    //         }
+    //     }
+        
+    //     $('#totalSummary').text(`IDR ${formatRupiah(totalPrice)}`)
+    //     var task = totalPrice / 10
+    //     $('#taskTotal').text(`IDR ${formatRupiah(task)}`)
+    //     $('#totalPrice').text(`IDR ${formatRupiah(totalPrice + task)}`)
+    // }
+
+    function loadItem(){
+
+        //console.log(packageData)
+        $('.all-extra').empty()
+
+        var totalPrice = 0
+
+        if(packageData.package){
+            for(var i = 0; i< packageData.package.length; i++){
+
+                for(var j = 0; j < packageData.package[i].packageItem.length; j++){
+                    var totalSummary = 0
+                    var summaryPrice = parseFloat(packageData.package[i].packagePrice) * parseFloat(packageData.package[i].packageItem[j].guest)
+                    $(`#total${packageData.package[i].packageItem[j].id}`).text(formatRupiah(summaryPrice))
+                    totalSummary += summaryPrice
+
+                    for(var k = 0; k < packageData.package[i].packageItem[j].service.length; k++){
+                        if(packageData.package[i].packageItem[j].service[k].qty > 0){
+                            $(`#service${packageData.package[i].packageItem[j].id}`).append(`
+                                <div class="list-person--item text-muted">
+                                    <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${packageData.package[i].packageItem[j].service[k].name} (IDR&nbsp;${formatRupiah(packageData.package[i].packageItem[j].service[k].price)} x${packageData.package[i].packageItem[j].service[k].qty})</div>
+                                    <div class="list-price ml-2">IDR&nbsp; ${formatRupiah(parseFloat(packageData.package[i].packageItem[j].service[k].price) * parseFloat(packageData.package[i].packageItem[j].service[k].qty))}</div>
+                                </div>
+                            `)
+
+                            totalSummary += (parseFloat(packageData.package[i].packageItem[j].service[k].price) * parseFloat(packageData.package[i].packageItem[j].service[k].qty))
+                        }
+                    }
+
+                    $(`#summaryTotal${packageData.package[i].packageItem[j].id}`).text(formatRupiah(totalSummary)) 
+                    totalPrice += totalSummary
+                }
+            }
+        }
+
+
+        $('#totalSummary').text(`IDR ${formatRupiah(totalPrice)}`)
+        var task = totalPrice / 10
+        $('#taskTotal').text(`IDR ${formatRupiah(task)}`)
+        $('#totalPrice').text(`IDR ${formatRupiah(totalPrice + task)}`)
+    }
+
+    function confirm(){
+        Swal.fire({
+            title: "Accept this order?",
+            text: "You can't undo this action.",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Accept it!'
+        }).then((respond) => {
+            if (respond.value) {
+                $.ajax({
+                    url: `/api/transaction-divecenter/${id}/approve`,
+                    method: `PUT`,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            window.location.reload();
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                });
+            }
+        });
+        
+    }
+
+    function decline(){
+        Swal.fire({
+            title: "Reject this order?",
+            text: "Are you sure ? You can't undo this action.",
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Reject It.'
+        }).then((respond) => {
+            if (respond.value) {
+                $.ajax({
+                    url: `/api/transaction-divecenter/${id}/reject`,
+                    method: `PUT`,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            location.reload()
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }
+        });
+        
+    }
+
+</script>

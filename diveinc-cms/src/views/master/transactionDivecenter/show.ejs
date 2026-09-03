@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dive Center Transaction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <!-- <link rel="shortcut icon" href="/assets/images/favicon.ico" /> -->
+    <!-- CSS -->
+    <%- include('../../partials/mainstyle') %>
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <!-- Topbar Start -->
+      <%- include('../../partials/mainheader') %>
+      <!-- end Topbar -->
+
+      <!-- Menu Start -->
+      <%- include('../../partials/mainmenu') %>
+      <!-- end menu -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="wrapper">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Diveinc.co</a></li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Dive Center Transaction</a></li>
+                  <li class="breadcrumb-item active">Edit</li>
+                </ol>
+              </div>
+              <h4 class="page-title">Dive Center Transaction</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <!-- MAIN CONTENT -->
+                <div class="form-group">
+                  <label class="col-form-label">Booking ID</label>
+                  <div id="inputBookingID"></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Purchase Detail</label>
+                  <div id="inputPurchaseDetail"></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Date</label>
+                  <div id="inputDate"></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Price Detail</label>
+                  <div id="inputPriceDetail"></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Status</label>
+                  <div id="inputStatus"></div>
+                </div>
+              </div>
+              <!-- end card body-->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col-->
+        </div>
+        <!-- end row-->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <%- include('../../partials/mainfooter') %>
+    </footer>
+    <!-- end Footer -->
+
+    <!-- modal start -->
+    <!-- end modal -->
+
+    <!-- Vendor js -->
+    <script src="/assets/js/vendor.min.js"></script>
+
+    <!-- third party js -->
+    <%- include('../../partials/mainjs.ejs') %>
+
+    <!-- App js-->
+    <script src="/assets/js/app.min.js"></script>
+    <script>
+      var id = "<%= id %>"
+
+      function formatRupiah(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+      }
+
+      function dateFormatSM(tanggal){
+        let tgl = tanggal.toString().substring(0,10).split('-');
+        const monthNamesShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        
+        return tgl[2]+' '+monthNamesShort[tgl[1]-1]+' '+tgl[0];
+      }
+
+
+      $(document).ready(function() {
+        loadData()
+      });
+
+      function loadData(){
+        $.ajax({
+          url: `/api/transaction-divecenter/${id}`,
+          method: `GET`,
+          success: function(result) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            if (result.success) {
+              console.log(result)
+              var totalPrice = 0;
+
+              $('#inputBookingID').html(result.data.transaction_code)
+
+              var htmlPurchaseDetail = ``
+              var htmlDate = []
+              
+              if(result.data.package_data.hasOwnProperty('package')) {
+                  for(let package of result.data.package_data.package) {
+                      htmlPurchaseDetail += package.packageName + `<br>`
+                      totalPrice += Number(package.packagePrice)
+      
+                      if(package.hasOwnProperty('service')) {
+                          htmlPurchaseDetail += `Service:<ul style="list-style: none; padding-left: 20px;">`
+                          for(let service of package.service) {
+                              htmlPurchaseDetail += `<li>-` + service.name + ` x` + service.qty + `</li>`
+                              totalPrice += Number(service.price)
+                          }
+                          htmlPurchaseDetail += `</ul>`
+                      }
+                      for(let item of package.packageItem){
+                        htmlDate.push(item.package_date)
+                      }
+                  }
+              }
+              
+              var showDate = [];
+              for(let dt of htmlDate){
+                showDate.push('-'+dateFormatSM(dt));
+              }
+              $('#inputPurchaseDetail').html(htmlPurchaseDetail)
+              $('#inputDate').html(showDate.join('<br>'))
+
+              $('#inputPriceDetail').html(`total : IDR ${formatRupiah(totalPrice)}<br>
+                diveinc fee : IDR ${formatRupiah(totalPrice * 0.2)}<br>
+                your income : IDR ${formatRupiah(totalPrice - (totalPrice * 0.2))}
+              `)
+
+              if(result.data.transaction_divecenter_status_id == "b648ff73-468f-45cb-bbbc-fd3659e4b8ac"){
+                $('#inputStatus').html(`Ordered`)
+              }else{
+                $('#inputStatus').html(`-`)
+              }
+              
+            } else {
+              alert("Failed to get data");
+              console.log(result);
+              //Ladda.create($(`#loginButton`)[0]).stop();
+            }
+          },
+          error(xhr, status, error) {
+            alert("Failed to get data");
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<div class="d-block mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="glide glide__testimonial">
+                <div class="glide__track" data-glide-el="track">
+                    <ul id="layoutTestimony" class="glide__slides">
+                        <!-- <li class="glide__slide">
+                            <div class="d-block testimonial">
+                                <p class="testimonial-content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum id esse dolore amet doloribus laudantium libero nobis odio, molestias vitae voluptate enim eligendi saepe quos maxime at consequuntur iure sint!</p>
+                                <div class="testimonial-guest">
+                                    <div class="testimonial-photos" style="background-image: url('/images/turtles.jpg');"></div>
+                                    <span class="testimonial-name">Jane Spears</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="glide__slide">
+                            <div class="d-block testimonial">
+                                <p class="testimonial-content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum id esse dolore amet doloribus laudantium libero nobis odio, molestias vitae voluptate enim eligendi saepe quos maxime at consequuntur iure sint!</p>
+                                <div class="testimonial-guest">
+                                    <div class="testimonial-photos" style="background-image: url('/images/turtles.jpg');"></div>
+                                    <span class="testimonial-name">Jane Spears</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="glide__slide">
+                            <div class="d-block testimonial">
+                                <p class="testimonial-content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum id esse dolore amet doloribus laudantium libero nobis odio, molestias vitae voluptate enim eligendi saepe quos maxime at consequuntur iure sint!</p>
+                                <div class="testimonial-guest">
+                                    <div class="testimonial-photos" style="background-image: url('/images/turtles.jpg');"></div>
+                                    <span class="testimonial-name">Jane Spears</span>
+                                </div>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+                <div id="bullet" class="glide__bullets" data-glide-el="controls[nav]">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        loadTestimony()
+    })
+
+    function loadTestimony(){
+        $.ajax({
+            url: `/api/testimony`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        $('#layoutTestimony').append(`
+                            <li class="glide__slide">
+                                <div class="d-block testimonial">
+                                    <p class="testimonial-content">${result.data[i].comment}</p>
+                                    <div class="testimonial-guest">
+                                        <div class="testimonial-photos" style="background-image: url('${result.data[i].user_images[0].url}');"></div>
+                                        <span class="testimonial-name">${result.data[i].user_name}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        `)
+
+                        $('#bullet').append(`
+                            <button class="glide__bullet" data-glide-dir="=${i}"></button>
+                        `)
+                    }
+
+                    var sliders = document.querySelectorAll('.glide');
+
+                    for (var i = 0; i < sliders.length; i++) {
+                        var glide = new Glide(sliders[i], {
+                            type: 'carousel',
+                            startAt: 0,
+                            perView: 1,
+                            gap: 0,
+                            autoplay: 3000
+                        });
+                        
+                        glide.mount();
+                    }
+                        
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+</script>

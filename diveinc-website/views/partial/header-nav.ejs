@@ -1,0 +1,83 @@
+<!-- HEADER NAV -->
+<div class="main-navigation">
+    <div class="main-navigation--inner">
+        <div class="main-navigation--col" style="line-height: 0;">
+            <a href="/"><img class="header-logo" src="/images/logo/logo-dive-white.svg"></a>
+        </div>
+        <div class="main-navigation--col">
+            <ul class="nav-list">
+                <li class="nav-list--item">
+                    <a href="personal-question-1" class="btn btn-link btn-sm text-white" role="button">Create Yours</a>
+                </li>
+                <li class="nav-list--item">
+                    <a href="" class="btn btn-link btn-sm text-white" role="button">Tips & Article</a>
+                </li>
+                <li class="nav-list--item">
+                    <a href="" class="btn btn-link btn-sm text-white" role="button">About Us</a>
+                </li>
+                <li class="nav-list--item">
+                    <a href="" class="btn btn-link btn-sm text-white" role="button">Contact</a>
+                </li>
+                <li class="nav-list--item">
+                    <button data-toggle="modal" data-target="#modalSearchGeneral" class="btn btn-link btn-sm text-white" role="button">Search</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modalSearchGeneral" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body">
+                <input type="text" id="inputSearch" class="form-control form-control-lg rounded-0" name="search" placeholder="Enter keywords..." value="Bali">
+                <div class="d-block mt-3">
+                    <ul class="nav nav-tabs nav-tabs-custom mb-3 pos-left" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="destination-search-tab" data-toggle="tab" href="#destination-search" role="tab" aria-controls="destination-search" aria-selected="true">Destination (2)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="species-search-tab" data-toggle="tab" href="#species-search" role="tab" aria-controls="species-search" aria-selected="false">Species (0)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="resort-search-tab" data-toggle="tab" href="#resort-search" role="tab" aria-controls="resort-search" aria-selected="false">Resort (1)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="article-search-tab" data-toggle="tab" href="#article-search" role="tab" aria-controls="article-search" aria-selected="false">Article (0)</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="destination-search" role="tabpanel" aria-labelledby="destination-search-tab">
+                            <!-- <div class="p-4 text-center bg-light">
+                                <div class="text-muted text-sm">Data destination not found...</div>
+                            </div> -->
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="">Gili Trawangan, <span class="text-sm">Bali</span></a></li>
+                                <li class="list-group-item"><a href="">Cenangan, <span class="text-sm">Bali</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="species-search" role="tabpanel" aria-labelledby="species-search-tab">
+                            <div class="p-4 text-center bg-light">
+                                <div class="text-muted text-sm">Data species not found...</div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="resort-search" role="tabpanel" aria-labelledby="resort-search-tab">
+                            <!-- <div class="p-4 text-center bg-light">
+                                <div class="text-muted text-sm">Data resort not found...</div>
+                            </div> -->
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="">John Paul Resort, <span class="text-sm">Bali</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="article-search" role="tabpanel" aria-labelledby="article-search-tab">
+                            <div class="p-4 text-center bg-light">
+                                <div class="text-muted text-sm">Data article not found...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

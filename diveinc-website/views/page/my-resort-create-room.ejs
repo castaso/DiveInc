@@ -1,0 +1,1059 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<div class="modal" id="modalSetAdditionalService" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Additional Service</span>
+            </div>
+            <div class="modal-body">
+                <div id="listServiceModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addServiceItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateService()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <div class="col-lg-9">
+                <!-- Room Info & Iptions -->
+                <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <!-- <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li> -->
+                    <li>
+                        <a href="/my-resort" class="btn btn-white btn-sm">My Resort</a>
+                    </li>
+                    <li>
+                        <a href="/my-resort-create/<%= parentId %>" class="btn btn-white btn-sm">Resort</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="btn btn-white btn-sm"><span class="formTitle">Create New</span> Room</a>
+                    </li>
+                </ul>
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2"><span class="formTitle">Create New</span> Room</h5>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" onClick="saveRoom();" class="btn btn-primary"><i class="fas fa-save fa-sm mr-2"></i>Save Room</button>
+                            </div>
+                        </div>
+                        <div class="d-block mb-4">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Room Info</h5>
+                            <div class="form-row mb-3">
+                                <label for="room_name" class="col-sm-2 col-form-label">Room Name<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputName" type="text" class="form-control text-capitalize" name="room_name" placeholder="Room name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="room_desc" class="col-sm-2 col-form-label">Description<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="inputDescription" class="form-control" name="room_description" placeholder="Room short introduction" rows="6" required></textarea>
+                                    <div class="alert alert-info border-0 mt-2 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Writes your room introduction in 400 characters. Your guest will read this first when opening your page.</div></div></div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="room_size" class="col-sm-2 col-form-label">Room Size<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input id="inputWidth" type="number" min="0" class="form-control" placeholder="Room width">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">meter</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input id="inputLength" type="number" min="0" class="form-control" placeholder="Room length">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">meter</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-block mb-4">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Room Options</h5>
+                            <div id="listOption" class="row">
+                                <!-- <div class="col-md-4">
+                                    <div class="form-row mb-3">
+                                        <label for="bed_type" class="col-sm-12 col-form-label">Bed Type</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" name="bed_type">
+                                                <option>Single Bed</option>
+                                                <option>Twin Bed</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row">
+                                        <label for="air_conditioning" class="col-sm-12 col-form-label">Air Conditioning</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" name="air_conditioning">
+                                                <option>Yes</option>
+                                                <option>No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row">
+                                        <label for="private_bathroom" class="col-sm-12 col-form-label">Private Bathroom</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" name="private_bathroom">
+                                                <option>Yes</option>
+                                                <option>No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row">
+                                        <label for="room_wifi" class="col-sm-12 col-form-label">WiFi in Room</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" name="room_wifi">
+                                                <option>Yes</option>
+                                                <option>No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row">
+                                        <label for="max_occupancy" class="col-sm-12 col-form-label">Max Occupancy</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" name="max_occupancy">
+                                                <option>1 guest</option>
+                                                <option>2 guest</option>
+                                                <option>3 guest</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="d-block">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Room Amenities</h5>
+                            <div id="listAminity" class="row">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Room Photos -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                       <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Resort Photos<span class="required text-danger">*</span></h5>
+                            <div class="form-row">
+                                <div class="col-sm-12">
+                                    <div class="d-block w-100 mb-3">
+                                        <div class="custom-file mb-2">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                        <!-- <div class="btn-group">
+                                            <div class="btn btn-outline-primary btn-sm">Clear</div>
+                                            <div class="btn btn-outline-primary btn-sm"><i class="fas fa-upload mr-2"></i>Upload Photos</div>
+                                        </div> -->
+                                    </div>
+                                    <div id="listPhotos" class="photo-gallery-create">
+                                        <!-- <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-info border-0 mt-0 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Please use better photos for best experience when the guest browse your resort. Please put up your photo with the size not more than 20 MB</div></div></div>
+                    </div>
+                </div>
+                <!-- Room Rules -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Room Rules</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-row mb-3">
+                                        <label for="cabin_bed_type" class="col-sm-12 col-form-label">Dorm Room Type</label>
+                                        <div class="col-sm-12">
+                                            <select id="sharingRoom" class="form-control" name="cabin_bed_type">
+                                                <option value="no">No</option>
+                                                <option value="yes">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row mb-0">
+                                        <label for="room_name" class="col-sm-12 col-form-label">Max person in room<span class="required text-danger">*</span></label>
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Person</span>
+                                                </div>
+                                                <!-- value="1" -->
+                                                <input id="inputMaxPerson"  type="number" min="1" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row mb-0">
+                                        <label for="room_name" class="col-sm-12 col-form-label">Max purchase of room<span class="required text-danger">*</span></label>
+                                        <div class="col-sm-12">
+                                            <div class="d-flex">
+                                                <div class="input-group mr-2">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Room</span>
+                                                    </div>
+                                                    <!-- value="1" -->
+                                                    <input id="inputMaxRoom" type="number" min="1" class="form-control">
+                                                </div>
+                                                <div class="flex-shrink-0">
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <!-- <button type="button" class="btn btn-primary"><i class="far fa-save fa-sm mr-2"></i>Save</button> -->
+                                                        <!-- <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <button class="btn btn-outline-primary btn-sm mt-2" type="button">Set Discount Price</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Room Price -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Room Price</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-row mb-0">
+                                        <label for="room_name" class="col-sm-12 col-form-label">Price<span class="required text-danger">*</span></label>
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">IDR</span>
+                                                </div>
+                                                <input id="inputPrice" type="number" min="0" class="form-control" placeholder="Set your room price">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-row mb-0">
+                                        <label for="room_name" class="col-sm-12 col-form-label">Price After Discount</label>
+                                        <div class="col-sm-12">
+                                            <div class="d-flex">
+                                                <div class="input-group mr-2">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">IDR</span>
+                                                    </div>
+                                                    <!-- value="0" -->
+                                                    <input id="inputDiscount"  type="number" min="0" class="form-control" placeholder="Set your discount price">
+                                                </div>
+                                                <div class="flex-shrink-0">
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <!-- <button type="button" class="btn btn-primary"><i class="far fa-save fa-sm mr-2"></i>Save</button> -->
+                                                        <!-- <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <button class="btn btn-outline-primary btn-sm mt-2" type="button">Set Discount Price</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Additional Services -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Additional Services</h5>
+                            <div class="form-row">
+                                <div class="col-sm-12">
+                                    <div id="listService"></div>
+                                    <!-- <div class="d-block p-2 border mb-2 bg-lighter">
+                                        <div class="d-flex">
+                                            <div class="mr-2 flex-grow-1">
+                                                <div class="form-row">
+                                                    <div class="col-md-7">
+                                                        <input type="text" class="form-control" placeholder="Service item" value="Breakfast for Guest">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">introduction</span>
+                                                            </div>
+                                                            <input type="number" min="0" class="form-control" placeholder="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" min="0" class="form-control" placeholder="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="d-block p-2 border mb-2 bg-lighter">
+                                        <div class="d-flex">
+                                            <div class="mr-2 flex-grow-1">
+                                                <div class="form-row">
+                                                    <div class="col-md-7">
+                                                        <input type="text" class="form-control" placeholder="Service item" value="Add Single Bed">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">$</span>
+                                                            </div>
+                                                            <input type="number" min="0" class="form-control" placeholder="0" value="7">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select class="form-control" name="bed_type">
+                                                            <option>Max. qty</option>
+                                                            <option>Max. 1</option>
+                                                            <option>Max. 2</option>
+                                                            <option>Max. 3</option>
+                                                            <option>Max. 4</option>
+                                                            <option selected="selected">Max. 5</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="d-none p-2 border mb-2 bg-lighter">
+                                        <div class="d-flex">
+                                            <div class="mr-2 flex-grow-1">
+                                                <div class="form-row">
+                                                    <div class="col-md-6">
+                                                        <input id="inputServiceName" type="text" class="form-control" placeholder="Service item">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">IDR</span>
+                                                            </div>
+                                                            <!-- value="0" -->
+                                                            <input id="inputServicePrice" type="number" min="0" class="form-control" placeholder="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">Max Qty</span>
+                                                            </div>
+                                                            <!-- value="0" -->
+                                                            <input id="inputServiceQty" type="number" min="0" class="form-control" placeholder="0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="addService" class="d-none btn btn-outline-primary btn-sm" type="button">Add</button>
+                                    <button href="#modalSetAdditionalService" data-toggle="modal" onclick="loadService()" class="btn btn-outline-primary btn-sm" type="button">manage</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <button onclick="history.back()" class="btn btn-outline-primary">Cancel</button>
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" onClick="saveRoom();" class="btn btn-primary"><i class="fas fa-save fa-sm mr-2"></i>Save Room</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+<script>
+    var id = "<%= id %>"
+    var parentId = "<%= parentId %>"
+
+    var dataAmenities = []
+    var dataOptions = []
+    var dataService = []
+
+    
+    var dataImage = [
+        // {
+        //     id: '21423534523982',
+        //     baseUrl: 'https://cache.desktopnexus.com/',
+        //     url : 'https://cache.desktopnexus.com/thumbseg/2318/2318166-bigthumbnail.jpg',
+        //     path : 'thumbseg/2318/2318166-bigthumbnail.jpg'
+        // }
+    ]
+
+    $(document).ready(function(){
+        initData()
+
+        $(`#customFile`).on(`change`, function(){
+
+          makeFileRequestUpload('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $(`#addService`).click(function(){
+          if($('#inputServiceName').val().length > 0 || $('#inputServicePrice').val().length > 0 || $('#inputServiceQty').val().length > 0 ){
+            addService();
+          }else{
+            alert("Form not valid")
+          }
+        })
+    })
+
+    function initData(){
+
+        if(id != ''){
+            $('.formTitle').html('Edit');
+            getRoomById(id);
+            //klo ada id get option after get room data
+        }else{
+
+            getAminity();
+            getOption();
+        }
+    }
+
+    function getRoomById(id) {
+        $.ajax({
+            url: `/api/room/${id}`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    let info = result.data.info;
+                    $('#inputName').val(info.name);
+                    $('#inputDescription').val(info.description);
+                    $('#inputWidth').val(info.room_size.width);
+                    $('#inputLength').val(info.room_size.length);
+                    $("#inputMaxPerson").val(result.data.rules.max_person);
+                    $("#inputMaxRoom").val(result.data.rules.max_room);
+                    $("#sharingRoom").val(result.data.rules.sharing_room);
+                    $("#inputPrice").val(result.data.price.price);
+                    $("#inputDiscount").val(result.data.price.discount == '0' || result.data.price.discount == 0 ? '' : result.data.price.discount );
+                    
+                    dataOptions = info.room_option;
+                    dataAmenities = info.room_aminities;
+                    dataService = result.data.service;
+                    dataImage = result.data.photos;
+                    getOption();
+                    getAminity();
+                    loadService();
+                    loadServiceItem();
+                    loadImage();
+                } else {
+                    alert(result.message);
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+
+    //==============================additional service==========================
+        /*function addService(){
+            populateService();
+
+            var objService = {}
+            objService.id = "service-"+new Date().getTime().toString()
+            objService.name = $(`#inputServiceName`).val()
+            objService.price = parseFloat($(`#inputServicePrice`).val())
+            objService.qty = parseInt($(`#inputServiceQty`).val())
+            dataService.push(objService)
+            $('#inputServiceName').val("")
+            $('#inputServicePrice').val("")
+            $('#inputServiceQty').val("")
+            loadService()
+        }*/
+        function loadService(){
+            $(`.data-service`).remove()
+            for(var i = 0; i < dataService.length; i++){
+                $(`#listServiceModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-service" id="div-${dataService[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id='serviceName-${dataService[i].id}' placeholder="Service item" value="${dataService[i].name}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">IDR</span>
+                                            </div>
+                                            <input type="number" class="form-control" min="0" id='servicePrice-${dataService[i].id}' placeholder="0" value="${dataService[i].price}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Max Qty</span>
+                                            </div>
+                                            <input type="number" class="form-control" min="0" id='serviceQty-${dataService[i].id}' placeholder="0" value="${dataService[i].qty}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteService('${dataService[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow')
+            }
+        }
+
+        function addServiceItem(){
+            var objService = {}
+            objService.id = "service-"+new Date().getTime().toString()
+            objService.name = ''
+            objService.price = ''
+            objService.qty = ''
+            dataService.push(objService)
+            $(`#listServiceModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-service" id="div-${objService.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id='serviceName-${objService.id}' placeholder="Service item" value="">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">IDR</span>
+                                            </div>
+                                            <input type="number" class="form-control" min="0" id='servicePrice-${objService.id}' placeholder="0" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Max Qty</span>
+                                            </div>
+                                            <input type="number" class="form-control" min="0" id='serviceQty-${objService.id}' placeholder="0" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteService('${objService.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow');
+                $(`#serviceName-${objService.id}`).focus();
+            
+            // loadService()
+        }
+
+        function loadServiceItem(){
+            $(`#listService`).html('');
+            for(var i = 0; i < dataService.length; i++){
+                $(`#listService`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-service">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Service item" value="${dataService[i].name}"  disabled>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">IDR</span>
+                                            </div>
+                                            <input type="number" class="form-control" min="0" placeholder="0" value="${dataService[i].price}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Max Qty</span>
+                                            </div>
+                                            <input type="number" class="form-control" min="0" placeholder="0" value="${dataService[i].qty}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow')
+            }
+        
+        }
+
+        function deleteService(id){
+            dataService = dataService.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadService()
+        }
+
+        function populateService(){
+            let dataTemp = [];
+            let respond = true;
+            $.each(dataService, function(i,v){
+                let name = $(`#serviceName-${v.id}`).val();
+                let price = $(`#servicePrice-${v.id}`).val();
+                price = (price === '' ? 0 : parseFloat(price));
+                let qty = $(`#serviceQty-${v.id}`).val();
+                qty = (qty === '' ? 0 : parseFloat(qty));
+
+                var objService = {}
+                objService.id = v.id
+                objService.name = name
+                objService.price = price
+                objService.qty = qty
+                dataTemp.push(objService)
+
+                if(name == '' || price === '' || qty === '' || price == 0 || qty == 0 ){
+                    respond = false;
+                }
+            });
+
+            dataService = dataTemp;
+            if(respond == true){
+                loadServiceItem();
+                $("#modalSetAdditionalService").modal('toggle');
+            }else{
+                Swal.fire('Additional Services',
+                    'Please complete all field. Price and qty must greater than 0');
+                    // return false;
+            }
+        }
+    //==============================end additional service==========================
+
+    function getAminity() {
+        $.ajax({
+            url: `/api/room-aminity`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataAmenities.length; j++){
+                            if(dataAmenities[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listAminity').append(`
+                            <div class="col-md-4">
+                            <div class="select-card-wrapper">
+                                <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                    <label class="select-card-inner select-card-inner-h">
+                                        <input onClick="aminityClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                        </div>
+                                        <div class="select-card-checkbox"></div>
+                                    </label>
+                                </div>
+                            </div>
+                            </div>
+                        `)
+                        
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function aminityClick(cb){
+        if(cb.checked){
+            dataAmenities.push(cb.value)
+        }else{
+            dataAmenities = dataAmenities.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+        console.log(dataAmenities)
+    }
+
+    function getOption() {
+        $.ajax({
+            url: `/api/room-option`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+
+                    if(!id){
+                        for(var i = 0; i < result.data.length; i++){
+                            dataOptions.push({
+                                id : result.data[i].id,
+                                data : result.data[i].data[0]
+                            })
+                        }
+                    }
+
+                    for(var i = 0; i < result.data.length; i++){
+                        var data = ""
+                        for(var x = 0; x < result.data[i].data.length; x++){
+                            var selected = ""
+                            for(var j = 0; j < dataOptions.length; j++){
+                                if(result.data[i].id == dataOptions[j].id){
+                                    if(result.data[i].data[x].id == dataOptions[j].data.id){
+                                        selected = "selected"
+                                    }
+                                }
+                            }
+                            data = data + `
+                                <option ${selected} value="${result.data[i].data[x].id}">${result.data[i].data[x].name}</option>
+                            `
+                        } 
+
+                        $('#listOption').append(`
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <label class="col-sm-12 col-form-label">${result.data[i].name}<span class="required text-danger">*</span></label>
+                                    <div class="col-sm-12">
+                                        <select id="select${result.data[i].id}" onChange="onSelect('${result.data[i].id}');" class="form-control" name="max_occupancy">
+                                            ${data}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function onSelect(id){
+        for(var i = 0; i < dataOptions.length; i++){
+            if(id == dataOptions[i].id){
+                dataOptions[i].data = {
+                    id : $(`#select${id}`).val(),
+                    name : $(`#select${id} option:selected`).text()
+                }
+            }
+        }
+    }
+
+    function makeFileRequestUpload(url, params, files){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 20400000){
+            alert("Size must be less than 20MB")
+            }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        $('#sendFile').show()
+                        $('#chooseFile').text(files[0].name)
+                        var response = JSON.parse(xhr.response)
+                        var objUrl = {}
+                        console.log(response)
+                        objUrl.id = "image-"+ new Date().getTime()
+                        objUrl.url = response.data.location
+                        objUrl.path = response.data.key
+                        objUrl.baseUrl = response.data.baseUrl
+                        dataImage.push(objUrl)
+                        loadImage()
+                    }else {
+                        console.log(xhr.response)
+                        $('#chooseFile').text("Choose File")
+                        alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+            }
+        })
+    }
+
+    function progressHandlerBackground(event) {
+        // var percent = (event.loaded / event.total) * 100
+        // $("#progressBackground").val(Math.round(percent))
+        // if(percent == 100){
+        //     $("#statusBackground").text("Upload Success")
+        // }else{
+        //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        // }
+    }
+
+    function completeHandlerBackground(event) {
+        //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+    }
+
+    function errorHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Failed")
+    }
+
+    function abortHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Aborted")
+    }
+
+    function loadImage(){
+        console.log(dataImage)
+        $(`.data-photos`).remove()
+        for(var i = 0; i < dataImage.length; i++){
+            $(`#listPhotos`).append(`
+                <div class="photo-gallery--item data-photos" style="background-image:url('${dataImage[i].url}');"><div onClick="deleteImage('${dataImage[i].id}')" class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+            `).fadeIn('slow')
+        }
+    }
+
+    function deleteImage(id){
+        dataImage = dataImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadImage()
+    }
+
+    function saveRoom() {
+        
+        // populateService();
+        
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            // return alert("form is not valid")
+            return Swal.fire(
+                'Oops!',
+                'Please complete all forms to save this room in the list.'
+            )
+        }else{
+            if(id){
+                $.ajax({
+                    url: `/api/room/${id}`,
+                    method: `PUT`,
+                    data: {
+                        info : {
+                            name : $('#inputName').val(),
+                            description : $('#inputDescription').val(),
+                            room_size : {
+                                width : $('#inputWidth').val(),
+                                length : $('#inputLength').val()
+                            },
+                            room_option : dataOptions,  
+                            room_aminities : dataAmenities
+                        },
+                        rules : {
+                            max_person : $('#inputMaxPerson').val(),
+                            max_room : $('#inputMaxRoom').val(),
+                            sharing_room : $('#sharingRoom').val()
+                        },
+                        photos : dataImage,
+                        price : {
+                            price : parseFloat($('#inputPrice').val()),
+                            discount : parseFloat($('#inputDiscount').val()),
+                        },
+                        service : dataService,
+                        parent_id : parentId
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // alert("Success")
+                            // location.href = `/my-resort-create/${parentId}`
+                            Swal.fire({
+                                title: "Successfully added rooms",
+                                text: "The information of your room has been successfully saved, you can publish it now or save for later."
+                            }).then(function() {
+                                window.location.href = `/my-resort-create/${parentId}#layoutResortRoom`
+                            });
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }else{
+                $.ajax({
+                    url: `/api/room`,
+                    method: `POST`,
+                    data: {
+                        info : {
+                            name : $('#inputName').val(),
+                            description : $('#inputDescription').val(),
+                            room_size : {
+                                width : $('#inputWidth').val(),
+                                length : $('#inputLength').val()
+                            },
+                            room_option : dataOptions,  
+                            room_aminities : dataAmenities
+                        },
+                        rules : {
+                            max_person : $('#inputMaxPerson').val(),
+                            max_room : $('#inputMaxRoom').val(),
+                            sharing_room : $('#sharingRoom').val()
+                        },
+                        photos : dataImage,
+                        price : {
+                            price : parseFloat($('#inputPrice').val()),
+                            discount : parseFloat($('#inputDiscount').val()),
+                        },
+                        service : dataService,
+                        parent_id : parentId
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            // alert("Success")
+                            // location.href = `/my-resort-create/${parentId}`
+                            Swal.fire({
+                                title: "Successfully added rooms",
+                                text: "The information of your room has been successfully saved, you can publish it now or save for later."
+                            }).then(function() {
+                                window.location.href = `/my-resort-create/${parentId}#layoutResortRoom`
+                            });
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }
+        }
+    }
+
+    function formValidate(){
+        $(document).find(".text-field-warning").remove();
+        let listIncomplete = [];
+
+        ($('#inputName').val().length < 3 ? listIncomplete.push({inputId:"inputName", message: "Name is too short" }) : '' );
+        ($('#inputDescription').val().length < 3 ? listIncomplete.push({inputId:"inputDescription", message: "Description is too short" }) : '' );
+        ($('#inputWidth').val().length == 0 || parseFloat($('#inputWidth').val()) < 0 ? listIncomplete.push({inputId:"inputWidth", message: "Room Width can't be blank/less than 0" }) : '' );
+        ($('#inputLength').val().length == 0 || parseFloat($('#inputLength').val()) < 0 ? listIncomplete.push({inputId:"inputLength", message: "Room Length can't be blank/less than 0" }) : '' );
+        ($('#inputPrice').val().length == 0 || parseFloat($('#inputPrice').val()) < 0 ? listIncomplete.push({inputId:"inputPrice", message: "Room Price can't be blank / less than 0" }) : '' );
+        (parseFloat($('#inputDiscount').val()) < 0 || parseFloat($('#inputDiscount').val()) > parseFloat($('#inputPrice').val()) ? listIncomplete.push({inputId:"inputDiscount", message: "Discount can't less than 0 / greater than actual price" }) : '' );
+        ($('#inputMaxPerson').val().length == 0 || parseFloat($('#inputMaxPerson').val()) < 1 ? listIncomplete.push({inputId:"inputMaxPerson", message: "Room Max Person can't be blank/less than 1" }) : '' );
+        ($('#inputMaxRoom').val().length == 0 || parseFloat($('#inputMaxRoom').val()) < 1 ? listIncomplete.push({inputId:"inputMaxRoom", message: "Max Room can't be blank/less than 1" }) : '' );
+        (dataImage.length == 0 ? listIncomplete.push({inputId:"listPhotos", message: "Please provide 1 or more photos" }) : '' );
+        showIncompleteFieldMessage(listIncomplete);
+        return listIncomplete;
+        // $('#inputName').val().length < 3 ||
+        // $('#inputDescription').val().length < 3 ||
+        // $('#inputWidth').val().length == "" ||
+        // $('#inputLength').val().length == "" ||
+        // $('#inputPrice').val().length == "" ||
+        // $('#inputMaxPerson').val().length == "" ||
+        // $('#inputMaxRoom').val().length == "" ||
+        // dataImage.length == 0
+    }
+
+    function showIncompleteFieldMessage(listIncomplete){
+        let earliestInput = "";
+        $.each(listIncomplete,function(i,v){
+            earliestInput = (i==0 ? v.inputId : earliestInput);
+            if(!$(`#${v.inputId}`).parent().hasClass("input-group")){
+                $(`#${v.inputId}`).parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+            }else{
+                $(`#${v.inputId}`).parent().parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+            }
+        });
+
+        let el = document.getElementById(`${earliestInput}`);
+        (earliestInput != '' ? el.scrollIntoView() : '');
+    }
+
+    
+</script>

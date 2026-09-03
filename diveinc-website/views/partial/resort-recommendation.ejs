@@ -1,0 +1,252 @@
+<!-- RESORT RECOMMENDATION -->
+<div class="section-spacer"></div>
+<div class="d-block mt-3">
+    <div class="container">
+        <div class="section-title d-flex align-items-center justify-content-between mb-3">
+            <div class="section-title--col">
+                <h5 class="m-0 mb-0">
+                    Resort Recommendations
+                </h5>
+            </div>
+            <div class="section-title--col ml-5">
+                <a href="search" class="btn btn-link pr-0 pl-0">
+                    See&nbsp;all&nbsp;resort
+                </a>
+            </div>
+        </div>
+        <div class="explore-card" id="listResort">
+        </div>
+        <div id="exploreLoaderResort" class="explore-card">
+            <div class="explore-card--list explore-card--with-text explore-card--25">
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="search" class="btn btn-outline-primary btn-block mb-4 btn-lg view-mobile-only">
+            See&nbsp;all&nbsp;resort
+        </a>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+       loadResortPublish()
+    })
+
+    function loadResortPublish(){
+        $.ajax({
+            url: `/api/resort/publish`,
+            method: `GET`,
+            success: function (result) {
+                
+                console.log(result)
+                // var dataLength = 4;
+                // if(result.data.length < 4) dataLength = result.data.length
+                var dataLength = result.data.length
+                var content = ''
+
+                if (result.success) {
+                    for(var i = 0; i < dataLength; i++){
+
+                        var htmlPhotos = ``
+                        var dataPhotos = result.data[i].photos
+                        for(var j = 0; j < dataPhotos.length; j++){
+                            htmlPhotos += `
+                                <div class="glide__slide--photos" style="background-image: url('${dataPhotos[j].url}');">
+                                   
+                                </div>
+                            `
+                        }
+
+                        var pricePackage = "0"
+                        var dataPackage = result.data[i].packages
+                        for(var j = 0; j < dataPackage.length; j++){
+                            if (dataPackage[j].active && dataPackage[j].publish ) {
+                                if(parseFloat(pricePackage) == 0){
+                                    if(dataPackage[j].price.discount != "" && dataPackage[j].price.discount != "0" && dataPackage[j].price.discount != 0 && dataPackage[j].price.discount != "NaN"){
+                                        pricePackage = dataPackage[j].price.discount
+                                    }else{
+                                        pricePackage = dataPackage[j].price.price
+                                    }
+                                }else{
+                                    if(dataPackage[j].price.discount != "" && dataPackage[j].price.discount != "0" && dataPackage[j].price.discount != 0 && dataPackage[j].price.discount != "NaN"){
+                                        if(parseFloat(pricePackage) > parseFloat(dataPackage[j].price.discount)){
+                                            pricePackage = dataPackage[j].price.discount
+                                        }
+                                    }else {
+                                        if(parseFloat(pricePackage) > parseFloat(dataPackage[j].price.price)){
+                                            pricePackage = dataPackage[j].price.price
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        var priceRoom = "0"
+                        var dataRoom = result.data[i].rooms
+                        for(var j = 0; j < dataRoom.length; j++){
+                            if (dataRoom[j].active && dataRoom[j].publish) {
+                                if(parseFloat(priceRoom) == 0){
+                                    if(dataRoom[j].price.discount != "" && dataRoom[j].price.discount != "0" && dataRoom[j].price.discount != 0 && dataRoom[j].price.discount != "NaN"){
+                                        priceRoom = dataRoom[j].price.discount
+                                    }else{
+                                        priceRoom = dataRoom[j].price.price
+                                    }
+                                }else{
+                                    if(dataRoom[j].price.discount != "" && dataRoom[j].price.discount != "0" && dataRoom[j].price.discount != 0 && dataRoom[j].price.discount != "NaN"){
+                                        if(parseFloat(priceRoom) > parseFloat(dataRoom[j].price.discount)){
+                                            priceRoom = dataRoom[j].price.discount
+                                        }
+                                    }else {
+                                        if(parseFloat(priceRoom) > parseFloat(dataRoom[j].price.price)){
+                                            priceRoom = dataRoom[j].price.price
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        content += `
+                            <div class="explore-card--item">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="d-block">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded">${result.data[i].photos.length} Photos</span>
+                                        <div class="slick">
+                                            ${htmlPhotos}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="explore-card--details">
+                                        <h4>${result.data[i].profile.name}</h4>
+                                    </div>
+                                    <div class="explore-card--footer">
+                                        <div class="footer--details w-100">
+                                            <div class="row mb-2">
+                                                <div class="col ${priceRoom == 0 ? 'd-none' : ''} ">
+                                                    <div class="details-price">
+                                                        <small>Room from</small><br>
+                                                        <h5 class="mb-0"><span class="font-size-sm">IDR</span>&nbsp;${formatRupiah(priceRoom)} <span class="font-size-sm font-weight-normal">/night</span></h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col ${pricePackage == 0 ? 'd-none' : ''}  ">
+                                                    <div class="details-price">
+                                                        <small>Packages from </small><br>
+                                                        <h5 class="mb-0"><span class="font-size-sm">IDR</span> ${formatRupiah(pricePackage)} <span class="font-size-sm font-weight-normal">/person</span></h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <small class="text-ellipsis"><i class="fas fa-map-marker-alt mr-1"></i>${result.data[i].profile.sub_destination.name}, ${result.data[i].profile.destination.name} - ${result.data[i].profile.country.name}</small>
+                                        </div>
+                                    </div>
+                                    <div class="explore-card--action">
+                                        <a href="/resort/${result.data[i].id}" class="btn btn-primary mb-2 btn-block">View Resort</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    $('#exploreLoaderResort').hide();
+                    if (dataLength > 4) {
+                        $('#listResort').append(`<div class="glide-card explore-card--list explore-card--with-text explore-card--100">
+                                <div class="glide__track" data-glide-el="track">
+                                    <ul class="glide__slides" id="">
+                                        ${content}
+                                    </ul>
+                                </div>
+                                <div class="glide__arrows glide__arrows-custom" data-glide-el="controls">
+                                    <button class="glide__arrow glide__arrow--left shadow-sm" data-glide-dir="<"><i class="fas fa-angle-left"></i></button>
+                                    <button class="glide__arrow glide__arrow--right shadow-sm" data-glide-dir=">"><i class="fas fa-angle-right"></i></button>
+                                </div>
+                            </div>`);
+
+                        var sliders = document.querySelectorAll('#listResort .glide-card');
+                        // console.log(content);
+                        
+                        for (var i = 0; i < sliders.length; i++) {
+                            var glide = new Glide(sliders[i], {
+                                type: 'carousel',
+                                startAt: 0,
+                                perView: 4,
+                                gap: 0,
+                                breakpoints: {
+                                    991: {
+                                    perView: 3
+                                    },
+                                    767: {
+                                    perView: 2
+                                    }
+                                }
+                            });
+                            
+                            glide.mount();
+                        }
+                    }else{
+                        $('#listResort').append(`
+                            <div class="explore-card--list explore-card--25">
+                                ${content}
+                            </div>
+                        `)
+                    }
+
+                    $('.slick').slick({
+                        infinite: false
+                    });
+                    // $('.slick').on('lazyLoaded', function (e, slick, image, imageSource) { 
+                    //     image.parent().css('background-image', 'url("' + imageSource + '")'); 
+                    //     image.hide(); 
+                    // });
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+</script>

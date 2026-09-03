@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+log_access/
+
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local notes
+Catatan.docx

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sport</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <!-- <link rel="shortcut icon" href="/assets/images/favicon.ico" /> -->
+    <!-- CSS -->
+    <%- include('../../partials/mainstyle') %>
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <!-- Topbar Start -->
+      <%- include('../../partials/mainheader') %>
+      <!-- end Topbar -->
+
+      <!-- Menu Start -->
+      <%- include('../../partials/mainmenu') %>
+      <!-- end menu -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="wrapper">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Diveinc.co</a></li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Sport</a></li>
+                  <li class="breadcrumb-item active">Edit</li>
+                </ol>
+              </div>
+              <h4 class="page-title">Edit Sport</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <!-- MAIN CONTENT -->
+                <p class="text-muted font-13">
+                    FYI : * is required
+                </p>
+                <div class="form-group">
+                    <label class="col-form-label">*Name</label>
+                    <input id="inputName" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">*Description</label>
+                  <textarea id="inputDescription"></textarea>
+                </div>
+                <div class="form-group text-right m-b-0">
+                    <button id="buttonSubmit" class="btn btn-primary waves-effect waves-light">
+                        Submit
+                    </button>
+                    <button id="buttonCancel" class="btn btn-secondary waves-effect m-l-5">
+                        Cancel
+                    </button>
+                </div>
+              </div>
+              <!-- end card body-->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col-->
+        </div>
+        <!-- end row-->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <%- include('../../partials/mainfooter') %>
+    </footer>
+    <!-- end Footer -->
+
+    <!-- modal start -->
+    <!-- end modal -->
+
+    <!-- Vendor js -->
+    <script src="/assets/js/vendor.min.js"></script>
+
+    <!-- third party js -->
+    <%- include('../../partials/mainjs.ejs') %>
+
+    <!-- App js-->
+    <script src="/assets/js/app.min.js"></script>
+    <script>
+      var id = "<%= id %>"
+
+      $(document).ready(function() {
+        
+        $('#buttonSubmit').click(function(){
+            add();
+        });
+
+        $('#buttonCancel').click(function(){
+            window.history.back();
+        });
+
+        loadData()
+      });
+
+      function loadData(){
+        $.ajax({
+          url: `/api/sport/${id}`,
+          method: `GET`,
+          success: function(result) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            if (result.success) {
+              console.log(result)
+              $('#inputName').val(result.data.name)
+              $('#inputDescription').val(result.data.description)
+              $("#inputDescription").summernote({height:250, callbacks : {
+                onImageUpload: function(files, editor, welEditable) {
+                  makeFileRequestSummerNote('/api/upload/image', editor, files, 'inputDescription').then((result) => {
+                    console.log(result)
+                  }, (error) => {
+                    console.error(error)
+                  })
+                }
+              }})
+            } else {
+              alert("Failed to get data");
+              console.log(result);
+              //Ladda.create($(`#loginButton`)[0]).stop();
+            }
+          },
+          error(xhr, status, error) {
+            alert("Failed to get data");
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function add(){
+        if(isValid()){
+            console.log("valid")
+            callApiAdd()
+        }else{
+            alert("Form is not valid")
+        }
+      }
+
+      function isValid(){
+          if(
+              $('#inputName').val().length <= 0
+              || $('#inputDescription').val().length <= 0
+          ) return false
+          return true
+      }
+
+      function callApiAdd(){
+        // $(`#loading`).show();
+        // $(`#loginButton`)
+        //   .removeClass(`btn-primary`)
+        //   .addClass(`btn-disabled disabled`);
+        var data = {
+          name : $('#inputName').val(),
+          description : $('#inputDescription').val()
+        }
+
+        $.ajax({
+          url: `/api/sport/${id}`,
+          method: `PUT`,
+          data: data,
+          success: function(result) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            if (result.success) {
+              alert("Success")
+              location.href = "/sport";
+            } else {
+              console.log(result);
+              //Ladda.create($(`#loginButton`)[0]).stop();
+            }
+          },
+          error(xhr, status, error) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function makeFileRequestSummerNote(url, editor, files, id){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 3200000){
+              alert("Size must be less than 3MB")
+            }else{
+              formData.append("upload", files[0], files[0].name)
+
+              xhr.onreadystatechange = function() {
+                  if(xhr.readyState == 4){
+                      if(xhr.status == 200){
+                        var response = JSON.parse(xhr.response)
+                        $(`#${id}`).summernote("insertImage", response.data.location)
+                      }else {
+                        console.log(xhr.response)
+                        alert("Upload file gagal")
+                      }
+                  }
+              }
+
+              xhr.open("POST", url, true)
+
+              xhr.send(formData)
+            }
+        })
+      }
+    </script>
+  </body>
+</html>

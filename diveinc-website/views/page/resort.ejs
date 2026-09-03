@@ -1,0 +1,2059 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<!-- BANNER -->
+<div id="imageBackground" class="destination-banner have-curtain">
+    <div class="destination-banner--inner">
+        <div class="container">
+            <div class="destination-banner--text">
+                <div class="welcome-title--text mb-3">
+                    <h5 id="textLocation" class="color-accent"></h5>
+                    <h1 id="resortName"></h1>
+                    <h5 id="textAbout" class="font-serif"></h5>
+                </div>
+                <a href="#lightgallery" class="btn btn-outline-light">View Pictures</a>
+                
+            </div>
+        </div>
+    </div>
+    <div id="bannerLoader" class="banner-cover">
+        <div class="d-flex h-100 justify-content-center align-items-center">
+            <div class="text-center">
+                <div class="spinner-border mb-3 text-dark" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="text-muted">Loading resort... Please wait...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Promises -->
+<%-include ../partial/promises %>
+
+<!-- TOP -->
+<div class="section section-xs d-block bg-light">
+    <div class="container pt-4 pb-4 text-black">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7 mb-lg-0 mb-md-0 mb-3">
+                        <h4 class="d-block mb-2 font-weight-bold">Hightlight</h4>
+                        <ul id="listHighlight" class="list-base list-base-md font-serif">
+                            <!-- <li>Enjoy a drift dive around at Jemuluk Bay</li>
+                            <li>Hire a jekung and dive Gili Selang</li>
+                            <li>Watch the sun go down behind Bali’s volcanoes</li>
+                            <li>Hire a jekung and dive Gili Selang</li>
+                            <li>Watch the sun go down behind Bali’s volcanoes</li> -->
+                        </ul>
+                        <div id="highlightLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                            <div class="spinner-border mb-3" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="text-muted">Please wait...</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5 mb-lg-0 mb-md-0 mb-3">
+                        <div class="d-block mb-2 font-weight-bold">Ideal For</div>
+                        <div id="listIdeal" class="ideal-for-wrapper">
+                            <!-- <div class="ideal-for-item">
+                                <div class="ideal-for-item--inner">
+                                    <img src="/images/selected-icon/selected-turtles.png">
+                                    Singles
+                                </div>
+                            </div>
+                            <div class="ideal-for-item">
+                                <div class="ideal-for-item--inner">
+                                    <img src="/images/selected-icon/selected-mammals.png">
+                                    Couples
+                                </div>
+                            </div>
+                            <div class="ideal-for-item">
+                                <div class="ideal-for-item--inner">
+                                    <img src="/images/selected-icon/selected-schooling-fish.png">
+                                    Family
+                                </div>
+                            </div>
+                            <div class="ideal-for-item">
+                                <div class="ideal-for-item--inner">
+                                    <img src="/images/selected-icon/selected-schooling-fish.png">
+                                    Groups
+                                </div>
+                            </div> -->
+                        </div>
+                        <div id="idealLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center mt-2">
+                            <div class="spinner-border mb-3" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="text-muted">Please wait...</div>
+                        </div>
+                        <div class="d-flex mt-3 mb-3">
+                            <a href="#roomSection" class="btn btn-outline-primary mr-2">View room</a>
+                            <a href="#divingSection" class="btn btn-outline-primary">View dive package<span class="nameDestination"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- GALLERY -->
+<div id="lightgallery" class="gallery-wrap">
+    <!-- <div data-src="/images/diving-bali.jpeg" class="gallery-item" style="background-image: url('/images/diving-bali.jpeg');"><div>View Photos<img src="/images/diving-bali.jpeg"/></div></div>
+    <div data-src="/images/sailing-2.jpeg" class="gallery-item" style="background-image: url('/images/sailing-2.jpeg');"><div>View Photos<img src="/images/sailing-2.jpeg"/></div></div>
+    <div data-src="/images/resort-2.jpeg"  class="gallery-item" style="background-image: url('/images/resort-2.jpeg');"><div>View Photos<img src="/images/resort-2.jpeg"/></div></div>
+    <div data-src="/images/diving-raja-ampat.jpg" class="gallery-item" style="background-image: url('/images/diving-raja-ampat.jpg');"><div>View Photos<img src="/images/diving-raja-ampat.jpg"/></div></div>
+    <div data-src="/images/sailing-1.jpeg"  class="gallery-item" style="background-image: url('/images/sailing-1.jpeg');"><div>View Photos<img src="/images/sailing-1.jpeg"/></div></div>
+    <div data-src="/images/diving-raja-ampat.jpg" class="gallery-item" style="background-image: url('/images/diving-raja-ampat.jpg');"><div>View Photos<img src="/images/diving-raja-ampat.jpg"/></div></div> -->
+</div>
+<!-- Menu -->
+<div class="position-sticky sticky-navbarr" style="z-index:992;top:53px;left:0;right:0;">
+    <nav id="navScrollSpy" class="navbar navbar-light bg-white shadow-sm navbar-custom">
+        <div class="container text-center">
+            <ul class="nav nav-pills mx-auto nav-h-mobile">
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#quick">Quick Checklist</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#rooms">Rooms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#package">Packages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#facilities">Amenities</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#howTo">How To Get Here</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+    </nav>
+</div>
+<!-- Modal Rooms Guest -->
+<div class="modal" id="modalRoomGuest" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h4>Select Guest</h4>
+                    <h6 class="text-muted" id="roomName"></h6>
+                </div>
+                <div class="d-block mt-2">
+                    <div class="explore-card">
+                        <div id="roomItem" class="explore-card--list explore-card--50">
+                            <!-- <div class="explore-card--item">
+                                <div class="explore-card--content p-12 shadow-sm text-black no-hover-animate  bg-white">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <h6 class="m-0">Room 1</h6>
+                                        <button class="btn btn-sm btn-white" style="opacity:0;pointer-events:none;"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <p class="text-sm">2 guest in this room</p>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-primary" type="button" id="button-addon1">-</button>
+                                        </div>
+                                        <input type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" type="button" id="button-addon1">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="explore-card--item">
+                                <div class="explore-card--content p-12 shadow-sm text-black no-hover-animate  bg-white">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <h6 class="m-0">Room 2</h6>
+                                        <button class="btn btn-sm btn-white"><i class="fas fa-times"></i></button>
+                                    </div>
+                                    <p class="text-sm">1 guest in this room</p>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-primary" type="button" id="button-addon1">-</button>
+                                        </div>
+                                        <input type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="1">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" type="button" id="button-addon1">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-sm btn-neutral"><i class="fas fa-plus fa-sm mr-2"></i>Add another room</button>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Add to My Trip</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Room Details -->
+<div class="modal" id="modalRoomDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <div id="modalRoomDetailsBody"></div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-neutral" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Package Guest -->
+<div class="modal" id="modalPackageGuest" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <div class="d-flex align-items-start justify-content-between flex-column mb-3">
+                    <h4 class="flex-shrink-0">Select Guest</h4>
+                    <h6 class="text-muted">Komodo Weekender</h6>
+                </div>
+                <div class="d-block mt-2">
+                    <div class="explore-card">
+                        <div id="packageItem" class="explore-card--list explore-card--100">
+                            <!-- <div class="explore-card--item">
+                                <div class="explore-card--content p-12 shadow-sm text-black no-hover-animate  bg-white">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <h6 class="m-0">Guest</h6>
+                                    </div>
+                                    <p class="text-sm">$770/person</p>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-primary" type="button" id="button-addon1">-</button>
+                                        </div>
+                                        <input type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="3">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" type="button" id="button-addon1">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-sm btn-neutral"><i class="fas fa-plus fa-sm mr-2"></i>Add another package</button>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Add to My Trip</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Package Details -->
+<div class="modal" id="modalPackageDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <div id="package-details"></div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <a data-toggle="modal" data-target="#modalPackageGuest" id="modalPackageSelect" type="button" data-dismiss="modal" class="btn btn-primary">Select this Package</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content -->
+<div class="section section-sm border-0 pb-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 pr-lg-4 pr-md-4">
+                 <!-- Quick Checklist -->
+                 <!-- <div id="quick" class="d-block p-4 mb-5 bg-light">
+                    <h5 class="panel-title d-block mb-4">Quick Checklist</h5>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Number of Rooms</h6>
+                        <h6 class="list-panel-content">8 Rooms</h6>
+                    </div>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Official Dive Center Rating</h6>
+                        <h6 class="list-panel-content">5 Stars Dive Resort</h6>
+                    </div>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Language</h6>
+                        <h6 class="list-panel-content">English, German, Bahasa Indonesian, French, Italian, Romansch, Russian, Spanish and Ukranian</h6>
+                    </div>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Courses Offered</h6>
+                        <h6 class="list-panel-content">Discover Scuba Diving, Bubble Makers, Open water, Advanced Open Water, Rescue Diver, Dive Master, IDC, MDST, numerous PADI specialities</h6>
+                    </div>
+                </div> -->
+                <!-- Rooms -->
+                <div id="roomSection" class="d-block pt-0 pb-4 mb-5 border-bottom">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h5 class="panel-title d-block">Rooms</h5>
+                    </div>
+                    <div id="rooms" class="d-block pt-3 pr-3 pl-3 pb-1 bg-light"></div>
+                    <div id="roomsLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                        <div class="spinner-border mb-3" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="text-muted">Please wait...</div>
+                    </div>
+                </div>
+                <!-- Packages -->
+                <div id="divingSection" class="d-block pt-4 pb-4 mb-5 border-bottom">
+                    <div class="section-title d-flex align-items-center justify-content-between mb-4">
+                        <div class="section-title--col">
+                            <h5 class="panel-title m-0 mb-0">
+                                Dive Packages
+                            </h5>
+                        </div>
+                        <!-- <div class="section-title--col ml-5">
+                            <a href="" role="button" class="btn btn-link pr-0 pl-0">
+                                See&nbsp;all&nbsp;resort
+                            </a>
+                        </div> -->
+                    </div>
+                    <div id="package" class="d-block pt-3 pr-3 pl-3 pb-1 bg-light">
+                        <div id="emptyPackage">Dive package is not avalaible.</div>
+                        <div class="explore-card">
+                            <div id="listPackage" class="explore-card--list explore-card--50 explore-card--100-mobile explore-card--100-tab">
+                                <!--
+                                | ----------------------------------------------|
+                                | listPackage Content                           |
+                                | --------------------------------------------- |
+                                -->
+                            </div>
+                        </div>
+                        <div id="packageLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                            <div class="spinner-border mb-3" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="text-muted">Please wait...</div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- About -->
+                <div id="about" class="d-block pt-4 pb-4 mb-5 border-bottom">
+                    <h5 class="panel-title d-block mb-4">About <span id="resortName2"></span></h5>
+                    <!-- <p>Ceningan Divers is an eco-friendly resort located on Nusa Ceningan, a tiny island connected to nearby Lembongan by the famous ‘Yellow Bridge’. Ceningan has retained a peaceful and secluded atmosphere, making it the perfect escape from the hustle and bustle of south Bali’s tourism.</p>
+                    <p>The resort is located on the edge of the mangrove forest that lines the edge of the channel between Lembongan and Cenida. The dive centre, restaurant, lounge and bungalows are all set in beautiful gardens behind the mangroves, and were build to minimise any impact on the natural environment of the island. From this beautiful location, you can head out to dive the incredible sites around Lembongan and Nusa Penida, explore the mangroves, visit seaweed farms and the local villages, or climb up the ridge behind the resort for an amazing sunset view of Bali.</p> -->
+                    <div id="aboutLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                        <div class="spinner-border mb-3" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="text-muted">Please wait...</div>
+                    </div>
+                </div>
+                <!-- Facilities -->
+                <div id="facilities" class="d-block pt-4 mb-0 border-bottom">
+                    <h5 class="panel-title d-block mb-4">Resort Amenities</h5>
+                    <!-- <p class="d-block mb-4">The resort buildings were constructed using local design traditions and designed to blend in with the local environment as much as possible. The resort has 8 traditional thatched bungalows, each equipped with comfortable beds and aircon, private bathrooms with hot showers, and a balcony. Ceningan Divers has a mix of room types, including fantastic family rooms with large double-bunkbeds - perfect if you are traveling as a family.</p> -->
+                    <div id="facilitiesList" class="row">
+                        <div class="col-md-4 mb-4">
+                            <h6>Activities</h6>
+                            <ul id="listActivity" class="list-unstyled">
+                                <!-- <li>Airport Transfer</li>
+                                <li>Safe / Deposit Box</li>
+                                <li>Concierge</li>
+                                <li>Baggage Storage</li>
+                                <li>24-hour Security</li>
+                                <li>Wifi</li> -->
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h6>Facilities</h6>
+                            <ul id="listFacility" class="list-unstyled">
+                                <!-- <li>Restaurant</li>
+                                <li>Bar</li>
+                                <li>Full Board</li>
+                                <li>Vegetarian Options</li>
+                                <li>BBQ</li>
+                                <li>Special Events</li>
+                                <li>Very Good Coffee</li>
+                                <li>Dietary Equipment</li> -->
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h6>Sports</h6>
+                            <ul id="listSport" class="list-unstyled">
+                                <!-- <li>Pool</li>
+                                <li>Beach Lounge</li>
+                                <li>Sunset Terrace</li> -->
+                            </ul>
+                        </div>
+                        <!-- <div class="col-md-4 mb-4">
+                            <h6>Activities</h6>
+                            <ul class="list-unstyled">
+                                <li>Water Sports</li>
+                                <li>Standup Paddleboards</li>
+                                <li>Snorkeling Equipment</li>
+                                <li>Games</li>
+                                <li>Other Sports</li>
+                                <li>Kayaks</li>
+                                <li>Kids Club</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h6>Health & Wellness</h6>
+                            <ul class="list-unstyled">
+                                <li>Yoga Facilities</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h6>Services</h6>
+                            <ul class="list-unstyled">
+                                <li>Laundry Services</li>
+                                <li>Room Services</li>
+                            </ul>
+                        </div> -->
+                    </div>
+                    <div id="facilitiesLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                        <div class="spinner-border mb-3" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="text-muted">Please wait...</div>
+                    </div>
+                </div>
+
+                <div id="howTo" class="d-block pt-4 mb-0 border-bottom">
+                    <h5 class="panel-title d-block mb-4">How To Get There</h5>
+                    <!-- <p class="d-block mb-4">The resort buildings were constructed using local design traditions and designed to blend in with the local environment as much as possible. The resort has 8 traditional thatched bungalows, each equipped with comfortable beds and aircon, private bathrooms with hot showers, and a balcony. Ceningan Divers has a mix of room types, including fantastic family rooms with large double-bunkbeds - perfect if you are traveling as a family.</p> -->
+                    <div id="howToList" class="row">
+                        <div class="col-md-12 mb-4">
+                            <h6>Arrival</h6>
+                            <ul id="howToArrival" class="list-unstyled mb-4">
+                                
+                            </ul>
+                            <h6>Departure</h6>
+                            <ul id="howToDeparture" class="list-unstyled">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="howToLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                        <div class="spinner-border mb-3" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="text-muted">Please wait...</div>
+                    </div>
+                </div>
+                <!-- Dive Center -->
+                <!-- <div id="diveCentre" class="d-block pt-4 border-bottom">
+                    <h5 class="panel-title d-block mb-4">Dive Centre Facilities</h5>
+                    <p class="d-block mb-4">Ceningan Divers is managed by an experienced team who believe their ‘commitment to providing guests with the best learning experience is apparent in our dedication and our passion for our ocean planet’. The dive centre strongly emphasises high standards of training and safety - reflected in the well-maintained rental equipment and compressors, the SMBs and GPS radios carried by the dive staff and the resort’s custom-made dive boats fitted with all necessary safety equipment.</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <h6>Dive Center</h6>
+                            <ul class="list-unstyled">
+                                <li>Teaching Room</li>
+                                <li>Teaching Pool</li>
+                                <li>Night Diving</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h6>Equipment</h6>
+                            <ul class="list-unstyled">
+                                <li>Equipment Rental</li>
+                                <li>Computer Rental</li>
+                                <li>Camera Rental</li>
+                                <li>DIN Adaptors</li>
+                                <li>Equipment Storage</li>
+                                <li>Camera Wash Tanks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-md-4">
+                <div id="toggleCheckoutContent" class="sidebar-item sidebar-item--price">
+                    <div class="sticky sticky--price">
+                        <div class="card shadow-sm rounded border">
+                            <div class="card-body">
+                                <h6 class="d-block mb-3">My Trip</h6>
+                                <div id="listSummary"></div>
+                                <div id="emptyListSummary" class="d-block px-3 py-2 bg-light text-left mb-3">
+                                    <div class="text-muted text-sm">To do a checkout, you need to choose a room or package and how many guests will join the trip.</div>
+                                </div>
+                                <!-- <div class="d-block mb-3">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="font-weight-bold">Twin Bungalow</div>
+                                        <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#modalRoomGuest"><i class="fas fa-pen fa-sm mr-2"></i>Edit</button>
+                                    </div>
+                                    <div class="d-block">
+                                        <div class="list-panel list-panel-sm border-bottom mt-2">
+                                            <div class="list-panel-title">Room 1</div>
+                                            <div class="list-panel-content"><i class="far fa-user fa-sm mr-2"></i>x2</div>
+                                        </div>
+                                        <div class="list-panel list-panel-sm border-bottom mt-2">
+                                            <div class="list-panel-title">Room 2</div>
+                                            <div class="list-panel-content"><i class="far fa-user fa-sm mr-2"></i>x1</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-block mb-3">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="font-weight-bold">Komodo Weekender</div>
+                                        <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#modalPackageGuest"><i class="fas fa-pen fa-sm mr-2"></i>Edit</button>
+                                    </div>
+                                    <div class="d-block">
+                                        <div class="list-panel list-panel-sm border-bottom mt-2">
+                                            <div class="list-panel-title">Guest</div>
+                                            <div class="list-panel-content"><i class="far fa-user fa-sm mr-2"></i>x3</div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <button type="button" onClick="checkOutResort();" class="btn btn-block btn-primary btn-lg">Checkout</button>
+                                <button type="button" id="closeToggleCheckout" class="btn btn-block btn-light btn-lg">Cancel</button>
+                            </div>
+                            <!-- <a href="#" class="text-sm card-footer">
+                                Lets take a look how we can help your book
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROMOTION BANNER -->
+<!-- <div class="container">
+    <img src="/images/banner-3.jpg" alt="" class="w-100 d-block">
+</div> -->
+
+<!-- Slide Banner -->
+<div class="section">
+    <%-include ../partial/slider-banner %>
+</div>
+
+<div class="cta-checkout">
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="mr-2"><div class="btn btn-light"><span class="font-weight-bolder" id="roomSummaryMobile">0</span> Room</div></div>
+                    <div><div class="btn btn-light"><span class="font-weight-bolder" id="packageSummaryMobile">0</span> Package</div></div>
+                </div>
+                <div>
+                    <button id="toggleCheckout" type="button" class="btn btn-outline-primary">View</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="overlay-checkout" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+
+    var id = "<%= id %>"
+
+    var listPackage = []
+    var listPackageChoose = []
+    var listPackageChooseSummary = []
+    var listPackageDetails = []
+
+    var listRooms = []
+    var listRoomDetails = []
+    var listRoomsChoose = []
+    var listRoomsChooseSummary = []
+
+    var aminities = {}
+    var ideal = []
+
+    let roomAmenitiesList = {};
+
+    $('#emptyPackage').hide();
+    
+    $(document).ready(function(){
+        loadResortById()
+    })
+
+    function loadResortById(){
+        $('#facilitiesList').hide();
+        $.ajax({
+                url: `/api/resort/${id}`,
+                method: `GET`,
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+
+                        var detailLocation = `${result.data.profile.sub_destination.name}, ${result.data.profile.destination.name} - ${result.data.profile.country.name}`
+
+                        $('#roomsLoader, #aboutLoader, #highlightLoader, #bannerLoader, #packageLoader').addClass('hideImportant');
+                        $('#textLocation').text(`${result.data.profile.destination.name} - ${result.data.profile.sub_destination.name}`)
+                        $('#resortName, #resortName2').text(`${result.data.profile.name}`)
+                        $('#textAbout').text(`${result.data.profile.introduction}`)
+                        $('#about').append(`<span class="font-serif">${result.data.profile.about}</span>`)
+
+                        aminities = result.data.amenities
+                        ideal = result.data.profile.ideal
+
+                        $('#imageBackground').css("background-image", `url('${result.data.photos[0].url}')`)
+
+                        for(var i = 0; i < result.data.highlight.length; i++){
+                            $('#listHighlight').append(`
+                                <li>${result.data.highlight[i].highlight}</li>
+                            `)
+                        }
+
+                        for(var i = 0; i < result.data.photos.length; i++){
+                            $('#lightgallery').append(`
+                                <div data-src="${result.data.photos[i].url}" class="gallery-item" style="background-image: url('${result.data.photos[i].url}');"><div>View Picture<img src="${result.data.photos[i].url}"/></div></div>
+                            `)
+                        }
+
+                        $('#lightgallery').lightGallery({
+                            selector: '.gallery-item',
+                            download: false,
+                            thumbnail: true
+                        });
+
+                        listPackage = result.data.packages
+                        for(var i = 0; i < listPackage.length; i++){
+
+                            var htmlPhotos = ``
+                            var dataPhotos = listPackage[i].photos
+                            for(var j = 0; j < dataPhotos.length; j++){
+                                htmlPhotos += `
+                                    <div class="glide__slide--photos" style="background-image: url('${dataPhotos[j].url}');"></div>
+                                `
+                            }
+
+                            var htmlPrice = ''
+                            if(listPackage[i].price.discount != "" && listPackage[i].price.discount != "0" && listPackage[i].price.discount != 0 && listPackage[i].price.discount != "NaN"  ) {
+                                htmlPrice = `
+                                    <h5 class="m-0 normal-price discounted" class="">IDR ${formatRupiah(listPackage[i].price.price)}</h5>
+                                    <h4 class="m-0">IDR ${formatRupiah(listPackage[i].price.discount)}</h4>
+                                `
+                            }else{
+                                htmlPrice = `<h4 class="m-0">IDR ${formatRupiah(listPackage[i].price.price)}</h4>`
+                            }
+                            
+                            $('#listPackage').append(`
+                                <div class="explore-card--item">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="d-block">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded">${dataPhotos.length} photos</span>
+                                        <div class="slick">
+                                            ${htmlPhotos}
+                                        </div>
+                                    </div>
+                                    <div class="explore-card--details">
+                                        <h4>${listPackage[i].info.name}</h4>
+                                        <p class="text-sm mb-1">${listPackage[i].info.description}</p>
+                                        <div class="d-flex align-items-start border-top pt-3 mt-2 mb-3">
+                                            <div class="details-price details-price-lg mr-4">
+                                                <div class="d-block mb-1 text-xs">Price</div><span class="price">${htmlPrice}</span>
+                                                
+                                                <div class="text-sm text-muted">/person</div>
+                                            </div>
+                                            <div class="details-price">
+                                                <div class="d-block mb-2 text-xs">Duration</div>
+                                                <span class="date d-block font-weight-semibold">${listPackage[i].info.duration.day} days ${listPackage[i].info.duration.night} night</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <button type="button" class="btn btn-light btn-sm" onClick="getPackageDetails('${i}','${listPackage[i].id}')" data-toggle="modal" data-target="#modalPackageDetails"><i class="far fa-eye mr-2"></i>View Package Details</button>
+                                        </div>
+                                        <div class="d-block">
+                                            <small class="d-block text-ellipsis" title="${detailLocation}"><i class="fas fa-map-marker-alt fas-fix mr-1 text-secondary"></i>${detailLocation}</small>
+                                            <small class="d-block"><i class="fas fa-swimmer fas-fix mr-1 text-secondary"></i>${listPackage[i].info.dive_total} dives</small>
+                                        </div>
+                                    </div>
+                                    <div class="explore-card--footer flex-column align-items-center">
+                                        <button onClick="addPackage('${listPackage[i].id}')"  type="button" class="btn btn-outline-primary mb-2 btn-block" data-toggle="modal" data-target="#modalPackageGuest"><i class="fas fa-plus mr-2"></i>Add to My Trip</button>
+                                    </div>
+                                </div>
+                            </div>
+                            `)
+                        
+                            //========================package details======================
+
+                            let list_highlight = '';
+                            for (let idx = 0; idx < listPackage[i].highlight.length ; idx++) {
+                                list_highlight += `<li>${listPackage[i].highlight[idx].text}</li>`;
+                            }
+
+                            let list_iten = '';
+                            for (let idx = 0; idx < listPackage[i].itenary.length ; idx++) {
+                                list_iten += `<div class="itenary-listing--item">
+                                            <div class="itenary-wrapper">
+                                                <div class="itenary-title font-weight-bold">Day ${idx + 1}<i class="fas fa-angle-down ml-2 active"></i></div>
+                                                <div class="itenary-content active">
+                                                    <ul class="list-base">
+                                                        ${listPackage[i].itenary[idx].text}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                            }
+                            
+                            let feature = listPackage[i].info.feature;
+                            let list_excluded = '';
+                            let list_included = '';
+                            if (typeof feature !== "undefined") {
+                                for (let f_idx = 0; f_idx < feature.included.length; f_idx++) {
+                                    list_included += `<li>${feature.included[f_idx].text}</li>`;
+                                }
+                                
+                                for (let f_idx = 0; f_idx < feature.excluded.length; f_idx++) {
+                                    list_excluded += `<li>${feature.excluded[f_idx].text}</li>`;
+                                }
+                            }
+                            
+                            listPackageDetails[i] = `<div class="d-flex align-items-start justify-content-between flex-column mb-3">
+                                    <h4 class="flex-shrink-0">${listPackage[i].info.name}</h4>
+                                    <h6 class="text-muted">Package Details</h6>
+                                </div>
+                                <div class="d-block mt-2 border-bottom mb-4 pb-3">
+                                    <h5>Package Highlight</h5>
+                                    <ul class="list-base">
+                                        ${list_highlight}
+                                    </ul>
+                                </div>
+                                <div class="d-block mt-2 border-bottom mb-4 pb-3">
+                                    <h5>Package Info</h5>
+                                    <p class="text-sm">${listPackage[i].info.description}</p>
+                                </div>
+                                <!-- Itenary description -->
+                                <div class="d-block mb-4">
+                                    <h5>Itenary Description</h5>
+                                    <div class="itenary-listing">
+                                        ${list_iten}
+                                    </div>
+                                </div>
+                                <!-- How to get there -->
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>Trip's Highlight </h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="d-block mb-3">
+                                            <h6>The begining of your trip</h6>
+                                            <ul class="list-base">
+                                                ${listPackage[i].info.how_to.begining}
+                                            </ul>
+                                        </div>
+                                        <div class="d-block mb-3">
+                                            <h6>During your trip</h6>
+                                            <ul class="list-base">
+                                                ${listPackage[i].info.how_to.during}
+                                            </ul>
+                                        </div>
+                                        <div class="d-block mb-3">
+                                            <h6>The end of your trip</h6>
+                                            <ul class="list-base">
+                                                ${listPackage[i].info.how_to.trip}
+                                            </ul>
+                                        </div>
+                                        <div class="d-block mb-3">
+                                            <h6>Other info</h6>
+                                            <ul class="list-base pl-4">
+                                                <li>Guests are encouraged to overnight one night prior to boarding the Raja Ampat Aggressor</li>
+                                                <li>Guests who are staying at a local hotel in the vicinity of where the yacht departs from, will be picked up from the local hotel at 12 pm and transferred to the yacht</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- What's included -->
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>What's Included</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <ul class="list-base pl-4">
+                                            ${list_included}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- What's excluded -->
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>What's Excluded</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <ul class="list-base pl-4">
+                                            ${list_excluded}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Good to know -->
+                                <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>Good to Know</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        ${listPackage[i].info.how_to.gtk}
+                                    </div>
+                                </div>
+                                <!-- Payment & cancellation terms-->
+                                <!-- <div class="accordion-wrapper">
+                                    <div class="accordion-title">
+                                        <h5>Payment & Cancellation Terms</h5>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <p class="font-weight-bolder">Payment Schedule</p>
+                                        <ul class="list-base">
+                                            <li>48 hours after booking confirmation: 50% (downpayment)</li>
+                                            <li>120 days before trip start: 100% (balance)</li>
+                                        </ul>
+                                        <br>
+                                        <p class="font-weight-bolder">Cancellation Fees</p>
+                                        <ul class="list-base">
+                                            <li>Free cancellation for 48h after confirmation (except for last minute bookings)</li>
+                                            <li>20% of the total booking amount will be charged if you cancel more than 120 days prior to arrival</li>
+                                            <li>40% will be charged if you cancel between 120 and 91 days prior to arrival</li>
+                                            <li>100% will be charged if you cancel less than 91 days prior to arrival</li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+
+                            `;
+                        }
+
+                        listRooms = result.data.rooms
+
+                        // console.log('s',listRooms);
+
+                        for(var i = 0 ; i < listRooms.length; i++){
+                            if (listRooms[i].active == true && listRooms[i].publish == true) {
+                                var htmlPhotos = ``
+                                var dataPhotos = listRooms[i].photos
+                                for(var j = 0; j < dataPhotos.length; j++){
+                                    htmlPhotos += `
+                                        <div class="glide__slide--photos" style="background-image: url('${dataPhotos[j].url}');">
+                                        </div>
+                                    `
+                                }
+    
+                                // <div class="glide__slide--photos">
+                                //     <img data-lazy="${dataPhotos[j].url}">
+                                // </div>
+    
+                                var htmlPrice = ''
+                                if(listRooms[i].price.discount != "" && listRooms[i].price.discount != "0" && listRooms[i].price.discount != 0 && listRooms[i].price.discount != "NaN") {
+                                    htmlPrice = `
+                                        <h5 class="m-0 normal-price discounted" class="">IDR ${formatRupiah(listRooms[i].price.price)}</h5>
+                                        <h4 class="m-0">IDR ${formatRupiah(listRooms[i].price.discount)}</h4>
+                                    `
+                                }else{
+                                    htmlPrice = `<h4 class="m-0">IDR ${formatRupiah(listRooms[i].price.price)}</h4>`
+                                }
+                                
+    
+                                //======================contain room details==================================
+                                let roomAmenity = '';
+                                for (let ra_idx = 0; ra_idx < listRooms[i].info.room_aminities.length; ra_idx++) {
+                                    roomAmenity += `<div class="col-md-4 mb-2 amenities-item">
+                                                    <i class="far fa-check-square mr-2"></i><span class="ra-${listRooms[i].info.room_aminities[ra_idx]}"></span>
+                                                </div>
+                                                `;
+                                }
+    
+                                listRoomDetails[i] = `<div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4>${listRooms[i].info.name}</h4>
+                                        <h6 class="text-muted">Room Details</h6>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            ${listRooms[i].info.description}
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <h6 class="mb-3">Room Info</h6>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="list-panel border-bottom mb-2">
+                                                        <div class="list-panel-title">Room size</div>
+                                                        <div class="list-panel-content">${listRooms[i].info.room_size.length} x ${listRooms[i].info.room_size.width}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="list-panel border-bottom mb-2">
+                                                        <div class="list-panel-title">Max. occupancy</div>
+                                                        <div class="list-panel-content">${listRooms[i].rules.max_person} guest</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="list-panel border-bottom mb-2">
+                                                        <div class="list-panel-title">Beds</div>
+                                                        <div class="list-panel-content">${listRooms[i].info.room_option[0].data.name}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="list-panel border-bottom mb-2">
+                                                        <div class="list-panel-title">Private Bathroom</div>
+                                                        <div class="list-panel-content">${listRooms[i].info.room_option[1].data.name}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="list-panel border-bottom mb-2">
+                                                        <div class="list-panel-title">Air Conditioning</div>
+                                                        <div class="list-panel-content">${listRooms[i].info.room_option[2].data.name}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="list-panel border-bottom mb-2">
+                                                        <div class="list-panel-title">WiFi in Room</div>
+                                                        <div class="list-panel-content">${listRooms[i].info.room_option[3].data.name}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <h6 class="mb-3">Amenities</h6>
+                                            <div class="row">
+                                                ${roomAmenity}
+                                            </div>
+                                        </div>
+                                    </div>`;
+    
+                                $('#rooms').append(`
+                                    <div class="d-block mb-3">
+                                        <div class="card rounded shadow-sm border-0">
+                                            <div class="row no-gutters">
+                                                <div class="col-lg-4">
+                                                    <div class="d-block">
+                                                        <span class="badge-photos badge badge-dark badge-pill rounded">${listRooms[i].photos.length} Photos</span>
+                                                        <div class="slick rooms-photos-slider">
+                                                            ${htmlPhotos}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 mb-4 mb-sm-0">
+                                                                <h5>${listRooms[i].info.name}</h5>
+                                                                <div class="d-block py-1">
+                                                                    <div class="d-block mb-2 text-sm">
+                                                                        <i class="fas fa-user fa-sm mr-2"></i>${listRooms[i].rules.max_person} people max
+                                                                    </div>
+                                                                    <div class="d-block mb-2 text-sm">
+                                                                        <i class="fas fa-bed fa-sm mr-2"></i>Twin bed
+                                                                    </div>
+                                                                    <div class="d-block mb-2 text-sm">
+                                                                        <i class="fas fa-arrows-alt fa-sm mr-2"></i>Room size
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center mb-2 mb-md-0">
+                                                                    <button type="button" class="btn btn-light btn-sm" data-toggle="modal" onClick="getRoomDetails(${i})" data-target="#modalRoomDetails"><i class="far fa-eye mr-2"></i>View Room Details</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="d-block mb-2">
+                                                                    <div class="d-flex flex-column mb-0 mb-md-3">
+                                                                        ${htmlPrice}</div>
+                                                                    <div class="text-sm text-muted">/night/${(typeof listRooms[i].rules.sharing_room !== 'undefined' ? (listRooms[i].rules.sharing_room == "yes" ? "person" : "room") : "room")}</div>
+                                                                </div>
+                                                                <button onClick="addRoom('${listRooms[i].id}')" type="button" class="btn btn-outline-primary mb-2 btn-block" data-toggle="modal" data-target="#modalRoomGuest"><i class="fas fa-plus mr-2"></i>Add to My Trip</button>
+                                                                <div class="text-xs text-muted text-left">Prices include taxes & services fee</div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `)
+                                
+                            }
+                        
+                        }
+
+                        //=============================load how to========================
+                        $('#howToLoader').addClass('hideImportant');
+                        let howTo = result.data.how_to;
+                        for (let i = 0; i < howTo.arrival.length; i++) {
+                            $("#howToArrival").append(`<li>${howTo.arrival[i].text}</li>`);
+                        }
+
+                        for (let i = 0; i < howTo.departure.length; i++) {
+                            $("#howToDeparture").append(`<${howTo.arrival[i].text}</li>`);
+                        }
+                        //================================================================
+
+                        $('.slick').slick({
+                            infinite: false
+                        });
+                        // $('.slick').on('lazyLoaded', function (e, slick, image, imageSource) { 
+                        //     image.parent().css('background-image', 'url("' + imageSource + '")'); 
+                        //     image.hide(); 
+                        // });
+
+                        getActivity();
+                        getFacility();
+                        getSport();
+                        getIdeal();
+                        getRoomAmenities();
+
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                        $('#emptyPackage').show();
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+    }
+
+    function getRoomAmenities(){
+        $.ajax({
+            url: `/api/room-aminity`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for (let i = 0; i < result.data.length; i++) {
+                        roomAmenitiesList['ra-'+result.data[i].id] = result.data[i].name;
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getIdeal(){
+        $.ajax({
+            url: `/api/ideal`,
+            method: `GET`,
+            success: function (result) {
+                //console.log(result)
+                if (result.success) {
+                    $('#idealLoader').addClass('hideImportant');
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                    for(var i = 0; i < result.data.length; i++){
+                        if(ideal.includes(result.data[i].id)){
+                            if(result.data[i].name == "Single"){
+                                $('#listIdeal').append(`
+                                    <div class="ideal-for-item">
+                                        <div class="ideal-for-item--inner">
+                                            <img src="/images/dive-illustration/icon-ideal-single.svg">
+                                            Single
+                                        </div>
+                                    </div>
+                                `)
+                            }
+
+                            if(result.data[i].name == "Couple"){
+                                $('#listIdeal').append(`
+                                    <div class="ideal-for-item">
+                                        <div class="ideal-for-item--inner">
+                                            <img src="/images/dive-illustration/icon-ideal-couple.svg">
+                                            Couple
+                                        </div>
+                                    </div>
+                                `)
+                            }
+
+                            if(result.data[i].name == "Family"){
+                                $('#listIdeal').append(`
+                                    <div class="ideal-for-item">
+                                        <div class="ideal-for-item--inner">
+                                            <img src="/images/dive-illustration/icon-ideal-family.svg">
+                                            Family
+                                        </div>
+                                    </div>
+                                `)
+                            }
+
+                            if(result.data[i].name == "Group"){
+                                $('#listIdeal').append(`
+                                    <div class="ideal-for-item">
+                                        <div class="ideal-for-item--inner">
+                                            <img src="/images/dive-illustration/icon-ideal-group.svg">
+                                            Group
+                                        </div>
+                                    </div>
+                                `)
+                            }
+                        }
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getActivity(){
+        $.ajax({
+            url: `/api/activity`,
+            method: `GET`,
+            success: function (result) {
+                //console.log(result)
+                if (result.success) {
+                    $('#facilitiesList').show();
+                    $('#facilitiesLoader').addClass('hideImportant');
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                    for(var i = 0; i < result.data.length; i++){
+                        if(aminities.activity.includes(result.data[i].id)){
+                            $('#listActivity').append(`
+                                <li>${result.data[i].name}</li>
+                            `)
+                        }
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getFacility(){
+        $.ajax({
+            url: `/api/facility`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                    for(var i = 0; i < result.data.length; i++){
+                        if(aminities.facility.includes(result.data[i].id)){
+                            $('#listFacility').append(`
+                                <li>${result.data[i].name}</li>
+                            `)
+                        }
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getSport(){
+        $.ajax({
+            url: `/api/sport`,
+            method: `GET`,
+            success: function (result) {
+                // console.log(result)
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        if(aminities.sport.includes(result.data[i].id)){
+                            console.log("masuk")
+                            $('#listSport').append(`
+                                <li>${result.data[i].name}</li>
+                            `)
+                        }
+                    }
+                    //location.href = `/checkout-resort/${result.data.id}/schedule`
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function addPackage(packageId){
+        var newData = true
+        var packageName = ""
+        var packagePrice = ""
+
+        for(var i = 0; i < listPackage.length; i++){
+            if(listPackage[i].id == packageId){
+                packageName = listPackage[i].info.name
+                if(listPackage[i].price.discount != "" && listPackage[i].price.discount != "0" && listPackage[i].price.discount != 0 && listPackage[i].price.discount != "NaN"){
+                    packagePrice = listPackage[i].price.discount
+                }else{
+                    packagePrice = listPackage[i].price.price
+                }
+            }
+        }
+
+        for(var i = 0; i < listPackageChoose.length; i++){
+            if(listPackageChoose[i].id == packageId){
+                newData = false
+            }
+        }
+
+        if(newData){
+            listPackageChoose.push({
+                id : packageId,
+                packageName : packageName,
+                packageItem : [
+                    {
+                        id : "packageitem-" + new Date().getTime(),
+                        guest : 1
+                    }
+                ],
+                packagePrice : packagePrice
+            })
+        }
+
+        loadModalPackage(packageId)
+    }
+    
+    function addAnotherPackage(packageId){
+
+        var maxPackage = "";
+        
+        for(var i = 0; i < listPackage.length; i++){
+            if(listPackage[i].id == packageId){
+                maxPackage = listPackage[i].info.max_purchase
+            }
+        }
+        
+        let rItem = [];
+        for(var i = 0; i < listPackageChoose.length; i++){
+            if(listPackageChoose[i].id == packageId){
+                for(var j = 0; j < listPackageChoose[i].packageItem.length; j++){
+                    rItem.push({...listPackageChoose[i].packageItem[j]});
+                }
+
+                // console.log('rip',rItem);
+                for(var j = 0; j < rItem.length; j++){
+                    if(rItem.length - 1 == j){
+                        if(maxPackage > rItem.length){
+                            rItem.push(
+                                {
+                                    id : "packageitem-" + new Date().getTime(),
+                                    guest : 1
+                                }
+                            )
+                        }else{
+                            console.log(maxPackage)
+                            console.log(listPackageChoose[i].packageItem.length)
+                            Swal.fire("We're sorry","Max package purchase is reached");
+                        }
+                        
+                        break
+                    }
+                }
+                
+                listPackageChoose[i].packageItem = [];
+                for (let m = 0; m < rItem.length; m++) {
+                    listPackageChoose[i].packageItem.push({...rItem[m]});
+                }
+            } 
+        }
+        
+        if(listPackageChoose.length == 0){
+            addPackage(packageId);
+        }
+        loadModalPackage(packageId)
+    }
+
+    function removePackageItem(packageId, buttonId){
+        countDesc = 0;
+        for(var i = 0; i < listPackageChoose.length; i++){
+            if(listPackageChoose[i].id == packageId){
+                var packageItem = listPackageChoose[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    if(packageItem[j].id == buttonId){
+                        listPackageChoose[i].packageItem = listPackageChoose[i].packageItem.filter(function( obj ) {
+                            return obj.id !== buttonId
+                        });
+                    }
+                }
+            }
+        }   
+            
+        rekapPackageChoose();
+        loadModalPackage(packageId);
+    }
+
+    function removePackage(packageChooseId){
+
+        let listTemp = [];
+        for(var i = 0; i < listPackageChooseSummary.length; i++){
+            if (listPackageChooseSummary[i].id != packageChooseId) {
+                listTemp.push({...listPackageChooseSummary[i]});
+            }
+        }
+
+        listPackageChooseSummary = [];
+        listPackageChoose = [];
+        for(var i = 0; i < listTemp.length; i++){
+                listPackageChooseSummary.push({...listTemp[i]});
+                listPackageChoose.push({...listTemp[i]});
+        }
+
+        // rekapPackageChoose();
+        // loadModalPackage(packageId);
+        loadMySummary()
+    }
+
+    function cancelPackageChangeTrip(packageId){
+        listPackageChoose = [];
+        // console.log('4',listPackageChooseSummary);
+        for(var i = 0; i < listPackageChooseSummary.length; i++){
+            if(listPackageChooseSummary[i].id == packageId){
+                listPackageChoose[i] = {...listPackageChooseSummary[i]};
+            }
+        }
+        
+    }
+
+    function loadModalPackage(packageId){
+        $('#modalPackageGuest').empty()
+        var packageItemHtml = ""
+        for(var i = 0; i < listPackageChoose.length; i++){
+            if(listPackageChoose[i].id == packageId){
+                var packageItem = listPackageChoose[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    packageItemHtml = packageItemHtml + `
+                        <div class="explore-card--item">
+                            <div class="explore-card--content p-12 shadow-sm text-black no-hover-animate bg-white">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h6 class="m-0">Day ${j + 1}</h6>
+                                    <button class="btn btn-sm btn-white" style="opacity:0;pointer-events:none;"><i class="fas fa-plus"></i></button>                            
+                                    <button onClick="removePackageItem('${packageId}','${packageItem[j].id}')" class="btn btn-sm btn-white float-right" style=""><i class="fas fa-times"></i></button>
+                                </div>
+                                <p class="text-sm">guest in this package : <b><span id="span-${packageItem[j].id}">${packageItem[j].guest}</b></span></p>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button onClick="minPackageGuest('${packageId}','${packageItem[j].id}')" class="btn btn-outline-primary" type="button" id="${packageItem[j].id}-add">-</button>
+                                    </div>
+                                    <input id="text-${packageItem[j].id}" type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="${packageItem[j].guest}">
+                                    <div class="input-group-append">
+                                        <button onClick="plusPackageGuest('${packageId}','${packageItem[j].id}')" class="btn btn-outline-primary" type="button" id="${packageItem[j].id}-min">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            }
+        }
+        // var packageHtml = ""
+        // for(var i = 0; i < listPackageChoose.length; i++){
+        //     if(listPackageChoose[i].id == packageId){
+        //         packageHtml = `
+        //             <div class="explore-card--item">
+        //                 <div class="explore-card--content p-12 shadow-sm text-black no-hover-animate  bg-white">
+        //                     <div class="d-flex align-items-center justify-content-between mb-2">
+        //                         <h6 class="m-0">Guest</h6>
+        //                     </div>
+        //                     <p class="text-sm">IDR${formatRupiah(listPackageChoose[i].packagePrice)}/person</p>
+        //                     <div class="input-group">
+        //                             <div class="input-group-prepend">
+        //                                 <button onClick="minPackageGuest('${packageId}')" class="btn btn-outline-primary" type="button" id="${packageId}-add">-</button>
+        //                             </div>
+        //                             <input id="text-${packageId}" type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="${listPackageChoose[i].guest}">
+        //                             <div class="input-group-append">
+        //                                 <button onClick="plusPackageGuest('${packageId}')" class="btn btn-outline-primary" type="button" id="${packageId}-min">+</button>
+        //                             </div>
+        //                         </div>
+        //                 </div>
+        //             </div>
+        //         `
+        //     }
+        // }
+
+        for(var i =0; i < listPackage.length; i++){
+            if(listPackage[i].id == packageId){
+                $('#modalPackageGuest').append(`
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content rounded border-0">
+                        <div class="modal-body">
+                            <div class="d-flex align-items-start justify-content-between flex-column mb-3">
+                                <h4 class="flex-shrink-0">Set Your Package Plan</h4>
+                                <h6 class="text-muted">${listPackage[i].info.name}</h6>
+                            </div>
+                            <div class="d-block mt-2">
+                                <div class="explore-card">
+                                    <div id="packageItem" class="explore-card--list explore-card--50">
+                                        ${packageItemHtml}
+                                    </div>
+                                </div>
+                            </div>
+                            <button onClick="addAnotherPackage('${packageId}')" type="button" class="btn btn-sm btn-neutral"><i class="fas fa-plus fa-sm mr-2"></i>Add another day</button>
+                        </div>
+                        <div class="modal-footer justify-content-end">
+                            <div>
+                                <button onClick="cancelPackageChangeTrip('${packageId}')" type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                                <button onClick="addPackageToMyTrip('${packageId}')" type="button" class="btn btn-primary" data-dismiss="modal">Add to My Trip</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `)
+            }
+        }
+    }
+
+    function minPackageGuest(packageId, buttonId){
+        // for(var i = 0; i < listPackageChoose.length; i++){
+        //     if(listPackageChoose[i].id == packageId){
+        //         if(listPackageChoose[i].guest > 1){
+        //             listPackageChoose[i].guest--
+        //             $(`#text-${packageId}`).val(listPackageChoose[i].guest)
+        //             $(`#span-${packageId}`).text(listPackageChoose[i].guest)
+        //         }
+        //     }
+        // }
+        for(var i = 0; i < listPackageChoose.length; i++){
+            if(listPackageChoose[i].id == packageId){
+                var packageItem = listPackageChoose[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    if(packageItem[j].id == buttonId){
+                        if(packageItem[j].guest > 1){
+                            packageItem[j].guest--
+                            $(`#text-${buttonId}`).val(packageItem[j].guest)
+                            $(`#span-${buttonId}`).text(packageItem[j].guest)
+                        }
+                        // tambahan
+                        else{
+                            removePackageItem(packageId, buttonId);
+                                // console.log(roomItem.length)
+                                // console.log(buttonId)
+                                // console.log(roomItem[j].id)
+
+                            /* if(packageItem.length > 1){
+                                //console.log("MAsUK sini")
+                                listPackageChoose[i].packageItem = listPackageChoose[i].packageItem.filter(function( obj ) {
+                                    return obj.id !== buttonId
+                                })
+                                loadModalPackage(packageId)
+                            }
+
+                            if(listPackageChooseSummary.length > 0){
+                                listPackageChooseSummary[i].packageItem = listPackageChooseSummary[i].packageItem.filter(function( obj ) {
+                                    return obj.id !== buttonId
+                                })
+                                loadMySummary()
+                            } */
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //=========================================================================
+    function rekapPackageChoose(){
+        let listTemp = [];
+        for(var i = 0; i < listPackageChoose.length; i++){
+            if (listPackageChoose[i].packageItem.length > 0) {
+                listTemp.push({...listPackageChoose[i]});
+            }
+        }
+
+        listPackageChoose = [];
+
+        for(var i = 0; i < listTemp.length; i++){
+            if (listTemp[i].packageItem.length > 0) {
+                listPackageChoose.push({...listTemp[i]});
+            }
+        }   
+    }
+
+    function rekapPackageSummary(){
+        listPackageChooseSummary = [];
+        for(var i = 0; i < listPackageChoose.length; i++){
+            listPackageChooseSummary.push({...listPackageChoose[i]});
+        }
+    }
+    //=========================================================================
+
+    function plusPackageGuest(packageId, buttonId){
+        var maxPackage = "";
+        
+        for(var i = 0; i < listPackage.length; i++){
+            if(listPackage[i].id == packageId){
+                maxPackage = listPackage[i].info.max_purchase
+            }
+        }
+        
+        for(var i = 0; i < listPackageChoose.length; i++){
+            if(listPackageChoose[i].id == packageId){
+                var packageItem = listPackageChoose[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    // console.log(packageItem[j].id,buttonId);
+                    if(packageItem[j].id == buttonId){
+                        if(listPackageChoose[i].packageItem[j].guest < maxPackage){
+                            console.log(listPackageChoose[i].packageItem[j].guest);
+                            listPackageChoose[i].packageItem[j].guest++
+                            $(`#text-${buttonId}`).val(listPackageChoose[i].packageItem[j].guest)
+                            $(`#span-${buttonId}`).text(listPackageChoose[i].packageItem[j].guest)
+                        }else{
+                            Swal.fire("We're sorry","Max person is reached");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function addPackageToMyTrip(packageId){
+        var isAvailable = false
+        for(var i = 0; i < listPackageChooseSummary.length; i++){
+            if(listPackageChooseSummary[i].id == packageId){
+                isAvailable = true
+                listPackageChooseSummary[i] = {...listPackageChoose[i]}
+            }
+        }
+        if(!isAvailable){
+            for(var i = 0; i < listPackageChoose.length; i++){
+                if(listPackageChoose[i].id == packageId){
+                    listPackageChooseSummary.push({...listPackageChoose[i]})
+                }
+            }
+        }
+
+        rekapPackageSummary();
+        loadMySummary()
+    }
+
+    function addRoom(roomId){
+        var newData = true
+        var roomName = ""
+        var roomPrice = ""
+        var sharingRoom = "no"
+
+        // console.log(roomPrice);
+        for(var i = 0; i < listRooms.length; i++){
+            if(listRooms[i].id == roomId){
+                roomName = listRooms[i].info.name
+                sharingRoom = listRooms[i].rules.sharing_room
+                if(listRooms[i].price.discount != "" && listRooms[i].price.discount != "0" && listRooms[i].price.discount != "NaN"){
+                    roomPrice = listRooms[i].price.discount
+                }else{
+                    roomPrice = listRooms[i].price.price
+                }
+                console.log(roomName, roomPrice);
+            }
+        }
+
+        for(var i = 0; i < listRoomsChoose.length; i++){
+            if(listRoomsChoose[i].id == roomId){
+                newData = false
+            }
+        }
+
+        if(newData){
+            listRoomsChoose.push({
+                id : roomId,
+                roomName : roomName,
+                roomItem : [
+                    {
+                        id : "roomitem-" + new Date().getTime(),
+                        guest : 1
+                    }
+                ],
+                roomPrice : roomPrice,
+                sharingRoom : sharingRoom
+            })
+        }
+
+        loadModalRoom(roomId)
+    }
+
+    function addAnotherRoom(roomId){
+
+        var maxRoom = "";
+        
+        for(var i = 0; i < listRooms.length; i++){
+            if(listRooms[i].id == roomId){
+                maxRoom = listRooms[i].rules.max_room
+            }
+        }
+        
+        let roomCount = 0; 
+        let rItem = [];
+        for(var i = 0; i < listRoomsChoose.length; i++){
+            // alert(listRoomsChoose[i].roomItem.length);
+            if(listRoomsChoose[i].id == roomId){
+                roomCount++;
+                for(var j = 0; j < listRoomsChoose[i].roomItem.length; j++){
+                    rItem.push({...listRoomsChoose[i].roomItem[j]});
+                }
+                for(var j = 0; j < rItem.length; j++){
+                    if(rItem.length - 1 == j){
+
+                        if(maxRoom > rItem.length){
+                            rItem.push(
+                                {
+                                    id : "roomitem-" + new Date().getTime(),
+                                    guest : 1
+                                }
+                            )
+                        }else{
+                            Swal.fire("We're sorry","Max room purchase is reached");
+                        }
+                        
+                        break
+                    }
+                }
+
+                listRoomsChoose[i].roomItem = [];
+                for (let m = 0; m < rItem.length; m++) {
+                    listRoomsChoose[i].roomItem.push({...rItem[m]});
+                }
+            } 
+        }
+        
+        if(roomCount == 0){
+            addRoom(roomId);
+        }
+        // console.log('3',listRoomsChoose);
+
+        loadModalRoom(roomId)
+    }
+
+    function loadModalRoom(roomId){
+        // rekapRoomChoose();
+        $('#modalRoomGuest').empty();
+        var roomItemHtml = "";
+        
+        for(var i = 0; i < listRoomsChoose.length; i++){
+            if(listRoomsChoose[i].id == roomId){
+                var roomItem = listRoomsChoose[i].roomItem;
+                for(var j = 0; j < roomItem.length; j++){
+                    roomItemHtml = roomItemHtml + `
+                        <div class="explore-card--item">
+                            <div class="explore-card--content p-12 shadow-sm text-black no-hover-animate bg-white">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h6 class="m-0">${(typeof listRoomsChoose[i].sharingRoom !== 'undefined' ? (listRoomsChoose[i].sharingRoom == "yes" ? "Dorm" : "Room") : "Room")} ${j + 1}</h6>
+                                    <button class="btn btn-sm btn-white" style="opacity:0;pointer-events:none;"><i class="fas fa-plus"></i></button>
+                                    <button onClick="removeRoomItem('${roomId}','${roomItem[j].id}')" class="btn btn-sm btn-white float-right" style=""><i class="fas fa-times"></i></button>
+                                </div>
+                                <p class="text-sm"><span id="span-${roomItem[j].id}">${roomItem[j].guest}</span> guest in this ${(typeof listRoomsChoose[i].sharingRoom !== 'undefined' ? (listRoomsChoose[i].sharingRoom == "yes" ? "dorm" : "room") : "room")}</p>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button onClick="minGuest('${roomId}','${roomItem[j].id}')" class="btn btn-outline-primary" type="button" id="${roomItem[j].id}-add">-</button>
+                                    </div>
+                                    <input id="text-${roomItem[j].id}" type="text" class="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="${roomItem[j].guest}">
+                                    <div class="input-group-append">
+                                        <button onClick="plusGuest('${roomId}','${roomItem[j].id}')" class="btn btn-outline-primary" type="button" id="${roomItem[j].id}-min">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            }
+        }
+
+        for(var i =0; i < listRooms.length; i++){
+            if(listRooms[i].id == roomId){
+                $('#modalRoomGuest').append(`
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content rounded border-0">
+                            <div class="modal-body">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4>Select Guest</h4>
+                                    <h6 class="text-muted">${listRooms[i].info.name}</h6>
+                                </div>
+                                <div class="d-block mt-2">
+                                    <div class="explore-card">
+                                        <div class="explore-card--list explore-card--50">
+                                            ${roomItemHtml}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onClick="addAnotherRoom('${roomId}')" type="button" class="btn btn-sm btn-neutral"><i class="fas fa-plus fa-sm mr-2"></i>Add another ${(typeof listRooms[i].rules.sharing_room !== 'undefined' ? (listRooms[i].rules.sharing_room == "yes" ? "dorm" : "room") : "room")}</button>
+                            </div>
+                            <div class="modal-footer justify-content-end">
+                                <div>
+                                    <button onClick="cancelChangeTrip('${roomId}')" type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                                    <button onClick="addToMyTrip('${roomId}')" type="button" class="btn btn-primary" data-dismiss="modal">Add to My Trip</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+        }
+    
+    }
+
+    function minGuest(roomId, buttonId){
+        for(var i = 0; i < listRoomsChoose.length; i++){
+            if(listRoomsChoose[i].id == roomId){
+                var roomItem = listRoomsChoose[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    if(roomItem[j].id == buttonId){
+                        if(roomItem[j].guest > 1){
+                            roomItem[j].guest--
+                            $(`#text-${buttonId}`).val(roomItem[j].guest)
+                            $(`#span-${buttonId}`).text(roomItem[j].guest)
+                        }
+                        // tambahan
+                        else{
+                            /* if(roomItem.length > 1){
+                                listRoomsChoose[i].roomItem = listRoomsChoose[i].roomItem.filter(function( obj ) {
+                                    return obj.id !== buttonId
+                                })
+                            }
+
+                            if(listRoomsChooseSummary.length > 0){
+                                listRoomsChooseSummary[i].roomItem = listRoomsChooseSummary[i].roomItem.filter(function( obj ) {
+                                    return obj.id !== buttonId
+                                });
+                            } */
+                            removeRoomItem(roomId, buttonId);
+                        }
+                    }
+                }
+            }
+        }   
+    
+        rekapRoomChoose();
+        loadModalRoom(roomId);
+    }
+    
+    function removeRoomItem(roomId, buttonId){
+        countDesc = 0;
+        for(var i = 0; i < listRoomsChoose.length; i++){
+            if(listRoomsChoose[i].id == roomId){
+                var roomItem = listRoomsChoose[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    if(roomItem[j].id == buttonId){
+                        listRoomsChoose[i].roomItem = listRoomsChoose[i].roomItem.filter(function( obj ) {
+                            return obj.id !== buttonId
+                        });
+                    }
+                }
+            }
+        }   
+            
+        rekapRoomChoose();
+        loadModalRoom(roomId);
+    }
+
+    function removeRoom(roomChooseId){
+
+        let listTemp = [];
+        for(var i = 0; i < listRoomsChooseSummary.length; i++){
+            if (listRoomsChooseSummary[i].id != roomChooseId) {
+                listTemp.push({...listRoomsChooseSummary[i]});
+            }
+        }
+        
+        listRoomsChooseSummary = [];
+        listRoomsChoose = [];
+        for(var i = 0; i < listTemp.length; i++){
+                listRoomsChooseSummary.push({...listTemp[i]});
+                listRoomsChoose.push({...listTemp[i]});
+        }
+
+        // rekapRoomChoose();
+        // loadModalRoom(roomId);
+        loadMySummary()
+    }
+
+    function rekapRoomChoose(){
+        let listTemp = [];
+        for(var i = 0; i < listRoomsChoose.length; i++){
+            if (listRoomsChoose[i].roomItem.length > 0) {
+                listTemp.push({...listRoomsChoose[i]});
+            }
+        }
+
+        listRoomsChoose = [];
+
+        for(var i = 0; i < listTemp.length; i++){
+            if (listTemp[i].roomItem.length > 0) {
+                listRoomsChoose.push({...listTemp[i]});
+            }
+        }
+        
+    }
+
+    function rekapRoomSummary(){
+        listRoomsChooseSummary = [];
+        for(var i = 0; i < listRoomsChoose.length; i++){
+            listRoomsChooseSummary.push({...listRoomsChoose[i]});
+        }
+    }
+
+    function plusGuest(roomId, buttonId){
+        var maxRoom = "";
+        
+        for(var i = 0; i < listRooms.length; i++){
+            if(listRooms[i].id == roomId){
+                maxRoom = listRooms[i].rules.max_person
+            }
+        }
+
+        for(var i = 0; i < listRoomsChoose.length; i++){
+            if(listRoomsChoose[i].id == roomId){
+                var roomItem = listRoomsChoose[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    if(roomItem[j].id == buttonId){
+                        // CHECK MAX ROOM
+                        if(roomItem[j].guest < maxRoom){
+                            roomItem[j].guest++
+                            $(`#text-${buttonId}`).val(roomItem[j].guest)
+                            $(`#span-${buttonId}`).text(roomItem[j].guest)
+                        }else{
+                            Swal.fire("We're sorry","Max person is reached");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function cancelChangeTrip(roomId){
+        listRoomsChoose = [];
+        // console.log('4',listRoomsChooseSummary);
+        for(var i = 0; i < listRoomsChooseSummary.length; i++){
+            if(listRoomsChooseSummary[i].id == roomId){
+                listRoomsChoose[i] = {...listRoomsChooseSummary[i]};
+            }
+        }
+        
+    }
+
+    function addToMyTrip(roomId){
+        var isAvailable = false
+
+        rekapRoomChoose();
+        
+        for(var i = 0; i < listRoomsChooseSummary.length; i++){
+            if(listRoomsChooseSummary[i].id == roomId){
+                isAvailable = true;
+                listRoomsChooseSummary[i] = {};
+                listRoomsChooseSummary[i] = {...listRoomsChoose[i]};
+            }
+        }
+        
+        if(!isAvailable){
+            for(var i = 0; i < listRoomsChoose.length; i++){
+                if(listRoomsChoose[i].id == roomId){
+                    listRoomsChooseSummary.push({...listRoomsChoose[i]});
+                }
+            }
+        }
+        // console.log('1',listRoomsChooseSummary);
+        rekapRoomSummary();
+        loadMySummary()
+    }
+
+    function loadMySummary(){
+        // rekapRoomChoose();
+        let roomCount = 0; let packageCount=0;
+        $('#listSummary').empty()
+        
+        for(var i = 0; i < listRoomsChooseSummary.length; i++){
+            console.log('listRoom',listRoomsChoose[i]);
+            var roomItem = listRoomsChooseSummary[i].roomItem
+            var roomItemHtml = ""
+
+            var subTotalRoom = 0
+            if (typeof roomItem !== 'undefined') {
+                roomCount += parseInt(roomItem.length);
+                for(var j = 0; j < roomItem.length; j++){
+    
+                    if(listRoomsChooseSummary[i].sharingRoom == "yes"){
+                        subTotalRoom += parseFloat(listRoomsChooseSummary[i].roomPrice) * parseFloat(roomItem[j].guest)
+                        roomItemHtml = roomItemHtml + `
+                            <div class="list-panel list-panel-sm border-bottom mt-2">
+                                <div class="list-panel-title">Room ${j+1} - Dorm</div>
+                                <!-- div class="list-panel-content"><i class="far fa-user fa-sm mr-2"></i>x${roomItem[j].guest}</div -->
+                                <div class="list-panel-content">IDR ${formatRupiah(parseFloat(listRoomsChooseSummary[i].roomPrice) * parseFloat(roomItem[j].guest))}</div>
+                            </div>
+                        `
+                    }else{
+                        subTotalRoom += parseFloat(listRoomsChooseSummary[i].roomPrice)
+                        roomItemHtml = roomItemHtml + `
+                            <div class="list-panel list-panel-sm border-bottom mt-2">
+                                <div class="list-panel-title">Room ${j+1}</div>
+                                <!-- div class="list-panel-content"><i class="far fa-user fa-sm mr-2"></i>x${roomItem[j].guest}</div -->
+                                <div class="list-panel-content">IDR ${formatRupiah(parseFloat(listRoomsChooseSummary[i].roomPrice))}</div>
+                            </div>
+                        `
+                    }
+                }
+            }
+
+            $('#listSummary').append(`
+                <div class="d-block mb-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="font-weight-bold">${listRoomsChooseSummary[i].roomName}</div>
+                        <div>
+                            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#modalRoomGuest" onClick="loadModalRoom('${listRoomsChooseSummary[i].id}')"><i class="fas fa-pen fa-sm"></i></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" onClick="removeRoom('${listRoomsChooseSummary[i].id}')"><i class="fas fa-trash fa-sm"></i></button>
+                        </div>
+                    </div>
+                    <div class="d-block">
+                        ${roomItemHtml}
+                    </div>
+                    <div class="list-panel list-panel-sm mt-2">
+                        <div class="list-panel-title">Sub Total</div>
+                        <div class="list-panel-content">IDR ${formatRupiah(parseFloat(subTotalRoom))}</div>
+                    </div>
+                </div>
+            `)
+
+
+            $('#emptyListSummary').addClass('hideImportant');
+        }
+
+        console.log('packagesummary',listPackageChooseSummary);
+        for(var i = 0; i < listPackageChooseSummary.length; i++){
+            packageCount++;
+            let packageItem = listPackageChooseSummary[i].packageItem
+            let subTotalPackage = 0;
+            let packageHtml = ``;
+            for (let p_idx = 0; p_idx < packageItem.length; p_idx++) {
+                packageHtml += `<div class="d-block">
+                            <div class="list-panel list-panel-sm border-bottom mt-2">
+                                <div class="list-panel-title">Guest <i class="far fa-user fa-sm mr-2"></i>x${packageItem[p_idx].guest}</div>
+                                <div class="list-panel-content">IDR ${formatRupiah(listPackageChoose[i].packagePrice*listPackageChooseSummary[i].packageItem[p_idx].guest)}</div>
+                            </div>
+                        </div>
+                    </div>`
+                subTotalPackage += parseFloat(listPackageChoose[i].packagePrice*listPackageChooseSummary[i].packageItem[p_idx].guest);
+            }
+
+            $('#listSummary').append(`
+                <div class="d-block mb-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="font-weight-bold">${listPackageChooseSummary[i].packageName}</div>
+                        <div>
+                            <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#modalPackageGuest" onClick="loadModalPackage('${listPackageChooseSummary[i].id}')"><i class="fas fa-pen fa-sm"></i></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" onClick="removePackage('${listPackageChooseSummary[i].id}')"><i class="fas fa-trash fa-sm"></i></button>
+                        </div>
+                    </div>
+                    ${packageHtml}
+                    <div class="list-panel list-panel-sm mt-2">
+                        <div class="list-panel-title">Sub Total</div>
+                        <div class="list-panel-content">IDR ${formatRupiah(parseFloat(subTotalPackage))}</div>
+                    </div>
+                </div>
+            `)
+        }
+
+        $("#roomSummaryMobile").html(roomCount);
+        $("#packageSummaryMobile").html(packageCount);
+
+    }
+
+    function checkOutResort(){
+        console.log(listPackageChooseSummary)
+        if(listRoomsChooseSummary.length > 0 || listPackageChooseSummary.length > 0){
+            $("#overlay-checkout").removeClass('d-none');
+            $.ajax({
+                url: `/api/transaction-resort`,
+                method: `POST`,
+                data : {
+                    resort_id : id,
+                    package_data : {
+                        room : listRoomsChooseSummary,
+                        package : listPackageChooseSummary
+                    }
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        location.href = `/checkout-resort/${result.data.id}/schedule`
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                        $("#overlay-checkout").addClass('d-none');
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                    // alert(status);
+
+                    if (xhr.responseJSON.message == 'Token is required') {
+                        $("#overlay-checkout").addClass('d-none');
+                        loginRequired();
+                    }
+                }
+            })
+        }else{
+            // alert('You must choose room or package')
+            Swal.fire(
+                "First choose your room or package",
+                "Don't forget to also add guests to your trip!"
+            )
+        }
+    }
+
+    function getRoomDetails(room_index){
+        $('#modalRoomDetailsBody').html(listRoomDetails[i]).promise().done(function(){
+            $("#modalRoomDetailsBody").find(".amenities-item").each(function(){
+                let amenities_id = $(this).find('span').attr('class');
+                console.log(roomAmenitiesList[amenities_id]);
+                $(this).find('span').html(roomAmenitiesList[amenities_id]);
+            });
+        });
+    }
+
+    function getPackageDetails(package_index, packageId){
+        $("#package-details").html(listPackageDetails[package_index]);
+        let point = document.getElementById("modalPackageSelect");
+        point.addEventListener("click", function(){
+            addPackage(`${packageId}`);
+        });
+    }
+
+    $("#package-details").on('click','.accordion-title',function(){
+        $(this).children('.accordion-title .fas').toggleClass('active');
+        $(this).parent().children('.accordion-content').toggleClass('active');
+    });
+
+</script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

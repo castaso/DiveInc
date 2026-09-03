@@ -1,0 +1,93 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<div class="contribution-banner have-curtain" style="background-image: url('/images/diving-komodo.jpg');">
+    <div class="contribution-banner--inner">
+        <div class="container">
+            <div class="destination-banner--text">
+                <div class="welcome-title--text mb-3">
+                    <h5 class="color-accent">Curated for You</h5>
+                    <h1>Find Out Amazing Dive Destination</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section section-sm">
+    <div class="container">
+        
+        <div id="exploreLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center" style="height:400px;">
+            <div class="spinner-border mb-3" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="text-muted">Please wait...</div>
+        </div>
+        <div class="explore-card">
+            <div class="explore-card--list explore-card--with-text explore-card--25" id="layoutDestination">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+    $(document).ready(function(){
+        loadDestination()
+    })
+
+    function loadDestination(){
+        $.ajax({
+            url: `/api/destination`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    $('#exploreLoader').addClass('hideImportant')
+                    for(var i = 0; i < result.data.length; i++){
+                        if(i == 0){
+                            $('#layoutDestination').append(`
+                                <a href="/destination/${result.data[i].id}" class="explore-card--item">
+                                    <div class="explore-card--content shadow-sm">
+                                        <div class="explore-card--image" style="background-image: url('${result.data[i].image_showing[0].url}');">
+                                            <div class="explore-card--text-inside">
+                                                <h4 class="mt-0 text-ellipsis">${result.data[i].name}</h4>
+                                                <p>${result.data[i].description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `)
+                        }else{
+                            $('#layoutDestination').append(`
+                                <a href="/destination/${result.data[i].id}" class="explore-card--item">
+                                    <div class="explore-card--content shadow-sm">
+                                        <div class="explore-card--image" style="background-image: url('${result.data[i].image_showing[0].url}');">
+                                            <div class="explore-card--text-inside">
+                                                <h4 class="mt-0 text-ellipsis">${result.data[i].name}</h4>
+                                                <p>${result.data[i].description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `)
+                        }
+                    }
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+</script>

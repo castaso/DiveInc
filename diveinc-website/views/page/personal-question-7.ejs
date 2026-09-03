@@ -1,0 +1,92 @@
+<%-include ../partial/header %>
+
+<div class="container">
+    <div class="d-flex align-items-center personality-header-nav">
+        <a href="/">
+            <img class="logo-size-base mr-3" src="images/logo/logo-dive-blue.svg">
+        </a>
+        <!-- Breadcrumb Step -->
+        <ul class="progress-step-wrapper list-unstyled">
+            <li class="done">
+                <a href="personal-question-1" class="btn btn-white btn-sm">Introduction</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-2" class="btn btn-white btn-sm">What</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-3" class="btn btn-white btn-sm">Where</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-4" class="btn btn-white btn-sm">When</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-5" class="btn btn-white btn-sm">Who</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-6" class="btn btn-white btn-sm">Spend</a>
+            </li>
+            <li class="active">
+                <a href="personal-question-7" class="btn btn-white btn-sm">You</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="d-block">
+        <div class="row my-4">
+            <div class="col-lg-6 col-md-8">
+                <h1>Lastly, we just need your contact details so we can send you a range of suggestions.</h1>
+            </div>
+        </div>
+    </div>
+    <div class="d-block mb-5 mt-5">
+        <div class="row">
+            <div class="col-lg-6 col-md-8">
+                <form>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-4">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control form-control-lg rounded-0 text-capitalize" name="first_name" placeholder="First name" required>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control form-control-lg rounded-0 text-capitalize" name="last_name" placeholder="Last name" >
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <label for="email_address">Email Address</label>
+                            <input type="email" class="form-control form-control-lg rounded-0" name="email_address" placeholder="your.email@mail.com"  required>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <label for="phone_number">Phone Number</label>
+                            <input type="number" class="form-control form-control-lg rounded-0" name="phone_number" placeholder="Best number to contact you on..." required>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <label for="additional_info">Additional Information</label>
+                            <textarea class="form-control form-control-lg rounded-0" name="additional_info" placeholder="Any additional information you'd like to tell us..." ></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="d-block">Would you like to receive further updates about Dive?</div>
+                            <div class="select-card-wrapper">
+                                <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                    <label class="select-card-inner select-card-inner-h">
+                                        <input type="checkbox" name="dive-email-update"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0 font-weight-normal">Yes please!</h6>
+                                        </div>
+                                        <div class="select-card-checkbox"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-4 text-sm">
+                            For more information how we handle your data, please read our <a href="" class="text-underline">Diveinc's Privacy Policy</a>.
+                        </div>
+                     </div>
+                    <button class="btn btn-outline-primary btn-lg-2" type="submit">Submit form</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/ion.rangeSlider.min.js"></script>
+</div>
+
+<%-include ../partial/footer %>

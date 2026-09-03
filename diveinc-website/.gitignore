@@ -1,0 +1,8 @@
+# Ignore some dependencies
+node_modules
+
+# Ignore SASS/SCSS file
+public/scss/
+public/scss/*.scss
+
+.env

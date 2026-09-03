@@ -1,0 +1,57 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <%-include ../partial/sidebar-nav %>
+            <div class="col-lg-9">
+                <ul class="progress-step-wrapper list-unstyled pt-0 shift-left on-bg-lighter">
+                    <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li>
+                        <a href="my-inbox" class="btn btn-white btn-sm">My Inbox</a>
+                    </li>
+                    <li class="active">
+                        <a href="my-inbox-read" class="btn btn-white btn-sm">Read Messages</a>
+                    </li>
+                </ul>
+                <div class="card shadow-sm border-0 rounded-0">
+                    <div class="py-3 px-2 border-bottom">
+                        <a href="my-inbox" class="btn btn-link btn-sm">
+                            <i class="fas fa-arrow-left mr-2"></i>Back to My Inbox
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-block">
+                            <h5 class="mb-4 d-block">Yay! Your order has been confirmed!</h5>
+                            <p>The holiday is waiting, see your detail order & please proceed to payment. If you cross the line, the order will be canceled and, you must reorder what you want to order.</p>
+                            <p>You can check your order status at <a href="my-order">My Order</a> page.</p>
+                        </div>
+                        <div class="d-flex justify-content-between border-top pt-3">
+                            <div class="d-flex flex-column ">
+                                <small class="mb-2">From:</small>
+                                <a href=""><h6 class="m-0 d-inline-block">Bali's Dive Resort</h6></a>
+                                <small class="text-muted">Sent date: Jan 20th 2020</small>
+                            </div>
+                            <div>
+                                <div class="btn-group mb-3" role="group">
+                                    <button type="button" class="btn btn-neutral btn-sm">Delete</button>
+                                    <button type="button" class="btn btn-neutral btn-sm">Save to Archive</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FOOTER -->
+<%-include ../partial/footer %>

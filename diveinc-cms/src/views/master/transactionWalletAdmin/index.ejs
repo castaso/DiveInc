@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- <title>Payment Transaction</title> -->
+    <title>Wallet Admin Transaction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <!-- <link rel="shortcut icon" href="/assets/images/favicon.ico" /> -->
+    <!-- CSS -->
+    <%- include('../../partials/mainstyle') %>
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <!-- Topbar Start -->
+      <%- include('../../partials/mainheader') %>
+      <!-- end Topbar -->
+
+      <!-- Menu Start -->
+      <%- include('../../partials/mainmenu') %>
+      <!-- end menu -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="modal" id="modalPartialPayment" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content rounded-0 border-0">
+              <div class="modal-header">
+                  <span class="font-weight-bold">Set Payment</span>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="col-form-label">Amount</label>
+                  <input id="inputAmount" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Reason</label>
+                    <textarea id="inputReason" type="text" rows='4' class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer bt-4">
+                <button type="button" class="btn btn-outline-primary " data-dismiss="modal">Cancel</button>
+                <button onClick="acceptPartialPayment()" type="button" class="btn btn-outline-primary">Submit</button>
+              </div>
+          </div>
+      </div>
+    </div>
+  
+    <div class="wrapper">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Diveinc.co</a></li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Payment Transaction</a></li>
+                  <li class="breadcrumb-item active">Datatables</li>
+                </ol>
+              </div>
+              <h4 class="page-title">Data Payment Transaction</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <!-- <button type="button" id="buttonAdd" class="btn btn-success waves-effect waves-light">
+                  Add
+                </button></br></br> -->
+                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th>Name</th>
+                      <th>Balance</th>
+                      <!-- <th>Notes</th> -->
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <!-- end card body-->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col-->
+        </div>
+        <!-- end row-->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <%- include('../../partials/mainfooter') %>
+    </footer>
+    <!-- end Footer -->
+
+    <!-- modal start -->
+    <!-- end modal -->
+
+    <!-- Vendor js -->
+    <script src="/assets/js/vendor.min.js"></script>
+
+    <!-- third party js -->
+    <%- include('../../partials/mainjs.ejs') %>
+
+    <!-- App js-->
+    <script src="/assets/js/app.min.js"></script>
+    <script>
+      var maxAmount;
+      var idOnPartial;
+
+      $(document).ready(function() {
+        // load data table
+        $("#datatable").DataTable({
+          processing: true,
+          serverSide: true,
+          searching: true,
+          columnDefs: [
+            {
+              targets: "_all",
+              orderable: true
+            }
+          ],
+          ajax: "/api/transaction-wallet-admin/datatable"
+        });
+      });
+
+      $('#buttonAdd').click(function(){
+        location.href = "transaction-wallet-admin/add"
+      });
+
+      function accept(id){
+        if (confirm("Accept Full Payment to vendor ?")) {
+          $.ajax({
+            url: `/api/transaction-wallet-admin/${id}/accept`,
+            method: `PUT`,
+            success: function(result) {
+              // $(`#loading`).hide();
+              // $(`#loginButton`)
+              //   .removeClass(`btn-disabled disabled`)
+              //   .addClass(`btn-primary`);
+              if (result.success) {
+                alert("Success")
+                location.href = "/transaction-wallet-admin";
+              } else {
+                console.log(result);
+                //Ladda.create($(`#loginButton`)[0]).stop();
+              }
+            },
+            error(xhr, status, error) {
+              // $(`#loading`).hide();
+              // $(`#loginButton`)
+              //   .removeClass(`btn-disabled disabled`)
+              //   .addClass(`btn-primary`);
+              console.log(xhr.responseJSON);
+            }
+          });
+        }else{
+          return alert('cancelled');
+        }
+      }
+
+      function partialPayment(id, amount){
+        maxAmount = amount;
+        $('#modalPartialPayment').modal('toggle');
+        $('#inputAmount').val(amount);
+        idOnPartial = id;
+      }
+
+      function acceptPartialPayment(){
+        let amount = $('#inputAmount').val();
+        console.log(parseFloat(amount) +'>'+ parseFloat(maxAmount));
+        if (parseFloat(amount) > parseFloat(maxAmount)) {
+          return alert(`Not sufficient, Max withdrawl is ${maxAmount}`);
+        }else{
+          var dataPartial = [];
+
+          $.ajax({
+            url: `/api/transaction-wallet-admin/${idOnPartial}/accept-partial`,
+            method: `PUT`,
+            data: {
+                amount :amount,
+                reason : $('#inputReason').val()
+            },
+            
+            success: function(result) {
+              // $(`#loading`).hide();
+              // $(`#loginButton`)
+              //   .removeClass(`btn-disabled disabled`)
+              //   .addClass(`btn-primary`);
+              if (result.success) {
+                location.href = "/transaction-wallet-admin";
+              } else {
+                console.log(result);
+                //Ladda.create($(`#loginButton`)[0]).stop();
+              }
+            },
+            error(xhr, status, error) {
+              // $(`#loading`).hide();
+              // $(`#loginButton`)
+              //   .removeClass(`btn-disabled disabled`)
+              //   .addClass(`btn-primary`);
+              console.log(xhr.responseJSON);
+            }
+          });
+        }
+      }
+
+
+      function reject(id){
+        alert("reject :"+id)
+      }
+
+    </script>
+  </body>
+</html>

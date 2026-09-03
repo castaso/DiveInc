@@ -1,0 +1,564 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<style>
+    #dataRoomBooking tr td{
+        vertical-align: top !important;
+    }
+
+    #section-print{
+        /* visibility: hidden; */
+        display: none;
+        margin: 10px 20px 20px 40px;
+    }
+
+    #dataRoomBooking tr td p{
+        font-size: 14px;
+    }
+    
+    @media screen and (max-width:375px){
+        #dataRoomBooking tr td, #dataRoomBooking tr td p{
+            font-size: 10px;
+        }
+        
+    }
+
+    @media print {
+        #contentBody{
+            display: none;
+        }
+        #section-print {
+            display: block;
+            color: black !important;
+            /* visibility: visible; */
+        }
+
+        #modalBookingDetail, #modalBookingDetail *{
+            display: none;
+        }
+        
+        #overlay-loader{
+            display: none;
+        }
+        /* #section-print {
+            position: absolute;
+            left: 0;
+            top: 0;
+        } */
+    }
+</style>
+<div class="header-spacer"></div>
+<!-- Modal Rooms Guest -->
+<div class="modal bs-modal-lg" id="modalBookingDetail" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <div id='bookingDetail'>
+                    <p style='font-size: 2em' id='namaVendor'></p>
+                    <p>
+                        BOOKING ID :<span id='bookingID'></span>
+                    </p>
+                    <div id='transactionStatus' ></div>
+                    <div class="detailDiv">
+                        <h5 id='roomDetailTitle'>ROOM INFO</h5>
+                        <div id='roomDetail' class='d-none mb-5 border border-dark p-2 pb-4'></div>
+                        <h5 id='packageDetailTitle' class='mt-4'>PACKAGE INFO</h5>
+                        <div id='packageDetail'class='d-none mb-5 border border-dark p-2 pb-4'></div>
+                        <div class='text-right'>
+                            <table style="margin-left:auto">
+                                <tr>
+                                    <td></td>
+                                    <td class='text-right'>
+                                        <tr id='summaryRoom'>
+                                            <td>TOTAL ROOM</td>
+                                            <td> : </td>
+                                            <td id='summaryRoomValue' style='padding-right:10px; width: 120px;'></td>
+                                        </tr>
+                                        <tr id='summaryPackage'>
+                                            <td>TOTAL PACKAGE</td>
+                                            <td> : </td>
+                                            <td id='summaryPackageValue'  style='padding-right:10px'></td>
+                                        </tr>
+                                        <tr id='gtotal' style="background-color: #ddd; font-weight: bold;" class="py-1">
+                                            <td>TOTAL PRICE *</td>
+                                            <td> : </td>
+                                            <td id="g-total"  style='padding-right:10px'></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan='3'  class="text-right" style="padding-right:10px" >
+                                                <i style="font-size:12px">*Total Price included tax </i>
+                                            </td>
+                                        </tr>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class='guestDiv d-none'>
+                        <h5 id='roomGuestDetailTitle'>ROOM GUEST</h5>
+                        <div id='roomGuestDetail' class='d-none mb-5 border border-dark p-2 pb-4'></div>
+                        <h5 id='packageGuestDetailTitle' class='mt-4'>PACKAGE GUEST</h5>
+                        <div id='packageGuestDetail'class='d-none mb-5 border border-dark p-2 pb-4'></div>
+                        <div class='text-right'>
+                        </div>
+                    </div>
+                </div>
+                <section id="overlay-loader" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+                    <div class="text-center d-table h-100 w-100">
+                        <div class="d-table-cell h-100 align-middle">
+                            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+                            </div>
+                            <span class='text-light'>loading. . .</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-primary hidden-print" onclick="window.print()" >Print</button>
+                    <button type="button" class="btn btn-secondary hidden-print" onclick="toggleView()" >View <span id='detailViewBtnText' class='d-none'>Detail</span><span id='guestViewBtnText'>Guest</span></button>
+                    <button type="button" class="btn btn-light btn-link hidden-print" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section section-sm bg-lighter min-100-y" id='contentBody'>
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <div class="col-lg-12">
+                <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li>
+                        <a href="my-resort" class="btn btn-white btn-sm">My Resort</a>
+                    </li>
+                    <li class="active">
+                        <a href="#" class="btn btn-white btn-sm">Booking List</a>
+                    </li>
+                </ul>
+                <!-- Booking Management -->
+                <div class="card shadow-sm border-0 rounded-0">
+                    <div class="card-body">
+                        <div class="d-block" style="overflow: auto;">
+                            <table id="dataRoomBooking" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="pl-0">Booking ID</th>
+                                        <th style="width:25%">Room</th>
+                                        <th style="width:25%">Package</th>
+                                        <th>Price Detail</th>
+                                        <!-- <th>Potongan</th>
+                                        <th>Pemasukan</th> -->
+                                        <th>Status</th>
+                                        <th class="nosort"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td><small class="bg-light text-sm p-2 d-block text-center">AA141007</small></td>
+                                        <td>2</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td><h6 class="m-0"><span class="badge badge-light rounded">Order Collected</span></h6></td>
+                                        <td><h6 class="m-0"><span class="badge badge-light rounded">Waiting...</span></h6></td>
+                                        <td class="pr-0">
+                                            <div class="d-block mb-1">
+                                                <a href="my-resort-booking-management-detail" class="btn btn-sm btn-outline-primary btn-block"><i class="fas fa-eye mr-2"></i>Details</a>
+                                            </div>
+                                            <div class="d-flex">
+                                                <button class="btnConfirmBooking btn btn-sm btn-success flex-grow-1 mr-1"><i class="fas fa-check"></i></button>
+                                                <button class="btnDeclineBooking btn btn-sm btn-danger flex-grow-1"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><small class="bg-light text-sm p-2 d-block text-center">AA141007</small></td>
+                                        <td>2</td>
+                                        <td>1</td>
+                                        <td>3</td>
+                                        <td><h6 class="m-0"><span class="badge badge-success rounded">Payment Success</span></h6></td>
+                                        <td><h6 class="m-0"><span class="badge badge-success rounded">Confirmed</span></h6></td>
+                                        <td class="pr-0">
+                                            <div class="d-block">
+                                                <a href="my-resort-booking-management-detail" class="btn btn-sm btn-outline-primary btn-block"><i class="fas fa-eye mr-2"></i>Details</a>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="section-print" class="">
+</section>
+
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<!-- DATATABLES -->
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.20/b-1.6.1/sl-1.3.1/datatables.min.js"></script>
+<script>
+    const resort_id="<%= id %>"
+
+    $(document).ready(function() {
+        $('#dataRoomBooking, #dataPackageBooking').DataTable({
+            processing: true,
+            serverSide: true,
+            searching: true,
+            "columnDefs": [{
+                "targets"  : 'nosort',
+                "orderable": false
+            }],
+            ajax: "/api/datatable-resort?id="+resort_id
+        });
+    });
+
+    function getDetail(id){
+        location.href="/my-resort-booking-management/"+id
+    }
+
+    function confirm(id){
+        Swal.fire({
+            title: "Accept this order?",
+            text: "You can't undo this action.",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Accept it!'
+        }).then((respond) => {
+            if (respond.value) {
+                $.ajax({
+                    url: `/api/transaction-resort/${id}/approve`,
+                    method: `PUT`,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            location.reload()
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function decline(id){
+        Swal.fire({
+            title: "Reject this order?",
+            text: "Are you sure ? You can't undo this action.",
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Reject It.'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: `/api/transaction-resort/${id}/reject`,
+                    method: `PUT`,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            location.reload()
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }
+        });
+    }
+
+
+    function loadTransactionDetailById(detail_id){
+
+        $("#overlay-loader").removeClass('d-none');
+        $("#namaVendor").text('');
+        $("#bookingID").text('');
+        $('#roomDetail').text('').addClass('d-none');
+        $('#roomDetailTitle').hide();
+        $('#packageDetail').text('').addClass('d-none');
+        $('#packageDetailTitle').hide();
+
+        $('#roomGuestDetail').text('').addClass('d-none');
+        $('#roomGuestDetailTitle').hide();
+        $('#packageGuestDetail').text('').addClass('d-none');
+        $('#packageGuestDetailTitle').hide();
+
+        $('#section-print').html('');
+        $('#summaryPackageValue').html('');
+        $('#summaryRoomValue').html('');
+        $('#summaryRoom').hide();
+        $('#summaryPackage').hide();
+
+        $(".detailDiv").removeClass('d-none');
+        $(".guestDiv").addClass('d-none');
+
+        $('#guestViewBtnText').removeClass('d-none');
+        $('#detailViewBtnText').addClass('d-none');
+
+        $('#modalBookingDetail').modal('toggle');
+        $.ajax({
+            url: `/api/transaction-resort/${detail_id}`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    // console.log(result.data);
+                    let packageData = result.data.package_data
+                    let vendor = result.data.resort; 
+                    var g_total = 0;
+
+                    $("#namaVendor").text(vendor.profile.name);
+                    $("#bookingID").text(result.data.transaction_code);
+
+                    let tbl_pre = ``;
+                    let tbl = ``;
+                    let tblGuest = '';
+                    if (typeof packageData.room !== 'undefined') {
+                        
+                        let subTotal = 0;
+                        for (let r_idx = 0; r_idx < packageData.room.length; r_idx++) {
+                            let from = packageData.room_date.from;
+                            let to = packageData.room_date.to;
+    
+                            let diff = new Date(to) - new Date(from);
+                            let days = diff/(1000*3600*24);
+                            let rPrice = packageData.room[r_idx].roomPrice * days;
+                            tbl_pre += `<table width='100%'>
+                                <tr>
+                                    <td style='width:100px'>ROOM</td>
+                                    <td style='width:350px'><b>${packageData.room[r_idx].roomName.toUpperCase()}</b></td>
+                                    <td style='width:50px'></td>
+                                    <td style='width:150px'></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>DATE</td>
+                                    <td><b>${dateFormatSM(from)} to ${dateFormatSM(to)}</b></td>
+                                    <td>x ${days}</td>
+                                    <td style='padding:0 5px'>${formatRupiah(packageData.room[r_idx].roomPrice)}</td>
+                                    <td class='text-right'  style='padding:0 5px'>${formatRupiah(days *packageData.room[r_idx].roomPrice )}</td>
+                                </tr>`
+                            tblGuest += `<table width='100%'>
+                                <tr>
+                                    <td style='width:100px'>ROOM</td>
+                                    <td style='width:350px'><b>${packageData.room[r_idx].roomName.toUpperCase()}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>DATE</td>
+                                    <td><b>${dateFormatSM(from)} to ${dateFormatSM(to)}</b></td>
+                                </tr>`
+                            for (let i = 0; i < packageData.room[r_idx].roomItem.length; i++) {
+                                subTotal = parseInt(rPrice);
+                                for (let s = 0; s < packageData.room[r_idx].roomItem[i].service.length; s++) {
+                                    let srvc = packageData.room[r_idx].roomItem[i].service[s];
+                                    if (srvc.qty > 0) {
+                                        subTotal += srvc.price * srvc.qty;
+                                        if (s == 0) {
+                                            tbl+= `
+                                                <tr>
+                                                    <td>GUEST</td>
+                                                    <td><b>${packageData.room[r_idx].roomItem[i].guest}</b></td>
+                                                    <td colspan='3'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>EXTRA</td>
+                                                    <td>${srvc.name}</td>
+                                                    <td style='padding:0 5px'> x ${srvc.qty}</td>
+                                                    <td style='padding:0 5px'> ${formatRupiah(srvc.price)}</td>
+                                                    <td style='padding:0 5px;' class='text-right'> ${formatRupiah(srvc.price * srvc.qty) }</td>
+                                                </tr>`;
+                                        }else{
+                                            tbl+= `<tr>
+                                                    <td></td>
+                                                    <td>${srvc.name}</td>
+                                                    <td style='padding:0 5px'> x ${srvc.qty}</td>
+                                                    <td style='padding:0 5px'> ${formatRupiah(srvc.price)}</td>
+                                                    <td style='padding:0 5px' class='text-right'> ${formatRupiah(srvc.price * srvc.qty) }</td>
+                                                </tr>`;
+                                        }
+                                    }
+                                }
+                            
+                                tbl+= `<tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td style='padding:0 5px'></td>
+                                            <td style='padding:0 5px'><b>TOTAL</b></td>
+                                            <td style='padding:0 5px; border-top:1px solid #333' class='text-right'><b> ${formatRupiah(subTotal) }</b></td>
+                                        </tr>`;
+                                
+                                let detail_guest = packageData.room[r_idx].roomItem[i].detail_guest;
+                                if (detail_guest) {
+                                    for (let dg = 0; dg < detail_guest.length; dg++) {
+                                            tblGuest+= `<tr>
+                                                <td>GUEST ${dg+1}</td>
+                                                <td>${detail_guest[dg].title} ${detail_guest[dg].first_name} ${detail_guest[dg].last_name}</td>
+                                            </tr>`;
+                                        
+                                    }
+                                }
+                            }
+                        
+                            tbl += '</table>';
+                            tblGuest += '</table>';
+    
+                            $('#roomDetail').append(tbl_pre+tbl);
+                            $('#roomDetail').removeClass('d-none');
+                            $('#roomDetailTitle').show();
+
+                            $('#roomGuestDetail').append(tblGuest);
+                            $('#roomGuestDetail').removeClass('d-none');
+                            $('#roomGuestDetailTitle').show();
+                            
+                        }
+                        
+                        g_total += parseFloat(subTotal);
+                        $('#summaryRoom').show();
+                        $('#summaryRoomValue').html(formatRupiah(subTotal) );
+                    }
+
+                    if (typeof packageData.package !== 'undefined') {
+                        let subTotal = 0;
+                        
+                        for (let r_idx = 0; r_idx < packageData.package.length; r_idx++) {
+                            tbl_pre = `<table width='100%'>
+                                <tr>
+                                    <td style='width:100px'>PACKAGE</td>
+                                    <td><b>${packageData.package[r_idx].packageName.toUpperCase()}</b></td>
+                                    <td colspan='3'></td>
+                                </tr>
+                                `;
+                                for (let i = 0; i < packageData.package[r_idx].packageItem.length; i++) {
+                                tbl = ''; tblGuest = '';
+                                let tgl = dateFormatSM(packageData.package[r_idx].packageItem[i].package_date);
+                                subTotal += packageData.package[r_idx].packagePrice * packageData.package[r_idx].packageItem[i].guest;
+                                tbl+= `
+                                    <tr>
+                                        <td>DATE</td>
+                                        <td><b>${tgl}</b></td>
+                                        <td colspan='3'></td>
+                                    </tr>
+                                    <tr>
+                                        <td>GUEST</td>
+                                        <td><b>${packageData.package[r_idx].packageItem[i].guest}</b></td>
+                                        <td style='padding:0 5px'></td>
+                                        <td style='padding:0 5px'> ${formatRupiah(packageData.package[r_idx].packagePrice)}</td>
+                                        <td style='padding:0 5px;' class='text-right'> ${formatRupiah(packageData.package[r_idx].packagePrice * packageData.package[r_idx].packageItem[i].guest) }</td>
+                                    </tr>`
+                                for (let s = 0; s < packageData.package[r_idx].packageItem[i].service.length; s++) {
+                                    let srvc = packageData.package[r_idx].packageItem[i].service[s];
+                                    if (srvc.qty > 0) {
+                                        subTotal += srvc.price * srvc.qty;
+                                        if (s == 0) {
+                                            tbl+= `
+                                                <tr>
+                                                    <td>EXTRA</td>
+                                                    <td>${srvc.name}</td>
+                                                    <td style='padding:0 5px'> x ${srvc.qty}</td>
+                                                    <td style='padding:0 5px'> ${formatRupiah(srvc.price)}</td>
+                                                    <td style='padding:0 5px;' class='text-right'> ${formatRupiah(srvc.price * srvc.qty) }</td>
+                                                </tr>`;
+                                        }else{
+                                            tbl+= `<tr>
+                                                    <td></td>
+                                                    <td>${srvc.name}</td>
+                                                    <td style='padding:0 5px'> x ${srvc.qty}</td>
+                                                    <td style='padding:0 5px'> ${formatRupiah(srvc.price)}</td>
+                                                    <td style='padding:0 5px' class='text-right'> ${formatRupiah(srvc.price * srvc.qty) }</td>
+                                                </tr>`;
+                                        }
+                                        
+                                    }
+                                }
+                                
+                                let detail_guest = packageData.package[r_idx].packageItem[i].detail_guest;
+                                if (detail_guest) {
+                                    for (let dg = 0; dg < detail_guest.length; dg++) {
+                                        tblGuest+= `<tr>
+                                            <td>GUEST ${dg+1}</td>
+                                            <td>${detail_guest[dg].title} ${detail_guest[dg].first_name} ${detail_guest[dg].last_name}</td>
+                                            <td colspan='3'></td>
+                                        </tr>`;
+                                    }
+                                }
+
+                                tbl+= `<tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td style='padding:0 5px'></td>
+                                            <td style='padding:0 5px'><b>TOTAL</b></td>
+                                            <td style='padding:0 5px; border-top:1px solid #333' class='text-right'><b> ${formatRupiah(subTotal) }</b></td>
+                                        </tr>`;
+                            }
+                        
+                            tbl += '</table>';
+                            tblGuest += '</table>';
+
+                            // alert(tblGuest);
+    
+                            $('#packageDetail').append(tbl_pre+tbl);
+                            $('#packageDetail').removeClass('d-none');
+                            $('#packageDetailTitle').show();
+
+                            $('#packageGuestDetail').append(tbl_pre+tblGuest);
+                            $('#packageGuestDetail').removeClass('d-none');
+                            $('#packageGuestDetailTitle').show();
+                        }
+                        $('#summaryPackageValue').html(formatRupiah(subTotal) );
+                        $('#summaryPackage').show();
+                        g_total += parseFloat(subTotal);
+                    }
+
+                    $('#g-total').html(formatRupiah(Math.round(g_total*1.1*100)/100))
+                    console.log(parseFloat(g_total*1.1))
+
+                    $('#section-print').html($('#modalBookingDetail .modal-body').html());
+
+                    $('#overlay-loader').addClass('d-none');
+
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function toggleView(){
+        $(".detailDiv").toggleClass('d-none');
+        $(".guestDiv").toggleClass('d-none');
+
+        $('#guestViewBtnText').toggleClass('d-none');
+        $('#detailViewBtnText').toggleClass('d-none');
+    }
+
+</script>

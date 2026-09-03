@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sub Destination</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- App favicon -->
+    <!-- <link rel="shortcut icon" href="/assets/images/favicon.ico" /> -->
+    <!-- CSS -->
+    <%- include('../../partials/mainstyle') %>
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <!-- Topbar Start -->
+      <%- include('../../partials/mainheader') %>
+      <!-- end Topbar -->
+
+      <!-- Menu Start -->
+      <%- include('../../partials/mainmenu') %>
+      <!-- end menu -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="wrapper">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Diveinc.co</a></li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0);">Sub Destination</a></li>
+                  <li class="breadcrumb-item active">Edit</li>
+                </ol>
+              </div>
+              <h4 class="page-title">Edit Sub Destination</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <!-- MAIN CONTENT -->
+                <p class="text-muted font-13">
+                    FYI : * is required
+                </p>
+                <div class="form-group">
+                  <label class="col-form-label">*Destination</label>
+                  <select id="inputDestination" class="custom-select ">
+                    <option value="">Open this select menu</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">*Name</label>
+                    <input id="inputName" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">*Tagline</label>
+                  <input id="inputTagline" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">*Description</label>
+                    <textarea id="inputDescription" type="text" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">*Introduction</label>
+                  <textarea id="inputIntroduction" type="text" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">*Highlight</label>
+                  <div id="listHighlight"></div>
+                  <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <input type="text" class="form-control" id="inputHighlight">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <button id="addHighlight" class="btn btn-primary waves-effect waves-light">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">*Background Image</label>
+                  <div class="col-sm-10">
+                      <div id="dataBackgroundImage" class="row">
+                          <div id="addBackgroundImage" style="background-image: url('/assets/images/add_image.png');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+                          </div>
+                      </div>
+                      <input id="inputBackgroundImage" type="file" style="display:none;">
+                      <progress id="progressBackground" value="0" max="100" style="width:300px;"></progress><br><span id="statusBackground"></span>
+                  </div>
+                </div>
+
+                <br><br>
+                <hr>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">*Showing Image</label>
+                  <div class="col-sm-10">
+                      <div id="dataShowingImage" class="row">
+                          <div id="addShowingImage" style="background-image: url('/assets/images/add_image.png');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+                          </div>
+                      </div>
+                      <input id="inputShowingImage" type="file" style="display:none;">
+                      <progress id="progressShowing" value="0" max="100" style="width:300px;"></progress><br><span id="statusShowing"></span>
+                  </div>
+                </div>
+
+                <br><br>
+                <hr>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">*Galery Image</label>
+                  <div class="col-sm-10">
+                      <div id="dataGaleryImage" class="row">
+                          <div id="addGaleryImage" style="background-image: url('/assets/images/add_image.png');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+                          </div>
+                      </div>
+                      <input id="inputGaleryImage" type="file" style="display:none;">
+                      <progress id="progressGalery" value="0" max="100" style="width:300px;"></progress><br><span id="statusGalery"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">*About</label>
+                  <textarea id="inputAbout"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">*More About</label>
+                  <div id="listMoreAbout"></div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="inputKey" placeholder="Name">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <select id="inputType" class="custom-select ">
+                        <option value="text">Text</option>
+                        <option value="link">Link</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <input type="text" class="form-control" id="inputValue" placeholder="Value">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <button id="addMoreAbout" class="btn btn-primary waves-effect waves-light">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">*More Info</label>
+                  <div id="listMoreInfo"></div>
+                  <input type="text" class="form-control" id="inputTitle" placeholder="Title">
+                  <textarea id="inputMoreInfo"></textarea>
+                  <button id="addMoreInfo" class="btn btn-primary waves-effect waves-light">
+                    Add
+                  </button>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">*Article</label>
+                  <textarea id="inputArticle"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">*Diving Details</label>
+                  <div id="listDivingDetails"></div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="inputKeyDiv" placeholder="Name">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <select id="inputTypeDiv" class="custom-select ">
+                        <option value="text">Text</option>
+                        <option value="link">Link</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <input type="text" class="form-control" id="inputValueDiv" placeholder="Value">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <button id="addDivingDetails" class="btn btn-primary waves-effect waves-light">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">*Creature</label>
+                  <div id="1"></div>
+                  <div id="2"></div>
+                  <div id="3"></div>
+                  <div id="4"></div>
+                  <div id="5"></div>
+                  <div id="6"></div>
+                  <div id="7"></div>
+                  <div id="8"></div>
+                  <div id="9"></div>
+                  <div id="10"></div>
+                  <div id="11"></div>
+                  <div id="12"></div>
+                </div>
+
+
+                <div class="form-group text-right m-b-0">
+                    <button id="buttonSubmit" class="btn btn-primary waves-effect waves-light">
+                        Submit
+                    </button>
+                    <button id="buttonCancel" class="btn btn-secondary waves-effect m-l-5">
+                        Cancel
+                    </button>
+                </div>
+              </div>
+              <!-- end card body-->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col-->
+        </div>
+        <!-- end row-->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <%- include('../../partials/mainfooter') %>
+    </footer>
+    <!-- end Footer -->
+
+    <!-- modal start -->
+    <!-- end modal -->
+
+    <!-- Vendor js -->
+    <script src="/assets/js/vendor.min.js"></script>
+
+    <!-- third party js -->
+    <%- include('../../partials/mainjs.ejs') %>
+
+    <!-- App js-->
+    <script src="/assets/js/app.min.js"></script>
+    <script>
+
+      var id = "<%= id %>"
+
+      var dataHighlight = [];
+      var dataBackgroundImage = [];
+      var dataShowingImage = [];
+      var dataGaleryImage = [];
+
+      var dataMoreAbout = [];
+      var dataMoreInfo = [];
+      var dataDivingDetails = [];
+      var listCreature = [];
+      var dataCreature = [];
+
+      var dataMonth = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "Oktober",
+        "November",
+        "December"
+      ]
+
+      $(document).ready(function() {
+        
+        $('#buttonSubmit').click(function(){
+            add();
+        });
+
+        $('#buttonCancel').click(function(){
+            window.history.back();
+        });
+
+        $(`#addHighlight`).click(function(){
+          if($(`#inputHighlight`).val().length > 0){
+            var objectHighlight = {}
+            objectHighlight.id = "highlight-"+new Date().getTime().toString()
+            objectHighlight.text = $(`#inputHighlight`).val()
+            dataHighlight.push(objectHighlight)
+            loadHightlight()
+          }else{
+            alert("Form not valid")
+          }
+        })
+
+        $(`#addMoreAbout`).click(function(){
+          if($('#inputKey').val().length > 0 && $('#inputValue').val().length > 0){
+            var objectMoreAbout = {}
+            objectMoreAbout.id = "moreabout-"+new Date().getTime().toString()
+            objectMoreAbout.key = $(`#inputKey`).val()
+            objectMoreAbout.type = $(`#inputType`).val()
+            objectMoreAbout.value = $(`#inputValue`).val()
+            dataMoreAbout.push(objectMoreAbout)
+            loadMoreAbout()
+          }else{
+            alert("Form not valid")
+          }
+        })
+
+        $(`#addDivingDetails`).click(function(){
+          if($('#inputKeyDiv').val().length > 0 && $('#inputValueDiv').val().length > 0){
+            var objectDivingDetails = {}
+            objectDivingDetails.id = "divingdetails-"+new Date().getTime().toString()
+            objectDivingDetails.key = $(`#inputKeyDiv`).val()
+            objectDivingDetails.type = $(`#inputTypeDiv`).val()
+            objectDivingDetails.value = $(`#inputValueDiv`).val()
+            dataDivingDetails.push(objectDivingDetails)
+            loadDivingDetails()
+          }else{
+            alert("Form not valid")
+          }
+        })
+
+        $(`#addMoreInfo`).click(function(){
+          if($('#inputTitle').val().length > 0 && $('#inputMoreInfo').val().length > 0){
+            var objectMoreInfo = {}
+            objectMoreInfo.id = "moreabout-"+new Date().getTime().toString()
+            objectMoreInfo.title = $(`#inputTitle`).val()
+            objectMoreInfo.text = $(`#inputMoreInfo`).val()
+            dataMoreInfo.push(objectMoreInfo)
+            loadMoreInfo()
+          }else{
+            alert("Form not valid")
+          }
+        })
+
+        $(`#addBackgroundImage`).click(function(){
+          $(`#inputBackgroundImage`).click()
+        })
+
+        $(`#addShowingImage`).click(function(){
+          $(`#inputShowingImage`).click()
+        })
+
+        $(`#addGaleryImage`).click(function(){
+          $(`#inputGaleryImage`).click()
+        })
+
+        $(`#inputBackgroundImage`).on(`change`, function(){
+          makeFileRequestBackground('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $(`#inputShowingImage`).on(`change`, function(){
+          makeFileRequestShowing('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $(`#inputGaleryImage`).on(`change`, function(){
+          makeFileRequestGalery('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+
+        $("#inputMoreInfo").summernote({height:250, callbacks : {
+          onImageUpload: function(files, editor, welEditable) {
+            makeFileRequestSummerNote('/api/upload/image', editor, files, 'inputMoreInfo').then((result) => {
+              console.log(result)
+            }, (error) => {
+              console.error(error)
+            })
+          }
+        }})
+
+        loadData()
+      });
+
+      function loadData(){
+        $.ajax({
+          url: `/api/sub-destination/${id}`,
+          method: `GET`,
+          success: function(result) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            if (result.success) {
+              console.log(result)
+              $('#inputName').val(result.data.name)
+              $('#inputDescription').val(result.data.description)
+              $('#inputTagline').val(result.data.tag_line)
+              $('#inputIntroduction').val(result.data.introduction)
+
+              dataHighlight = result.data.highlight
+              loadHightlight()
+              dataBackgroundImage = result.data.image_background
+              loadDataBackgroundImage()
+
+              dataShowingImage = result.data.image_showing
+              loadDataShowingImage()
+
+              dataGaleryImage = result.data.image_galery
+              loadDataGaleryImage()
+
+              $('#inputAbout').val(result.data.about)
+              $("#inputAbout").summernote({height:250, callbacks : {
+                onImageUpload: function(files, editor, welEditable) {
+                  makeFileRequestSummerNote('/api/upload/image', editor, files, 'inputAbout').then((result) => {
+                    console.log(result)
+                  }, (error) => {
+                    console.error(error)
+                  })
+                }
+              }})
+
+              dataMoreAbout = result.data.more_about
+              loadMoreAbout()
+
+              dataMoreInfo = result.data.more_info
+              loadMoreInfo()
+
+              $('#inputArticle').val(result.data.article)
+              $("#inputArticle").summernote({height:250, callbacks : {
+                onImageUpload: function(files, editor, welEditable) {
+                  makeFileRequestSummerNote('/api/upload/image', editor, files, 'inputArticle').then((result) => {
+                    console.log(result)
+                  }, (error) => {
+                    console.error(error)
+                  })
+                }
+              }})
+
+              dataDivingDetails = result.data.diving_detail
+              loadDivingDetails()
+
+              dataCreature = result.data.creatures
+
+              callApiDestination(result.data.destination_id)
+              callApiCreature()
+            } else {
+              alert("Failed to get data");
+              console.log(result);
+              //Ladda.create($(`#loginButton`)[0]).stop();
+            }
+          },
+          error(xhr, status, error) {
+            alert("Failed to get data");
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function add(){
+        dataCreature = []
+        for(var j = 1; j < 13; j++){
+          var arrCreature = [];
+          for(var i = 0; i < listCreature.length; i++){
+            if($(`#idj${j}i${i}`)[0].checked){
+              arrCreature.push(listCreature[i].id)
+            }
+          }
+          dataCreature.push({month : dataMonth[j-1], data: arrCreature})
+        }
+        if(isValid()){
+            callApiAdd()
+        }else{
+            alert("Form is not valid")
+        }
+      }
+
+      function isValid(){
+          if(
+              $('#inputDestination').val().length <= 0
+              || $('#inputName').val().length <= 0
+              || $('#inputTagline').val().length <= 0
+              || $('#inputIntroduction').val().length <= 0
+              || $('#inputDescription').val().length <= 0
+              || dataHighlight.length <= 0
+              || dataBackgroundImage.length <= 0
+              || dataShowingImage.length <= 0
+              || dataGaleryImage.length <= 0
+              || $('#inputAbout').val().length <= 0
+              || dataMoreAbout.length <= 0
+              || dataMoreInfo.length <= 0
+              || $('#inputArticle').val().length <= 0
+              || dataDivingDetails.length <= 0
+          ) return false
+          return true
+      }
+
+      function callApiDestination(destinationId){
+        $.ajax({
+          url: `/api/destination`,
+          method: `GET`,
+          success: function(result) {
+            if(result.success){
+              for(var i = 0; i < result.data.length; i++){
+                if(destinationId == result.data[i].id){
+                  $("#inputDestination").append(`
+                    <option value="${result.data[i].id}" selected>${result.data[i].name}</option>
+                  `);
+                }else{
+                  $("#inputDestination").append(`
+                    <option value="${result.data[i].id}">${result.data[i].name}</option>
+                  `);
+                }
+                
+              }
+            }
+          },
+          error(xhr, status, error) {
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function callApiCreature(){
+        $.ajax({
+          url: `/api/creature`,
+          method: `GET`,
+          success: function(result) {
+            if(result.success){
+              listCreature = result.data;
+              for(var j = 1; j < 13; j++){
+                $(`#${j}`).append(`${dataMonth[j-1]} &nbsp; :`)
+                for (var i = 0; i < result.data.length; i++) {
+                  if(dataCreature[j-1].hasOwnProperty('data')){
+                    if(dataCreature[j-1].data.includes(result.data[i].id)){
+                      $(`#${j}`).append(`
+                        &nbsp;&nbsp;<input type="checkbox" id="idj${j}i${i}" value="${result.data[i].id}" checked>&nbsp;${result.data[i].name}</input>
+                      `)
+                    }else{
+                      $(`#${j}`).append(`
+                        &nbsp;&nbsp;<input type="checkbox" id="idj${j}i${i}" value="${result.data[i].id}">&nbsp;${result.data[i].name}</input>
+                      `)
+                    }
+                  }else{
+                    $(`#${j}`).append(`
+                      &nbsp;&nbsp;<input type="checkbox" id="idj${j}i${i}" value="${result.data[i].id}">&nbsp;${result.data[i].name}</input>
+                    `)
+                  }
+                }
+              }   
+            }
+          },
+          error(xhr, status, error) {
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function callApiAdd(){
+        // $(`#loading`).show();
+        // $(`#loginButton`)
+        //   .removeClass(`btn-primary`)
+        //   .addClass(`btn-disabled disabled`);
+        var data = {
+          destination_id : $('#inputDestination').val(),
+          name : $('#inputName').val(),
+          tag_line : $('#inputTagline').val(),
+          introduction : $('#inputIntroduction').val(),
+          description : $('#inputDescription').val(),
+          highlight : dataHighlight,
+          image_background : dataBackgroundImage,
+          image_showing : dataShowingImage,
+          image_galery : dataGaleryImage,
+          about : $('#inputAbout').val(),
+          more_about : dataMoreAbout,
+          more_info : dataMoreInfo,
+          article : $('#inputArticle').val(),
+          diving_detail : dataDivingDetails,
+          creatures : dataCreature
+        }
+
+        $.ajax({
+          url: `/api/sub-destination/${id}`,
+          method: `PUT`,
+          data: data,
+          success: function(result) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            if (result.success) {
+              alert("Success")
+              location.href = "/sub-destination";
+            } else {
+              console.log(result);
+              //Ladda.create($(`#loginButton`)[0]).stop();
+            }
+          },
+          error(xhr, status, error) {
+            // $(`#loading`).hide();
+            // $(`#loginButton`)
+            //   .removeClass(`btn-disabled disabled`)
+            //   .addClass(`btn-primary`);
+            console.log(xhr.responseJSON);
+          }
+        });
+      }
+
+      function loadHightlight(){
+        $(`.data-highlight`).remove()
+        for(var i = 0; i < dataHighlight.length; i++){
+          $(`#listHighlight`).append(`
+            <p id="${dataHighlight[i].id}" class="data-highlight">${i+1}. ${dataHighlight[i].text} - <a href="javascript:void(0)" onClick="deleteHighlight('${dataHighlight[i].id}');">delete</a></p>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteHighlight(id){
+        dataHighlight = dataHighlight.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadHightlight()
+      }
+
+      function loadMoreAbout(){
+        $(`.data-moreabout`).remove()
+        for(var i = 0; i < dataMoreAbout.length; i++){
+          $(`#listMoreAbout`).append(`
+            <p id="${dataMoreAbout[i].id}" class="data-moreabout">${i+1}. ${dataMoreAbout[i].key} : ${dataMoreAbout[i].value} - <a href="javascript:void(0)" onClick="deleteMoreAbout('${dataMoreAbout[i].id}');">delete</a></p>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteMoreAbout(id){
+        dataMoreAbout = dataMoreAbout.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadMoreAbout()
+      }
+
+      function loadMoreInfo(){
+        $(`.data-moreinfo`).remove()
+        for(var i = 0; i < dataMoreInfo.length; i++){
+          $(`#listMoreInfo`).append(`
+            <p id="${dataMoreInfo[i].id}" class="data-moreinfo">${i+1}. ${dataMoreInfo[i].title} - <a href="javascript:void(0)" onClick="deleteMoreInfo('${dataMoreInfo[i].id}');">delete</a></p>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteMoreInfo(id){
+        dataMoreInfo = dataMoreInfo.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadMoreInfo()
+      }
+
+      function loadDivingDetails(){
+        $(`.data-divingdetails`).remove()
+        for(var i = 0; i < dataDivingDetails.length; i++){
+          $(`#listDivingDetails`).append(`
+            <p id="${dataDivingDetails[i].id}" class="data-divingdetails">${i+1}. ${dataDivingDetails[i].key} : ${dataDivingDetails[i].value} - <a href="javascript:void(0)" onClick="deleteDivingDetails('${dataDivingDetails[i].id}');">delete</a></p>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteDivingDetails(id){
+        dataDivingDetails = dataDivingDetails.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadDivingDetails()
+      }
+
+      function makeFileRequestBackground(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 10200000){
+            alert("Size must be less than 10MB")
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      var response = JSON.parse(xhr.response)
+                      var newImage = {};
+                      newImage.id = "img-"+new Date().getTime().toString()
+                      newImage.url = response.data.location
+                      newImage.path = response.data.key
+                      newImage.baseUrl = response.data.baseUrl
+                      dataBackgroundImage.push(newImage)
+                      loadDataBackgroundImage()
+                    }else {
+                      console.log(xhr.response)
+                      alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function progressHandlerBackground(event) {
+        var percent = (event.loaded / event.total) * 100
+        $("#progressBackground").val(Math.round(percent))
+        if(percent == 100){
+            $("#statusBackground").text("Upload Success")
+        }else{
+            $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        }
+      }
+
+      function completeHandlerBackground(event) {
+        $("#progressBackground").val(0) //wil clear progress bar after successful upload
+      }
+
+      function errorHandlerBackground(event) {
+        $("#statusBackground").text("Upload Failed")
+      }
+
+      function abortHandlerBackground(event) {
+        $("#statusBackground").text("Upload Aborted")
+      }
+
+      function loadDataBackgroundImage(){
+        $(`.data-add-background`).remove()
+        for(var i = 0; i < dataBackgroundImage.length; i++){
+          $(`#dataBackgroundImage`).prepend(`
+            <div class="data-add-background" id="${dataBackgroundImage[i].id}" style="background-image: url('${dataBackgroundImage[i].url}');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+              <button onClick="deleteBackgroundImage('${dataBackgroundImage[i].id}');" style="float:right;">x</button>
+            </div>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteBackgroundImage(id){
+        dataBackgroundImage = dataBackgroundImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        $(`#${id}`).remove()
+      }
+
+      function makeFileRequestShowing(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 10200000){
+            alert("Size must be less than 10MB")
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      var response = JSON.parse(xhr.response)
+                      var newImage = {};
+                      newImage.id = "img-"+new Date().getTime().toString()
+                      newImage.url = response.data.location
+                      newImage.path = response.data.key
+                      newImage.baseUrl = response.data.baseUrl
+                      dataShowingImage.push(newImage)
+                      loadDataShowingImage()
+                    }else {
+                      console.log(xhr.response)
+                      alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerShowing, false);
+            xhr.addEventListener("load", completeHandlerShowing, false);
+            xhr.addEventListener("error", errorHandlerShowing, false);
+            xhr.addEventListener("abort", abortHandlerShowing, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function progressHandlerShowing(event) {
+        var percent = (event.loaded / event.total) * 100
+        $("#progressShowing").val(Math.round(percent))
+        if(percent == 100){
+            $("#statusShowing").text("Upload Success")
+        }else{
+            $("#statusShowing").text(Math.round(percent) + "% uploaded... please wait")
+        }
+      }
+
+      function completeHandlerShowing(event) {
+        $("#progressShowing").val(0) //wil clear progress bar after successful upload
+      }
+
+      function errorHandlerShowing(event) {
+        $("#statusShowing").text("Upload Failed")
+      }
+
+      function abortHandlerShowing(event) {
+        $("#statusShowing").text("Upload Aborted")
+      }
+
+      function loadDataShowingImage(){
+        $(`.data-add-showing`).remove()
+        for(var i = 0; i < dataShowingImage.length; i++){
+          $(`#dataShowingImage`).prepend(`
+            <div class="data-add-showing" id="${dataShowingImage[i].id}" style="background-image: url('${dataShowingImage[i].url}');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+              <button onClick="deleteShowingImage('${dataShowingImage[i].id}');" style="float:right;">x</button>
+            </div>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteShowingImage(id){
+        dataShowingImage = dataShowingImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        $(`#${id}`).remove()
+      }
+
+      function makeFileRequestGalery(url, params, files){
+        return new Promise((resolve, reject) => {
+
+          var formData = new FormData()
+          var xhr = new XMLHttpRequest()
+
+          if(files[0].size > 10200000){
+            alert("Size must be less than 10MB")
+          }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                      var response = JSON.parse(xhr.response)
+                      var newImage = {};
+                      newImage.id = "img-"+new Date().getTime().toString()
+                      newImage.url = response.data.location
+                      newImage.path = response.data.key
+                      newImage.baseUrl = response.data.baseUrl
+                      dataGaleryImage.push(newImage)
+                      loadDataGaleryImage()
+                    }else {
+                      console.log(xhr.response)
+                      alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerGalery, false);
+            xhr.addEventListener("load", completeHandlerGalery, false);
+            xhr.addEventListener("error", errorHandlerGalery, false);
+            xhr.addEventListener("abort", abortHandlerGalery, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+          }
+        })
+      }
+
+      function progressHandlerGalery(event) {
+        var percent = (event.loaded / event.total) * 100
+        $("#progressGalery").val(Math.round(percent))
+        if(percent == 100){
+            $("#statusGalery").text("Upload Success")
+        }else{
+            $("#statusGalery").text(Math.round(percent) + "% uploaded... please wait")
+        }
+      }
+
+      function completeHandlerGalery(event) {
+        $("#progressGalery").val(0) //wil clear progress bar after successful upload
+      }
+
+      function errorHandlerGalery(event) {
+        $("#statusGalery").text("Upload Failed")
+      }
+
+      function abortHandlerGalery(event) {
+        $("#statusGalery").text("Upload Aborted")
+      }
+
+      function loadDataGaleryImage(){
+        $(`.data-add-galery`).remove()
+        for(var i = 0; i < dataGaleryImage.length; i++){
+          $(`#dataGaleryImage`).prepend(`
+            <div class="data-add-galery" id="${dataGaleryImage[i].id}" style="background-image: url('${dataGaleryImage[i].url}');background-size:contain;height:100px;width:100px;margin-left:10px;margin-top:10px;">
+              <button onClick="deleteGaleryImage('${dataGaleryImage[i].id}');" style="float:right;">x</button>
+            </div>
+          `).fadeIn('slow')
+        }
+      }
+
+      function deleteGaleryImage(id){
+        dataGaleryImage = dataGaleryImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        $(`#${id}`).remove()
+      }
+
+      function makeFileRequestSummerNote(url, editor, files, id){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 3200000){
+              alert("Size must be less than 3MB")
+            }else{
+              formData.append("upload", files[0], files[0].name)
+
+              xhr.onreadystatechange = function() {
+                  if(xhr.readyState == 4){
+                      if(xhr.status == 200){
+                        var response = JSON.parse(xhr.response)
+                        $(`#${id}`).summernote("insertImage", response.data.location)
+                      }else {
+                        console.log(xhr.response)
+                        alert("Upload file gagal")
+                      }
+                  }
+              }
+
+              xhr.open("POST", url, true)
+
+              xhr.send(formData)
+            }
+        })
+      }
+    </script>
+  </body>
+</html>

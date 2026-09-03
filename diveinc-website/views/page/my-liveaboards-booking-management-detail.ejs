@@ -1,0 +1,366 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+    
+    <!-- Modal Guest Detail -->
+    <div class="modal" id="modalGuestDetail" tabindex="-1" role="dialog"aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-body" id="modalGuestDetailBody">
+                    <div class="d-block mb-3">
+                        <h5 class="flex-shrink-0">Guest Detail</h5>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <div>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="section bg-lighter">
+        <div class="header-spacer"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <div class="card shadow-sm border-0 rounded-0 card-account">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <a href="#" id="booking-back" class="btn btn-outline-primary btn-sm mr-2"> <i class="fas fa-arrow-left"></i> </a>
+                            <h5 class="m-0 mr-2">Booking List</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6 class="d-inline-block p-2 bg-light font-lg font-weight-normal mb-3 border">Booking ID: <span class="font-weight-bold" id="booking-id">AA141007</span></h6>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="layoutRoom" class="d-block mb-4 p-3 border">
+                                    <h6 class="m-0 mb-3">Room Check In Dates</h6>
+                                    <div class="departure-information" id="check-in-dates">
+                                        
+                                    </div>
+                                </div>
+                                <div id="layoutPackage" class="d-block mb-4 p-3 border">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-summary">
+                                    <div class="checkout-summary--list">
+                                        <ul class="list-group list-group-flush">
+                                        <div id="listDataRoom">
+                                            <!-- <li class="list-group-item">
+                                                <div class="list-person">
+                                                    <div class="list-person--title">
+                                                        <div>Twin Bungalow [Room 1]</div>
+                                                        <div>$255</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>$120 x2</div>
+                                                        <div>$240</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Extra Bed $4 x2</div>
+                                                        <div>$8</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Internet 20GB $9 x1</div>
+                                                        <div>$9</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x2</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="list-person">
+                                                    <div class="list-person--title">
+                                                        <div>Twin Bungalow [Room 2]</div>
+                                                        <div>$240</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>$120 x2</div>
+                                                        <div>$240</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x1</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="list-person">
+                                                    <div class="list-person--title">
+                                                        <div>Komodo Weekender</div>
+                                                        <div>$2319</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="far fa-user fa-sm fas-fix mr-1"></i>$770 x3</div>
+                                                        <div>$2310</div>
+                                                    </div>
+                                                    <div class="list-person--item text-muted">
+                                                        <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Internet 20GB $9 x1</div>
+                                                        <div>$9</div>
+                                                    </div>
+                                                </div>
+                                            </li> -->
+                                        </ul>
+                                        <div class="list-total">
+                                            <div class="list-total-item">
+                                                <div>Total</div>
+                                                <div id="totalSummary"></div>
+                                            </div>
+                                            <div class="list-total-item">
+                                                <div>VAT 10%</div>
+                                                <div id="taskTotal"></div>
+                                            </div>
+                                            <div class="list-total-item">
+                                                <div>Total Price</div>
+                                                <div id="totalPrice"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-block p-3">
+                                            <button type="button" class="btn btn-neutral btn-block" data-toggle="modal" data-target="#modalGuestDetail">Guest Detail</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-md-3">
+                                <div class="d-flex">
+                                    <button class="btnConfirmBooking btn btn-success flex-grow-1 mr-1"><i class="fas fa-check"></i></button>
+                                    <button class="btnDeclineBooking btn btn-danger flex-grow-1"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-spacer"></div>
+    </section>
+    
+    
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script>
+
+    var id="<%= id %>"
+
+    var packageData
+    var rooms;
+    let guestList = '';
+    const monthNamesShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+        "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    
+
+    $(document).ready(function(){
+        loadTransactionById()
+    });
+
+    function dateFormatF(tanggal){
+        if(tanggal != ''){
+            let tgl = tanggal.split('-').reverse();
+            return tgl[0]+' '+monthNamesShort[tgl[1]-1]+' '+tgl[2];
+        }else{
+            return tanggal;
+        }
+    }
+
+    function loadTransactionById(){
+        $.ajax({
+            url: `/api/transaction-liveaboard/${id}`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    // console.log(result.data);
+                    $("#booking-back").attr('href',`/my-liveaboards-booking-management?id=${result.data.liveaboard_id}`);
+                    packageData = result.data.package_data
+                    // console.log(packageData);
+
+                    $("#booking-id").html(result.data.transaction_code);
+                    
+                    for(var i = 0; i < packageData.room.length; i++){
+
+                        var roomItem = packageData.room[i].roomItem
+
+                        for(var x = 0; x < roomItem.length; x++){
+
+                            var htmtGuestRoom = ""
+                            var nameRoom = "";
+                            let guestData='';
+                            
+                            for(var j = 0; j < packageData.room[i].roomItem.length; j++){
+                                $('#listDataRoom').append(`
+                                    <li id="${packageData.room[i].id}" class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>${packageData.room[i].roomName} [Room ${j+1}]</div>
+                                                <div>IDR <span id="summaryTotal${packageData.room[i].roomItem[j].id}">${formatRupiah(packageData.room[i].roomPrice)}</span></div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>IDR ${formatRupiah(packageData.room[i].roomPrice)}x<span id="night${packageData.room[i].roomItem[j].id}">0</span></div>
+                                                <div>IDR <span id="total${packageData.room[i].roomItem[j].id}">0</span></div>
+                                            </div>
+                                            <div class="all-extra" id="extra${packageData.room[i].roomItem[j].id}"></div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x${packageData.room[i].roomItem[j].guest}</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                `)
+                            
+                                guestList = packageData.room[i].roomItem[j].detail_guest;
+                                for (let g_idx = 0; g_idx < guestList.length; g_idx++) {
+                                    guestData += `<div class="d-block mt-1">
+                                            <div class="text-muted text-sm">Guest ${g_idx+1}</div>
+                                            <div>${guestList[i].title}${guestList[i].first_name} ${guestList[i].last_name} - ${guestList[i].nationality}</div>
+                                        </div>`;
+                                }
+                            }
+                            
+                            $('#modalGuestDetailBody').append(`
+                                <div class="d-block p-3 border mb-3">
+                                    <div class="font-weight-bolder d-block">${packageData.room[i].roomName} [Room 1]</div>
+                                    ${guestData}
+                                </div>
+                            `);
+                        }
+                       
+                    }
+
+                    guestData = '';
+                    for (let i = 0; i < packageData.package.length; i++) {
+
+                        $('#listDataRoom').append(`
+                                    <li id="${packageData.package[i].id}" class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>${packageData.package[i].packageName} [Package ${i+1}]</div>
+                                                <div>IDR <span id="summaryTotal${packageData.package[i].id}"></span></div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x${packageData.package[i].guest}</div>
+                                            </div>
+                                            <div class="all-extra" id="service${packageData.package[i].id}"></div>
+                                        </div>
+                                    </li>
+                                `)
+                            
+
+                        $("#layoutPackage").append(`<h6 class="m-0 mb-3">${packageData.package[i].packageName}</h6>
+                            <div class="departure-information">
+                                <div class="departure-information--item">
+                                    <h4>Start Trip</h4>
+                                    <ul>
+                                        <li><i class="far fa-calendar mr-2 fas-fix text-muted"></i>${dateFormatF(packageData.package[i].package_date)}</li>
+                                    </ul>
+                                </div>
+                            </div>`);
+
+                            guestList = packageData.package[i].detail_guest;
+                            for (let g_idx = 0; g_idx < guestList.length; g_idx++) {
+                                guestData += `<div class="d-block mt-1">
+                                    <div class="text-muted text-sm">Guest ${g_idx+1}</div>
+                                    <div>${guestList[i].title}${guestList[i].first_name} ${guestList[i].last_name} - ${guestList[i].nationality}</div>
+                                </div>`;
+                            }
+                            
+                            $('#modalGuestDetailBody').append(`<div class="d-block p-3 border mb-3">
+                                <div class="font-weight-bolder d-block">${packageData.package[i].packageName}</div>
+                                ${guestData}
+                            </div>`);
+                    }
+
+                    loadItem()
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function loadItem(){
+        $('.all-extra').empty()
+
+        var totalPrice = 0
+
+        if(packageData.room){
+
+            var night = (new Date(packageData.room_date.to) - new Date(packageData.room_date.from)) / (1000 * 3600 * 24)
+
+            for(var i = 0; i < packageData.room.length; i++){
+                var totalSummary = 0
+                for(var j = 0; j < packageData.room[i].roomItem.length; j++){
+
+                    $(`#night${packageData.room[i].roomItem[j].id}`).text(night)
+                    var summaryPrice = parseFloat(night) * parseFloat(packageData.room[i].roomPrice)
+                    $(`#total${packageData.room[i].roomItem[j].id}`).text(summaryPrice)
+                    totalSummary += summaryPrice
+
+                    for(var x = 0; x < packageData.room[i].roomItem[j].service.length; x++){
+                        if(packageData.room[i].roomItem[j].service[x].qty > 0){
+                            $(`#extra${packageData.room[i].roomItem[j].id}`).append(`
+                                <div class="list-person--item text-muted">
+                                    <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${packageData.room[i].roomItem[j].service[x].name} IDR${packageData.room[i].roomItem[j].service[x].price} x${packageData.room[i].roomItem[j].service[x].qty}</div>
+                                    <div>IDR ${formatRupiah(parseFloat(packageData.room[i].roomItem[j].service[x].price) * parseFloat(packageData.room[i].roomItem[j].service[x].qty))}</div>
+                                </div>
+                            `)
+
+                            totalSummary += (parseFloat(packageData.room[i].roomItem[j].service[x].price) * parseFloat(packageData.room[i].roomItem[j].service[x].qty))
+                            $(`#summaryTotal${packageData.room[i].roomItem[j].id}`).text(formatRupiah(totalSummary)) 
+                        }
+                    }
+
+
+                }
+
+                totalPrice += totalSummary
+            }
+        }
+
+        if(packageData.package){
+
+            for(var i = 0; i < packageData.package.length; i++){
+                var totalSummary = 0
+                
+                for(var x = 0; x < packageData.package[i].service.length; x++){
+                    if(packageData.package[i].service[x].qty > 0){
+                        $(`#service${packageData.package[i].id}`).append(`
+                            <div class="list-person--item text-muted">
+                                <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${packageData.package[i].service[x].name} IDR${formatRupiah(packageData.package[i].service[x].price)} x${packageData.package[i].service[x].qty}</div>
+                                <div>IDR ${formatRupiah(parseFloat(packageData.package[i].service[x].price) * parseFloat(packageData.package[i].service[x].qty))}</div>
+                            </div>
+                        `)
+
+                        totalSummary += (parseFloat(packageData.package[i].service[x].price) * parseFloat(packageData.package[i].service[x].qty))
+                    }
+                }
+                $(`#summaryTotal${packageData.package[i].id}`).text(totalSummary) 
+
+
+                    $(`#total${packageData.package[i].id}`).text(formatRupiah(summaryPrice))
+                    totalSummary += summaryPrice
+
+                    
+
+                
+                totalPrice += totalSummary
+            }
+        }
+        
+        $('#totalSummary').text(`IDR ${formatRupiah(totalPrice)}`)
+        var task = totalPrice / 10
+        $('#taskTotal').text(`IDR ${formatRupiah(task)}`)
+        $('#totalPrice').text(`IDR ${formatRupiah(totalPrice + task)}`)
+    }
+</script>

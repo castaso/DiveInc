@@ -1,0 +1,732 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<style>
+    .passwordNotification{
+        font-size: 12px;
+        font-style: italic;
+        color: red;
+    }
+
+    .passwordViewIcon{
+        position: absolute;
+        top: 7px;
+        right: 30px;
+        cursor: pointer;
+        color: #666;
+        font-size: 16px;
+    }
+
+</style>
+<!-- Modal Cabin Details -->
+<div class="modal" id="modalChangePassword" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body" id="modalChangePasswordBody">
+                <div class='row'>
+                    <div class="col-lg-12">
+                        <div class="card rounded-0 mb-3">
+                            <div class="card-body p-3">
+                                <div class="d-flex">
+                                    <div class="w-25 border-right mr-3">
+                                        <h6 class="d-block mb-4">Change Password</h6>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="form-row mb-3">
+                                            <label for="old_password" class="col-sm-3 col-form-label">Old Password</label>
+                                            <div class="col-sm-9" style="position: relative;">
+                                                <input id="oldPassword" type="password" class="form-control rounded-0 mb-1" name="old_password" placeholder="Old Password" required>
+                                                <span class='passwordViewIcon' id="oldPasswordIcon" onmousedown="typeText('oldPassword')" onmouseup="typePassword('oldPassword')"><i class="fas fa-eye-slash"></i></span>
+                                                <small id='oldPasswordNotification' class='passwordNotification'></small>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mb-3">
+                                            <label for="new_password" class="col-sm-3 col-form-label">New Password</label>
+                                            <div class="col-sm-9" style="position: relative;">
+                                                <input id="password" type="password" class="form-control rounded-0 text-capitalize" name="new_password" placeholder="New password" required>
+                                                <span class='passwordViewIcon' id="passwordIcon" onmousedown="typeText('password')" onmouseup="typePassword('password')"><i class="fas fa-eye-slash"></i></span>
+                                                <small id='passwordNotification' class='passwordNotification'></small>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <label for="confirm_new_password" class="col-sm-3 col-form-label">Confirm New Password</label>
+                                            <div class="col-sm-9" style="position: relative;">
+                                                <input id="rePassword" type="password" class="form-control rounded-0" name="confirm_new_password" placeholder="Confirm new password">
+                                                <span class='passwordViewIcon' id="rePasswordIcon" onmousedown="typeText('rePassword')" onmouseup="typePassword('rePassword')"><i class="fas fa-eye-slash"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-primary mr-2" onclick="changePassword()" >Save Changes</a>
+                    <button type="button" class="btn btn-neutral" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="header-spacer"></div>
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <%-include ../partial/sidebar-nav--toggle %>
+        <div class="row">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <%-include ../partial/sidebar-nav %>
+            <div class="col-lg-9">
+                <!-- <ul class="progress-step-wrapper list-unstyled pt-0 shift-left on-bg-lighter">
+                    <li>
+                        <a href="/" class="btn btn-white btn-sm">Homepage</a>
+                    </li>
+                    <li class="active">
+                        <a href="/my-account" class="btn btn-white btn-sm">My Account</a>
+                    </li>
+                </ul> -->
+                <!-- Account Details -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">My Account</h5>
+                            </div>
+                        </div>
+                        <div class="d-block card rounded-0 mb-3">
+                            <div class="card-body p-3">
+                                <div class="d-flex card-column-1">
+                                    <div class="w-25 border-right mr-3">
+                                        <h6 class="d-block mb-4">Details</h6>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="form-row mb-3">
+                                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-9">
+                                                <input id="inputEmail" type="email" class="my-info form-control rounded-0 mb-1" name="email" placeholder="Email Address" readonly required>
+                                                <!-- <a href="#">Change email</a> -->
+                                            </div>
+                                        </div>
+                                        <div class="form-row mb-3">
+                                            <label for="first_name" class="col-sm-3 col-form-label">First Name</label>
+                                            <div class="col-sm-9">
+                                                <input id="inputFirstName" type="text" class="my-info form-control rounded-0 text-capitalize" name="first_name" placeholder="First name" readonly required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mb-3">
+                                            <label for="last_name" class="col-sm-3 col-form-label">Last Name</label>
+                                            <div class="col-sm-9">
+                                                <input id="inputLastName" type="text" class="my-info form-control rounded-0 text-capitalize" name="last_name" placeholder="Last name" readonly required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <label for="phone_number" class="col-sm-3 col-form-label">Phone (optional)</label>
+                                            <div class="col-sm-9">
+                                                <input readonly id="inputPhone" class="my-info form-control rounded-0" name="phone_number" placeholder="(+62) 1234 5678 90">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card rounded-0 d-none">
+                            <div class="card-body p-3">
+                                <div class="d-flex card-column-1">
+                                    <div class="w-25 border-right mr-3">
+                                        <h6 class="d-block mb-4">Preferred Language & Currency</h6>
+                                    </div>
+                                    <div class="flex-grow-1 ">
+                                        <div class="form-row mb-3">
+                                            <label for="resort_name" class="col-sm-3 col-form-label">Language</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control rounded-0">
+                                                    <option>English</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <label for="resort_name" class="col-sm-3 col-form-label">Currency</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control rounded-0">
+                                                    <option>IDR</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="button" class="btn mr-2 btn-primary" onclick="editInfo()">Edit</button>
+                        <a href="#" onClick="saveProfile()" class=" btn btn-outline-primary " aria-disabled="true">Save Changes</a>
+                    </div>
+                </div>
+
+                <!-- Wallet -->
+                <div class="d-none card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Wallet</h5>
+                            </div>
+                            <a href="#" onClick="saveBankInfo()" class="btn btn-outline-primary" aria-disabled="true">Save Info</a>
+                        </div>
+                        <div class="card rounded-0 mb-3">
+                            <div class="card-body p-3">
+                                <div class="d-flex card-column-1">
+                                    <div class="w-25 border-right mr-3">
+                                        <h6 class="d-block mb-4">Wallet</h6>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="form-row mb-3">
+                                            <label for="email" class="col-sm-3 col-form-label">Ballance</label>
+                                            <div class="col-sm-9">
+                                                <input id="inputBalance" type="number" class="form-control rounded-0 mb-1" name="balance" readonly required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mb-3">
+                                            <label for="resort_name" class="col-sm-3 col-form-label">Bank</label>
+                                            <div class="col-sm-9">
+                                                <input id="inputBank" type="text" class="form-control rounded-0 text-capitalize" name="bank" placeholder="Bank Name" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mb-3">
+                                            <label for="resort_name" class="col-sm-3 col-form-label">Account Number</label>
+                                            <div class="col-sm-9">
+                                                <input id="inputAccountNumber" type="text" class="form-control rounded-0 text-capitalize" name="account_number" placeholder="Account Number" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mb-3">
+                                            <label for="resort_name" class="col-sm-3 col-form-label">Account Name</label>
+                                            <div class="col-sm-9">
+                                                <input id="inputAccountName" type="text" class="form-control rounded-0 text-capitalize" name="account_name" placeholder="Account Name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card rounded-0">
+                            <div class="card-body p-3">
+                                <div class="d-flex card-column-1">
+                                    <div class="w-25 border-right mr-3">
+                                        <h6 class="d-block mb-4">Withdrawl</h6>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="form-row mb-3">
+                                            <label for="resort_name" class="col-sm-3 col-form-label">Total Withdrawl</label>
+                                            <div class="col-sm-9">
+                                                <input id="inputTotal" type="number" class="form-control rounded-0 text-capitalize" name="withdrawl" placeholder="Total" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <a href="#" onClick="withdrawl()" class="btn btn-outline-primary" aria-disabled="true">Save Info</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wallet -->
+                <div id="listWallet"></div>
+
+                <!-- Account Security -->
+                <div class="card shadow-sm border-0 rounded-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Security</h5>
+                            </div>
+                        </div>
+                        <div class="card rounded-0 mb-3">
+                            <div class="card-body p-3">
+                                <div class="d-flex card-column-1">
+                                    <div class="w-25 border-right mr-3">
+                                        <h6 class="d-block mb-4">Password</h6>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-block mb-2">
+                                            You have never change your password
+                                        </div>
+                                        <a href="#modalChangePassword" class="btn btn-neutral"  data-toggle="modal" >Change your password</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card rounded-0 mb-3">
+                            <div class="card-body p-3">
+                                <div class="d-flex">
+                                    <div class="w-25 border-right mr-3 pr-3">
+                                        <h6 class="d-block mb-2">Recovery Email</h6>
+                                        <p class="m-0 text-sm text-muted">An account recovery email can be used to restore access to your account. Security notifications are also sent to this email.</p>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-block mb-2">
+                                            You do not have an account recovery email.
+                                        </div>
+                                        <a href="#" class="btn btn-neutral">Add recovery email</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="overlay-checkout" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+<script>
+
+    var dataBalance;
+    let walletList = {};
+    var isEdit = false;
+
+    $(document).ready(function() {
+        loadProfile()
+    });
+
+    function loadProfile() {
+        $.ajax({
+            url: `/api/my-profile`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    $('#inputEmail').val(result.data.profile.contact.email)
+                    $('#inputFirstName').val(result.data.profile.name.first_name)
+                    $('#inputLastName').val(result.data.profile.name.last_name)
+                    $('#inputPhone').val(result.data.profile.contact.phone)
+
+                    $('#inputBalance').val(result.data.profile.wallet.balance)
+                    $('#inputBank').val(result.data.profile.wallet.bank_name)
+                    $('#inputAccountNumber').val(result.data.profile.wallet.account_number)
+                    $('#inputAccountName').val(result.data.profile.wallet.account_name)
+
+                    dataBalance = result.data.profile.wallet
+                    let dataPermission = result.data.profile.permission;
+                    for (let w_idx = 0; w_idx < dataPermission.length; w_idx++) {
+                        let dataUser = dataPermission[w_idx].data.user;
+                        
+                        if( dataPermission[w_idx].creator_status_id == '59cfbb65-e7cf-4d25-aae1-b439efa62188'  ){
+                            $("#listWallet").append(`<div class="card shadow-sm border-0 rounded-0 mb-3">
+                                <div class="card-body" >
+                                    <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-4">
+                                        <div class="d-flex align-items-center">
+                                            <h5 class="m-0 mr-2">Wallet ${typeof dataPermission[w_idx].type !== "undefined" ? dataPermission[w_idx].type : "" }</h5>
+                                        </div>
+                                    </div>
+                                    <div class="card rounded-0 mb-3">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex card-column-1">
+                                                <div class="w-25 border-right mr-3">
+                                                    <h6 class="d-block mb-4">Profile</h6>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <div class="form-row mb-3">
+                                                        <label for="name" class="col-sm-3 col-form-label">Name</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="name-${dataPermission[w_idx].creator_type_id}" type="text" class="form-control rounded-0 text-capitalize" name="name" readonly value="${typeof dataUser !== "undefined" && typeof dataUser.name != "undefined" ? dataUser.name : ""}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-3">
+                                                        <label for="phone_number" class="col-sm-3 col-form-label">Phone</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="name-${dataPermission[w_idx].creator_type_id}" type="text" class="form-control rounded-0 text-capitalize" name="phone_number" readonly value="${typeof dataUser !== "undefined" && typeof dataUser.phone_number != "undefined" ? dataUser.phone_number : ""}" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card rounded-0 mb-3">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex card-column-1">
+                                                <div class="w-25 border-right mr-3">
+                                                    <h6 class="d-block mb-4">Wallet</h6>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <div class="form-row mb-3">
+                                                        <label for="balance" class="col-sm-3 col-form-label">Balance</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="inputBalance-${dataPermission[w_idx].creator_type_id}" type="number" class="form-control rounded-0 mb-1" name="balance" readonly value="${typeof dataUser !== "undefined" && typeof dataUser.balance !== "undefined" ? dataUser.balance : 0 }" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-3">
+                                                        <label for="bank" class="col-sm-3 col-form-label">Bank</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="inputBank-${dataPermission[w_idx].creator_type_id}" type="text" class="form-control rounded-0 text-capitalize" name="bank" readonly value="${typeof dataUser !== "undefined" && typeof dataUser.bank_account_name != "undefined" ? dataUser.bank_name : '' }" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-3">
+                                                        <label for="account_number" class="col-sm-3 col-form-label">Account Number</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="inputAccountNumber-${dataPermission[w_idx].creator_type_id}" type="text" class="form-control rounded-0 text-capitalize" name="account_number" readonly value="${typeof dataUser !== "undefined" && typeof dataUser.bank_account_number != "undefined" ? dataUser.bank_account_number : ''}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-3">
+                                                        <label for="account_name" class="col-sm-3 col-form-label">Account Name</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="inputAccountName-${dataPermission[w_idx].creator_type_id}" type="text" class="form-control rounded-0 text-capitalize" name="account_name" readonly value="${typeof dataUser !== "undefined" && typeof dataUser.bank_account_name != "undefined" ? dataUser.bank_account_name : ""}" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card rounded-0">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex card-column-1">
+                                                <div class="w-25 border-right mr-3">
+                                                    <h6 class="d-block mb-4">Withdrawl</h6>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <div class="form-row mb-3">
+                                                        <label for="resort_name" class="col-sm-3 col-form-label">Total Withdrawl</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="totalWithdrawl-${dataPermission[w_idx].creator_type_id}" type="number" class="form-control rounded-0 text-capitalize" name="withdrawl" placeholder="Total" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <a href="#" onClick="requestWithdrawl('${dataPermission[w_idx].creator_type_id}')" class="btn btn-outline-primary" aria-disabled="true">Request Withdrawl</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`);
+                        }
+                    }
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function saveProfile(){
+        let tlp = $('#inputPhone').val();
+        if (!phoneFilter(tlp)) {
+            return Swal.fire(
+                'Invalid Phone Format', 'Please use your country codes first'
+            )
+        }
+        $(".my-info").prop('readonly', true)
+
+        if (isEdit) {
+            $.ajax({
+                url: `/api/my-profile/save-info`,
+                method: `POST`,
+                data: {
+                    first_name : $('#inputFirstName').val(),
+                    last_name : $('#inputLastName').val(),
+                    phone : $('#inputPhone').val()
+                },
+                success: function (result) {
+                    if (result.success) {
+                        alert(result.message)
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }else{
+            Swal.fire(
+                'Info',
+                'Please Click Edit First.'
+            )
+        }
+    }
+
+    function saveBankInfo(){
+        $.ajax({
+            url: `/api/my-profile/save-wallet`,
+            method: `POST`,
+            data: {
+                bank_name : $('#inputBank').val(),
+                account_name : $('#inputAccountName').val(),
+                account_number : $('#inputAccountNumber').val()
+            },
+            success: function (result) {
+                if (result.success) {
+                    alert(result.message)
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function withdrawl(){
+        if(checkBalance()){
+            console.log("mantap")
+            $.ajax({
+                url: `/api/withdrawl`,
+                method: `POST`,
+                data: {
+                    type : 'user-withdrawl',
+                    total : $('#inputTotal').val()
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        alert(result.message)
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+    }
+    
+    function requestWithdrawl(creatorTypeId){
+        let valBalance = $(`#inputBalance-${creatorTypeId}`).val();
+        let namaBank = $(`#inputBank-${creatorTypeId}`).val();
+        let accountNumber = $(`#inputAccountNumber-${creatorTypeId}`).val();
+        let accountName = $(`#inputAccountName-${creatorTypeId}`).val();
+        let totalWithdrawl = $(`#totalWithdrawl-${creatorTypeId}`).val();
+        console.log(valBalance, namaBank,accountNumber,accountName,totalWithdrawl);
+        if(checkBalance2(valBalance, totalWithdrawl)){
+            console.log("mantap")
+            Swal.fire({
+                title: "Confirmation",
+                html: `<span style='font-size:1.2em'>You will withdraw <b>${formatRupiah(totalWithdrawl)}</b> from your balance.</span><br/><small>This withdrawal will charge you IDR ${formatRupiah(5500)} fee.</small>`,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((respond) => {
+                if (respond.value) {
+                    if(parseFloat(valBalance) >= parseFloat(totalWithdrawl)){
+                        $("#overlay-checkout").removeClass('d-none');
+                        $.ajax({
+                            url: `/api/withdrawl`,
+                            method: `POST`,
+                            data: {
+                                type : 'user-withdrawl',
+                                creator_type_id : creatorTypeId,
+                                user_data : {
+                                    balance : valBalance,
+                                    bank_name : namaBank,
+                                    bank_account_number : accountNumber,
+                                    bank_account_name : accountName
+                                },
+                                total : totalWithdrawl
+                            },
+                            success: function (result) {
+                                console.log(result)
+                                if (result.success) {
+                                    Swal.fire({
+                                        title: "Request Submitted!",
+                                        text: "Request for your withdrawl has been submitted, please wait 1x24 hours (on weekdays) ",
+                                        confirmButtonText: 'Close'
+                                    }).then(function() {
+                                        window.location.reload();
+                                    });
+                                    // alert(result.message)
+                                } else {
+                                    alert(result.message)
+                                    console.log(result)
+                                }
+                                $("#overlay-checkout").addClass('d-none');
+                            },
+                            error(xhr, status, error) {
+                                if(xhr.responseJSON){
+                                    console.log(xhr.responseJSON)
+                                }
+                                Swal.fire(
+                                    'Failed',
+                                    'Withdrawal failed.'
+                                )
+                                $("#overlay-checkout").addClass('d-none');
+                            }
+                        })
+                    }else{
+                        Swal.fire("Insufficient Balance", "Your balance is insufficient")
+                    }
+                }
+            });
+            
+        }else{
+            Swal.fire("Insufficient Balance", "Your balance is insufficient")
+        }
+    }
+
+    function checkBalance(){
+        if(dataBalance.bank_name == "" || dataBalance.account_name == "" || dataBalance.account_number == ""){
+            alert("Please complete bank information")
+            return false
+        }
+        if(dataBalance.balance < 100000 || parseFloat(dataBalance.balance) < parseFloat($('#inputTotal').val())){
+            alert("You dont have enough balance")
+            return false
+        }
+        return true
+    }
+
+    function checkBalance2(valBalance, totalWithdrawl){
+        console.log(valBalance)
+        console.log(totalWithdrawl)
+        if(parseFloat(valBalance) < 100000 || parseFloat(valBalance) < (parseFloat(totalWithdrawl) + 5500)){
+            return false
+        }
+        return true
+    }
+
+    function typeText(inputId){
+        $(`#${inputId}`).attr('type','text');
+        $(`#${inputId}Icon`).html(`<i class="fas fa-eye"></i>`);
+    }
+    function typePassword(inputId){
+        $(`#${inputId}`).attr('type','password');
+        $(`#${inputId}Icon`).html(`<i class="fas fa-eye-slash"></i>`);
+    }
+
+    function changePassword(){
+        // oldPassword
+        // password
+        // confirmpassword
+
+        // fungsi cek password 
+        if (checkPasswordChar()) {
+            // alert('sukses');
+            let ts = {
+                old_password : $('#oldPassword').val(),
+                password : $('#password').val(),
+                re_password : $('#rePassword').val(),
+            }
+            // console.log(ts)
+            $.ajax({
+                url: `/api/change-password`,
+                method: `PUT`,
+                data : ts,
+                success: function (result) {
+                    if (result.success) {
+                        // return true
+                        return Swal.fire({
+                            title: "Success",
+                            text: "Your password is changed.",
+                        }).then(function(){
+                            window.location.reload();
+                        })
+                    } else {
+                        return Swal.fire({
+                            title: "Failed",
+                            text: result.message,
+                        })
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                        console.log(status)
+                        console.log(error)
+                    }
+
+                    return Swal.fire({
+                        title: "Failed",
+                        text: xhr.responseJSON.message,
+                    })
+                }
+            })
+        }
+
+    
+    }
+
+    function phoneFilter(tlp){
+        if (tlp.toString().substr(0,1) == '0') {
+            return false
+        }else{
+            return true
+        }
+    }
+
+    function editInfo(){
+        $(".my-info").prop('readonly', false)
+        isEdit = true;
+    }
+
+    function checkPasswordChar(){
+        let pass = $('#password').val();
+        let cekLetter = pass.replace(/[0-9]/g, '');
+        if(pass.length < 8){
+            $("#passwordNotification").html("*Minimum password is 8 characters long");
+            return false
+        }else if(cekLetter.length == 1){
+            $("#passwordNotification").html("*Password must contain both uppercase and lowercase letters");
+            return false
+        }else if(/^\d+$/.test(pass)){
+            $("#passwordNotification").text("*Password must contain letters");
+            return false
+        }else if(/\d/.test(pass) == false){
+            $("#passwordNotification").text("*Password must contain a number");
+            return false
+        }else if (pass.toLowerCase() === pass) {
+            $("#passwordNotification").html("*Password must contain a uppercase letter");
+            return false
+        }else if(pass.toUpperCase() === pass){
+            $("#passwordNotification").text("*Password must contain an lowercase letter");
+            return false
+        }else{
+            return true;
+        }
+        
+    }
+
+</script>

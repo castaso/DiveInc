@@ -1,0 +1,1006 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<!-- DESTINATION BANNER -->
+<div class="enquiry-banner have-curtain mb-0 backgroundImage">
+    <div class="enquiry-banner--inner">
+        <div class="container">
+            <div class="destination-banner--text">
+                <div class="welcome-title--text mb-3">
+                    <h1 class="resortName"></h1>
+                    <div class="d-block mb-4">
+                        <p class="mb-0"><i class="fas fa-map fa-sm mr-2"></i><span class="resortLocation"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section section-xs bg-light">
+    <div class="container">
+        <div class="btn-group mb-4 btn-group-resort">
+            <a id="link-co-1" href="checkout-resort" class="btn btn-lg btn-outline-primary">1. Choose Date</a>
+            <a id="link-co-2" href="checkout-resort-2" class="btn btn-lg btn-outline-primary">2. Add Extras</a>
+            <a class="btn btn-lg btn-primary">3. Guest Detail</a>
+            <a href="checkout-resort-4" class="btn btn-lg btn-outline-primary disabled">4. Reserve</a>
+        </div>
+        <div class="card rounded-0 py-2">
+            <div class="card-body pb-2">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="panel-title d-block">Please Enter Your Guest Detail</h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div id="listRoom"></div>
+                        <div id="listPackage"></div>
+                        <!-- Package -->
+                        <!-- <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="mb-3">Komodo Weekender</h5>
+                                <div class="d-block border-bottom mb-4 pb-3">
+                                    <div class="d-block mb-2">
+                                        Person 1
+                                    </div>
+                                    <div class="guest-detail">
+                                        <div class="guest-detail--item guest-detail--title">
+                                            <label for="title">Title</label>
+                                            <select class="form-control rounded-0">
+                                                <option>-</option>
+                                                <option>Mr.</option>
+                                                <option>Ms.</option>
+                                            </select>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--first-name">
+                                            <label for="first_name">First Name</label>
+                                            <input type="text" class="form-control rounded-0 text-capitalize" required>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--last-name">
+                                            <label for="last_name">Last Name</label>
+                                            <input type="text" class="form-control rounded-0 text-capitalize" required>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--nationality">
+                                            <label for="nationality">Nationality</label>
+                                            <select class="form-control rounded-0">
+                                                <option>Please select</option>
+                                                <option>Indonesia</option>
+                                                <option>America</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-block border-bottom mb-4 pb-3">
+                                    <div class="d-block mb-2">
+                                        Person 2
+                                    </div>
+                                    <div class="guest-detail">
+                                        <div class="guest-detail--item guest-detail--title">
+                                            <label for="title">Title</label>
+                                            <select class="form-control rounded-0">
+                                                <option>-</option>
+                                                <option>Mr.</option>
+                                                <option>Ms.</option>
+                                            </select>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--first-name">
+                                            <label for="first_name">First Name</label>
+                                            <input type="text" class="form-control rounded-0 text-capitalize" required>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--last-name">
+                                            <label for="last_name">Last Name</label>
+                                            <input type="text" class="form-control rounded-0 text-capitalize" required>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--nationality">
+                                            <label for="nationality">Nationality</label>
+                                            <select class="form-control rounded-0">
+                                                <option>Please select</option>
+                                                <option>Indonesia</option>
+                                                <option>America</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="d-block border-bottom mb-4 pb-3">
+                                    <div class="d-block mb-2">
+                                        Person 3
+                                    </div>
+                                    <div class="guest-detail">
+                                        <div class="guest-detail--item guest-detail--title">
+                                            <label for="title">Title</label>
+                                            <select class="form-control rounded-0">
+                                                <option>-</option>
+                                                <option>Mr.</option>
+                                                <option>Ms.</option>
+                                            </select>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--first-name">
+                                            <label for="first_name">First Name</label>
+                                            <input type="text" class="form-control rounded-0 text-capitalize" required>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--last-name">
+                                            <label for="last_name">Last Name</label>
+                                            <input type="text" class="form-control rounded-0 text-capitalize" required>
+                                        </div>
+                                        <div class="guest-detail--item guest-detail--nationality">
+                                            <label for="nationality">Nationality</label>
+                                            <select class="form-control rounded-0">
+                                                <option>Please select</option>
+                                                <option>Indonesia</option>
+                                                <option>America</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- Email Information -->
+                        <div class="d-block border-bottom mb-4 pb-3">
+                            <div class="guest-detail mb-3">
+                                <div class="guest-detail--item guest-detail--email">
+                                    <label for="email">Your Email <span class='required text-danger'>*</span></label>
+                                    <input id="inputEmail" type="email" class="form-control rounded-0" required>
+                                </div>
+                                <div class="guest-detail--item guest-detail--phone">
+                                    <label for="phone_number">Phone Number <span class='required text-danger'>*</span></label>
+                                    <input id="inputPhone" type="number" class="form-control rounded-0 text-capitalize" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="liveaboard_introduction" class="col-sm-12 col-form-label">Special request / comments</label>
+                                <div class="col-sm-12">
+                                    <textarea id="inputRequest" class="form-control" rows="8"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-block mb-3">
+                            <div class="hide-mobile">
+                                Before continue to reserve my order, 
+                                <div class="select-card-wrapper mb-2">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input type="checkbox" name="dive-email-update" id="termsConditions"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0">I've read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a></h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hide-mobile">
+                                <button type="button" onClick="checkout('1');" class="btn btn-lg btn-primary disabled" id="verifyTermsButton">Reserve My Order</button>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-4">
+                        <div class="checkout-summary">
+                            <div id="checkoutCover" class="checkout-summary-cover">
+                                <div class="d-flex h-100 justify-content-center align-items-center">
+                                    <div class="text-center">
+                                        <div class="spinner-border mb-3 text-dark" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <div class="text-muted">Please wait...</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout-summary--head">
+                                <div class="checkout-summary--img backgroundImage"></div>
+                                <div class="checkout-summary--title">
+                                    <h4 class="resortName"></h4>
+                                    <div class="d-block">
+                                        <p class="mb-0"><i class="fas fa-map fa-sm mr-2"></i><span class="resortLocation"></span></p>
+                                        <p class="mb-0" id="travelDate"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout-summary--list">
+                                <ul class="list-group list-group-flush">
+                                    <div id="listDataRoom"></div>
+                                    <div id="listDataPackage"></div>
+                                    <!-- <li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>Twin Bungalow [Room 1]</div>
+                                                <div>$255</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>$120 x2</div>
+                                                <div>$240</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Extra Bed $4 x2</div>
+                                                <div>$8</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Internet 20GB $9 x1</div>
+                                                <div>$9</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x2</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>Twin Bungalow [Room 2]</div>
+                                                <div>$240</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>$120 x2</div>
+                                                <div>$240</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x1</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>Komodo Weekender</div>
+                                                <div>$2319</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>$770 x3</div>
+                                                <div>$2310</div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>Internet 20GB $9 x1</div>
+                                                <div>$9</div>
+                                            </div>
+                                        </div>
+                                    </li> -->
+                                    </ul>
+                                    <div class="list-total">
+                                    <div class="list-total-item">
+                                        <div>Total</div>
+                                        <div id="totalSummary"></div>
+                                    </div>
+                                    <div class="d-none list-total-item">
+                                        <div >VAT <span id="vat">10</span>%</div>
+                                        <div id="taskTotal"></div>
+                                    </div>
+                                    <div class="list-total-item">
+                                        <div>Total Price*</div>
+                                        <div id="totalPrice"></div>
+                                    </div>
+                                    <div class="text-right"><i style="font-size:0.8em">*Total Price included tax </i></div> 
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="view-mobile-only">
+                            Before continue to reserve my order, 
+                            <div class="select-card-wrapper mb-2">
+                                <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                    <label class="select-card-inner select-card-inner-h">
+                                        <input type="checkbox" name="dive-email-update" id="termsConditions2"/>
+                                        <div class="select-card-content">
+                                            <h6 class="mb-0">I've read Dive Inc's <a href="" class="link-styled">Terms & Conditions</a></h6>
+                                        </div>
+                                        <div class="select-card-checkbox"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="view-mobile-only">
+                            <button type="button" onClick="checkout('2');" class="btn btn-lg btn-primary disabled" id="verifyTermsButton2">Reserve My Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="overlay-checkout" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+
+    var id="<%= id %>"
+
+    var packageData
+    var rooms
+    var packages
+
+    var fee = 20
+
+    $(document).ready(function(){
+        $('#link-co-1').attr('href',`/checkout-resort/${id}/schedule`);
+        $('#link-co-2').attr('href',`/checkout-resort/${id}/extra`);
+
+        loadTransactionById()
+        getGeneral()
+
+        $("#inputEmail").change(function(){
+            if(!validateEmail($(this).val())){
+                return Swal.fire(
+                    "Invalid Email Address",
+                ).then(function(){
+                    $('#inputEmail').focus()
+                });
+            };
+        })
+    })
+
+
+    function getGeneral(){
+        $.ajax({
+            url: `/api/general`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    //fee = parseInt(result.data[0].resort_fee)
+                    fee = 10;
+                    $('#vat').text(fee)
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function loadTransactionById(){
+        $.ajax({
+            url: `/api/transaction-resort/${id}`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    $('#checkoutCover').addClass('hideImportant')
+                    packageData = result.data.package_data
+                    rooms = result.data.resort.rooms
+                    packages = result.data.resort.packages
+                    if (result.data.transaction_resort_status_id == 'b648ff73-468f-45cb-bbbc-fd3659e4b8ac') {
+                        window.location.replace(`/checkout-resort/${result.data.id}/reserve`);
+                    }
+                    // 
+
+                    if (typeof packageData.room !== 'undefined' &&  packageData.room.length > 0) {
+                        $('#travelDate').append('<i class="fas fa-calendar fa-sm mr-2"></i> '+dateFormatSM(packageData.room_date.from)+' to '+dateFormatSM(packageData.room_date.to)+'<br/>');
+                    }
+                    // $('#travelDate').append('<i class="fas fa-calendar fa-sm mr-2"></i> '+dateFormatSM(packageData.room_date.from)+' to '+dateFormatSM(packageData.room_date.to)+'<br/>');
+                    $('.backgroundImage').css("background-image", `url('${result.data.resort.photos[0].url}')`)
+                    $('.resortName').text(result.data.resort.profile.name)
+                    $('.resortLocation').text(`${result.data.resort.profile.sub_destination.name} - ${result.data.resort.profile.destination.name}, ${result.data.resort.profile.country.name}`)
+
+                    if(packageData.package){
+                        for(var i = 0; i < packageData.package.length; i++){
+
+                            var packageItem = packageData.package[i].packageItem;
+                            for(var x = 0; x < packageData.package[i].packageItem.length; x++){
+                                $('#travelDate').append('<i class="fas fa-calendar fa-sm mr-2"></i> '+dateFormatSM(packageData.package[i].packageItem[x].package_date)+'<br/>');
+                                $('#listDataPackage').append(`
+                                    <li class="list-group-item">
+                                        <div class="list-person">
+                                            <div class="list-person--title">
+                                                <div>${packageData.package[i].packageName} [Package plan - ${x + 1}]</div>
+                                                <div style="min-width:120px; font-weight:500; position:relative" class='text-right'>
+                                                    <div style='position:absolute;right:0px; bottom:0px' >IDR <span id="summaryTotal${packageData.package[i].packageItem[x].id}">${parseFloat(packageData.package[i].packagePrice)*parseFloat(packageData.package[i].packageItem[x].guest)}</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="list-person--item text-muted">
+                                                <div><i class="far fa-user fa-sm fas-fix mr-1"></i>IDR&nbsp; ${formatRupiah(packageData.package[i].packagePrice)} x${packageData.package[i].packageItem[x].guest}</div>
+                                                <div>IDR&nbsp; <span id="total${packageData.package[i].packageItem[x].id}">${formatRupiah(parseFloat(packageData.package[i].packagePrice)*parseFloat(packageData.package[i].packageItem[x].guest))}</span></div>
+                                            </div>
+                                            <div class="all-extra" id="extra${packageData.package[i].packageItem[x].id}"></div>
+                                        </div>
+                                    </li>
+                                `)
+                            }
+
+                            for(var x = 0; x < packageItem.length; x++){
+
+                                var htmlGuestPackage = ""
+                                var namePackage = ""
+
+                                for(var j = 0; j < packages.length; j++){
+                                    if(packageData.package[i].id == packages[j].id){
+
+                                        if(namePackage == ""){
+                                            namePackage = packages[j].info.name + ` - Package plan ${x+1}`
+                                        }
+
+                                        var dataGuest = []
+                                        for(var k = 0; k < parseInt(packageItem[x].guest); k++){
+                                            htmlGuestPackage = htmlGuestPackage + `
+                                                <div class="d-block border-bottom mb-4 pb-3">
+                                                    <div class="d-block mb-2">
+                                                        Person ${k+1}
+                                                    </div>
+                                                    <div class="guest-detail">
+                                                        <div class="guest-detail--item guest-detail--title">
+                                                            <label for="title">Title</label>
+                                                            <select id="sel-${packageData.package[i].id}-${packageItem[x].id}-person${k+1}" onChange="changeTitle('${packageData.package[i].id}', '${packageItem[x].id}', 'person${k+1}');" class="form-control rounded-0">
+                                                                <option value="Mr.">Mr.</option>
+                                                                <option value="Ms.">Ms.</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="guest-detail--item guest-detail--first-name">
+                                                            <label for="first_name">First Name <span class='required text-danger'>*</span></label>
+                                                            <input id="first-${packageData.package[i].id}-${packageItem[x].id}-person${k+1}" oninput="changePackageFirstname('${packageData.package[i].id}', '${packageItem[x].id}', 'person${k+1}');" type="text" class="form-control rounded-0 text-capitalize" required>
+                                                        </div>
+                                                        <div class="guest-detail--item guest-detail--last-name">
+                                                            <label for="last_name">Last Name <span class='required text-danger'>*</span></label>
+                                                            <input id="last-${packageData.package[i].id}-${packageItem[x].id}-person${k+1}" oninput="changePackageLastname('${packageData.package[i].id}', '${packageItem[x].id}', 'person${k+1}');" type="text" class="form-control rounded-0 text-capitalize" required>
+                                                        </div>
+                                                        <div class="guest-detail--item guest-detail--nationality">
+                                                            <label for="nationality">Nationality <span class='required text-danger'>*</span></label>
+                                                            <select id="nat-${packageData.package[i].id}-${packageItem[x].id}-person${k+1}" onChange="changePackageNationality('${packageData.package[i].id}', '${packageItem[x].id}', 'person${k+1}');" class="form-control rounded-0">
+                                                                <option value="Indonesia">Indonesia</option>
+                                                                <option value="Tourism">Tourism</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="guest-detail">
+                                                        <div class="guest-detail--item guest-detail--last-name">
+                                                            <label for="identity_number">Identity Number <span class='required text-danger'>*</span></label>
+                                                            <input id="identity-${packageData.package[i].id}-${packageItem[x].id}-person${k+1}" oninput="changePackageIdentityNumber('${packageData.package[i].id}', '${packageItem[x].id}', 'person${k+1}');" type="text" class="form-control rounded-0 text-capitalize" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `
+                                            dataGuest.push({
+                                                id : `person${k+1}`,
+                                                title : "Mr.",
+                                                first_name : "",
+                                                last_name : "",
+                                                nationality : "Indonesia"
+                                            })
+                                        }
+
+                                        packageItem[x].detail_guest = dataGuest
+                                    }
+                                }
+
+                                $('#listPackage').append(`
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h5 class="mb-3">${namePackage}</h5>
+                                            ${htmlGuestPackage}
+                                        </div>
+                                        
+                                    </div>
+                                `)
+                            }
+                        }
+                    }
+
+                    if(packageData.room){
+                        for(var i = 0; i < packageData.room.length; i++){
+
+                            var roomItem = packageData.room[i].roomItem
+
+                            for(var j = 0; j < packageData.room[i].roomItem.length; j++){
+
+                                if(packageData.room[i].sharingRoom == "yes"){
+                                    $('#listDataRoom').append(`
+                                        <li id="${packageData.room[i].id}" class="list-group-item">
+                                            <div class="list-person">
+                                                <div class="list-person--title">
+                                                    <div class="mr-2">${packageData.room[i].roomName} [Dorm ${j+1}]</div>
+                                                    <div style="min-width:120px; font-weight:500; position:relative" class='text-right'>
+                                                        <div style='position:absolute;right:0px; bottom:0px'>IDR&nbsp; <span id="summaryTotal${packageData.room[i].roomItem[j].id}">${formatRupiah((packageData.room[i].roomPrice) * (roomItem[j].guest))}</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="list-person--item text-muted">
+                                                    <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>IDR&nbsp; ${formatRupiah(packageData.room[i].roomPrice * roomItem[j].guest)}&nbsp;x<span id="night${packageData.room[i].roomItem[j].id}">0</span></div>
+                                                    <div>IDR&nbsp; <span id="total${packageData.room[i].roomItem[j].id}">0</span></div>
+                                                </div>
+                                                <div class="all-extra" id="extra${packageData.room[i].roomItem[j].id}"></div>
+                                                <div class="list-person--item text-muted">
+                                                    <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x${packageData.room[i].roomItem[j].guest}</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    `)
+                                }else{
+                                    $('#listDataRoom').append(`
+                                        <li id="${packageData.room[i].id}" class="list-group-item">
+                                            <div class="list-person">
+                                                <div class="list-person--title">
+                                                    <div class="mr-2">${packageData.room[i].roomName} [Dorm ${j+1}]</div>
+                                                    <div style="min-width:120px; font-weight:500; position:relative" class='text-right'>
+                                                        <div style='position:absolute;right:0px; bottom:0px'>IDR&nbsp; <span id="summaryTotal${packageData.room[i].roomItem[j].id}">${formatRupiah(packageData.room[i].roomPrice)}</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="list-person--item text-muted">
+                                                    <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>IDR&nbsp; ${formatRupiah(packageData.room[i].roomPrice)}&nbsp;x<span id="night${packageData.room[i].roomItem[j].id}">0</span></div>
+                                                    <div>IDR&nbsp; <span id="total${packageData.room[i].roomItem[j].id}">0</span></div>
+                                                </div>
+                                                <div class="all-extra" id="extra${packageData.room[i].roomItem[j].id}"></div>
+                                                <div class="list-person--item text-muted">
+                                                    <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x${packageData.room[i].roomItem[j].guest}</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    `)
+                                }
+                                // $('#listDataRoom').append(`
+                                //     <li id="${packageData.room[i].id}" class="list-group-item">
+                                //         <div class="list-person">
+                                //             <div class="list-person--title">
+                                //                 <div>${packageData.room[i].roomName} [Room ${j+1}]</div>
+                                //                 <div>IDR&nbsp; <span id="summaryTotal${packageData.room[i].roomItem[j].id}">${formatRupiah(packageData.room[i].roomPrice)}</span></div>
+                                //             </div>
+                                //             <div class="list-person--item text-muted">
+                                //                 <div><i class="far fa-moon fa-sm fas-fix mr-1"></i>IDR&nbsp; ${formatRupiah(packageData.room[i].roomPrice)}&nbsp;x<span id="night${packageData.room[i].roomItem[j].id}">0</span></div>
+                                //                 <div>IDR&nbsp; <span id="total${packageData.room[i].roomItem[j].id}">0</span></div>
+                                //             </div>
+                                //             <div class="all-extra" id="extra${packageData.room[i].roomItem[j].id}"></div>
+                                //             <div class="list-person--item text-muted">
+                                //                 <div><i class="far fa-user fa-sm fas-fix mr-1"></i>x${packageData.room[i].roomItem[j].guest}</div>
+                                //             </div>
+                                //         </div>
+                                //     </li>
+                                // `)
+                            }
+
+                            for(var x = 0; x < roomItem.length; x++){
+
+                                var htmtGuestRoom = ""
+                                var nameRoom = ""
+
+                                for(var j = 0; j < rooms.length; j++){
+                                    if(packageData.room[i].id == rooms[j].id){
+
+                                        if(nameRoom == ""){
+                                            nameRoom = rooms[j].info.name + ` - Room ${x+1}`
+                                        }
+
+                                        var dataGuest = []
+                                        for(var k = 0; k < parseInt(roomItem[x].guest); k++){
+                                            htmtGuestRoom = htmtGuestRoom + `
+                                                <div class="d-block border-bottom mb-4 pb-3">
+                                                    <div class="d-block mb-2">
+                                                        Person ${k+1}
+                                                    </div>
+                                                    <div class="guest-detail">
+                                                        <div class="guest-detail--item guest-detail--title">
+                                                            <label for="title">Title</label>
+                                                            <select id="sel-${packageData.room[i].id}-${roomItem[x].id}-person${k+1}" onChange="changeTitle('${packageData.room[i].id}', '${roomItem[x].id}', 'person${k+1}');" class="form-control rounded-0">
+                                                                <option value="Mr.">Mr.</option>
+                                                                <option value="Ms.">Ms.</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="guest-detail--item guest-detail--first-name">
+                                                            <label for="first_name">First Name <span class='required text-danger'>*</span></label>
+                                                            <input id="first-${packageData.room[i].id}-${roomItem[x].id}-person${k+1}" oninput="changeFirstname('${packageData.room[i].id}', '${roomItem[x].id}', 'person${k+1}');" type="text" class="form-control rounded-0 text-capitalize" required>
+                                                        </div>
+                                                        <div class="guest-detail--item guest-detail--last-name">
+                                                            <label for="last_name">Last Name <span class='required text-danger'>*</span></label>
+                                                            <input id="last-${packageData.room[i].id}-${roomItem[x].id}-person${k+1}" oninput="changeLastname('${packageData.room[i].id}', '${roomItem[x].id}', 'person${k+1}');" type="text" class="form-control rounded-0 text-capitalize" required>
+                                                        </div>
+                                                        <div class="guest-detail--item guest-detail--nationality">
+                                                            <label for="nationality">Nationality <span class='required text-danger'>*</span></label>
+                                                            <select id="nat-${packageData.room[i].id}-${roomItem[x].id}-person${k+1}" onChange="changeNationality('${packageData.room[i].id}', '${roomItem[x].id}', 'person${k+1}');" class="form-control rounded-0">
+                                                                <option value="Indonesia">Indonesia</option>
+                                                                <option value="Tourism">Tourism</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="guest-detail">
+                                                        <div class="guest-detail--item guest-detail--last-name">
+                                                            <label for="identity_number">Identity Number <span class='required text-danger'>*</span></label>
+                                                            <input id="identity-${packageData.room[i].id}-${roomItem[x].id}-person${k+1}" oninput="changeIdentityNumber('${packageData.room[i].id}', '${roomItem[x].id}', 'person${k+1}');" type="text" class="form-control rounded-0 text-capitalize" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `
+                                            dataGuest.push({
+                                                id : `person${k+1}`,
+                                                title : "Mr.",
+                                                first_name : "",
+                                                last_name : "",
+                                                nationality : "Indonesia"
+                                            })
+                                        }
+
+                                        roomItem[x].detail_guest = dataGuest
+                                    }
+                                }
+
+                                $('#listRoom').append(`
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h5 class="mb-3">${nameRoom}</h5>
+                                            ${htmtGuestRoom}
+                                        </div>
+                                        
+                                    </div>
+                                `)
+                            }
+                        }
+                    }
+                    
+                    loadItem()
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function loadItem(){
+
+        console.log(packageData)
+        $('.all-extra').empty()
+
+        var totalPrice = 0
+
+        if(packageData.package){
+            for(var i = 0; i< packageData.package.length; i++){
+
+                for(var j = 0; j < packageData.package[i].packageItem.length; j++){
+                    var totalSummary = 0
+                    var summaryPrice = parseFloat(packageData.package[i].packagePrice) * parseFloat(packageData.package[i].packageItem[j].guest)
+                    $(`#total${packageData.package[i].packageItem[j].id}`).text(formatRupiah(summaryPrice))
+                    totalSummary += summaryPrice
+
+                    for(var k = 0; k < packageData.package[i].packageItem[j].service.length; k++){
+                        if(packageData.package[i].packageItem[j].service[k].qty > 0){
+                            $(`#extra${packageData.package[i].packageItem[j].id}`).append(`
+                                <div class="list-person--item text-muted">
+                                    <div><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${packageData.package[i].packageItem[j].service[k].name} (IDR&nbsp;${formatRupiah(packageData.package[i].packageItem[j].service[k].price)} x${packageData.package[i].packageItem[j].service[k].qty})</div>
+                                    <div class="list-price ml-2">IDR&nbsp; ${formatRupiah(parseFloat(packageData.package[i].packageItem[j].service[k].price) * parseFloat(packageData.package[i].packageItem[j].service[k].qty))}</div>
+                                </div>
+                            `)
+
+                            totalSummary += (parseFloat(packageData.package[i].packageItem[j].service[k].price) * parseFloat(packageData.package[i].packageItem[j].service[k].qty))
+                        }
+                    }
+
+                    $(`#summaryTotal${packageData.package[i].packageItem[j].id}`).text(formatRupiah(totalSummary)) 
+                    totalPrice += totalSummary
+                }
+            }
+        }
+
+        if(packageData.room){
+
+            var night = (new Date(packageData.room_date.to) - new Date(packageData.room_date.from)) / (1000 * 3600 * 24)
+
+            for(var i = 0; i < packageData.room.length; i++){
+                
+                for(var j = 0; j < packageData.room[i].roomItem.length; j++){
+                    var totalSummary = 0
+                    $(`#night${packageData.room[i].roomItem[j].id}`).text(night)
+                    //var summaryPrice = parseFloat(night) * parseFloat(packageData.room[i].roomPrice)
+                    var summaryPrice = 0
+                    if(packageData.room[i].sharingRoom == "yes"){
+                        summaryPrice = parseFloat(night) * parseFloat(packageData.room[i].roomPrice) * parseFloat(packageData.room[i].roomItem[j].guest)
+                    }else{
+                        summaryPrice = parseFloat(night) * parseFloat(packageData.room[i].roomPrice)
+                    }
+                    $(`#total${packageData.room[i].roomItem[j].id}`).text(formatRupiah(summaryPrice))
+                    totalSummary += summaryPrice
+
+                    for(var x = 0; x < packageData.room[i].roomItem[j].service.length; x++){
+                        if(packageData.room[i].roomItem[j].service[x].qty > 0){
+                            $(`#extra${packageData.room[i].roomItem[j].id}`).append(`
+                                <div class="list-person--item text-muted">
+                                    <div class="mr-2"><i class="fas fa-plus fa-sm fas-fix mr-1"></i>${packageData.room[i].roomItem[j].service[x].name} (IDR&nbsp;${formatRupiah(packageData.room[i].roomItem[j].service[x].price)} x${packageData.room[i].roomItem[j].service[x].qty})</div>
+                                    <div class="list-price ml-2">IDR&nbsp;${formatRupiah(parseFloat(packageData.room[i].roomItem[j].service[x].price) * parseFloat(packageData.room[i].roomItem[j].service[x].qty))}</div>
+                                </div>
+                            `)
+
+                            totalSummary += (parseFloat(packageData.room[i].roomItem[j].service[x].price) * parseFloat(packageData.room[i].roomItem[j].service[x].qty))
+                            $(`#summaryTotal${packageData.room[i].roomItem[j].id}`).text(formatRupiah(totalSummary)) 
+                        }
+                    }
+
+                    totalPrice += totalSummary
+                }
+            }
+        }
+        
+        $('#totalSummary').text(`IDR ${formatRupiah(totalPrice)}`)
+        var task = totalPrice / 10
+        $('#taskTotal').text(`IDR ${formatRupiah(task)}`)
+        $('#totalPrice').text(`IDR ${formatRupiah(totalPrice + task)}`)
+    }
+
+    function checkout(tipe){
+
+        let isDisabled = false;
+        if (tipe == 1) {
+            if($('#verifyTermsButton').hasClass('disabled')){
+                isDisabled = true;
+            };
+        }else{
+            if($('#verifyTermsButton2').hasClass('disabled')){
+                isDisabled = true;
+            }
+        }
+
+        if(packageData.room){
+            for (var i = 0; i < packageData.room.length; i++){
+                var roomItem = packageData.room[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    for(var k = 0; k < roomItem[j].detail_guest.length; k++){
+                        if(packageData.room[i].roomItem[j].detail_guest[k].first_name == ""){
+                            return Swal.fire(
+                                "First Name Required",
+                            );
+                            break
+                        }        
+                    }
+                }
+            }
+        }
+        
+
+        if($('#inputEmail').val() == "" || $('#inputPhone').val() == ""){
+            // return alert()
+            return Swal.fire(
+                "Email & phone number required",
+            );
+        }
+
+        if (!validateEmail($('#inputEmail').val())) {
+            return Swal.fire(
+                    "Invalid Email Address",
+                ).then(function(){
+                    $('#inputEmail').focus()
+                });
+        }
+
+        packageData.contact = {
+            email : $('#inputEmail').val(),
+            phone_number : $('#inputPhone').val(),
+            request : $('#inputRequest').val()
+        }
+
+        if (!isDisabled) {
+            Swal.fire({
+                title: "Confirmation",
+                html: "Are you sure your travel information is right ?",
+                confirmButtonText: 'Yes',
+                showCancelButton : true,
+            }).then(function(isConfirm) {
+                if (isConfirm.value) {
+                    $("#overlay-checkout").removeClass('d-none');
+                    $.ajax({
+                        url: `/api/transaction-resort/${id}/guest`,
+                        method: `PUT`,
+                        data : {
+                            package_data : packageData
+                        },
+                        success: function (result) {
+                            console.log(result)
+                            if (result.success) {
+                                location.href = `/checkout-resort/${result.data.id}/reserve`
+                            } else {
+                                alert(result.message)
+                                console.log(result)
+                                $("#overlay-checkout").addClass('d-none');
+                            }
+                        },
+                        error(xhr, status, error) {
+                            if(xhr.responseJSON){
+                                console.log(xhr.responseJSON)
+                            }
+    
+                            if (xhr.responseJSON.message == 'Token is required') {
+                                $("#overlay-checkout").addClass('d-none');
+                                loginRequired();
+                            }
+                        }
+                    })
+                
+                }
+            })
+        }else{
+            Swal.fire(
+                "Please check terms and condition",
+            );
+        }
+    }
+
+    function changeTitle(roomId, roomItemId, personId){
+        for (var i = 0; i < packageData.room.length; i++){
+            if(packageData.room[i].id == roomId){
+                var roomItem = packageData.room[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    if(roomItem[j].id == roomItemId){
+                        for(var k = 0; k < roomItem[j].detail_guest.length; k++){
+                            if(roomItem[j].detail_guest[k].id == personId){
+                                packageData.room[i].roomItem[j].detail_guest[k].title = $(`#sel-${roomId}-${roomItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changePackageTitle(packageId, packageItemId, personId){
+        for (var i = 0; i < packageData.package.length; i++){
+            if(packageData.package[i].id == packageId){
+                var packageItem = packageData.package[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    if(packageItem[j].id == packageItemId){
+                        for(var k = 0; k < packageItem[j].detail_guest.length; k++){
+                            if(packageItem[j].detail_guest[k].id == personId){
+                                packageData.package[i].packageItem[j].detail_guest[k].title = $(`#sel-${packageId}-${packageItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changeFirstname(roomId, roomItemId, personId){
+        for (var i = 0; i < packageData.room.length; i++){
+            if(packageData.room[i].id == roomId){
+                var roomItem = packageData.room[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    if(roomItem[j].id == roomItemId){
+                        for(var k = 0; k < roomItem[j].detail_guest.length; k++){
+                            if(roomItem[j].detail_guest[k].id == personId){
+                                packageData.room[i].roomItem[j].detail_guest[k].first_name = $(`#first-${roomId}-${roomItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changePackageFirstname(packageId, packageItemId, personId){
+        for (var i = 0; i < packageData.package.length; i++){
+            if(packageData.package[i].id == packageId){
+                var packageItem = packageData.package[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    if(packageItem[j].id == packageItemId){
+                        for(var k = 0; k < packageItem[j].detail_guest.length; k++){
+                            if(packageItem[j].detail_guest[k].id == personId){
+                                packageData.package[i].packageItem[j].detail_guest[k].first_name = $(`#first-${packageId}-${packageItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changeLastname(roomId, roomItemId, personId){
+        for (var i = 0; i < packageData.room.length; i++){
+            if(packageData.room[i].id == roomId){
+                var roomItem = packageData.room[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    if(roomItem[j].id == roomItemId){
+                        for(var k = 0; k < roomItem[j].detail_guest.length; k++){
+                            if(roomItem[j].detail_guest[k].id == personId){
+                                packageData.room[i].roomItem[j].detail_guest[k].last_name = $(`#last-${roomId}-${roomItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changePackageLastname(packageId, packageItemId, personId){
+        for (var i = 0; i < packageData.package.length; i++){
+            if(packageData.package[i].id == packageId){
+                var packageItem = packageData.package[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    if(packageItem[j].id == packageItemId){
+                        for(var k = 0; k < packageItem[j].detail_guest.length; k++){
+                            if(packageItem[j].detail_guest[k].id == personId){
+                                packageData.package[i].packageItem[j].detail_guest[k].last_name = $(`#last-${packageId}-${packageItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changeNationality(roomId, roomItemId, personId){
+        for (var i = 0; i < packageData.room.length; i++){
+            if(packageData.room[i].id == roomId){
+                var roomItem = packageData.room[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    if(roomItem[j].id == roomItemId){
+                        for(var k = 0; k < roomItem[j].detail_guest.length; k++){
+                            if(roomItem[j].detail_guest[k].id == personId){
+                                packageData.room[i].roomItem[j].detail_guest[k].nationality = $(`#nat-${roomId}-${roomItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changePackageNationality(packageId, packageItemId, personId){
+        for (var i = 0; i < packageData.package.length; i++){
+            if(packageData.package[i].id == packageId){
+                var packageItem = packageData.package[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    if(packageItem[j].id == packageItemId){
+                        for(var k = 0; k < packageItem[j].detail_guest.length; k++){
+                            if(packageItem[j].detail_guest[k].id == personId){
+                                packageData.package[i].packageItem[j].detail_guest[k].nationality = $(`#nat-${packageId}-${packageItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changeIdentityNumber(roomId, roomItemId, personId){
+        for (var i = 0; i < packageData.room.length; i++){
+            if(packageData.room[i].id == roomId){
+                var roomItem = packageData.room[i].roomItem
+                for(var j = 0; j < roomItem.length; j++){
+                    if(roomItem[j].id == roomItemId){
+                        for(var k = 0; k < roomItem[j].detail_guest.length; k++){
+                            if(roomItem[j].detail_guest[k].id == personId){
+                                packageData.room[i].roomItem[j].detail_guest[k].identity_number = $(`#identity-${roomId}-${roomItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function changePackageIdentityNumber(packageId, packageItemId, personId){
+        for (var i = 0; i < packageData.package.length; i++){
+            if(packageData.package[i].id == packageId){
+
+                var packageItem = packageData.package[i].packageItem
+                for(var j = 0; j < packageItem.length; j++){
+                    if(packageItem[j].id == packageItemId){
+                        for(var k = 0; k < packageItem[j].detail_guest.length; k++){
+                            if(packageItem[j].detail_guest[k].id == personId){
+                                packageData.package[i].packageItem[j].detail_guest[k].identity_number = $(`#identity-${packageId}-${packageItemId}-${personId}`).val()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>

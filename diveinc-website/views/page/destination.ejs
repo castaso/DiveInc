@@ -1,0 +1,862 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<style>
+    @media only screen and (min-width: 760px) {
+        .galleryBtn{
+            position: absolute;
+            background-color:rgba(0,0,0,.45);
+            /* border-radius: 5px; */
+            color:#999;
+            cursor: pointer;
+            display: block;
+            font-size:20px;
+            top: 70px;
+            z-index: 99;
+            border: none;
+            font-weight:bold;
+            text-align: center;
+        }
+
+        .galleryBtn:hover{
+            background-color:rgba(255,255,255,.65);
+            color:#333;
+        }
+
+        #leftBtn{
+            position: absolute;
+            left: 6px;
+        }
+
+        #leftBtn::before{
+            content: "\2190";
+            margin-left: 10px;
+            padding: 0px 8px 5px 0px;
+        }
+        
+        #rightBtn{
+            position: absolute;
+            right: 6px;
+        }
+        
+        #rightBtn::after{
+            content: "\2192";
+            margin-right: 10px;
+            padding: 0px 0px 5px 8px;
+        }
+
+        #listGalleryContainer{
+            position: relative;
+        }
+
+        #listGalery{
+            scroll-behavior: smooth;
+        }
+    }
+    
+    @media only screen and (max-width: 720px) {
+        .galleryBtn{
+            display: none;
+        }
+    }
+</style>
+<div class="header-spacer"></div>
+
+<!-- DESTINATION BANNER -->
+<div id="background" class="destination-banner have-curtain">
+    <div class="destination-banner--inner">
+        <div class="container">
+            <div class="destination-banner--text">
+                <div class="welcome-title--text mb-3">
+                    <h5 id="name" class="color-accent"></h5>
+                    <h1 id="tagLine"></h1>
+                    <h5 id="description" class="font-serif"></h5>
+                </div>
+                <!-- <a href="personal-question-1" role="button" class="btn btn-light mr-1">Create Trip in Bali</a> -->
+                <a href="#listGalery" class="btn btn-outline-light">View pictures</a>
+                <!-- <a href="" role="button" class="btn btn-outline-light">View on Map</a> -->
+            </div>
+        </div>
+    </div>
+    <div id="bannerLoader" class="banner-cover">
+        <div class="d-flex h-100 justify-content-center align-items-center">
+            <div class="text-center">
+                <div class="spinner-border mb-3 text-dark" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="text-muted">Loading resort... Please wait...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROMISES -->
+<%-include ../partial/promises %>
+
+<!-- INTRO -->
+<div class="section section-sm bg-light">
+    <div class="container">
+        <div class="card shadow-sm border-0">
+            <div class="card-body py-4">
+                <div class="row">
+                    <div class="col-md-7 mb-4 mb-md-0">
+                        <div class="pr-md-5">
+                        <h6 class="text-muted mb-3">Introduction</h6>
+                        <p id="introduction" class="m-0 font-serif font-serif-lg"></p>
+                        </div>
+                        <div id="introLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                            <div class="spinner-border mb-3" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="text-muted">Please wait...</div>
+                        </div>
+                        <div class="d-flex mt-3 mb-3">
+                            <a href="#aboutSection" class="btn btn-outline-primary mr-2">Read more</a>
+                            <a href="#divingSection" class="btn btn-outline-primary">Diving in <span class="nameDestination"></span></a>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <h6 class="text-muted mb-3"><span id="nameHighlight"></span>'s Highlight</h6>
+                        <ul id="listHighlight" class="list-base font-serif">
+                            <!-- <li>Explore the famed Liberty Wreck and go wall (Drop-off) diving at Tulamben</li>
+                            <li>Get a close up look at the Manta Rays & Mola Mola at Nusa Penida</li>
+                            <li>Take a "stroll" at the underwater temple garden at Pemuteran</li>
+                            <li>Learn how to freedive with helpful yoga practices at Amed</li>
+                            <li>Search for all kinds of fascinating creatures like Mimic Octopus, Frogfish, Ghost Pipefish, Pygmy Seahorses at Bali’s spectacular muck diving sites</li> -->
+                        </ul>
+                        <div id="highlightLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                            <div class="spinner-border mb-3" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="text-muted">Please wait...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- GALLERY -->
+<div id="listGalleryContainer">
+    <div id="listGalery" class="gallery-wrap">
+        <!-- <div data-src="/images/diving-bali.jpeg" class="gallery-item" style="background-image: url('/images/diving-bali.jpeg');"><div>View Photos<img src="/images/diving-bali.jpeg"/></div></div>
+        <div data-src="/images/sailing-2.jpeg" class="gallery-item" style="background-image: url('/images/sailing-2.jpeg');"><div>View Photos<img src="/images/sailing-2.jpeg"/></div></div>
+        <div data-src="/images/resort-2.jpeg"  class="gallery-item" style="background-image: url('/images/resort-2.jpeg');"><div>View Photos<img src="/images/resort-2.jpeg"/></div></div>
+        <div data-src="/images/diving-raja-ampat.jpg" class="gallery-item" style="background-image: url('/images/diving-raja-ampat.jpg');"><div>View Photos<img src="/images/diving-raja-ampat.jpg"/></div></div>
+        <div data-src="/images/sailing-1.jpeg"  class="gallery-item" style="background-image: url('/images/sailing-1.jpeg');"><div>View Photos<img src="/images/sailing-1.jpeg"/></div></div>
+        <div data-src="/images/diving-raja-ampat.jpg" class="gallery-item" style="background-image: url('/images/diving-raja-ampat.jpg');"><div>View Photos<img src="/images/diving-raja-ampat.jpg"/></div></div> -->
+    </div>
+    <div id="leftBtn" class="galleryBtn" onclick="slideGalleryLeft()" ></div>
+    <div id="rightBtn" class="galleryBtn" onclick="slideGalleryRight()" ></div>
+</div>
+
+<!-- ABOUT SECTION -->
+<div id="aboutSection" class="section bg-white">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <div id="about" class="pr-md-5">
+                <h6 class="text-muted mb-3">About <span id="nameAbout"></span></h6>
+                <!-- <p>Bali is one of the many islands in the world’s largest archipelago, Indonesia. Though it may be one of the smaller islands in a nation that boasts diversity, Bali is quite the cultural wonder.</p>
+                <p>Drawing in travelers like no other, Bali prides itself on its unequalled spirituality, sacred mountains and temples, verdant rice fields, iconic beaches, lively nightlife, and tasteful resorts and culinary options. Best part of it all? Travelers and divers of all kinds have the same chance of enjoying this one of a kind island. From five star resorts to backpacker hotels, gentle drifts to strong, challenging currents, Bali has them all.</p> -->
+                </div>
+                <div id="aboutLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                    <div class="spinner-border mb-3" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="text-muted">Please wait...</div>
+                </div>
+                <div class="d-none mt-4 mb-3">
+                    <a href="#resortRecommendation" class="btn btn-outline-primary">See resort recommendation</a>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div id="listMoreAbout" class="d-block p-4 bg-light">
+                    <!-- <div class="list-panel">
+                        <div class="list-panel-title">Country</div>
+                        <div class="list-panel-content">Indonesia</div>
+                    </div>
+                    <div class="list-panel">
+                        <div class="list-panel-title">Currency</div>
+                        <div class="list-panel-content">IDR Rupiah</div>
+                    </div>
+                    <div class="list-panel">
+                        <div class="list-panel-title">Language</div>
+                        <div class="list-panel-content">Indonesian – English widely spoken</div>
+                    </div>
+                    <div class="list-panel">
+                        <div class="list-panel-title">When to Visit</div>
+                        <div class="list-panel-content">April to October – The best weather is from May to September</div>
+                    </div>
+                    <div class="list-panel">
+                        <a href="https://en.wikipedia.org/wiki/Bali" target="_blank"><i class="mr-1 fas fa-external-link-alt fa-sm"></i>More info about Bali</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DESTINATION DETAILS -->
+<div class="section section-sm pt-0 bg-image mt-5" style="background-image:url('/images/seadeep1.jpeg');background-position: top;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow border-0 shift-top-1">
+                    <div class="card-body">
+                        <div id="tabLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                            <div class="spinner-border mb-3" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="text-muted">Please wait...</div>
+                        </div>
+                        <ul class="nav nav-tabs nav-tabs-custom" id="myTab" role="tablist">
+                            <!-- <li class="nav-item">
+                                <a class="nav-link active" id="how-to-get-there-tab" data-toggle="tab" href="#how-to-get-there" role="tab" aria-controls="how-to-get-there" aria-selected="false">How to Get There</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="weather-tab" data-toggle="tab" href="#weather" role="tab" aria-controls="weather" aria-selected="false">Weather in Bali</a>
+                            </li> -->
+                        </ul>
+                        <div class="tab-content font-is-serif" id="myTabContent">
+                            <!-- <div class="tab-pane fade show active" id="how-to-get-there" role="tabpanel" aria-labelledby="how-to-get-there-tab">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-12">
+                                        <p>Flights to Ngurah Rai International Airport, Bali’s main airport, are plenty. Travelers can find flights from the rest of Indonesia, SouthEast Asia, Australia, Hong Kong, and Japan, as well as from Europe and the US through connecting flights, making the airport the second busiest in the country after the capital’s airport (Soekarno-Hatta International Airport, Jakarta, Indonesia).</p>
+                                        <p>Ngurah Rai International Airport is 30 minutes away from Denpasar, and a one hour drive from Kuta. Once arrived, travelers can easily find taxis with fixed or metered rates, or get on public buses (have a limited route)  and make use of hotel shuttles when available, if travelling on a budget.</p>
+                                        <p>Bali can also be reached by ferry rides from Java. The ride lasts about half an hour from Ketapang (Java) to Gilimanuk (Bali). </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="weather" role="tabpanel" aria-labelledby="weather-tab">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 col-md-12">
+                                        <p>As part of the tropics, Bali only has two seasons, the dry season and the rainy season. The dry season lasts from April to October and is the best season for diving, given the rainy season, which lasts from December to March, reduces visibility.</p>
+                                        <p>For a real chance to encounter the Mola Mola, May to OctoberSeptember is the optimal time when the wind picks up and colder water moves up to the surface in some area sometime water temperature can drop until 16-20 degrees.. Outside of this period, water temperature is generally 24-28 degrees.</p>
+                                        <p>Day time temperatures stay around 30-32 degrees and the air, humid. The best weather in Bali can be enjoyed on summer nights when the air is cooler and less humid.</p>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- DIVING -->
+<div id="divingSection" class="section bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h6 class="text-muted mb-4">Diving in <span id="nameArticle"></h6>
+                <div id="contentArticle" class="media-content"></div>
+            </div>
+        </div>
+        <div id="divingLoader" class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center">
+                    <div class="spinner-border mb-3" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="text-muted">Please wait...</div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row justify-content-center mb-5">
+            <div class="col-md-8 text-center">
+                <h5 class="mb-5 font-weight-normal">Bali is the part of the coral triangle of Indonesia. Bali’s dive sites are as diverse as its culture. Spread out in different locations, with a rich marine life that’ll leave you in awe.</h5>
+            </div>
+            <div class="col-md-9">
+                <img src="/images/trip-1.jpeg" class="d-block w-100">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="d-block mb-5 media-content">
+                    <blockquote>More experienced divers can also go for the big fishes in Nusa Penida and Nusa Lembongan</blockquote>
+                    <p>You’ll find highly accessible dive sites, suitable for all levels, at Tulamben and Amed where the famed Liberty Wreck is located and the Seraya Secrets in Amed, home to a diversity of critters and a must for muck diving enthusiasts, just a few kilometers away. For an even easier scenic dive, you can visit Menjangan Island, near the peaceful Pemuteran village, where a little of everything is available--coral reefs, mucks, macro, walls, and stunning statues.</p>
+                    <p>A trip to Padang Bai, the port to Lombok and the Gilis, also opens the way to the best dive spots for advanced divers. Gili Mimpang, Biaha, and Gili Tepekong offers reefs, walls, exhilarating currents, and close up encounters with sharks and occasionally, the Mola Mola. More experienced divers can also go for the big fishes in Nusa Penida and Nusa Lembongan, where Manta Rays are regulars and the chance of seeing Mola Molas are bigger, what with the upwellings. These wondrous diving destinations are now supported by reliable dive equipment stores, a certified recompression chamber, and various dive centers spread across Bali.</p>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+<div id="resortRecommendation" class="section">
+    <div class="container">
+        <div class="d-block text-center text-xl mb-4 font-weight-bolder">More places in <span class="nameDestination"></span></div>
+        <div class="explore-card">
+            <div id="subDestinationHC" class="explore-card--list explore-card--with-text explore-card--25 justify-content-center">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- NEW SUB DESTINATION --> <!-- sementara di hide karena masih error image_showing -->
+<div class="section" style="display: none;">
+    <div class="container">
+        <div class="d-block text-center text-xl mb-4 font-weight-bolder">More places in <span class="nameDestination"></span></div>
+        <div class="explore-card">
+            <div id="listSubDestinationNew" class="explore-card--list explore-card--with-text explore-card--25 justify-content-center">
+                <a href="#" class="explore-card--item">
+                    <div class="explore-card--content shadow-sm">
+                        <div class="explore-card--image" style="background-image: url('/images/photos-diveinc-13.jpg');">
+                            <div class="explore-card--text-inside">
+                                <h4 class="mt-0 text-ellipsis">Nusa Penida & Nusa Ceningan & Nusa Lembongan</h4>
+                                <p>A juxtaposition of exhilarating underwater experiences and relaxing on ground experiences.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="explore-card--item">
+                    <div class="explore-card--content shadow-sm">
+                        <div class="explore-card--image" style="background-image: url('/images/sailing-2.jpeg');">
+                            <div class="explore-card--text-inside">
+                                <h4 class="mt-0 text-ellipsis">Amed</h4>
+                                <p>Amed offers a variety of striking sceneries and a prominent traditional culture, both of which are complemented with a peaceful atmosphere.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- DESTINATION SUB --> <!-- OLD (dihide dulu aja)-->
+<div class="section pb-0" style="display: none;">
+    <div id="listSubDestination" class="container">
+        <div class="row sub-destination">
+            <div class="col-lg-4 col-md-5 mb-4">
+                <h6 class="text-muted">Nusa Penida & Nusa Ceningan & Nusa Lembongan</h6>
+                <h3 class="mb-2">A Very Thrilling Destination</h3>
+                <p>With a rich marine life--think endless corals and impressive pelagics--and unparalleled drift dive sites, the Nusa Islands make for a very thrilling destination. It’s the cherry on top for divers visiting Bali! On the ground, you’ll find yourself intoxicated with the variety of gorgeous white sand beaches and incredibly scenic views, infused with an authentic Bali feel.</p>
+                <ul class="list-small mb-3">
+                    <li>Experience the best flying sensation in drift dives over Nusa Penida’s breathtaking reefs</li>
+                    <li>Encounter the pelagics everyone is raving about, mola mola and mantas, up close</li>
+                    <li>Get those adrenaline running while cliff jumping at Nusa Ceningan</li>
+                    <li>Take lots of Instagramable pictures at the Nusa Islands’ scenic beaches</li>
+                </ul>
+                <a href="sub-destination" class="btn btn-outline-primary">Explore Destination</a>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <div class="glide-no-animation slide-banner-wrap">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-2.jpg');"></div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-3.jpg');"></div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-4.jpg');"></div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-1.jpg');"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><img src="/images/left-arrow.svg"></button>
+                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><img src="/images/right-arrow.svg"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row sub-destination">
+            <div class="col-lg-4 col-md-5 order-lg-2 order-md-2 mb-4">
+                <h6 class="text-muted">Pulau Menjangan</h6>
+                <h3 class="mb-2">A Natural Beauty of Sundry Topographies</h3>
+                <p>Pulau Menjangan is a serene nature retreat within the unspoiled West Bali National Park of Pemuteran. The island grants you the chance to get intimate with nature, carrying a strong emphasis on tranquility, while offering a one of a kind opportunity to dive at some of Indonesia’s best wall dives with stunning coral gardens. It is the ultimate sanctuary, where you can escape and immerse yourself in the natural beauty of Bali’s best-kept secret.</p>
+                <ul class="list-small mb-3">
+                    <li>Get a close up look at the Gorgonian sea fans adorning the walls of Cave Point</li>
+                    <li>Explore the fascinating nooks and crannies of the Dream Wall</li>
+                    <li>Surround yourself with prolific underwater life turtles, reef sharks, and schools of reef fish</li>
+                </ul>
+                <a href="sub-destination" class="btn btn-outline-primary">Explore Pulau Menjangan</a>
+            </div>
+            <div class="col-lg-8 col-md-8 order-lg-1 order-md-1">
+                <div class="glide-no-animation slide-banner-wrap">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-5.jpg');"></div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/diving-raja-ampat.jpg');"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><img src="/images/left-arrow.svg"></button>
+                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><img src="/images/right-arrow.svg"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row sub-destination">
+            <div class="col-lg-4 col-md-5 mb-4">
+                <h6 class="text-muted">Amed</h6>
+                <h3 class="mb-2">Embracing the Luxury of Authenticity and Tranquility</h3>
+                <p>Deemed as one of the most authentic parts of Bali, Amed offers a variety of striking sceneries and a prominent traditional culture, both of which are complemented with a peaceful atmosphere.</p>
+                <ul class="list-small mb-3">
+                    <li>Enjoy the outstanding muck and drift diving at Jemeluk Drop Off</li>
+                    <li>Explore the historical site of Japanese Wreck near Lipah and get a closer look at the ship’s renowned toilet</li>
+                    <li>Relish in the rich biodiversity of the sea-floor at Amed’s dive sites</li>
+                    <li>Visit the traditional salt-makers of the village for an authentic Bali experience</li>
+                </ul>
+                <a href="sub-destination" class="btn btn-outline-primary">Explore Amed</a>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <div class="glide-no-animation slide-banner-wrap">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-9.jpg');"></div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-8.jpg');"></div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-10.jpg');"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><img src="/images/left-arrow.svg"></button>
+                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><img src="/images/right-arrow.svg"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row sub-destination">
+            <div class="col-lg-4 col-md-5 order-lg-2 order-md-2 mb-4">
+                <h6 class="text-muted">Padang Bai</h6>
+                <h3 class="mb-2">A Plethora of Captivating Sites that Cater to All Levels</h3>
+                <p>Translucent beryl-like waters, graced with abundant marine life and reefs will leave that lingering awestruck feeling. Solidified with the plethora of diving sites, ranging from relaxing to exhilarating.</p>
+                <ul class="list-small mb-3">
+                    <li>Go critter diving at Amuk Bay for a chance to see macro life in abundance</li>
+                    <li>Encounter the mola mola fish during its season</li>
+                    <li>Appreciate the laid-back ambiance of a more traditional Bali tourism</li>
+                </ul>
+                <a href="sub-destination" class="btn btn-outline-primary">Explore Padang Bai</a>
+            </div>
+            <div class="col-lg-8 col-md-8 order-lg-1 order-md-1">
+                <div class="glide-no-animation slide-banner-wrap">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides">
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-11.jpg');"></div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-12.jpg');"></div>
+                            </li>
+                            <li class="glide__slide">
+                                <div class="slide-banner" style="background-image: url('/images/photos-diveinc-13.jpg');"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><img src="/images/left-arrow.svg"></button>
+                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><img src="/images/right-arrow.svg"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FEATURED RESORT (HARDCODE!) -->
+<!-- <div id="resortSection" class="section bg-lighter border-top">
+    <div class="container">
+        <div class="section-title d-flex align-items-center justify-content-between mb-3">
+            <div class="section-title--col">
+                <h5 class="m-0 mb-0">
+                    Resort recommendation in <span class="nameDestination"></span>
+                </h5>
+            </div>
+            <div class="section-title--col ml-5">
+                <a href="" role="button" class="btn btn-link pr-0 pl-0">
+                    See&nbsp;all&nbsp;resort
+                </a>
+            </div>
+        </div>
+        <div class="explore-card">
+            <div class="explore-card--list explore-card--25">
+                <div class="explore-card--item">
+                    <div class="explore-card--content shadow-sm">
+                        <div class="d-block">
+                            <span class="badge-photos badge badge-dark badge-pill rounded">3 Photos</span>
+                            <div class="slick">
+                                <div class="glide__slide--photos" style="background-image: url('https://hara-space-api.sgp1.digitaloceanspaces.com/image/1589384438180-3ee0dc40fdfca80fc76365f66016eea8.jpg')"></div>
+                                <div class="glide__slide--photos" style="background-image: url('https://hara-space-api.sgp1.digitaloceanspaces.com/image/1589384453705-820c0c9e5e91b3d0e433f3208cba3821.jpg')"></div>
+                                <div class="glide__slide--photos" style="background-image: url('https://hara-space-api.sgp1.digitaloceanspaces.com/image/1589384470218-879562329e2a57bda62eace3152eb7a7.jpg')"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="explore-card--details">
+                            <h4>OK Divers Resort & Spa</h4>
+                        </div>
+                        <div class="explore-card--footer">
+                            <div class="footer--details w-100">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <div class="details-price">
+                                            <small>Room from</small><br>
+                                            $291 /night
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="details-price">
+                                            <small>Packages from</small><br>
+                                            $872 /person
+                                        </div>
+                                    </div>
+                                </div>
+                                <small><i class="fas fa-map-marker-alt mr-1"></i>Pulau Menjangan, Bali - Indonesia</small>
+                            </div>
+                        </div>
+                        <div class="explore-card--action bg-white">
+                            <a href="http://localhost:5555/resort/9eaaae52-0295-4385-befd-6faa0aa2a11b" class="btn btn-primary mb-2 btn-block">View Resort</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+    var id = "<%= id %>"
+    const content = $('#listGalery').width();
+    const wW = $(window).width();
+    const content_scroll_width = content.scrollWidth
+    // let content_scroll_left = content.scrollLeft
+
+    $(document).ready(function(){
+        loadDestinationById(id)
+    })
+
+    function loadDestinationById(id){
+        $.ajax({
+            url: `/api/destination/${id}`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    $('#introLoader, #aboutLoader, #highlightLoader, #bannerLoader, #tabLoader, #divingLoader').addClass('hideImportant');
+                    console.log(result)
+                    $('#name').text(result.data.name)
+                    $('.nameDestination').text(result.data.name)
+                    $('#nameHighlight').text(result.data.name)
+                    $('#nameArticle').text(result.data.name)
+                    $('#nameAbout').text(result.data.name)
+                    $('#tagLine').text(result.data.tag_line)
+                    $('#description').text(result.data.description)
+                    $('#introduction').text(result.data.introduction)
+                    // $('#background').css({"background-image": result.data.image_background[0].url}
+                    $('#background').css("background-image", `url('${result.data.image_background[0].url}')`)
+                    $('#about').append(result.data.about)
+
+                    for(var i = 0; i < result.data.highlight.length; i++){
+                        $('#listHighlight').append(`
+                            <li>${result.data.highlight[i].value || result.data.highlight[i].text}</li>
+                        `)
+                    }
+
+                    for(var i = 0; i < result.data.image_galery.length; i++){
+                        $('#listGalery').append(`
+                            <div data-src="${result.data.image_galery[i].url}"  class="gallery-item" style="background-image: url('${result.data.image_galery[i].url}');"><div>View Picture<img src="${result.data.image_galery[i].url}"/></div></div>
+                        `)
+                    }
+                     $('#listGalery').lightGallery({
+                        selector: '.gallery-item',
+                        thumbnail: true
+                    });
+
+                    for(var i = 0; i < result.data.more_about.length; i++){
+                        if(result.data.more_about[i].type == "link"){
+                            $('#listMoreAbout').append(`
+                                <div class="list-panel">
+                                    <a href="${result.data.more_about[i].value}" target="_blank"><i class="mr-1 fas fa-external-link-alt fa-sm"></i>${result.data.more_about[i].key}</a>
+                                </div>
+                            `)
+                        }else {
+                            $('#listMoreAbout').append(`
+                                <div class="list-panel">
+                                    <div class="list-panel-title">${result.data.more_about[i].key}</div>
+                                    <div class="list-panel-content">${result.data.more_about[i].value}</div>
+                                </div>
+                            `)
+                        }
+                    }
+
+                    for(var i = 0; i < result.data.more_info.length; i++){
+                        if(i == 0){
+                            $('#myTab').append(`
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="${result.data.more_info[i].id}-tab" data-toggle="tab" href="#${result.data.more_info[i].id}" role="tab" aria-controls="${result.data.more_info[i].id}" aria-selected="false">${result.data.more_info[i].title}</a>
+                                </li>
+                            `)
+                            $('#myTabContent').append(`
+                                <div class="tab-pane fade content-tab show active" id="${result.data.more_info[i].id}" role="tabpanel">
+                                    ${result.data.more_info[i].text}
+                                </div>
+                            `)
+                        }else{
+                            $('#myTab').append(`
+                                <li class="nav-item">
+                                    <a class="nav-link" id="${result.data.more_info[i].id}-tab" data-toggle="tab" href="#${result.data.more_info[i].id}" role="tab" aria-controls="${result.data.more_info[i].id}" aria-selected="false">${result.data.more_info[i].title}</a>
+                                </li>
+                            `)
+                            $('#myTabContent').append(`
+                                <div class="tab-pane fade content-tab" id="${result.data.more_info[i].id}" role="tabpanel" aria-labelledby="${result.data.more_info[i].id}">
+                                    ${result.data.more_info[i].text}
+                                </div>
+                            `)
+                        }
+                        
+                    }
+
+                    $('#myTab a').on('click', function (e) {
+                        e.preventDefault()
+                        $('.content-tab').removeClass('show')
+                        $('.content-tab').removeClass('active')
+                        $(`${$(this).attr('href')}`).addClass('show')
+                        $(`${$(this).attr('href')}`).addClass('active')
+                    })
+
+                    $('#contentArticle').append(result.data.article);
+
+                    for(var i = 0; i < result.data.sub_destinations.length; i++){
+                        $('#subDestinationHC').append(`
+                                <a href="/sub-destination/${result.data.sub_destinations[i].id}" class="explore-card--item">
+                                    <div class="explore-card--content shadow-sm">
+                                        <div class="explore-card--image" style="background-image: url('${result.data.sub_destinations[i].image_showing[0].url}');">
+                                            <div class="explore-card--text-inside">
+                                                <h4 class="mt-0 text-ellipsis">${result.data.sub_destinations[i].name}</h4>
+                                                <p>${result.data.sub_destinations[i].description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `);
+                    }
+
+                    for(var i = 0; i < result.data.sub_destinations.length; i++){
+                        var subDestination = result.data.sub_destinations[i]
+                        var highlight = subDestination.highlight
+                        var highlightHtml = ""
+                        for(var j = 0; j < highlight.length; j++){
+                            highlightHtml = highlightHtml + `
+                                <li>${highlight[j].value || highlight[j].text}</li>
+                            `
+                        }
+                        var gallery = subDestination.image_galery
+                        var galleryHtml = ""
+                        for(var j = 0; j < gallery.length; j++){
+                            galleryHtml = galleryHtml + `
+                                <li class="glide__slide">
+                                    <div class="slide-banner" style="background-image: url('${gallery[j].url}');"></div>
+                                </li>
+                            `
+                        }
+
+                        
+                        // Gus, nanti pakenya yang dibawah ini ya, tapi ada error karena image_showing nya undefined
+                        if(i = 0) {
+                            $('#listSubDestinationNew').append(`
+                                <a href="/sub-destination/${subDestination.id}" class="explore-card--item">
+                                    <div class="explore-card--content shadow-sm">
+                                        <div class="explore-card--image" style="background-image: url('${result.data[i].image_showing[0].url}');">
+                                            <div class="explore-card--text-inside">
+                                                <h4 class="mt-0 text-ellipsis">${subDestination.name}</h4>
+                                                <p>${subDestination.description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `)
+                        }else {
+                            $('#listSubDestinationNew').append(`
+                                <a href="/sub-destination/${subDestination.id}" class="explore-card--item">
+                                    <div class="explore-card--content shadow-sm">
+                                        <div class="explore-card--image" style="background-image: url('${result.data[i].image_showing[0].url}');">
+                                            <div class="explore-card--text-inside">
+                                                <h4 class="mt-0 text-ellipsis">${subDestination.name}</h4>
+                                                <p>${subDestination.description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `)
+                        }
+
+                        // if(i == 0){
+                        //     $('#listSubDestination').append(`
+                        //         <li class="glide__slide">
+                        //             <a href="/destination/${subDestination.id}" class="explore-card--item mb-0">
+                        //                 <div class="explore-card--content shadow-sm">
+                        //                     <div class="explore-card--image" style="background-image: url('${result.data[i].image_showing[0].url}');">
+                        //                         <div class="explore-card--text-inside">
+                        //                             <h4 class="mt-0">${subDestination.name}</h4>
+                        //                             <p>${subDestination.description}</p>
+                        //                         </div>
+                        //                     </div>
+                        //                 </div>
+                        //             </a>
+                        //         </li>
+                        //     `)
+                        // }else{
+                        //     $('#listSubDestination').append(`
+                        //         <li>
+                        //             <a href="/destination/${subDestination.id}" class="explore-card--item mb-0">
+                        //                 <div class="explore-card--content shadow-sm">
+                        //                     <div class="explore-card--image" style="background-image: url('${result.data[i].image_showing[0].url}');">
+                        //                         <div class="explore-card--text-inside">
+                        //                             <h4 class="mt-0">${subDestination.name}</h4>
+                        //                             <p>${subDestination.description}</p>
+                        //                         </div>
+                        //                     </div>
+                        //                 </div>
+                        //             </a>
+                        //         </li>
+                        //     `)
+                        // }
+
+                        // Yang ini mah di hide aja gus, buat disimpan dulu aja
+                        if((i+1) % 2){
+                            $('#listSubDestination').append(`
+                                <div class="row sub-destination">
+                                    <div class="col-lg-4 col-md-5 mb-4">
+                                        <h6 class="text-muted">${subDestination.name}</h6>
+                                        <h3 class="mb-2">${subDestination.tag_line}</h3>
+                                        <p>${subDestination.introduction}</p>
+                                        <ul class="list-small mb-3">
+                                            ${highlightHtml}
+                                        </ul>
+                                        <a href="/sub-destination/${subDestination.id}" class="btn btn-outline-primary">Explore ${subDestination.name}</a>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 order-lg-1 order-md-1">
+                                        <div class="glide-no-animation slide-banner-wrap">
+                                            <div class="glide__track" data-glide-el="track">
+                                                <ul class="glide__slides">
+                                                    ${galleryHtml}
+                                                </ul>
+                                            </div>
+                                            <div class="glide__arrows" data-glide-el="controls">
+                                                <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><img src="/images/left-arrow.svg"></button>
+                                                <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><img src="/images/right-arrow.svg"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `)
+                        }else{
+                            $('#listSubDestination').append(`
+                                <div class="row sub-destination">
+                                    <div class="col-lg-4 col-md-5 order-lg-2 order-md-2 mb-4">
+                                        <h6 class="text-muted">${subDestination.name}</h6>
+                                        <h3 class="mb-2">${subDestination.tag_line}</h3>
+                                        <p>${subDestination.introduction}</p>
+                                        <ul class="list-small mb-3">
+                                            ${highlightHtml}
+                                        </ul>
+                                        <a href="/sub-destination/${subDestination.id}" class="btn btn-outline-primary">Explore ${subDestination.name}</a>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 order-lg-1 order-md-1">
+                                        <div class="glide-no-animation slide-banner-wrap">
+                                            <div class="glide__track" data-glide-el="track">
+                                                <ul class="glide__slides">
+                                                    ${galleryHtml}
+                                                </ul>
+                                            </div>
+                                            <div class="glide__arrows" data-glide-el="controls">
+                                                <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><img src="/images/left-arrow.svg"></button>
+                                                <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><img src="/images/right-arrow.svg"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `)
+                        }
+
+                        var sliders = document.querySelectorAll('.glide-no-animation');
+
+                        for (var i = 0; i < sliders.length; i++) {
+                            var glide = new Glide(sliders[i], {
+                                type: 'carousel',
+                                startAt: 0,
+                                perView: 1,
+                                gap: 0
+                            });
+                            
+                            glide.mount();
+                        }
+                    }
+
+                    var sliders = document.querySelectorAll('.glide-card');
+
+                    for (var i = 0; i < sliders.length; i++) {
+                        var glide = new Glide(sliders[i], {
+                            type: 'carousel',
+                            startAt: 0,
+                            perView: 5,
+                            gap: 0,
+                            breakpoints: {
+                                991: {
+                                perView: 3
+                                },
+                                767: {
+                                perView: 2
+                                }
+                            }
+                        });
+                        
+                        glide.mount();
+                    }
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function slideGalleryLeft(){
+        let tmbh = $('.gallery-item:first').width();
+        // let tmbh = $('#listGalery').get(0).scrollWidth - $('#listGalery').get(0).clientWidth;
+        let glr = $('#listGalery');
+        glr.scrollLeft(glr.scrollLeft() - tmbh)
+    }
+
+    function slideGalleryRight(){
+        let tmbh = $('.gallery-item:last').width();
+        // let tmbh = $('#listGalery').get(0).scrollWidth - $('#listGalery').get(0).clientWidth;
+        let glr = $('#listGalery');
+        glr.scrollLeft(glr.scrollLeft() + tmbh)
+        // console.log($('#listGalery').get(0).scrollWidth,'-', $('#listGalery').get(0).clientWidth)
+        // console.log()
+    }
+    
+</script>

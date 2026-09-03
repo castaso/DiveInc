@@ -1,0 +1,371 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+
+<div class="modal" id="modalDonate" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded border-0">
+            <div class="modal-body">
+                <h5 class="panel-title panel-title-sm d-block mb-4">Insert Data</h5>
+                <!-- start modal content -->
+                <div class="form-row mb-3">
+                    <label class="col-sm-4 col-form-label">Name<span class="required text-danger">*</span></label>
+                    <div class="col-sm-8">
+                        <div class="d-block">
+                            <input id="inputName" type="text" class="form-control" placeholder="Your Name">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row mb-3">
+                    <label class="col-sm-4 col-form-label">Email<span class="required text-danger">*</span></label>
+                    <div class="col-sm-8">
+                        <div class="d-block">
+                            <input id="inputEmail" type="text" class="form-control" placeholder="Your Email">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row mb-3">
+                    <label class="col-sm-4 col-form-label">Amount<span class="required text-danger">*</span></label>
+                    <div class="col-sm-8">
+                        <div class="d-block ">
+                            <input id="inputAmount" type="number" class="form-control" placeholder="Amount">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row mb-3">
+                    <label class="col-sm-4 col-form-label">Hide My Name<span class="required text-danger">*</span></label>
+                    <div class="col-sm-8 text-left">
+                        <div class="py-1 text-left">
+                            <label for="isHideName">
+                                <input id="isHideName" name='isHideName' type="checkbox" > Yes
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- end modal content -->
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-secondary hidden-print saveBtn" onclick="saveContribution()" >Submit Contribution</button>
+                    <button type="button" class="d-none btn btn-secondary mr-2 saveLoading">
+                        <div class="spinner-border spinner-border-sm text-white" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
+                    <button type="button" class="btn btn-light btn-link hidden-print" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DESTINATION BANNER -->
+<div id="imageBackground" class="contribution-banner have-curtain">
+    <div class="contribution-banner--inner">
+        <div class="container">
+            <div class="contribution-banner--text">
+                <div class="welcome-title--text">
+                    <div class="meta-user meta-user-lg mb-3">
+                        <div class="meta-user-img userBackground"></div>
+                        <div class="meta-user-detail">
+                            <h6 class="text-sm mb-0 userName"></h6>
+                            <div class="text-success text-sm">Verified</div>
+                        </div>
+                    </div>
+                    <h1 class="contributionName"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section section-top-md section-bottom-0">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-8 pr-lg-4 pr-md-4 pr-0">
+                <div class="d-block pb-4 mb-5 border-bottom">
+                    <h5 class="panel-title d-block mb-4">Created By</h5>
+                    <div class="d-block py-2 px-4 mb-4 bg-white border">
+                        <div class="meta-user meta-user-lg mb-3">
+                            <div class="meta-user-img userBackground"></div>
+                            <div class="meta-user-detail">
+                                <h6 class="text-sm mb-0 userName"></h6>
+                                <div class="text-success text-sm d-block mb-1">Account has been verified</div>
+                                <div class="text-xs text-muted userCreated"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-block pb-5 mb-5 border-bottom">
+                    <h5 class="panel-title d-block mb-4">Program Story</h5>
+                    <p id="about"></p>
+                </div>
+                <!-- <div class="d-block p-4 mb-5 bg-lighter border">
+                    <h5 class="panel-title d-block mb-4">Quick Checklist</h5>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Program Created</h6>
+                        <h6 class="list-panel-content">Nov 2nd, 2019</h6>
+                    </div>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Team Member</h6>
+                        <h6 class="list-panel-content">John Paul, Marlina Soe, Gerry Adam</h6>
+                    </div>
+                    <div class="list-panel">
+                        <h6 class="list-panel-title">Consveration License</h6>
+                        <h6 class="list-panel-content">DA 981234-123412 YYXT</h6>
+                    </div>
+                </div> -->
+                <div class="d-block pb-5">
+                    <h5 class="panel-title d-block mb-4">Program Update & News</h5>
+                    <div class="history-panel" id="newsPanel">
+                        <!-- <div class="history-panel-item">
+                            <div class="history-panel-header mb-4">
+                                <div class="meta-user my-2">
+                                    <div class="meta-user-img mr-3" style="background-image: url('/images/ocean-research-logo-2.jpg');"></div>
+                                    <div class="meta-user-detail">
+                                        <h6 class="text-sm mb-0">AORA</h6>
+                                        <div class="text-muted text-sm">4 days ago</div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="history-panel-content">
+                                <h6 class="d-block mb-3">Update Progress</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                            <div class="history-panel-footer"></div>
+                        </div> -->
+                        <!-- <div class="history-panel-item">
+                            <div class="history-panel-header mb-4">
+                                <div class="meta-user my-2">
+                                    <div class="meta-user-img mr-3" style="background-image: url('/images/ocean-research-logo-2.jpg');"></div>
+                                    <div class="meta-user-detail">
+                                        <h6 class="text-sm mb-0">AORA</h6>
+                                        <div class="text-muted text-sm">4 days ago</div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="history-panel-content">
+                                <h6 class="d-block mb-3">Disbursement of Funds $120</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="history-panel-footer"></div>
+                        </div> -->
+                    </div>
+                    <!-- <button type="button" class="btn btn-outline-primary">See All Update</button> -->
+                </div>
+
+                <div class="d-block pb-5">
+                    <h5 class="panel-title d-block mb-4">Document</h5>
+                    <div class="col-sm-12">
+                        <a onclick="loadDocument()" class="btn btn-outline-primary btn-sm" type="button">See Document</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="sidebar-item sidebar-item--price">
+                    <div class="sticky sticky--normal">
+                        <div class="card shadow-sm rounded-0 border-0">
+                            <div class="card-body">
+                                <div class="d-block mb-2">Funds Needed</div>
+                                <h2 id="funds" class="mb-2 font-weight-bold text-primary"></h2>
+                                <a href="#modalDonate" data-toggle="modal" class="btn btn-primary btn-block">Donate Now</a>
+                            </div>
+                            <a href="" class="text-sm card-footer">
+                                Lets take a look how we can help your contribution
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var id = "<%= id %>"
+
+    var urlDocument = ""
+
+    function formatRupiah(angka){
+        // console.log("ANGKAAAAAA")
+        // console.log(angka)
+        // console.log("-=========")
+        var number_string = angka.toString(),
+        sisa     		= number_string.length % 3,
+        rupiah     		= number_string.substr(0, sisa),
+        ribuan     		= number_string.substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        console.log(1000);
+        return rupiah
+    }
+
+    $(document).ready(function() {
+        getMyResort()
+    });
+
+    function getMyResort(){
+        // $('#listMyResortEmpty').show();
+        $.ajax({
+            url: `/api/contribution/${id}`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    $('.contributionName').text(`${result.data.profile.name}`)
+                    $('#imageBackground').css("background-image", `url('${result.data.photos[0].url}')`)
+                    $('#about').text(`${result.data.profile.about}`)
+                    $('#funds').text(`RP ${formatRupiah(result.data.profile.funds)}`)
+
+                    $('.userName').text(`${result.data.user.profile.name.first_name} ${result.data.user.profile.name.last_name}`)
+                    $('.userBackground').css("background-image", `url('${result.data.user.profile.url}')`)
+                    $('.userCreated').text(`Joined at ${result.data.user.created_at}`)
+
+                    urlDocument = result.data.documents.url
+
+                    for(var i = 0; i < result.data.news.length; i++){
+                        $('#newsPanel').append(`
+                            <div class="history-panel-item">
+                                <div class="history-panel-header mb-4">
+                                    <div class="meta-user my-2">
+                                        <div class="meta-user-detail">
+                                            <div class="text-muted text-sm">${result.data.news[i].date}</div>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="history-panel-content">
+                                    <p>${result.data.news[i].news}</p>
+                                </div>
+                                <div class="history-panel-footer"></div>
+                            </div>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function saveContribution(){
+        $('.saveBtn').addClass('d-none');
+        $('.saveLoading').removeClass('d-none');
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            // return alert("form is not valid")
+
+            $('.saveBtn').removeClass('d-none');
+            $('.saveLoading').addClass('d-none');
+            return Swal.fire(
+                'Oops!',
+                `Please complete all data.
+                <ul style='padding-left:20px'>
+                </ul>
+                `
+            )
+        }else{
+            $.ajax({
+                url: `/api/transaction-contribution`,
+                method: `POST`,
+                data: {
+                    name : $('#inputName').val(),
+                    email : $('#inputEmail').val(),
+                    amount : $('#inputAmount').val(),
+                    isHideName : $('#isHideName').is(':checked')
+                },
+                success: function (result) {
+                    console.log(result)
+                    if (result.success) {
+                        Swal.fire({
+                            title: "Data sent!",
+                            text: "We sent guide how to send the contribution.",
+                            confirmButtonText: 'Great'
+                        }).then(function() {
+                            window.location.reload();    
+                        });
+                        
+                        $('.saveBtn').removeClass('d-none');
+                        $('.saveLoading').addClass('d-none');
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+
+    }
+
+    function formValidate(){
+        $(document).find(".text-field-warning").remove();
+        listIncomplete = [];
+        isEmailError = false;
+        emailVal = $('#inputEmail').val();
+        ($('#inputName').val().length < 3 ? listIncomplete.push({inputId:"inputName", message: "Name is too short" }) : '' );
+        ($('#inputEmail').val().length < 3 ? listIncomplete.push({inputId:"inputEmail",message:"Email too short"}) : '' );
+        ($('#inputAmount').val().length == "" ? listIncomplete.push({inputId:"inputAmount",message:"Please input contribution amount"}) : '' );
+        // console.log(emailVal.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/));
+        if (!emailVal.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+            isEmailError = true
+        }
+        (isEmailError ? listIncomplete.push({inputId:"inputEmail",message:"Email address format is invalid"}) : '' );
+
+        showIncompleteFieldMessage(listIncomplete);
+        return listIncomplete;
+    }
+
+    function showIncompleteFieldMessage(listIncomplete){
+        let earliestInput = "";
+        $.each(listIncomplete,function(i,v){
+            earliestInput = (i==0 ? v.inputId : earliestInput);
+            $(`#${v.inputId}`).parent().append(`<i class='text-danger text-field-warning' style="font-size:12px">*${v.message}</i>`);
+        });
+
+        let el = document.getElementById(`${earliestInput}`);
+        (earliestInput != '' ? el.scrollIntoView() : '');
+    }
+
+    function loadDocument(){
+        if( urlDocument == ""){
+            Swal.fire(
+                'Contribution document',
+                'No document uploaded'
+            )
+        }else{
+            location.href = urlDocument
+        }
+    }
+
+
+
+</script>
+
+<!-- PROMOTION BANNER -->
+<!-- <div class="container">
+    <img src="/images/banner-3.jpg" alt="" class="w-100 d-block">
+</div> -->
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>

@@ -1,0 +1,198 @@
+<!-- TOP DESTINATION -->
+<div id="viewDestination" class="d-block mb-5">
+    <div class="container">
+        <div class="section-title d-flex align-items-center justify-content-between mb-3 mb-md-0">
+            <div class="section-title--col">
+                <h5 class="m-0 mb-0">
+                    Incredible Destination
+                </h5>
+                <p class="hide-mobile">A few choice destinations on our radar. Book your calendars now!</p>
+            </div>
+            <div class="section-title--col ml-5">
+                <a href="all-destination"class="btn btn-link pr-0 pl-0">
+                    See&nbsp;all&nbsp;destination
+                </a>
+            </div>
+        </div>
+        <div class="explore-card" id='top-places-container'>
+            <div class="glide-card explore-card--list explore-card--with-text explore-card--100">
+                <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides" id="layoutDestination">
+                        <!-- <li class="glide__slide">
+                            <a href="destination" class="explore-card--item mb-0">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="explore-card--image" style="background-image: url('/images/diving-bali.jpeg');">
+                                        <div class="explore-card--text-inside">
+                                            <h4 class="mt-0">Bali</h4>
+                                            <p>A paradise with much to offer, both above and below the waves. Get ready to immerse yourself in a vibrant and diverse culture like no other!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="destination" class="explore-card--item mb-0">
+                                <div class="explore-card--content shadow-sm">
+                                    <div class="explore-card--image" style="background-image: url('/images/diving-lombok.jpg');">
+                                        <div class="explore-card--text-inside">
+                                            <h4 class="mt-0">Lombok</h4>
+                                            <p>Lorem ipsumdolor sit amet consectetur adipisicing elit acusantium illum debitis.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="glide__arrows glide__arrows-custom" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left shadow-sm" data-glide-dir="<"><i class="fas fa-angle-left"></i></button>
+                    <button class="glide__arrow glide__arrow--right shadow-sm" data-glide-dir=">"><i class="fas fa-angle-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="exploreLoader" class="explore-card">
+            <div class="explore-card--list explore-card--with-text explore-card--20">
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border mb-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        loadDestination()
+    })
+
+    function loadDestination(){
+        $.ajax({
+            url: `/api/destination`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+
+                    $('#exploreLoader').addClass('hideImportant');
+                    $('#exploreSection').addClass('showing');
+                    
+                    for(var i = 0; i < result.data.length; i++){
+                        if(i == 0){
+                            $('#layoutDestination').append(`
+                                <li class="glide__slide">
+                                    <a href="/destination/${result.data[i].id}" class="explore-card--item mb-0">
+                                        <div class="explore-card--content shadow-sm">
+                                            <div class="explore-card--image" style="background-image: url('${result.data[i].image_showing[0].url}');">
+                                                <div class="explore-card--text-inside">
+                                                    <h4 class="mt-0 text-ellipsis">${result.data[i].name}</h4>
+                                                    <p>${result.data[i].description}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            `)
+                        }else{
+                            $('#layoutDestination').append(`
+                                <li>
+                                    <a href="/destination/${result.data[i].id}" class="explore-card--item mb-0">
+                                        <div class="explore-card--content shadow-sm">
+                                            <div class="explore-card--image" style="background-image: url('${result.data[i].image_showing[0].url}');">
+                                                <div class="explore-card--text-inside">
+                                                    <h4 class="mt-0 text-ellipsis">${result.data[i].name}</h4>
+                                                    <p>${result.data[i].description}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            `)
+                        }
+                    }
+
+                    var sliders = document.querySelectorAll('#top-places-container .glide-card');
+
+                    for (var i = 0; i < sliders.length; i++) {
+                        var glide = new Glide(sliders[i], {
+                            type: 'carousel',
+                            startAt: 0,
+                            perView: 5,
+                            gap: 0,
+                            breakpoints: {
+                                991: {
+                                perView: 3
+                                },
+                                767: {
+                                perView: 2
+                                }
+                            }
+                        });
+                        
+                        glide.mount();
+                    }
+
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+</script>

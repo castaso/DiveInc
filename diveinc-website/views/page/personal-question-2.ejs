@@ -1,0 +1,195 @@
+<%-include ../partial/header %>
+
+<div class="container">
+    <div class="d-flex align-items-center personality-header-nav">
+        <a href="/">
+            <img class="logo-size-base mr-3" src="images/logo/logo-dive-blue.svg">
+        </a>
+        <!-- Breadcrumb Step -->
+        <ul class="progress-step-wrapper list-unstyled">
+            <li class="done">
+                <a href="personal-question-1" class="btn btn-white btn-sm">Introduction</a>
+            </li>
+            <li class="active">
+                <a href="personal-question-2" class="btn btn-white btn-sm">What</a>
+            </li>
+            <li>
+                <a href="personal-question-3" class="btn btn-white btn-sm">Where</a>
+            </li>
+            <li>
+                <a href="personal-question-4" class="btn btn-white btn-sm">When</a>
+            </li>
+            <li>
+                <a href="personal-question-5" class="btn btn-white btn-sm">Who</a>
+            </li>
+            <li>
+                <a href="personal-question-6" class="btn btn-white btn-sm">Spend</a>
+            </li>
+            <li>
+                <a href="personal-question-7" class="btn btn-white btn-sm">You</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="d-block">
+        <div class="row my-4">
+            <div class="col-lg-8 col-md-8">
+                <h1>What are you looking for?</h1>
+            </div>
+        </div>
+    </div>
+    <div class="d-block mb-4">
+        <div class="d-block mb-3">
+            <h5 class="panel-title">Holiday type</h5>
+        </div>
+        <div id="selectHolidayType"  class="select-card-wrapper">
+            <div class="select-card select-card-25">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="holidayType"/>
+                    <div class="select-card-img" style="background-image: url('/images/resort-1.jpeg');"></div>
+                    <div class="select-card-content">
+                        <h6 class="mb-2">Dive Resort</h6>
+                        <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit voluptas vitae tempora.</p>
+                    </div>
+                    <div class="select-card-checkbox"></div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card select-card-25">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="holidayType"/>
+                    <div class="select-card-img" style="background-image: url('/images/sailing-1.jpeg');"></div>
+                    <div class="select-card-content">
+                        <h6 class="mb-2">Liveaboards</h6>
+                        <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="select-card-checkbox"></div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card select-card-25">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="holidayType"/>
+                    <div class="select-card-img" style="background-image: url('/images/diving-1.jpeg');"></div>
+                    <div class="select-card-content">
+                        <h6 class="mb-2">Dive Center</h6>
+                        <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                    <div class="select-card-checkbox"></div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="d-block mb-4">
+        <div class="d-block mb-3">
+            <h5 class="panel-title">Select up to three</h5>
+        </div>
+        <div id="selectFish" class="select-card-wrapper">
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center">
+                        <img class="object-icon" src="images/selected-icon/selected-sharks.png">
+                        <h6 class="mb-0">Shark</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center">
+                        <img class="object-icon" src="images/selected-icon/selected-rays.png">
+                        <h6 class="mb-0">Rays</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center">
+                        <img class="object-icon" src="images/selected-icon/selected-turtles.png">
+                        <h6 class="mb-0">Turtles</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center">
+                        <img class="object-icon" src="images/selected-icon/selected-schooling-fish.png">
+                        <h6 class="mb-0">Schooling Fish</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center">
+                        <img class="object-icon" src="images/selected-icon/selected-macro-creatures.png">
+                        <h6 class="mb-0">Macro Creatures</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center">
+                        <img class="object-icon" src="images/selected-icon/selected-reefs-walls.png">
+                        <h6 class="mb-0">Reefs & Walls</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center">
+                        <img class="object-icon" src="images/selected-icon/selected-caves.png">
+                        <h6 class="mb-0">Caves</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center">
+                        <img class="object-icon" src="images/selected-icon/selected-wrecks.png">
+                        <h6 class="mb-0">Wrecks</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+            <div class="select-card">
+                <label class="select-card-inner shadow-sm">
+                    <input type="checkbox" name="fishType"/>
+                    <div class="select-card-content text-center d-flex justify-content-center align-items-center w-100 h-100">
+                        <h6 class="mb-0">Surprise me!</h6>
+                    </div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="d-block mb-5">
+        <a href="personal-question-3" class="btn btn-outline-primary btn-lg-2">Next</a>
+    </div>
+
+    <script>
+        $('#selectFish input').change(function () {
+            var $cs=$(this).closest('#selectFish').find(':checkbox:checked');
+            if ($cs.length > 3) {
+                this.checked=false;
+            }
+        });
+    </script>
+    
+</div>
+
+<%-include ../partial/footer %>

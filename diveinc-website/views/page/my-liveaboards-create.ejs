@@ -1,0 +1,2586 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+<div class="header-spacer"></div>
+<div class="modal" id="modalSetHighlight" tabindex="-1" role="dialog"aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-header">
+                <span class="font-weight-bold">Set Highlight</span>
+            </div>
+            <div class="modal-body">
+                <div id="listHighlightModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button onClick="addHighlightItem()" type="button" class="btn btn-outline-primary"><i class="fas fa-plus mr-2"></i>Add new</button>
+                <button type="button" onClick="populateHighlight()" class="btn btn-outline-primary float-right">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section section-sm bg-lighter min-100-y">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- <div class="col-lg-12">
+                <h2 class="m-0 mb-4">My Account</h2>
+            </div> -->
+            <div class="col-lg-9">
+                <!-- Liveaboard Create 1 -->
+                <ul class="progress-step-wrapper list-unstyled pt-0 on-bg-lighter shift-left">
+                    <!-- <li>
+                        <a href="#" class="btn btn-white btn-sm">Homepage</a>
+                    </li> -->
+                    <li>
+                        <a href="/my-liveaboards" class="btn btn-white btn-sm">My Liveaboard</a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-white btn-sm">Liveaboard</a>
+                    </li>
+                </ul>
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom d-flex-mobile">
+                            <div class="d-flex align-items-center mb-2 mb-md-0">
+                                <h5 class="m-0 mr-0 mr-md-2"><span class="formTitle">Create New</span> Liveaboard</h5>
+                            </div>
+                            <div id="liveaboardButton" style="display:none !important;" class="d-flex">
+                                <a onClick="saveDraft()" class="btn btn-light mr-2">Save as Draft</a>
+                                <a onClick="savePublish()" class="btn btn-primary savePublishBtn"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</a>
+                                <button type="button" class="btn btn-primary savePublishLoading">
+                                    <div class="spinner-border spinner-border-sm text-white" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="anchorButton" class="d-none align-items-center justify-content-between mb-4 pb-4 border-bottom d-flex-mobile">
+                            <div>
+                                <a href="#layoutBoatCabin" class="btn btn-info mr-2"><i class="fas fa-link fa-sm mr-2"></i>Room List</a>
+                                <a href="#layoutBoatTrip" class="btn btn-info mr-2"><i class="fas fa-link fa-sm mr-2"></i>Package List</a>
+                                <a href="#schedule-section" class="btn btn-info"><i class="fas fa-link fa-sm mr-2"></i>Schedule</a>
+                            </div>
+                        </div>
+                        <div class="d-block">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Liveaboards Profile</h5>
+                            <div class="form-row mb-3">
+                                <label for="boat_name" class="col-sm-2 col-form-label">Boat Name<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputName" type="text" class="form-control rounded-0 text-capitalize" name="boat_name" placeholder="Boat name" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="liveaboards_origin" class="col-sm-2 col-form-label">Country & City<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-mobile  ">
+                                        <select id="inputCountry" class="form-control rounded-0 mb-2 mb-md-0">
+                                            <option value="">Select Country</option>
+                                        </select>
+                                        <select id="inputDestination" class="form-control rounded-0 mb-2 mb-md-0">
+                                            <option value="">Select Destination</option>
+                                        </select>
+                                        <select id="inputSubDestination" class="form-control rounded-0">
+                                            <option value="">Select Sub Destination</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="liveaboard_introduction" class="col-sm-2 col-form-label">Liveaboard Introduction<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="inputIntroduction" class="summernoteData"></textarea>
+                                    <div class="alert alert-info border-0 mt-2 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Writes your liveaboard introduction in 400 characters. Your guest will read this first when opening your page.</div></div></div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="boat_description" class="col-sm-2 col-form-label">About Your Boat<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="inputAbout" class="summernoteData"></textarea>
+                                    <div class="alert alert-info border-0 mt-2 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Writes your boat about in 800 characters. Tell your guest about your liveaboard</div></div></div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="boat_size" class="col-sm-2 col-form-label">Boat Size<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-2 mb-md-0">
+                                            <div class="input-group">
+                                                <input id="inputWidth" type="number" min="0" class="form-control" placeholder="Boath width">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">meter</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input id="inputLength" type="number" min="0" class="form-control" placeholder="Boat length">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">meter</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="year_built" class="col-sm-2 col-form-label">Year Built<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputBuilt" type="number" min="0" class="form-control rounded-0 text-capitalize" name="year_built" placeholder="Year built" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="year_renovate" class="col-sm-2 col-form-label">Year Renovate<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input id="inputRenovate" type="number" min="0" class="form-control rounded-0 text-capitalize" name="year_renovate" placeholder="Year renovate" required>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="ideal_for" class="col-sm-2 col-form-label">Ideal For<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listIdeal" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="language" class="col-sm-2 col-form-label">Language<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listLanguage" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Liveaboard Highlight -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Liveaboards Highlight<span class="required text-danger">*</span></h5>
+                            <div>
+                                <ul id="listHighlight" class="list-base list-base-md font-serif"></ul>
+                            </div>
+                            <div class="d-none p-2 border mb-2 bg-lighter">
+                                <div class="d-flex">
+                                    <div class="mr-2 flex-grow-1">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <input id="inputHighlight" type="text" class="form-control" placeholder="Write your liveaboard highlight">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button id="saveHighlight" type="button" class="btn btn-outline-primary">Add</button>
+                                            <!-- <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#modalSetHighlight" data-toggle="modal" onclick="loadHighlight()" class="btn btn-outline-primary btn-sm" type="button">Manage</a>
+                            <!-- <button class="btn btn-outline-primary btn-sm" type="button">Add Item</button> -->
+                        </div>
+                        <div class="alert alert-info border-0 mt-3 mb-0 text-sm"><div class="d-flex"><div class="mr-2"><i class="fas fa-info-circle"></i></div><div>Write your liveaboard highlight to inform the guest with quick best value of your liveaboard.</div></div></div>
+                    </div>
+                </div>
+                <!-- Liveaboard Photos -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                       <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Liveaboard Photos<span class="required text-danger">*</span></h5>
+                            <div class="form-row">
+                                <div class="col-sm-12">
+                                    <div class="d-block w-100 mb-3">
+                                        <div class="custom-file mb-2">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                            <span class="loadingPhotos" style="display:none;">Loading...</span>
+                                        </div>
+                                        <!-- <div class="btn-group">
+                                            <div class="btn btn-outline-primary btn-sm">Clear</div>
+                                            <div class="btn btn-outline-primary btn-sm"><i class="fas fa-upload mr-2"></i>Upload Photos</div>
+                                        </div> -->
+                                    </div>
+                                    <div id="listPhotos" class="photo-gallery-create">
+                                        <!-- <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bali.jpeg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+                                        <div class="photo-gallery--item" style="background-image:url('/images/diving-bunaken.jpg');"><div class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Liveaboard Amenities -->
+                <div class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <h5 class="panel-title panel-title-sm d-block mb-4">Liveaboard Amenities</h5>
+                            <div class="form-row mb-3">
+                                <label for="liveaboard_activities" class="col-sm-2 col-form-label">Activities<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listActivity" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <label for="liveaboard_facilities" class="col-sm-2 col-form-label">Facilities<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listFacility" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="liveaboard_sport" class="col-sm-2 col-form-label">Sports<span class="required text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div id="listSport" class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer"  id="liveaboardButtonBottom" style='overflow: auto;'>
+                        <div class='hide-mobile'>
+                            <div class="d-flex align-items-center justify-content-between mt-2 mb-2 pt-2 pb-2">
+                                <div class="d-flex align-items-center text-center-mobile mb-2 mb-md-0">
+                                    <a href="/my-liveaboards" class="btn btn-outline-primary"><i class="fas fa-arrow-left fa-sm mr-2"></i>My Liveaboard</a>
+                                </div>
+                                <div class='text-right'>
+                                    <a onClick="saveDraft()" class="btn btn-light mr-2">Save as Draft</a>
+                                    <a onClick="savePublish()" class="btn btn-primary savePublishBtn"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</a>
+                                    <button type="button" class="btn btn-primary savePublishLoading">
+                                        <div class="spinner-border spinner-border-sm text-white" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='view-mobile-only'>
+                            <a href="/my-liveaboards" class="btn btn-block btn-outline-primary"><i class="fas fa-arrow-left fa-sm mr-2"></i>My Liveaboard</a>
+                            <a onClick="saveDraft()" class="btn btn-block  btn-light mr-2">Save as Draft</a>
+                            <a onClick="savePublish()" class="btn btn-block  btn-primary savePublishBtn"><i class="fas fa-rocket fa-sm mr-2"></i>Save & Publish</a>
+                            <button type="button" class="btn btn-block btn-primary savePublishLoading">
+                                <div class="spinner-border spinner-border-sm text-white" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Button Save -->
+                <div id="cardSave" style="display:none;" class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between d-flex-mobile">
+                            <div class="d-flex align-items-center mb-2 mb-md-0 text-center-mobile">
+                                <h5 class="m-0 mr-0 mr-md-2">Is the liveaboard data complete?</h5>
+                            </div>
+                            <div class="d-flex">
+                                <a onClick="saveDraft()" class="btn btn-primary btn-lg ml-2"><i class="mr-2 far fa-save"></i>Save & Continue</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end py-2">
+                            <div>Next, you will creating liveaboard cabin & package<i class="ml-2 fas fa-arrow-right"></i></div> 
+                        </div>
+                    </div>
+                </div>
+                <!-- Liveaboard Cabin -->
+                <div id="layoutBoatCabin" style="display:none;" class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Boat Cabin</h5>
+                            </div>
+                            <div class="d-flex">
+                                <a onClick="setUpCabin();" href="#" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New Cabin</a>
+                            </div>
+                        </div>
+                        <div id="listCabin">
+                            <div id="listCabinEmpty" class="card rounded-0">
+                                <div class="card-body bg-lighter">
+                                    <div class="d-block">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h5>You don't have any cabin</h5>
+                                                In order to publish your liveaboards, please create your cabin & it's detail.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Trip Package -->
+                <div id="layoutBoatTrip" style="display:none;" class="card shadow-sm border-0 rounded-0 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <h5 class="m-0 mr-2">Trip Package</h5>
+                            </div>
+                            <div class="d-flex">
+                                <a onClick="setUpPackage();" href="#" class="btn btn-outline-primary"><i class="fas fa-plus fa-sm mr-2"></i>Add New Package</a>
+                            </div>
+                        </div>
+                        <div id="listPackage">
+                            <div id="listPackageEmpty" class="card rounded-0">
+                                <div class="card-body bg-lighter">
+                                    <div class="d-block">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h5>You don't have any package</h5>
+                                                In order to publish your liveaboards, please create your package & it's detail.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card rounded-0 mb-3 bg-white">
+                            <div class="row no-gutters align-items-start">
+                                <div class="col-md-4">
+                                    <div class="card-body pr-md-0">
+                                        <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">2 Photos</span>
+                                        <div class="slick rounded">
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/trip-1.jpeg">
+                                            </div>
+                                            <div class="glide__slide--photos">
+                                                <img data-lazy="/images/trip-1.jpeg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start justify-content-between mb-2">
+                                            <div>
+                                                <h5 class="m-0 mb-1">Komodo North/Central/South (Labuan Bajo - Labuan Bajo)</h5>
+                                                <span class="text-sm text-muted">Created 20/1/2019 - 12:44</span>
+                                            </div>
+                                            <div class="text-right flex-shrink-0">
+                                                <div class="d-flex flex-column">
+                                                    <h5 class="m-0 normal-price discounted" class="">$770</h5>
+                                                    <h5 class="m-0 discount-price">$599</h5>
+                                                </div>
+                                                <span class="text-sm text-muted">per guest</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-block py-1 mb-2">
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-clock fa-sm mr-2"></i>3 night 4 day, 10 dives
+                                            </div>
+                                            <div class="d-block mb-2 text-sm">
+                                                <i class="fas fa-archive fa-sm mr-2"></i>2 additional item
+                                            </div>
+                                        </div>
+                                        <div class="list-group list-group-horizontal list-group-sm w-100">
+                                            <div class="dropdown">
+                                                <a class="list-group-item" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog fa-sm"></i><i class="fas fa-caret-down fa-sm text-muted"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#">Delete Trip</a>
+                                                </div>
+                                            </div>
+                                            <a href="my-liveaboards-create-package" class="list-group-item "><i class="fas fa-eye fa-sm mr-2"></i>View Trip</a>
+                                            <a href="my-liveaboards-schedule" class="list-group-item flex-grow-1 text-center"><i class="fas fa-calendar fa-sm mr-2"></i>View Schedule</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <!----------------- Package Schedule ------------------>
+                <div class="card shadow-sm border-0 rounded-0 mb-3" id="schedule-section">
+                    <div class="card-body">
+                        <div class="d-block pt-2">
+                            <div class="d-flex justify-content-between mb-4">
+                                <h5 id="title" class="panel-title panel-title-sm d-block mr-2">Package Schedule</h5>
+                            </div>
+                            <div class="d-block p-3 bg-lighter border mb-3">
+                                <div class="form-row mb-0">
+                                    <div class='col-sm-6'>
+                                        <select id="packageSelect" type="text" class="form-control">
+                                            <option value="">Pilih</option>
+                                        </select>
+                                    </div>
+                                    <div class='col-sm-4'>
+                                        <input id="datePicker" type="text" autocomplete="off" class="form-control" placeholder="New Date">
+                                    </div>
+                                    <div class='col-sm-2'>
+                                        <button onclick="createSchedule()" class="btn btn-block btn-outline-primary" type="button">Save Date</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-block" style="overflow:auto">
+                                <table id="dataSchedule" class="table table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="pl-0 w-50">Date Start</th>
+                                            <th class="pl-0 w-50">Date End</th>
+                                            <th class="pl-0 w-50">Duration</th>
+                                            <th class="nosort">Package</th>
+                                            <th class="nosort">Status</th>
+                                            <th class="nosort">Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal Room Details -->
+<div class="modal" id="modalRoomDetails" tabindex="-1" role="dialog"aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-0 border-0">
+            <div class="modal-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h4>Twin Bungalow</h4>
+                    <h6 class="text-muted">Room Details</h6>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        Perfect for 2 people traveling together. The twin bungalows are equipped with 2 twin beds, aircon, fan, a private open-air bathroom, and a balcony with hammock, table and chairs.
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <h6 class="mb-3">Room Info</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Room size</div>
+                                    <div class="list-panel-content">12m2</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Max. occupancy</div>
+                                    <div class="list-panel-content">2 guest</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Beds</div>
+                                    <div class="list-panel-content">Double or Twin</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Private Bathroom</div>
+                                    <div class="list-panel-content">Yes</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">Air Conditioning</div>
+                                    <div class="list-panel-content">Yes</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="list-panel border-bottom mb-2">
+                                    <div class="list-panel-title">WiFi in Room</div>
+                                    <div class="list-panel-content">No</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <h6 class="mb-3">Amenities</h6>
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Air Conditioning
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Hair dryer
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>TV
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Private bathroom
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>In-room safe
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Fresh water-shower
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <i class="far fa-check-square mr-2"></i>Wi-Fi (Free)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <div>
+                    <button type="button" class="btn btn-neutral" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="overlay-loader" class="d-none fixed-top vw-100 vh-100" style="background:rgba(0,0,0,0.4)">
+    <div class="text-center d-table h-100 w-100">
+        <div class="d-table-cell h-100 align-middle">
+            <div class="spinner-border text-light" style="width: 2rem; height: 2rem;" role="status">
+            </div>
+            <span class='text-light'>loading. . .</span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<%-include ../partial/footer %>
+
+<script src="/vendor/summernotes/summernote-bs4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.20/b-1.6.1/sl-1.3.1/datatables.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
+<script src="/js/bootstrap-datepicker.min.js"></script>
+
+  <script>
+
+    var id = "<%= id %>"
+
+    var dataCountry = {}
+    var dataDestination = {}
+    var dataSubDestination = {}
+
+    var canPublish = false
+
+    var dataHighlight = []
+    var dataImage = []
+    var dataAmenities = []
+    var roomCount = 0;
+
+    // var dataArrival = []
+    // var dataDeparture = []
+    var dataIdeal = []
+    var dataLanguage = []
+    var dataActivity = []
+    var dataFacility = []
+    var dataSport = []
+
+    let roomOptionBedId='';
+
+    var statusPublishLiveaboard = false;
+    var totalAktif= 0;
+    var totalNonAktif = [];
+    var roomIdOnPackage = [];
+
+    var dataRoom = [];
+    var dataPackage = [];
+
+    function windowBeforeUnload() {
+        return 'Are you sure you want to leave?';
+    }
+
+    $(document).ready(function(){
+
+        if (id) {
+            $(".formTitle").text("Edit");
+            $('#anchorButton').removeClass('d-none');
+
+            $('#datePicker').datepicker({
+                // format: "dd-mm-yyyy",
+                format: "dd MM yyyy",
+                todayHighlight: true,
+                autoclose: true,
+                startDate: '+0d'
+            });
+
+            scheduleTable = $('#dataSchedule').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: true,
+                "columnDefs": [{
+                    "targets"  : 'nosort',
+                    "orderable": false
+                }],
+                ajax: "/api/datatable-schedule/"+id,
+                "initComplete":function( settings, json){
+                    console.log('json',json);
+                    // cekSchedule()
+                    // call your function here
+                    initData()
+                }
+            });
+        }else{
+            initData()
+        }
+
+        getRoomOption();
+        $('#inputCountry').change(function(){
+            getDestination()
+        })
+
+        $('#inputDestination').change(function(){
+            getSubDestination()
+        })
+
+        $(`#saveHighlight`).click(function(){
+          if($('#inputHighlight').val().length > 0){
+            addHighlight();
+          }else{
+            // alert("Form not valid")
+            Swal.fire(
+                'Oops!',
+                'Write the highlight liveaboard then press "add item" button.'
+            )
+          }
+        })
+
+        // $(`#addArrival`).click(function(){
+        //   if($('#inputArrival').val().length > 0){
+        //     var objHighlight = {}
+        //     objHighlight.id = "arrival-"+new Date().getTime().toString()
+        //     objHighlight.text = $(`#inputArrival`).val()
+        //     dataArrival.push(objHighlight)
+        //     $('#inputArrival').val("")
+        //     loadArrival()
+        //   }else{
+        //     // alert("Form not valid")
+        //     Swal.fire(
+        //         'Oops!',
+        //         'First write the arrival direction then press "add item" button.'
+        //     )
+        //   }
+        // })
+
+        // $(`#addDeparture`).click(function(){
+        //   if($('#inputDeparture').val().length > 0){
+        //     var objHighlight = {}
+        //     objHighlight.id = "departure-"+new Date().getTime().toString()
+        //     objHighlight.text = $(`#inputDeparture`).val()
+        //     dataDeparture.push(objHighlight)
+        //     $('#inputDeparture').val("")
+        //     loadDeparture()
+        //   }else{
+        //     // alert("Form not valid")
+        //     Swal.fire(
+        //         'Oops!',
+        //         'First write the departure direction then press "add item" button.'
+        //     )
+        //   }
+        // })
+
+        $(`#customFile`).on(`change`, function(){
+          makeFileRequestUpload('/api/upload/image', [], this.files).then((result) => {
+              console.log(result)
+          }, (error) => {
+              console.error(error)
+          })
+        })
+    })
+
+    function initData() {
+        if(id){
+            $('#cardSave').hide()
+            $('#layoutResortRoom').show()
+            $('#layoutResortPackage').show()
+            $('#liveaboardButton').show()
+            $('#liveaboardButtonBottom').show()
+            loadLiveaboardById()
+        }else{
+            $('.summernoteData').summernote({
+                placeholder: 'Write your information here...',
+                tabsize: 2,
+                height: 100,
+                toolbar: [
+                        // [groupName, [list of button]]
+                        ['style', ['bold', 'italic', 'underline']],
+                        ['font', ['strikethrough']],
+                        ['para', ['ul', 'ol']]
+                    ]
+            });
+
+            $('#cardSave').show()
+            $('#layoutResortRoom').hide()
+            $('#layoutResortPackage').hide()
+            $('#liveaboardButton').hide()
+            $('#liveaboardButtonBottom').hide()
+            //console.log("naha asup dieu")
+            getIdeal()
+            getLanguage()
+            getCountry()
+            getActivity()
+            getFacility()
+            getSport()
+        }
+    }
+
+    function loadLiveaboardById() {
+        $('#listCabinEmpty').show();
+        $('#listPackageEmpty').show();
+        $('#overlay-loader').removeClass('d-none');
+        $.ajax({
+            url: `/api/liveaboard/${id}`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+
+                    $('#overlay-loader').addClass('d-none');
+                    $('#layoutBoatCabin').show()
+                    $('#layoutBoatTrip').show()
+
+                    $('#inputName').val(result.data.profile.name)
+                    $('#inputAddress').val(result.data.profile.address)
+                    console.log()
+                    $('#inputIntroduction').val(result.data.profile.introduction)
+                    $('#inputIntroduction').summernote({
+                        placeholder: 'Write your information here...',
+                        tabsize: 2,
+                        height: 100,
+                        toolbar: [
+                                // [groupName, [list of button]]
+                                ['style', ['bold', 'italic', 'underline']],
+                                ['font', ['strikethrough']],
+                                ['para', ['ul', 'ol']]]
+                    })
+                    $('#inputAbout').val(result.data.profile.about)
+                    $('#inputAbout').summernote({
+                        placeholder: 'Write your information here...',
+                        tabsize: 2,
+                        height: 100,
+                        toolbar: [
+                                // [groupName, [list of button]]
+                                ['style', ['bold', 'italic', 'underline']],
+                                ['font', ['strikethrough']],
+                                ['para', ['ul', 'ol']]]
+                    })
+
+                    $('#inputWidth').val(result.data.profile.size.width)
+                    $('#inputLength').val(result.data.profile.size.length)
+                    $('#inputBuilt').val(result.data.profile.built)
+                    $('#inputRenovate').val(result.data.profile.renovate)
+
+                    statusPublishLiveaboard = result.data.publish;
+                    dataCountry = result.data.profile.country
+                    dataDestination = result.data.profile.destination
+                    dataSubDestination = result.data.profile.sub_destination
+                    getCountry()
+
+                    dataImage = result.data.photos
+                    loadImage()
+
+                    dataHighlight = result.data.highlight
+                    // loadHighlight()
+                    loadHighlightItem()
+
+                    // dataArrival = result.data.how_to.arrival
+                    // loadArrival()
+
+                    // dataDeparture = result.data.how_to.departure
+                    // loadDeparture()
+
+                    dataIdeal = result.data.profile.ideal
+                    getIdeal()
+                    dataLanguage = result.data.profile.language
+                    getLanguage()
+                    dataActivity = result.data.amenities.activity
+                    getActivity()
+                    dataFacility = result.data.amenities.facility
+                    getFacility()
+                    dataSport = result.data.amenities.sport
+                    getSport()
+
+                    if (result.data.packages.length == 1) {
+                        $('#packageSelect').empty();
+                    }
+
+                    // load Package
+                    dataPackage = result.data.packages;
+                    for(var i =0; i < result.data.packages.length; i++){
+
+                        $('#listPackageEmpty').hide();
+                        $('#packageSelect').append(`<option value="${result.data.packages[i].id}">${result.data.packages[i].info.name}</option>`);
+
+                        var publish = result.data.packages[i].publish
+                        let roomLOB = result.data.packages[i].room_liveaboard;
+                        console.log(roomLOB);
+                        let schedules = result.data.packages[i].schedules;
+                        let htmlPrice = '';
+                        let pricePackage = 0;
+                        if(publish){
+                            canPublish = true
+                            totalAktif++;
+                            if (typeof roomLOB !== 'undefined' && roomLOB != null) {
+                                for (let rL = 0; rL < roomLOB.length; rL++) {
+                                    roomIdOnPackage[`${roomLOB[rL].room_id}`] = true;
+
+                                }
+                                
+                            }
+                        }else{
+                            totalNonAktif.push({
+                                nama:`${result.data.packages[i].info.name}`,
+                                tipe:'package',
+                                id:result.data.packages[i].id
+                            });
+                        }
+                        
+                        let roomOn = [];
+                        
+                        if (typeof roomLOB !== 'undefined' && roomLOB != null) {
+                            for (let rL = 0; rL < roomLOB.length; rL++) {
+                                roomOn.push(`${roomLOB[rL].room_id}`);
+
+                                pricePackage = (pricePackage != 0 ? (parseFloat(roomLOB[rL].price) < parseFloat(pricePackage) ? roomLOB[rL].price : pricePackage) : roomLOB[rL].price);
+                                if(roomLOB[rL].discount != "" && roomLOB[rL].discount != "0" && roomLOB[rL].discount != 0 && roomLOB[rL].discount != "NaN"){
+                                    pricePackage = (pricePackage != 0 ? (parseFloat(roomLOB[rL].discount) < parseFloat(pricePackage) ? roomLOB[rL].discount : pricePackage) : roomLOB[rL].discount);
+                                }
+                            }
+                        
+                        }
+
+                        let totalSchedule = 0;
+                        for (let tS = 0; tS < schedules.length; tS++) {
+                            if (schedules[tS].active) {
+                                totalSchedule++;
+                            }
+                        }
+
+                        var htmlPhotos = ``
+                        var dataPhotos = result.data.packages[i].photos
+                        for(var j = 0; j < dataPhotos.length; j++){
+                            htmlPhotos += `
+                                <div class="glide__slide--photos" style="background-image: url('${dataPhotos[j].url}');"></div>
+                            `
+                        }
+
+                        htmlPrice = `
+                            <h5 class="m-0 normal-price" class="" style='font-size:0.8em'>started from</h5>
+                            <h5 class="m-0 discount-price">IDR ${formatRupiah(pricePackage)}</h5>
+                        `
+                        console.log('ro', roomOn);
+                        let rON = roomOn.join(',');
+                        
+
+                        $('#listPackage').append(`
+                            <div class="card rounded-0 mb-3 bg-white">
+                                <div class="row no-gutters align-items-start">
+                                    <div class="col-md-4">
+                                        <div class="card-body pr-md-0">
+                                            <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">${result.data.packages[i].photos.length} Photos</span>
+                                            <div class="slick rounded">
+                                                ${htmlPhotos}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-start justify-content-between mb-2 d-flex-mobile">
+                                                <div class="mb-2 mb-md-0">
+                                                    <h5 class="m-0 mb-1">${result.data.packages[i].info.name}</h5>
+                                                    <span class="text-sm text-muted">Created ${dateFormatMonth(result.data.packages[i].created_at)}</span>
+                                                </div>
+                                                <div class="text-right text-left-mobile">
+                                                    <div class="d-flex flex-column">
+                                                        ${htmlPrice}
+                                                    </div>
+                                                    <span class="text-sm text-muted">per guest</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-block py-1">
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-clock fa-sm mr-2"></i>${result.data.packages[i].info.duration.day} day activity
+                                                </div>
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-archive fa-sm mr-2"></i>${result.data.packages[i].service.length} additional item
+                                                </div>
+                                            </div>
+                                            <div class="d-block my-2">
+                                                <p class="text-sm mb-0">${typeof result.data.packages[i].info.description !== 'undefined' ? result.data.packages[i].info.description : '' }</p>
+                                                <small>at ${result.data.profile.name}, ${result.data.profile.destination.name} - ${result.data.profile.country.name}</small>
+                                            </div>
+                                            <div class="list-group list-group-horizontal list-group-sm w-100">
+                                                <button onClick="activePackage('${result.data.packages[i].id}', ${publish}, '${rON}', ${totalSchedule});" type="button" class="list-group-item ${publish ? "text-success" : "text-danger"}" style="height:45px;"><i class="fas ${publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${publish ? "Open" : "Closed"}</button>
+                                                <a href="/my-liveaboards-create/${id}/my-liveaboards-create-package/${result.data.packages[i].id}" class="list-group-item flex-grow-1 text-center" style="height:45px;">Edit</a>
+                                                <!--<a href="/my-liveaboards-create/${id}/my-liveaboards-create-package/${result.data.packages[i].id}/schedule" class="list-group-item flex-grow-1 text-center">Schedule</a>-->
+                                            </div>
+                                            <div class="text-center d-none mt-2">
+                                                <button type="button" onClick="deletePackageConfirm('${result.data.packages[i].id}','${result.data.packages[i].info.name}', ${publish})" class="btn btn-sm btn-link">Delete Package</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    }
+
+                    if (result.data.packages.length > 0) {
+                        // cekSchedule()
+                    }
+                    // Load Room
+                    dataRoom = result.data.rooms
+                    roomCount = result.data.rooms.length;
+                    for(var i = 0; i < result.data.rooms.length; i++){
+                        $('#listCabinEmpty').hide();
+                        var publish = result.data.rooms[i].publish
+                        /* if(publish){
+                            // canPublish = true
+                            totalAktif++;
+                        }else{
+                            totalNonAktif.push({
+                                id: `${result.data.rooms[i].id}`,
+                                nama:`${result.data.rooms[i].info.name}`,
+                                tipe:'room'
+                            });
+                        } */
+
+                        var htmlPhotos = ``
+                        var dataPhotos = result.data.rooms[i].photos
+                        for(var j = 0; j < dataPhotos.length; j++){
+                            htmlPhotos += `
+                                <div class="glide__slide--photos" style="background-image: url('${dataPhotos[j].url}');"></div>
+                            `
+                        }
+
+                        var htmlPrice = ""
+                        if(result.data.rooms[i].price.discount != "" && result.data.rooms[i].price.discount != "0" && result.data.rooms[i].price.discount != "NaN" && typeof result.data.rooms[i].price.discount !== "undefined" ){
+                            htmlPrice = `
+                                <h5 class="m-0 normal-price discounted" class="">IDR ${formatRupiah(result.data.rooms[i].price.price)}</h5>
+                                <h5 class="m-0 discount-price">IDR ${formatRupiah(result.data.rooms[i].price.discount)}</h5>
+                            `
+                        }else{
+                            htmlPrice = `
+                                <h5 class="m-0 normal-price" class="">IDR ${formatRupiah(result.data.rooms[i].price.price)}</h5>
+                            `
+                        }
+
+                        let bedType='';
+                        for (let iro_idx = 0; iro_idx < result.data.rooms[i].info.room_option.length; iro_idx++) {
+                            if (result.data.rooms[i].info.room_option[iro_idx].id == roomOptionBedId) {
+                                bedType = result.data.rooms[i].info.room_option[iro_idx].data.name;
+                            }
+                            
+                        }
+                        
+                        $('#listCabin').append(`
+                            <div class="card rounded-0 mb-3 bg-white">
+                                <div class="row no-gutters align-items-start">
+                                    <div class="col-md-4">
+                                        <div class="card-body pr-md-0">
+                                            <span class="badge-photos badge badge-dark badge-pill rounded" style="left:inherit;top:inherit;">${result.data.rooms[i].photos.length} Photos</span>
+                                            <div class="slick rounded">
+                                                ${htmlPhotos}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-start justify-content-between mb-2 d-flex-mobile">
+                                                <div class="mb-2 mb-md-0">
+                                                    <h5 class="m-0 mb-1">${result.data.rooms[i].info.name}</h5>
+                                                    <span class="text-sm text-muted">Created ${dateFormatMonth(result.data.rooms[i].created_at)}</span>
+                                                </div>
+                                                <div class="d-none text-right text-left-mobile">
+                                                    <div class="d-flex flex-column">
+                                                        ${htmlPrice}
+                                                    </div>
+                                                    <span class="text-sm text-muted">per nights</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-block py-1">
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-user fa-sm mr-2"></i>${result.data.rooms[i].rules.max_person} people max
+                                                </div>
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-bed fa-sm mr-2"></i>${bedType}
+                                                </div>
+                                                <div class="d-block mb-2 text-sm">
+                                                    <i class="fas fa-arrows-alt fa-sm mr-2"></i>${result.data.rooms[i].info.room_size.length}x${result.data.rooms[i].info.room_size.width}
+                                                </div>
+                                            </div>
+                                            <div class="list-group list-group-horizontal list-group-sm w-100">
+                                                <!--<button type="button" class="list-group-item" data-toggle="modal" data-target="#modalRoomDetails"><i class="fas fa-eye fa-sm"></i></button>-->
+                                                <button onClick="activeRoom('${result.data.rooms[i].id}', ${publish});" type="button" class="list-group-item ${publish ? "text-success" : "text-danger"}" style="height:45px;"><i class="fas ${publish ? "fa-toggle-on" : "fa-toggle-off"} fa-sm mr-2"></i>${publish ? "Open" : "Closed"}</button>
+                                                <a href="/my-liveaboards-create/${id}/my-liveaboards-create-cabin/${result.data.rooms[i].id}" class="list-group-item flex-grow-1 text-center">Edit Cabin</a>
+                                            </div>
+                                            <div class="text-center d-none mt-2">
+                                                <button onClick="deleteRoomConfirm('${result.data.rooms[i].id}','${result.data.rooms[i].info.name}', ${publish})"  type="button" class="btn btn-sm btn-link">Delete Cabin</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    }
+
+                    cekSchedule()
+                    
+                } else {
+                    $('#overlay-loader').addClass('d-none');
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getCountry() {
+        $.ajax({
+            url: `/api/country`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var selected = ""
+                        if(dataCountry){
+                            if(dataCountry.id == result.data[i].id){
+                                selected = "selected"
+                            }
+                        }
+                        $('#inputCountry').append(`
+                            <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                        `)
+                        if(dataCountry){
+                            getDestination()
+                        }
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function getDestination() {
+        if($('#inputCountry').val() != null && $('#inputCountry').val() != ""){
+            var idCountry = $('#inputCountry').val()
+            $.ajax({
+                url: `/api/destination/${idCountry}/country`,
+                method: `GET`,
+                success: function (result) {
+                    if (result.success) {
+                        for(var i = 0; i < result.data.length; i++){
+                            var selected = ""
+                            if(dataDestination){
+                                if(dataDestination.id == result.data[i].id){
+                                    selected = "selected"
+                                    //getSubDestination()
+                                }
+                            }
+                            $('#inputDestination').append(`
+                                <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                            `)
+                            if(dataDestination){
+                                getSubDestination()
+                            }
+                        } 
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+        
+    }
+
+    function getSubDestination() {
+        $('#inputSubDestination').empty();
+        $('#inputSubDestination').append(`<option value="">Select Sub Destination</option>`);
+
+        if($('#inputDestination').val() != null && $('#inputDestination').val() != ""){
+            var idDestination = $('#inputDestination').val()
+            $.ajax({
+                url: `/api/sub-destination/${idDestination}/destination`,
+                method: `GET`,
+                success: function (result) {
+                    if (result.success) {
+                        for(var i = 0; i < result.data.length; i++){
+                            var selected = ""
+                            if(dataSubDestination){
+                                if(dataSubDestination.id == result.data[i].id){
+                                    selected = "selected"
+                                }
+                            }
+                            $('#inputSubDestination').append(`
+                                <option ${selected} value="${result.data[i].id}">${result.data[i].name}</option>
+                            `)
+                        } 
+                    } else {
+                        alert(result.message)
+                        console.log(result)
+                    }
+                },
+                error(xhr, status, error) {
+                    if(xhr.responseJSON){
+                        console.log(xhr.responseJSON)
+                    }
+                }
+            })
+        }
+        
+    }
+
+    function getIdeal() {
+        $.ajax({
+            url: `/api/ideal`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataIdeal.length; j++){
+                            if(dataIdeal[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listIdeal').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="idealClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                        
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function idealClick(cb){
+        if(cb.checked){
+            dataIdeal.push(cb.value)
+        }else{
+            dataIdeal = dataIdeal.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+    }
+
+    function getActivity() {
+        $.ajax({
+            url: `/api/activity`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataActivity.length; j++){
+                            if(dataActivity[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listActivity').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="activityClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function activityClick(cb){
+        if(cb.checked){
+            dataActivity.push(cb.value)
+        }else{
+            dataActivity = dataActivity.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+    }
+
+    function getFacility() {
+        $.ajax({
+            url: `/api/facility`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataFacility.length; j++){
+                            if(dataFacility[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listFacility').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onCLick="facilityClick(this)" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function facilityClick(cb){
+        if(cb.checked){
+            dataFacility.push(cb.value)
+        }else{
+            dataFacility = dataFacility.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+    }
+
+    function getSport() {
+        $.ajax({
+            url: `/api/sport`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataSport.length; j++){
+                            if(dataSport[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listSport').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="sportClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    } 
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function sportClick(cb){
+        if(cb.checked){
+            dataSport.push(cb.value)
+        }else{
+            dataSport = dataSport.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+    }
+
+    function getLanguage() {
+        $.ajax({
+            url: `/api/language`,
+            method: `GET`,
+            success: function (result) {
+                if (result.success) {
+                    for(var i = 0; i < result.data.length; i++){
+                        var checked = ""
+                        for(var j = 0; j < dataLanguage.length; j++){
+                            if(dataLanguage[j] == result.data[i].id){
+                               checked = "checked"
+                            }
+                        }
+                        $('#listLanguage').append(`
+                            <div class="col-md-4">
+                                <div class="select-card-wrapper">
+                                    <div class="select-card select-card-inherit select-card-naked select-card-inline">
+                                        <label class="select-card-inner select-card-inner-h">
+                                            <input onClick="languageClick(this);" ${checked} value="${result.data[i].id}" type="checkbox" name="dive-email-update"/>
+                                            <div class="select-card-content">
+                                                <h6 class="mb-0 font-weight-normal text-sm">${result.data[i].name}</h6>
+                                            </div>
+                                            <div class="select-card-checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function languageClick(cb){
+        if(cb.checked){
+            dataLanguage.push(cb.value)
+        }else{
+            dataLanguage = dataLanguage.filter(function( id ) {
+                return id !== cb.value
+            })
+        }
+    }
+
+    //========================================highlight======================================
+
+        /*function addHighlight(){
+            populateHighlight();
+            var objHighlight = {}
+            objHighlight.id = "highlight-"+new Date().getTime().toString()
+            objHighlight.highlight = $(`#inputHighlight`).val()
+            dataHighlight.push(objHighlight)
+            $('#inputHighlight').val("")
+            loadHighlight()
+        }*/
+
+        function addHighlightItem(){
+            var objHighlight = {}
+            objHighlight.id = "Highlight-"+new Date().getTime().toString()
+            objHighlight.highlight = ''
+            dataHighlight.push(objHighlight);
+            $(`#listHighlightModal`).append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${objHighlight.id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="${objHighlight.id}" class="form-control highlight-added-field" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${objHighlight.id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).fadeIn('slow');
+                $(`#${objHighlight.id}`).focus();
+
+            
+            // loadHighlight()
+        }
+
+        function loadHighlightItem(){
+            $(`#listHighlight`).html('');
+            for(var i = 0; i < dataHighlight.length; i++){
+                let row = dataHighlight[i].highlight.length/100;
+                row = Math.round(row);
+                if (row > 3) {
+                    row = 3;
+                }
+                /*$('#listHighlight').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea type="text" class="form-control" rows='${row}' disabled>${dataHighlight[i].highlight}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)*/
+
+                $("#listHighlight").append(`<li class="mb-3">
+                    ${dataHighlight[i].highlight}
+                    </li>`);
+            }
+        
+        }
+
+        function loadHighlight(){
+            //console.log(dataHighlight)
+            $(`.data-highlight`).remove()
+            for(var i = 0; i < dataHighlight.length; i++){
+                $('#listHighlightModal').append(`
+                    <div class="d-block p-2 border mb-2 bg-lighter data-highlight" id="div-${dataHighlight[i].id}">
+                        <div class="d-flex">
+                            <div class="mr-2 flex-grow-1">
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <textarea type="text" id="${dataHighlight[i].id}"  class="form-control" maxlength='140' rows='2'>${dataHighlight[i].highlight}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onClick="deleteHighlight('${dataHighlight[i].id}')" type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt fa-sm"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+        
+            $("#modalSetHighlight").modal('toggle');
+        }
+
+        function deleteHighlight(id){
+            dataHighlight = dataHighlight.filter(function( obj ) {
+                return obj.id !== id
+            })
+            $(`#div-${id}`).remove();
+            // loadHighlight()
+        }
+
+        function populateHighlight(){
+            let result = true;
+            for (let i = 0; i < dataHighlight.length; i++) {
+                dataHighlight[i].highlight = $(`#${dataHighlight[i].id}`).val();
+                if(dataHighlight[i].highlight.length == 0){
+                    result = false;
+                }
+            }
+
+            if (!result) {
+                return Swal.fire("Fail", "Please <b>fill all</b> highlight field <b>or</b> <br/> <b>remove blank</b> field highlight using the <i class='far fa-trash-alt fa-sm'></i> button on the right side of the field");
+                // return Swal.fire("Highlight Note", "Highlight can't be blank");
+            }else{
+                loadHighlightItem();
+                $("#modalSetHighlight").modal('toggle');
+            }
+        }
+        
+    //========================================end highlight======================================
+    
+    
+    function makeFileRequestUpload(url, params, files){
+        return new Promise((resolve, reject) => {
+
+            var formData = new FormData()
+            var xhr = new XMLHttpRequest()
+
+            if(files[0].size > 20400000){
+            // alert("Size must be less than 20MB")
+            Swal.fire(
+                'Oops!',
+                'The image size must be less than 20 MB.'
+            )
+            }else{
+            formData.append("upload", files[0], files[0].name)
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        $('#sendFile').show()
+                        $('#chooseFile').text(files[0].name)
+                        var response = JSON.parse(xhr.response)
+                        var objUrl = {}
+                        objUrl.id = "image-"+ new Date().getTime()
+                        objUrl.url = response.data.location
+                        objUrl.path = response.data.key
+                        objUrl.baseUrl = response.data.baseUrl
+                        dataImage.push(objUrl)
+                        loadImage()
+                    }else {
+                        console.log(xhr.response)
+                        $('#chooseFile').text("Choose File")
+                        alert("Upload file gagal")
+                    }
+                }
+            }
+
+            xhr.upload.addEventListener("progress", progressHandlerBackground, false);
+            xhr.addEventListener("load", completeHandlerBackground, false);
+            xhr.addEventListener("error", errorHandlerBackground, false);
+            xhr.addEventListener("abort", abortHandlerBackground, false);
+
+            xhr.open("POST", url, true)
+
+            xhr.send(formData)
+            }
+        })
+    }
+
+    function progressHandlerBackground(event) {
+        // var percent = (event.loaded / event.total) * 100
+        // $("#progressBackground").val(Math.round(percent))
+        // if(percent == 100){
+        //     $("#statusBackground").text("Upload Success")
+        // }else{
+        //     $("#statusBackground").text(Math.round(percent) + "% uploaded... please wait")
+        // }
+    }
+
+    function completeHandlerBackground(event) {
+        //$("#progressBackground").val(0) //wil clear progress bar after successful upload
+    }
+
+    function errorHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Failed")
+    }
+
+    function abortHandlerBackground(event) {
+        //$("#statusBackground").text("Upload Aborted")
+    }
+
+    function loadImage(){
+        $(`.data-photos`).remove()
+        for(var i = 0; i < dataImage.length; i++){
+            $(`#listPhotos`).append(`
+                <div class="photo-gallery--item data-photos" style="background-image:url('${dataImage[i].url}');"><div onClick="deleteImage('${dataImage[i].id}')" class="btn btn-white btn-sm"> <i class="fas fa-times"></i></div></div>
+            `).fadeIn('slow')
+        }
+    }
+
+    function deleteImage(id){
+        dataImage = dataImage.filter(function( obj ) {
+            return obj.id !== id
+        })
+        loadImage()
+    }
+
+    function saveDraft() {
+        //console.log("TESSSSSS")
+        
+        let listIncomplete = formValidate();
+        if(listIncomplete.length > 0){
+            return Swal.fire(
+                'Oops!',
+                'Please complete all forms to get to the next step.'
+            )
+        }else{
+            $("#overlay-loader").removeClass('d-none');
+            if(id){
+                var data = {
+                        publish : false,
+                        profile : {
+                            name : $('#inputName').val(),
+                            country : {
+                                id : $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            destination : {
+                                id : $('#inputDestination').val(),
+                                name : $('#inputDestination option:selected').text()
+                            },
+                            sub_destination : {
+                                id : $('#inputSubDestination').val(),
+                                name : $('#inputSubDestination option:selected').text()
+                            },
+                            size : {
+                                width : $('#inputWidth').val(),
+                                length : $('#inputLength').val()
+                            },
+                            built : $('#inputBuilt').val(),
+                            renovate : $('#inputRenovate').val(),
+                            introduction : $('#inputIntroduction').val(),
+                            about : $('#inputAbout').val(),
+                            ideal : dataIdeal,
+                            language : dataLanguage
+                        },
+                        highlight : dataHighlight,
+                        photos : dataImage,
+                        amenities : {
+                            activity : dataActivity,
+                            facility : dataFacility,
+                            sport : dataSport
+                        }
+                }
+
+                console.log(data)
+                //return
+                $.ajax({
+                    url: `/api/liveaboard/${id}`,
+                    method: `PUT`,
+                    data: data,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            $("#overlay-loader").addClass('d-none');
+                            // alert("Success")
+                            // location.href = `/my-liveaboard-create/${result.data.id}`
+                            Swal.fire({
+                                title: "Liveaboard data saved!",
+                                text: "The basic information of your liveaboard has been successfully saved, please continue designing the liveaboard rooms & packages.",
+                                confirmButtonText: 'Great, continue to rooms & package'
+                            }).then(function() {
+                                window.location.href = `/my-liveaboards-create/${result.data.id}#layoutResortRoom`
+                            });
+                        } else {
+                            $("#overlay-loader").addClass('d-none');
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }else{
+                var data = {
+                    profile : {
+                            name : $('#inputName').val(),
+                            country : {
+                                id : $('#inputCountry').val(),
+                                name : $('#inputCountry option:selected').text()
+                            },
+                            destination : {
+                                id : $('#inputDestination').val(),
+                                name : $('#inputDestination option:selected').text()
+                            },
+                            sub_destination : {
+                                id : $('#inputSubDestination').val(),
+                                name : $('#inputSubDestination option:selected').text()
+                            },
+                            size : {
+                                width : $('#inputWidth').val(),
+                                length : $('#inputLength').val()
+                            },
+                            built : $('#inputBuilt').val(),
+                            renovate : $('#inputRenovate').val(),
+                            introduction : $('#inputIntroduction').val(),
+                            about : $('#inputAbout').val(),
+                            ideal : dataIdeal,
+                            language : dataLanguage
+                        },
+                        highlight : dataHighlight,
+                        photos : dataImage,
+                        amenities : {
+                            activity : dataActivity,
+                            facility : dataFacility,
+                            sport : dataSport
+                        }
+                }
+                console.log(data)
+                //return
+                $.ajax({
+                    url: `/api/liveaboard`,
+                    method: `POST`,
+                    data: data,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            $("#overlay-loader").addClass('d-none');
+                            Swal.fire({
+                                title: "Liveaboard data saved!",
+                                text: "The basic information of your liveaboard has been successfully saved, please continue designing the liveaboard rooms & packages.",
+                                confirmButtonText: 'Great, continue to rooms & package'
+                            }).then(function() {
+                                window.location.href = `/my-liveaboards-create/${result.data.id}#layoutResortRoom`
+                            });
+                        } else {
+                            $("#overlay-loader").addClass('d-none');
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                })
+            }
+        }
+    }
+
+    $('.savePublishLoading').hide();
+
+    function savePublish() {
+        $('.savePublishBtn').hide();
+        $('.savePublishLoading').show();
+        if(!canPublish){
+            // return alert("Cannot publish , liveaboard must be has open room or package")
+            Swal.fire({
+                title: "Cannot be published",
+                text: "Your liveaboard must have active package in order to publish your liveaboard."
+            });
+            $('.savePublishBtn').show();
+            $('.savePublishLoading').hide();
+        }else{
+
+            let listIncomplete = formValidate();
+            if(listIncomplete.length > 0){
+                // return alert("form is not valid")
+                Swal.fire(
+                    'Oops!',
+                    'Please complete all forms to save this room in the list.'
+                )
+                $('.savePublishBtn').show();
+                $('.savePublishLoading').hide();
+                return false;
+            }else{
+                if(id){
+                    if (totalNonAktif.length > 0) {
+                        let html = '';
+                        let hRoom = [];
+                        let hPack = [];
+                        for (let i = 0; i < totalNonAktif.length; i++) {
+                            if (totalNonAktif[i].tipe == 'room') {
+                                hRoom.push(totalNonAktif[i].nama);
+                            }else{
+                                hPack.push(totalNonAktif[i].nama);
+                            }
+                        }
+    
+                        html += `This liveaboard still have closed cabin/package, are you sure want to publish ? 
+                        ${(hRoom.length > 0 ? "<br/><b>Room : </b>"+hRoom.join(', ') : '')}
+                        ${(hPack.length > 0 ? "<br/><b>Package : </b>"+hPack.join(', ') : '')}`
+                        
+                        Swal.fire({
+                            title: "Reminder",
+                            html: html,
+                            icon: "warning",
+                            confirmButtonText: 'Yes',
+                            showCancelButton : true,
+                        }).then(function(isConfirm) {
+                            if (isConfirm.value) {
+                                $("#overlay-loader").removeClass('d-none');
+                                publishData();
+                            }else{
+                                $('.savePublishBtn').show();
+                                $('.savePublishLoading').hide();
+                            }
+                        })
+                    }else{
+                        publishData();
+                    }
+                    
+                }else{
+                    // alert("You cant publish this liveaboard , please complete the data")
+                    Swal.fire(
+                        'Please create rooms or dive package.',
+                        'In order to publish your liveaboard, the liveaboard must have liveaboard rooms or dive package.'
+                    )
+                }
+            }
+        }
+        
+    }
+
+    function publishData(){
+        $.ajax({
+            url: `/api/liveaboard/${id}`,
+            method: `PUT`,
+            data: {
+                publish : true,
+                profile : {
+                    name : $('#inputName').val(),
+                    country : {
+                        id : $('#inputCountry').val(),
+                        name : $('#inputCountry option:selected').text()
+                    },
+                    destination : {
+                        id : $('#inputDestination').val(),
+                        name : $('#inputDestination option:selected').text()
+                    },
+                    sub_destination : {
+                        id : $('#inputSubDestination').val(),
+                        name : $('#inputSubDestination option:selected').text()
+                    },
+                    size : {
+                        width : $('#inputWidth').val(),
+                        length : $('#inputLength').val()
+                    },
+                    built : $('#inputBuilt').val(),
+                    renovate : $('#inputRenovate').val(),
+                    introduction : $('#inputIntroduction').val(),
+                    about : $('#inputAbout').val(),
+                    ideal : dataIdeal,
+                    language : dataLanguage
+                },
+                highlight : dataHighlight,
+                photos : dataImage,
+                amenities : {
+                    activity : dataActivity,
+                    facility : dataFacility,
+                    sport : dataSport
+                }
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-liveaboard-create/${result.data.id}`
+                    Swal.fire({
+                        title: "Liveaboard updated!",
+                        text: "The liveaboard published.",
+                        confirmButtonText: 'Great'
+                    }).then(function() {
+                        window.location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function activeRoom(roomId, statusPublish) {
+        // let text = ''; let title = '';
+        // if (totalAktif == 1 && statusPublishLiveaboard == true && statusPublish) {
+        //     text = "Since this is the only active cabin/package,<br/> this will <b style='color:red'>automatically unpublish your Liveaboard</b>.";
+        // }else if(totalAktif == 1){
+            text = "You will close this cabin";
+        // }
+
+        let statusOnPackage = false;
+        
+        if (roomIdOnPackage[`${roomId}`]) {
+            Swal.fire("Room on active package", "Please delete this room on all of your active package");    
+            return false;
+        }
+        
+
+        if (statusPublish) {
+            title = 'Close this cabin?'
+        } else {
+            title = 'Open this cabin ?';
+            text = "You will make this cabin available for customers"
+        }
+
+        Swal.fire({
+            title: title,
+            html: text,
+            icon: "warning",
+            showCancelButton: true,
+        }).then(function(isConfirm) {
+            if (isConfirm.value) {
+                $("#overlay-loader").removeClass('d-none');
+                // if (totalAktif == 1 && statusPublishLiveaboard == true && statusPublish) {
+                //     unpublishLiveaboard(id, roomId, 1);
+                // }else{
+                    changeRoomStatus(roomId, statusPublish);
+                // }
+            }
+            
+        });
+    }
+
+    function changeRoomStatus(roomId, statusPublish){
+        let title = '';
+        // if (statusPublish == 3) {
+        //     title = "Liveaboard unpublished and cabin's status now closed";
+        // }else 
+        if (statusPublish) {
+            title = "Cabin's status now closed";
+        }else{
+            title = "Cabin's status now open";
+        }
+        $.ajax({
+            url: `/api/room/${roomId}/publish`,
+            method: `PUT`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-liveaboard-create/${id}`
+                    Swal.fire({
+                        title: title,
+                        text: "The cabin status is updated.",
+                        confirmButtonText: 'Great'
+                    }).then(function() {
+                        window.location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+                $("#overlay-loader").removeClass('d-none');
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    
+    }
+
+    function setUpCabin(){
+        location.href = `/my-liveaboards-create/${id}/my-liveaboards-create-cabin`
+    }
+
+    function activePackage(packageId, statusPublish, roomLiveaboardID, totalSchedule) {
+        // console.log('rL',roomLiveaboard);
+        let text = ''; let title = '';
+        if (totalAktif == 1 && statusPublishLiveaboard == true && statusPublish) {
+            text = "Since this is the only active package,<br/> this will <b style='color:red'>automatically unpublish your Liveaboard</b>.";
+        }else if(totalAktif == 1){
+            text = "You will close this package";  
+        }
+
+        // alert(totalSchedule);
+        if (totalSchedule == 0 && statusPublish == false) {
+            Swal.fire("No schedule", "Please make schedule before you open package");
+            return false;
+        }
+
+        // console.log(roomLiveaboardID);
+        // console.log(totalNonAktif);
+        let rLOB = roomLiveaboardID.split(',');
+        for (let rL = 0; rL < rLOB.length; rL++) {
+            for (let tI = 0; tI < totalNonAktif.length; tI++) {
+                if (totalNonAktif[tI].tipe == 'room') {
+                    console.log(totalNonAktif[tI].id +'=='+ rLOB[rL])
+                    if (totalNonAktif[tI].id == rLOB[rL]) {
+                        Swal.fire("Open Package failed", "Closed Room on Package, please remove closed room on your package price");
+                        return false;
+                    }
+                }
+                
+            }
+        }
+
+        if (statusPublish) {
+            title = 'Close this package?'
+        } else {
+            title = 'Open this package ?';
+            text = "You will make this package available for customers"
+        }
+
+        Swal.fire({
+            title: title,
+            html: text,
+            icon: "warning",
+            showCancelButton: true,
+        }).then(function(isConfirm) {
+            if (isConfirm.value) {
+                $("#overlay-loader").removeClass('d-none');
+                if (totalAktif == 1 && statusPublishLiveaboard == true && statusPublish) {
+                    unpublishLiveaboard(id, packageId, 2);
+                }else{
+                    changePackageStatus(packageId, statusPublish);
+                }
+            } 
+        });
+    }
+
+    function changePackageStatus(packageId, statusPublish){
+        let title = '';
+        if (statusPublish == 4) {
+            title = "Liveaboard unpublished and package's status now closed";
+        }else if (statusPublish) {
+            title = "Package's status now closed";
+        }else{
+            title = "Package's status now open";
+        }
+
+        $.ajax({
+            url: `/api/package/${packageId}/publish`,
+            method: `PUT`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    // alert("Success")
+                    // location.href = `/my-liveaboard-create/${id}`
+                    if (statusPublish == false && statusPublishLiveaboard == false) {
+                        Swal.fire({
+                            title: "Publish your liveaboard too ?",
+                            text: "You liveaboard status is unpublished",
+                            showCancelButton : true,
+                            cancelButtonText : "No",
+                        }).then(function(isConfirm) {
+                            console.log(isConfirm)
+                            if (isConfirm.value) {
+                                $("#overlay-loader").removeClass('d-none');
+                                if (totalNonAktif.length > 1) {
+                                    for (let i = 0; i < totalNonAktif.length; i++) {
+                                        if (totalNonAktif[i].tipe == 'package') {
+                                            if (totalNonAktif[i].id == packageId) {
+                                                totalNonAktif[i].tipe = '';
+                                                totalNonAktif[i].nama = '';
+                                                totalNonAktif[i].id = '';
+                                            }
+                                        }
+                                    }   
+                                }else{
+                                    totalNonAktif = [];
+                                }
+                                canPublish = true;
+                                savePublish();
+                            } else {
+                                Swal.fire(
+                                    'Cancelled', 
+                                    'OK', 
+                                    'error'
+                                );
+                                location.reload();
+                            }
+                        })
+                    }else{
+                        Swal.fire({
+                            title: title,
+                            text: "The liveaboards package status has been successfully changed.",
+                            confirmButtonText: 'Great'
+                        }).then(function() {
+                            location.reload()
+                            //window.location.href = `/my-divecenter-create/${id}#layoutDivecenterPackage`
+                        });
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    
+    }
+
+    function setUpPackage(){
+        // alert(result.data.rooms.length);
+        if (roomCount > 0) {
+            location.href = `/my-liveaboards-create/${id}/my-liveaboards-create-package`
+        }else{
+            Swal.fire(
+                'Please create cabin first.',
+                'In order to create your package, at least one cabin is created.'
+            )
+        }
+    }
+
+    //===============================get room option for get the bed type===============
+    function getRoomOption() {
+        $.ajax({
+            url: `/api/room-option`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    for (let ro_idx = 0; ro_idx < result.data.length; ro_idx++) {
+                        if (result.data[ro_idx].name == 'Bed Type') {
+                            roomOptionBedId = result.data[ro_idx].id; 
+                        }                        
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function formValidate(){
+        $(document).find(".text-field-warning").remove();
+        listIncomplete = [];
+        ($('#inputName').val().length < 3 ? listIncomplete.push({inputId:"inputName", message: "Name is too short" }) : '' );
+        ($('#inputCountry').val().length == 0 ? listIncomplete.push({inputId:"inputCountry",message:"Country cannot be blank"}) : '' );
+        ($('#inputDestination').val().length == 0 ? listIncomplete.push({inputId:"inputDestination",message:"Destination cannot be blank"}) : '' );
+        ($('#inputSubDestination').val().length == 0 ? listIncomplete.push({inputId:"inputSubDestination",message:"Sub Destination cannot be blank"}) : '' );
+        ($('#inputIntroduction').val().length < 3 ? listIncomplete.push({inputId:"inputIntroduction",message:"Introduction is too short"}) : '' );
+        ($('#inputWidth').val().length == 0 || parseFloat($('#inputWidth').val()) < 0 ? listIncomplete.push({inputId:"inputWidth",message:"Width can't be blank/less than 0"}) : '' );
+        ($('#inputLength').val().length == 0 || parseFloat($('#inputLength').val()) < 0 ? listIncomplete.push({inputId:"inputLength",message:"Length can't be blank/less than 0"}) : '' );
+        ($('#inputAbout').val().length < 3 ? listIncomplete.push({inputId:"inputAbout",message:"About is too short"}) : '' );
+        (dataIdeal.length == 0 ? listIncomplete.push({inputId:"listIdeal",message:"Please choose 1 or more ideal for"}) : '' );
+        (dataLanguage.length == 0 ? listIncomplete.push({inputId:"listLanguage",message:"Please choose 1 or more language"}) : '' );
+        (dataHighlight.length == 0 ? listIncomplete.push({inputId:"inputHighlight",message:"Please provide 1 or more highlight"}) : '' );
+        (dataImage.length == 0 ? listIncomplete.push({inputId:"listPhotos",message:"Image: Please provide 1 image or more"}) : '' );
+        (dataActivity.length == 0 ? listIncomplete.push({inputId:"listActivity",message:"Please choose 1 or more activities"}) : '' );
+        (dataFacility.length == 0 ? listIncomplete.push({inputId:"listFacility",message:"Please choose 1 or more facilities"}) : '' );
+        (dataSport.length == 0 ? listIncomplete.push({inputId:"listSport",message:"Please choose 1 or more sports"}) : '' );
+        showIncompleteFieldMessage(listIncomplete);
+        return listIncomplete;
+
+        // $('#inputName').val().length < 3 ||
+        //     $('#inputCountry').val().length == "" ||
+        //     $('#inputDestination').val().length == "" ||
+        //     $('#inputSubDestination').val().length == "" ||
+        //     $('#inputIntroduction').val().length < 3 ||
+        //     $('#inputAbout').val().length < 3 ||
+        //     dataIdeal.length == 0 ||
+        //     dataLanguage.length == 0 ||
+        //     dataHighlight.length == 0 ||
+        //     dataImage.length == 0 ||
+        //     dataActivity.length == 0 ||
+        //     dataFacility.length == 0 ||
+        //     dataSport.length == 0
+    }
+
+    function showIncompleteFieldMessage(listIncomplete){
+        let earliestInput = "";
+        $.each(listIncomplete,function(i,v){
+            earliestInput = (i==0 ? v.inputId : earliestInput);
+            if(v.inputId !='inputCountry' && v.inputId != 'inputDestination' && v.inputId != 'inputSubDestination' ){
+                if(!$(`#${v.inputId}`).parent().hasClass("input-group")){
+                $(`#${v.inputId}`).parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+                }else{
+                    $(`#${v.inputId}`).parent().parent().append(`<i class='text-danger text-field-warning' style="font-size:12px;">*${v.message}</i>`);
+                }
+            }else{
+                $(`#${v.inputId}`).closest('div').parent().append(`<i class='text-danger text-field-warning' style="font-size:12px; margin-right:10px">*${v.message}</i>`);
+            }
+        });
+
+        let el = document.getElementById(`${earliestInput}`);
+        (earliestInput != '' ? el.scrollIntoView() : '');
+    }
+
+    function deleteRoomConfirm(roomId, roomName, statusPublish) {
+        let text = '';
+        if (statusPublish && totalAktif == 1 && statusPublishLiveaboard) {
+            text = "Since this is the only active room/package,<br/> this will <b style='color:red'>automatically unpublish your resort</b>.";
+        }else{
+            text = "This will remove this room from list.";
+        }
+
+        Swal.fire({
+            title: `Delete Room "${roomName}"?`,
+            html: text ,
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((respond) => {
+            $("#overlay-loader").removeClass('d-none');
+            if (respond.value) {
+                if (statusPublish && totalAktif == 1 && statusPublishLiveaboard) {
+                    unpublishLiveaboard(id, roomId+'??'+roomName, 3)
+                }else{
+                    deleteRoom(roomId, roomName, 1);
+                }
+            }
+        });
+    }
+
+    function deleteRoom(roomId, roomName, type){
+        /* let title = ''
+        if (type == 1) {
+            title=`Room ${roomName} Removed`;
+        }else if(type==2){
+            title = `Divecenter Unpublished & Room ${roomName} Removed`
+        }
+        
+        alert(`delete ${roomName} ${roomId}`);
+        $("#overlay-loader").addClass('d-none'); */
+
+        $.ajax({
+            url: `/api/room/${roomId}`,
+            method: `DELETE`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    Swal.fire({
+                        title: `Room "${roomName}" Removed`,
+                        text: "Success."
+                    }).then(function() {
+                        location.reload()
+                    });
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        });
+    }
+
+    function deletePackageConfirm(packageId, packageName, statusPublish) {
+        let text = '';
+        if (statusPublish && totalAktif == 1 && statusPublishLiveaboard) {
+            text = "Since this is the only active room/package,<br/> this will <b style='color:red'>automatically unpublish your resort</b>.";
+        }else{
+            text = "This will remove this package from list.";
+        }
+
+        Swal.fire({
+            title: `Delete Package "${packageName}"?`,
+            html: text,
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((respond) => {
+            if (respond.value) {
+                $("#overlay-loader").removeClass('d-none');
+                if (statusPublish && totalAktif == 1 && statusPublishLiveaboard) {
+                    unpublishLiveaboard(id, packageId+'??'+packageName, 4)
+                }else{
+                    deletePackage(packageId, packageName, 1)
+                }
+            }
+        });
+    }
+
+    function deletePackage(packageId, packageName, type){
+        /* alert(`delete ${packageName} ${packageId}`);
+        let title = ''
+        if (type == 1) {
+            title=`Package ${packageName} Removed`;
+        }else if(type==2){
+            title = `Liveaboard Unpublished & Package ${packageName} Removed`
+        }
+        $("#overlay-loader").addClass('d-none'); */
+
+        $.ajax({
+            url: `/api/package/${packageId}`,
+            method: `DELETE`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    Swal.fire({
+                        title: title,
+                        text: "Success."
+                    }).then(function() {
+                        $("#overlay-loader").addClass('d-none');
+                        window.location.reload()
+                    });
+                } else {
+                    $("#overlay-loader").addClass('d-none');
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    //=========================================================================
+    function unpublishLiveaboard(liveaboardId, rId, type){
+        $.ajax({
+            url: `/api/liveaboard/${liveaboardId}/publish`,
+            method: `PUT`,
+            data : {
+                publish : false
+            },
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    if (type==1) {
+                        changeRoomStatus(rId, 3);
+                    }else if(type==2){
+                        changePackageStatus(rId,4)
+                    }else if (type==3) {
+                        let r = rId.split('??');
+                        let roomId = r[0];
+                        let roomName = r[1];
+                        deleteRoom(roomId, roomName, 2)
+                    }else if(type==4) {
+                        let r = rId.split('??');
+                        let roomId = r[0];
+                        let roomName = r[1];
+                        deletePackage(roomId, roomName, 2)
+                    }
+                } else {
+                    let msg = '';
+                    if (type == 1) {
+                        msg = 'Liveaboard not unpublished, cabin still open'
+                    }
+                    Swal.fire(
+                        'Action Failed',
+                        msg
+                    )
+                    //alert(result.message)
+                    //console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+
+    function createSchedule(){
+        let package_id = $('#packageSelect').val();
+        let tanggal = dateFormatForDB($('#datePicker').val()).split('-').reverse().join('-');
+        if (package_id != '' && tanggal.length > 0 ) {
+            $('#overlay-loader').removeClass('d-none');
+            $.ajax({
+                    url: `/api/schedule`,
+                    method: `POST`,
+                    data:{
+                        parent_id : package_id,
+                        schedule_date : tanggal
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            $('#overlay-loader').addClass('d-none');
+                            scheduleTable.ajax.reload();
+                            $('#datePicker').val('');
+                            Swal.fire({
+                                title: "Success",
+                                text: "Date Added",
+                                confirmButtonText: 'Great'
+                            }).then(function() {
+                                window.location.reload()
+                            });
+
+                        } else {
+                            $('#overlay-loader').addClass('d-none');
+                            //alert(result.message)
+                            console.log(result)
+                            Swal.fire({
+                                title: "Data Liveaboard Package update error",
+                                text: result.message
+                            }).then(function() {
+                                window.location.replace(`/my-liveaboards-create/${id}#schedule-section`)
+                                // window.location.reload();
+                                // location.href = `/my-liveaboards-create/${parentId}`
+                            });
+                        }
+                    },
+                    error(xhr, status, error) {
+                        $('#overlay-loader').addClass('d-none');
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                            Swal.fire({
+                                title: "Data Liveaboard Package update error",
+                                text: xhr.responseJSON.message
+                            }).then(function() {
+                                //window.location.reload();
+                                // location.href = `/my-liveaboards-create/${parentId}`
+                            });
+                        }
+                    }
+                })
+        }else{
+                Swal.fire("Data Required, Please fill date and package field");
+            }
+    }
+
+    function closeSchedule(scheduleId,tgl){
+        Swal.fire({
+            title: `Close date : ${tgl}?`,
+            text: `This will close the date.`,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((respond) => {
+            if (respond.value) {
+                $.ajax({
+                    url: `/api/close/${scheduleId}`,
+                    method: `PUT`,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            scheduleTable.ajax.reload();
+                            Swal.fire({
+                                title:"Schedule status changed"
+                            });
+                            window.location.reload();
+
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+    function removeScheduleDate(scheduleId,tgl){
+        Swal.fire({
+            title: `Delete date: ${tgl} ?`,
+            text: "This will remove the date from the list, you can't undo this action.",
+            showCancelButton: true,
+            confirmButtonColor: '#bd2130',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((respond) => {
+            if (respond.value) {
+                $.ajax({
+                    url: `/api/delete/${scheduleId}`,
+                    method: `PUT`,
+                    success: function (result) {
+                        console.log(result)
+                        if (result.success) {
+                            scheduleTable.ajax.reload();
+                            Swal.fire({
+                                title: "Success",
+                                text: "Schedule Removed",
+                                confirmButtonText: 'OK'
+                            }).then(function() {
+                                window.location.replace(`/my-liveaboards-create/${id}#schedule-section`)
+                                // window.location.reload()
+                            });
+
+                        } else {
+                            alert(result.message)
+                            console.log(result)
+                        }
+                    },
+                    error(xhr, status, error) {
+                        if(xhr.responseJSON){
+                            console.log(xhr.responseJSON)
+                        }
+                    }
+                });
+            }
+        });
+        
+
+    }
+
+
+    function cekSchedule(){
+
+        var getDataRoom = dataRoom.find(e => e.publish)
+        if(!getDataRoom){
+            Swal.fire({
+                title: "You don't have any Cabin Active.",
+                text: `Create cabin to enable open/publish liveaboard`,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((respond) => {
+                if (respond.value) {
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+                }
+            });
+        }else{
+            var getDataPackage = dataPackage.find(e => e.publish)
+            if(!getDataPackage && scheduleTable.data().count() == 0){
+                Swal.fire({
+                    title: "You don't have any Package Active.",
+                    text: `Create cabin to enable open/publish liveaboard`,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK'
+                }).then((respond) => {
+                    if (respond.value) {
+                        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+                    }
+                });
+            }else{
+                // alert(scheduleTable.data().count());
+                if (scheduleTable.data().count() == 0) {
+                    // Swal.fire("You don't have any Schedule","Create schedule to enable open/publish this package");
+                    Swal.fire({
+                        title: "You don't have any Schedule.",
+                        text: `Create schedule to enable open/publish package`,
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'OK'
+                    }).then((respond) => {
+                        if (respond.value) {
+                            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+                        }
+                    });
+                }
+            } 
+        }
+    }
+
+
+</script>

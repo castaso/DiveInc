@@ -1,0 +1,92 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<section class="section">
+    <div class="container">
+
+        <div class="post-header">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-8">
+                    <div class="post-header--info">
+                        <div id="textCategory"></div>
+                        <div id="textDate">August, 26th 2020</div>
+                        <div id="textAuthor"></div>
+                    </div>
+                    <h1 id="articleTitle" class="post-header--title"></h1>
+                </div>
+                <div class="col-lg-12">
+                    <img id="articleImage" alt="Manta Rays" class="post-header--img">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-8">
+                <div id="contentArticle" class="post-content">
+                    <!-- <blockquote>Having sourced a characterful vessel, they affectionately named it after their grandson Joaquin, who they call Quino.</blockquote>
+                    <p>Looking for a unique dive experience that also gives back to our amazing - yet delicate - natural world? Then look no further, Quino El Guardian has you covered. Head off on an unforgettable voyage around the Mexican Socorro Islands or Sea of Cortez aboard a vessel dedicated purely to science and the health of our oceans. Dora and Lolo had a dream - to build a boat designed purely for the purposes of marine research and investigation. Having sourced a characterful vessel, they affectionately named it after their grandson Joaquin, who they call Quino. They set about renovations and in no time, the boat was fully refitted to serve as a research, investigation and education ship.</p>
+                    <p>Quino El Guardian takes groups of divers on unforgettable journeys around the west coast of Mexico. They run a number of itineraries, all complete with resident scientists and the chance to learn more about these ecosystems. Here's a couple of examples of their most popular itineraries:</p>
+                    <ul>
+                        <li>DNA Research Expedition</li>
+                        <li>Manta Expedition with Dr. Bob Rubin</li>
+                        <li>Shark Expedition with Dr. James Ketchum</li>
+                        <li>Pelagic & Reef Diversity with Dr. Carols Sanchez</li>
+                    </ul>
+                    <br>
+                    <h1>What to see?</h1>
+                    <img src="/images/diving-komodo.jpg" alt="Diving Komodo">
+                    <p><i>Photo credit: www.carlosaguilerafoto.com</i></p>
+                    <p>While these expeditions focus on one or two areas of research, there's a good chance you'll encounter other marine life on your voyage...</p>
+                    <p>Ceningan Divers is the winner of the prestigious BlueGreen360 Awards for Dive Resort of the year in 2019 and Dive operator of the year in 2018 for their extensive eco and sustainability programs. Located in one of the largest manta populations around, dive in the Nusa Pendia Marine Protected Area. Are you ready to expend your conservation knowledge? There's regular clean-ups, mangrove nursery and daily workshops on mantas, mola (sunfish) and more are conduct by their in house Marine Biologist. They are a Green Fins operator, have a no single-use plastic policy and follow sustainable eco-friendly practices throughout the resort.</p> -->
+                </div>
+                <div class="post-share mb-5">
+                    <h3><i class="fas fa-share-alt"></i> Sharing</h3>
+                    <p>If you liked this article share it with your network:</p>
+                    <div class="btn-group">
+                        <div class="btn btn-facebook"><i class="fab fa-facebook mr-2"></i>Facebook</div>
+                        <div class="btn btn-twitter"><i class="fab fa-twitter mr-2"></i>Twitter</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+    var id = "<%= id %>"
+
+    $(document).ready(function(){
+        loadArticleById()
+    })
+
+    function loadArticleById() {
+        $.ajax({
+            url: `/api/article/${id}`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    $('#textCategory').text(result.data.article_category.name)
+                    $('#textAuthor').text(`by ${result.data.author}`)
+                    $('#textDate').text(reverseDate(result.data.created_at))
+                    $('#articleTitle').text(result.data.name)
+                    $('#articleImage').attr("src", result.data.images[0].url)
+                    $('#contentArticle').html(result.data.description)
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+</script>

@@ -1,0 +1,97 @@
+<%-include ../partial/header %>
+
+<div class="container">
+    <div class="d-flex align-items-center personality-header-nav">
+        <a href="/">
+            <img class="logo-size-base mr-3" src="images/logo/logo-dive-blue.svg">
+        </a>
+        <!-- Breadcrumb Step -->
+        <ul class="progress-step-wrapper list-unstyled">
+            <li class="done">
+                <a href="personal-question-1" class="btn btn-white btn-sm">Introduction</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-2" class="btn btn-white btn-sm">What</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-3" class="btn btn-white btn-sm">Where</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-4" class="btn btn-white btn-sm">When</a>
+            </li>
+            <li class="done">
+                <a href="personal-question-5" class="btn btn-white btn-sm">Who</a>
+            </li>
+            <li class="active">
+                <a href="personal-question-6" class="btn btn-white btn-sm">Spend</a>
+            </li>
+            <li>
+                <a href="personal-question-7" class="btn btn-white btn-sm">You</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="d-block">
+        <div class="row my-4">
+            <div class="col-lg-8 col-md-8">
+                <h1>How much are you looking to spend?</h1>
+            </div>
+        </div>
+    </div>
+    <div class="d-block mb-4">
+        <input type="text" class="js-range-slider" name="my_range" value="" />
+    </div>
+    <div class="d-block mb-4">
+        <div id="selectPlaceSurprice" class="select-card-wrapper">
+            <div class="select-card">
+                <label class="select-card-inner select-card-inner-h shadow-sm">
+                    <input type="checkbox" name="notSureType"/>
+                    <div class="select-card-content">
+                        <h6 class="mb-0">I'm not sure</h6>
+                    </div>
+                    <div class="select-card-checkbox"></div>
+                    <div class="select-card-checked"></div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex align-items-start mb-5">
+        <div class="d-block mr-5">
+            Minimum Spend
+            <h1 class="mb-0" id="irsMin">400</h1>
+            Per Person
+        </div>
+        <div class="d-block">
+            Maximum Spend
+            <h1 class="mb-0"  id="irsMax">800</h1>
+            Per Person
+        </div>
+    </div>
+    
+    <div class="d-block mb-5">
+        <a href="personal-question-7" class="btn btn-outline-primary btn-lg-2">Next</a>
+    </div>
+    <script src="/js/ion.rangeSlider.min.js"></script>
+    <script>
+         $(".js-range-slider").ionRangeSlider({
+            skin: "round",
+            type: "double",
+            min: 100,
+            max: 2000,
+            from: 400,
+            to: 800,
+            grid: true,
+            max_postfix: "+",
+            prefix: "$",
+            prettify_enabled: true,
+            prettify_separator: "",
+            onChange: function (data) {
+
+                $('#irsMin').text(data.from);
+                $('#irsMax').text(data.to);
+            },
+        });
+    </script>
+</div>
+
+<%-include ../partial/footer %>

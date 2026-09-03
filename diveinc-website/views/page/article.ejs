@@ -1,0 +1,170 @@
+<!-- HEADER -->
+<%-include ../partial/header %>
+<%-include ../partial/header-nav-2 %>
+
+<section class="section section-md">
+    <div class="container">
+        <div class="section-title d-flex align-items-center justify-content-between pt-0 mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="section-title--col bar-left">
+                        <h1 class="mt-0 mb-3">
+                           Read our Article
+                        </h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet quas et voluptas. Doloribus eaque facilis, illo quisquam iusto suscipit commodi vitae molestias provident asperiores minus necessitatibus? Assumenda recusandae expedita iure!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="listArticleLoader" class="d-flex flex-column justify-content-center align-items-center px-3 py-5 bg-light text-center" style="height:400px;">
+            <div class="spinner-border mb-3" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="text-muted">Please wait...</div>
+        </div>
+        <div class="explore-card explore-card--post">
+            <div id="listArticle" class="explore-card--list explore-card--25">
+                <!-- <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/post-1.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Trip, August 26th</div>
+                                <h4 class="mb-0">Last Minute Holiday</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/post-2.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Planning, August 26th</div>
+                                <h4 class="mb-0">Where to Sail: November & December</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/post-3.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Destination, August 26th</div>
+                                <h4 class="mb-0">Destination Guide Bali & Lombok</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/post-4.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Tips & Trick, August 26th</div>
+                                <h4 class="mb-0">Diving for Newbie 101</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/diving-1.jpeg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Trip, August 26th</div>
+                                <h4 class="mb-0">The Top 5 Scuba Diving in Februari</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/diving-bali-2.jpeg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Trip, August 26th</div>
+                                <h4 class="mb-0">What You Expect Diving in Bali</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="article-read" class="explore-card--item">
+                    <div class="explore-card--content">
+                        <div class="explore-card--image" style="background-image: url('/images/liveaboard-img-1.jpg');">
+                            <div class="explore-card--details">
+                                <div class="text-white d-block mb-3">Trip, August 26th</div>
+                                <h4 class="mb-0">The Best Liveaboard for Solo Traveler</h4>
+                            </div>
+                            <div class="explore-card--footer">
+                                <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                            </div>
+                        </div>
+                    </div>
+                </a> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<%-include ../partial/footer-nav %>
+<%-include ../partial/footer %>
+
+<script>
+    $(document).ready(function(){
+        console.log("hai")
+        loadArticle()
+    })
+
+    function loadArticle() {
+        $.ajax({
+            url: `/api/article`,
+            method: `GET`,
+            success: function (result) {
+                console.log(result)
+                if (result.success) {
+                    $('#listArticleLoader').addClass('hideImportant')
+                    for(var i = 0; i < result.data.length; i++){
+                        $('#listArticle').append(`
+                            <a href="/article-read/${result.data[i].id}" class="explore-card--item">
+                                <div class="explore-card--content">
+                                    <div class="explore-card--image" style="background-image: url('${result.data[i].images[0].url}');">
+                                        <div class="explore-card--details">
+                                            <div class="text-white d-block mb-3">${result.data[i].article_category.name}, ${result.data[i].created_at}</div>
+                                            <h4 class="mb-0">${result.data[i].name}</h4>
+                                        </div>
+                                        <div class="explore-card--footer">
+                                            <div class="btn btn-link text-secondary pl-0 pr-0 text-sm">Read Article</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        `)
+                    }
+                } else {
+                    alert(result.message)
+                    console.log(result)
+                }
+            },
+            error(xhr, status, error) {
+                if(xhr.responseJSON){
+                    console.log(xhr.responseJSON)
+                }
+            }
+        })
+    }
+</script>
