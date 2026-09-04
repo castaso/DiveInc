@@ -62,7 +62,7 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
     total
   } = req.body
 
-  if(!type || !creator_type_id || !total || !user_data) return res.send(403).send({success: false, message: "Invalid body"})
+  if(!type || !creator_type_id || !total || !user_data) return res.status(403).send({success: false, message: "Invalid body"})
 
   var xendit_fee = 5500
 

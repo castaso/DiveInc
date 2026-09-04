@@ -68,7 +68,7 @@ controller.put(`/`, middleware.checkToken, async (req,res) => {
 
   if(!country_id || !name || !tag_line || !description || !introduction 
     || !highlight || !image_background || !image_showing || !image_galery 
-    || !about || !more_about || !more_info || !article) return res.send(403).send({success: false, message: "Invalid body"})
+    || !about || !more_about || !more_info || !article) return res.status(403).send({success: false, message: "Invalid body"})
 
   const getData = await mainModel.findOne({
     where : {

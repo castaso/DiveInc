@@ -36,7 +36,7 @@ controller.post(`/`, async (req,res) => {
     description
   } = req.body
 
-  if(!description || !name) return res.send(403).send({success: false, message: "Invalid body"})
+  if(!description || !name) return res.status(403).send({success: false, message: "Invalid body"})
 
   let checkData = await mainModel.findOne({
       where : {

@@ -40,10 +40,6 @@ route.get('/article-read-turtles', (req,res) => {
     res.render('page/article-read-turtles')
 })
 
-// Destination
-// route.get('/destination', (req,res) => {
-//     res.render('page/destination')
-// })
 route.get('/article-read/:id', (req,res) => {
     res.render('page/article-read', {id: req.params.id})
 })
@@ -270,7 +266,7 @@ route.get('/my-contribution', (req,res) => {
 
 // My Contribution Create
 route.get('/my-contribution-create', (req,res) => {
-    res.render('page/my-contribution-create', { id : req.params.id })
+    res.render('page/my-contribution-create', { id : null })
 })
 route.get('/my-contribution-create/:id', (req,res) => {
     res.render('page/my-contribution-create', { id : req.params.id })

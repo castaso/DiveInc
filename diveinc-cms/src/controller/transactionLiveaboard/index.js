@@ -53,6 +53,7 @@ module.exports = {
             // if(result.data.data[x].liveaboard_id == liveaboard_id){
                 
                 let srvcList = [];
+                let tglShow = '-';
                 if (packageData.package) {
                     let tgl_start = packageData.package[0].package_date;
                     let tgl_start_add = new Date(tgl_start);
@@ -95,11 +96,13 @@ module.exports = {
                     }
 
                     totalSummary = 0;
+                    var htmlService = '';
+                    var htmlTotal = htmlRoom;
                     if (srvcList.length > 0) {
                         htmlService = `<tr>
                         <td style='padding:0px 5px; border:none; background:#FFF44F' colspan='2'>Additional </td>
                         </tr>`;
-                        htmlServiceItem = '';
+                        var htmlServiceItem = '';
                         for(var i = 0; i < srvcList.length; i++){
                             if (parseFloat(srvcList[i].qty) > 0) {
                                 htmlServiceItem += `<tr><td style='padding:0px 10px; border:none'><small>+ ${srvcList[i].name}</small></td>
@@ -140,7 +143,7 @@ module.exports = {
                 `)
                 // oneData.push(`IDR ${totalPrice + (totalPrice / 10)}`)
                 // oneData.push(`IDR ${totalPrice + (totalPrice / 10)}`)
-                status_id = result.data.data[x].transaction_liveaboard_status_id;
+                var status_id = result.data.data[x].transaction_liveaboard_status_id;
 
                 if(status_id == "b648ff73-468f-45cb-bbbc-fd3659e4b8ac"){
                     oneData.push(`Ordered`)
@@ -195,7 +198,7 @@ module.exports = {
 
         var cookie = parseCookies(req)
 
-        let result = await axios.call(`v1/transaction-wallet/${req.params.id}/approved`, `PUT`, req.body, cookie.accessToken, null, req._parsedUrl.query)
+        let result = await axios.call(`v1/transaction-liveaboard/${req.params.id}`, `PUT`, req.body, cookie.accessToken, null, req._parsedUrl.query)
 
         if(!result.data.message) return res.status(500).send({success : false, message : `Internal server error`})
         res.status(result.status).send(result.data)

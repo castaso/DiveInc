@@ -37,7 +37,7 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
     country_id
   } = req.body
 
-  if(!description || !name || !country_id) return res.send(403).send({success: false, message: "Invalid body"})
+  if(!description || !name || !country_id) return res.status(403).send({success: false, message: "Invalid body"})
 
   let checkData = await mainModel.findOne({
       where : {

@@ -38,7 +38,11 @@ module.exports = {
             return response
         } catch (error) {
             console.log(error)
-            return error.response
+            if (error.response) return error.response
+            return {
+                status: 500,
+                data: { success: false, message: error.message || "Internal server error" }
+            }
         }
     }
 }

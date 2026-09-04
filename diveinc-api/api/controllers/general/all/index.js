@@ -38,12 +38,11 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
     resort_fee
   } = req.body
 
-  if(!version || !divecenter_fee || !liveaboard_fee || resort_fee) return res.send(403).send({success: false, message: "Invalid body"})
+  if(!version || !divecenter_fee || !liveaboard_fee || !resort_fee) return res.status(403).send({success: false, message: "Invalid body"})
 
   let checkData = await mainModel.findOne({
       where : {
-        name : {[Op.eq] : name},
-        description : {[Op.eq] : description}
+        version : {[Op.eq] : version}
       }
   })
 
@@ -66,8 +65,7 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
 
   let checkInsert = await mainModel.findOne({
     where : {
-      name : {[Op.eq] : name},
-      description : {[Op.eq] : description},
+      version : {[Op.eq] : version},
       active : true
     }
   })

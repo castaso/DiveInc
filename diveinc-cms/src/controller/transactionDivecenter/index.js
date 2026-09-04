@@ -133,7 +133,7 @@ module.exports = {
                         }
                         var serviceContent = '';
                         for (let m = 0; m < packageData.package[i].packageItem.length; m++) {
-                            dayCount = packageData.package[0].day
+                            var dayCount = packageData.package[0].day
                             console.log(packageData.package[i].packageItem)
                             if(packageData.package[i].packageItem[m].package_date){
                                 htmlPackage = `<tr><td style='padding:0px; border:none'>Date: </td><td style='padding:0px; border:none'><span style='font-weight:bold'>${dateFormatSM(packageData.package[i].packageItem[m].package_date)}</span></td></tr>`;
@@ -141,7 +141,7 @@ module.exports = {
                                 htmlPackage += `<tr><td style='padding:0px 5px; border:none'>Guest </td><td style='padding:0px 5px; border:none; '> x ${packageData.package[i].packageItem[m].guest}</td></tr>`
                             }
                             // htmlService = `<tr><td style='padding:0px; border:none'>Service : </td><td style='padding:0px; border:none'></td><td style='padding:0px; border:none'></td></tr>`
-                            htmlService = ``
+                            var htmlService = ``
                             let pck = packageData.package[i].packageItem[m];
                             packDateList.push(pck.package_date);
                             if (typeof pck.service !=='undefined') {
@@ -251,7 +251,7 @@ module.exports = {
 
         var cookie = parseCookies(req)
 
-        let result = await axios.call(`v1/transaction-wallet/${req.params.id}/approved`, `PUT`, req.body, cookie.accessToken, null, req._parsedUrl.query)
+        let result = await axios.call(`v1/transaction-divecenter/${req.params.id}`, `PUT`, req.body, cookie.accessToken, null, req._parsedUrl.query)
 
         if(!result.data.message) return res.status(500).send({success : false, message : `Internal server error`})
         res.status(result.status).send(result.data)

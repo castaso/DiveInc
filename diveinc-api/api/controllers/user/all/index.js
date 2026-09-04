@@ -87,8 +87,8 @@ controller.post(`/website/login/email`, async (req,res) => {
   if(!getData.active) return res.status(200).send({success: false, message: `Account has been deleted, for more information please contact Diveinc.co`})
 
 // Insert data login
-const data_login = getData.data_login
-for(var i = 0; i < data_login.length; i++) {
+const data_login = Array.isArray(getData.data_login) ? getData.data_login : []
+for(var i = data_login.length - 1; i >= 0; i--) {
   if (data_login[i].type == 'Website') {
     data_login.splice(i, 1)
   }
@@ -241,7 +241,7 @@ controller.get(`/website/forgot-password`, async (req,res) => {
   // } = req.body
 
   let dt = '';
-  token = req.query.token;
+  let token = req.query.token;
   jwt.verify(token, tokenConfig.tokenSecret, function(err, decoded) {
       if(err){
           return res.status(401).send({success: false, message:"Token has expired"})
@@ -305,8 +305,8 @@ controller.post(`/admin/login/email`, async (req,res) => {
   if(!getData.active) return res.status(200).send({success: false, message: `Account has been deleted, for more information please contact Diveinc.co`})
 
 // Insert data login
-const data_login = getData.data_login
-for(var i = 0; i < data_login.length; i++) {
+const data_login = Array.isArray(getData.data_login) ? getData.data_login : []
+for(var i = data_login.length - 1; i >= 0; i--) {
   if (data_login[i].type == 'Admin') {
     data_login.splice(i, 1)
   }
@@ -395,7 +395,7 @@ controller.post(`/website/register/email`, async (req,res) => {
   } = req.body
 
   if(!validator.validate(email)) return res.status(403).send({success: false, message: `Email is not valid`})
-  if(!email || !password || !subscribe) return res.status(403).send({success: false, message: `Invalid body required`})
+  if(!email || !password || typeof subscribe === 'undefined') return res.status(403).send({success: false, message: `Invalid body required`})
 
   let getData = await user.findOne({
     where : {
@@ -487,6 +487,7 @@ const insertDataRegister = await user.create({
   },
   verify: false,
   subscribe: subscribe,
+  data_login: [],
   active: true,
   created_at : new Date(),
   created_by : {

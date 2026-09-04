@@ -11,7 +11,7 @@ const sequelize = require('@helpers/database')
 const middleware = require('@helpers/middleware')
 
 const mainModel = require('@models').schedule
-const package = require('@models').package
+const packageModel = require('@models').package
 const liveaboard = require('@models').liveaboard
 const scheduleStatus = require('@models').schedule_status
 const logType = require('@models').log_type
@@ -44,7 +44,7 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
     schedule_date,
   } = req.body
 
-  const getSchedule = await package.findOne({
+  const getSchedule = await packageModel.findOne({
     where : {
       active : true,
       id : parent_id
@@ -52,7 +52,7 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
     include: [mainModel]
   })
 
-  const getPackage = await package.findAll({
+  const getPackage = await packageModel.findAll({
     where : {
       active : true,
       parent_id : getSchedule.dataValues.parent_id
@@ -256,7 +256,7 @@ controller.get(`/datatable/:id`, async (req,res) => {
 
   let draw = query.draw
 
-  let testData = await package.findOne({
+  let testData = await packageModel.findOne({
     where : {
       id : req.params.id
     }
@@ -334,7 +334,7 @@ controller.get(`/datatable/:id`, async (req,res) => {
           model : scheduleStatus,
         },
         {
-          model : package
+          model : packageModel
         }
       ],
       limit : query.length,

@@ -158,7 +158,7 @@ module.exports = {
 
         var cookie = parseCookies(req)
 
-        let result = await axios.call(`v1/transaction-wallet-admin/${req.params.id}/accept-partial`, `PUT`, null, cookie.accessToken, null, req._parsedUrl.query)
+        let result = await axios.call(`v1/transaction-wallet-admin/${req.params.id}/accept-partial`, `PUT`, req.body, cookie.accessToken, null, req._parsedUrl.query)
 
         if(!result.data.message) return res.status(500).send({success : false, message : `Internal server error`})
         res.status(result.status).send(result.data)

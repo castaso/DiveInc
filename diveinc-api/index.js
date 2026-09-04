@@ -15,9 +15,6 @@ const rfs = require("rotating-file-stream"); // Creates a stream.Writable to a f
 // const sequelize = require("@helpers/conection");
 // const winston = require("@helpers/winston");
 const controller = require("@controller");
-// const response = require("@helpers/response");
-// const cron = require("@helpers/cron")
-const cronJob = require("@helpers/cron")
 
 /* Initial express into app */
 const app = express();
@@ -47,6 +44,14 @@ if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "developme
 
 /* Use helmet */
 app.use(helmet()); // Default setting -> DNS prefetching, clickjacking, hide Power By, HSTS, X-Download-Options IE8+, sniffing MIME Type, XSS Protection
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Cookie");
+  if (req.method === "OPTIONS") return res.sendStatus(200);
+  next();
+});
 
 /* Testing the connection to db */
 // sequelize
@@ -82,7 +87,6 @@ const port = process.env.PORT || 3333; // used port
 //   console.log(`Service start on env : ${environment}, host : ${host} and port : ${port}`);
 // });
 
-//cronJob.runCronDoneResort()
-
-app.listen(port)
-console.log(`Service start`);
+app.listen(port, host, () => {
+  console.log(`Service start on env : ${environment}, host : ${host} and port : ${port}`);
+});

@@ -27,14 +27,11 @@ app.use(helmet())
 app.use(morgan(`dev`))
 
 if(maintenance == 'yes'){
-  // app.get(`*`, (req,res) => {
-  //   res.render(`page/example.ejs`)
-  // })
+  app.get(`*`, (req,res) => {
+    res.status(503).send({ success: false, message: "Site is under maintenance" })
+  })
 }else{
   app.use(`/`, controller)
-  // app.get(`*`, (req,res) => {
-  //   res.render(`page/example.ejs`)
-  // })
 }
 
 // Coba melakukan perubahan

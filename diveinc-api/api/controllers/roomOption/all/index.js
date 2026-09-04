@@ -36,7 +36,7 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
     data
   } = req.body
 
-  if(!name || !data) return res.send(403).send({success: false, message: "Invalid body"})
+  if(!name || !data) return res.status(403).send({success: false, message: "Invalid body"})
 
   let checkData = await mainModel.findOne({
       where : {

@@ -3,7 +3,12 @@
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 
-const key = require(`@root/email.json`)
+let key = { admin_diveinc: process.env.ADMIN_EMAIL || "admin@localhost" }
+try {
+  key = require(`@root/email.json`)
+} catch (err) {
+  if (err.code !== "MODULE_NOT_FOUND") throw err
+}
 
 module.exports = (message) => {
 

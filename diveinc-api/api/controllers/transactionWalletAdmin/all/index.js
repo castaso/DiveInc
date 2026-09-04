@@ -56,7 +56,7 @@ controller.get(`/datatable`, async (req,res) => {
           active : true,
           [Op.or] : [
               {type : { [Op.iLike] : `%${query.search.value}%`}},
-              {'$transaction_wallet_status.name$' : { [Op.iLike] : `%${query.search.value}%`}},
+               {'$transaction_wallet_admin_status.name$' : { [Op.iLike] : `%${query.search.value}%`}},
               sequelize.literal(`u.profile->'name'->'first_name' ILIKE '%${query.search.value}%'`),
               sequelize.where(
                 sequelize.cast(sequelize.col('total'), 'varchar'),
@@ -91,10 +91,10 @@ controller.get(`/datatable`, async (req,res) => {
   }
 
   let totalFiltered = await sequelize.query(`SELECT 
-  m.id, m.type, m.user_id, m.transaction_wallet_status_id, m.total, ts.id, ts.name, u.id, u.profile
+  m.id, m.type, m.user_id, m.transaction_wallet_admin_status_id, m.total, ts.id, ts.name, u.id, u.profile
   FROM ${table} m 
   LEFT JOIN users u ON m.user_id = u.id
-  LEFT JOIN transaction_wallet_statuses ts ON m.transaction_wallet_status_id = ts.id 
+  LEFT JOIN transaction_wallet_admin_statuses ts ON m.transaction_wallet_admin_status_id = ts.id 
   ${paramQuery} ${orderQuery}`, {
       type : sequelize.QueryTypes.SELECT
   })
@@ -103,7 +103,7 @@ controller.get(`/datatable`, async (req,res) => {
       where : param,
       include : [
         {
-          model : transactionWalletStatus,
+          model : transactionWalletAdminStatus,
         },
         {
           model : user,

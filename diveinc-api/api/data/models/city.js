@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Model = sequelize.define('city', {
+    country_id: DataTypes.UUID,
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
     active: DataTypes.BOOLEAN,

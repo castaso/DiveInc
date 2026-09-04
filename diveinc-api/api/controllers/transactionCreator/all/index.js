@@ -45,7 +45,7 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
     data
   } = req.body
 
-  if(!type || !file) return res.send(403).send({success: false, message: "Invalid body"})
+  if(!type || !file) return res.status(403).send({success: false, message: "Invalid body"})
 
   var typeId = ""
   if(type == "resort"){
@@ -57,7 +57,7 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
   }else if(type == "contribution"){
     typeId = "b648ff73-468f-45cb-b7dc-fd3659e4b8ac"
   }else{
-    return res.send(403).send({success: false, message: "Invalid body"})
+    return res.status(403).send({success: false, message: "Invalid body"})
   }
 
   var creatorStatus = "d2f95bbe-159b-4d47-9e07-33925e04c5e9"

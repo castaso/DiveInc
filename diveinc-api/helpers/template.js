@@ -3,7 +3,12 @@
 const port = process.env.PORT || 3333
 const host = process.env.HOST || `localhost`
 
-const key = require(`@root/email.json`)
+let key = { admin_diveinc: process.env.ADMIN_EMAIL || "admin@localhost" }
+try {
+  key = require(`@root/email.json`)
+} catch (err) {
+  if (err.code !== "MODULE_NOT_FOUND") throw err
+}
 
 const webhost = process.env.WEB_HOST || `http://localhost:5556/`
 const cmshost = process.env.CMS_HOST || `http://localhost:4444/`

@@ -29,11 +29,12 @@ const user = require(`@controller/user`)
 
 //Auth
 route.post('/login', auth.login)
+route.post('/reset-password', auth.resetPassword)
 
 //upload
 route.post(`/upload/image`, upload.image)
-route.post(`/upload/file`, upload.image)
-route.post(`/upload/video`, upload.image)
+route.post(`/upload/file`, upload.file)
+route.post(`/upload/video`, upload.video)
 
 //Activity
 // route.get(`/activity`, activity.getAll)
@@ -80,22 +81,22 @@ route.delete(`/article-category/:id`, articleCategory.delete)
 
 //Destination
 route.get(`/destination/datatable`, destination.datatable)
+route.get(`/destination/for-cms`, destination.getAll)
 route.get(`/destination`, destination.getAll)
 route.get(`/destination/:id`, destination.getById)
 route.post(`/destination`, destination.add)
 route.put(`/destination/:id`, destination.update)
 route.delete(`/destination/:id`, destination.delete)
-route.get(`/destination/for-cms`, destination.getAll)
 
 
 //Sub Destination
 route.get(`/sub-destination/datatable`, subDestination.datatable)
+route.get(`/sub-destination/for-cms`, subDestination.getAll)
 route.get(`/sub-destination`, subDestination.getAll)
 route.get(`/sub-destination/:id`, subDestination.getById)
 route.post(`/sub-destination`, subDestination.add)
 route.put(`/sub-destination/:id`, subDestination.update)
 route.delete(`/sub-destination/:id`, subDestination.delete)
-route.get(`/sub-destination/for-cms`)
 
 //Creature
 route.get(`/creature/datatable`, creature.datatable)
@@ -148,10 +149,10 @@ route.put(`/transaction-divecenter/:id`, transactionDivecenter.update)
 
 //Transaction Live Aboard
 route.get(`/transaction-liveaboard/datatable`, transactionLiveaboard.datatable)
+route.get(`/transaction-liveaboard/status`, transactionLiveaboard.getAll)
 route.get(`/transaction-liveaboard`, transactionLiveaboard.getAll)
 route.get(`/transaction-liveaboard/:id`, transactionLiveaboard.getById)
 route.put(`/transaction-liveaboard/:id`, transactionLiveaboard.update)
-route.get(`/transaction-liveaboard/status`)
 
 //Testimoni
 route.get(`/testimony/datatable`, testimoni.datatable)

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   Model.associate = function(models) {
-    Model.belongsTo(models.transaction_wallet_status, { foreignKey: 'transaction_wallet_status_id'});
+    Model.belongsTo(models.transaction_wallet_admin_status, { foreignKey: 'transaction_wallet_admin_status_id'});
     Model.belongsTo(models.creator_type, { foreignKey: 'creator_type_id'});
     Model.belongsTo(models.user, { foreignKey: 'user_id'});
   };

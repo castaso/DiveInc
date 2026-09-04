@@ -82,7 +82,7 @@ controller.put(`/`, middleware.checkToken, async (req,res) => {
     publish
   } = req.body
 
-  if(!profile || !highlight || !photos || !amenities || !publish) return res.send(403).send({success: false, message: "Invalid body"})
+  if(!profile || !highlight || !photos || !amenities || !publish) return res.status(403).send({success: false, message: "Invalid body"})
 
   const getData = await mainModel.findOne({
     where : {
@@ -172,7 +172,7 @@ controller.put(`/publish`, middleware.checkToken, async (req,res) => {
     publish
   } = req.body
 
-  //if(!publish) return res.send(403).send({success: false, message: "Invalid body"})
+  //if(!publish) return res.status(403).send({success: false, message: "Invalid body"})
 
   const getData = await mainModel.findOne({
     where : {

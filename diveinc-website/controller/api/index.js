@@ -28,7 +28,7 @@ function formatRupiah(angka){
 
     // tambahkan titik jika yang di input sudah menjadi angka ribuan
     if (ribuan) {
-        separator = sisa ? '.' : '';
+        var separator = sisa ? '.' : '';
         rupiah += separator + ribuan.join('.');
     }
 
@@ -198,7 +198,7 @@ route.get('/sub-destination/:id', async(req,res) => {
 
 route.get('/destination/:id/excepted', async(req,res) => {
     var cookie = parseCookies(req)
-    let destination = await axios.call(`vv1/destination/${req.params.id}/excepted`, `GET`, null, null, null, req._parsedUrl.query)
+    let destination = await axios.call(`v1/destination/${req.params.id}/excepted`, `GET`, null, null, null, req._parsedUrl.query)
     if(!destination.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(destination.status).send(destination.data)
 })
@@ -1208,7 +1208,7 @@ route.get('/datatable-resort', async(req,res) => {
                             }
                             if (serviceContent == '') {
                                 // htmlService = `<tr><td style='padding:0px; border:none'>Service </td><td style='padding:0px; border:none'></td><td style='padding:0px; border:none'></td></tr>`
-                                htmlService = ``
+                            var htmlService = ``
                                 // serviceContent = `<tr><td style='padding:0px; border:none' colspan='3'>None</td></tr>` 
                             }
                             htmlService += serviceContent
@@ -1221,8 +1221,7 @@ route.get('/datatable-resort', async(req,res) => {
                         htmlRoom += htmlRoomItem
                     }
                     
-                    // htmlTotal = (typeof htmlPackage !== "undefined" ? htmlPackage : "") + (typeof htmlRoom !== 'undefined' ? htmlRoom : "");
-                    htmlTotal = (typeof htmlRoom !== 'undefined' ? htmlRoom : "");
+                    var htmlTotal = (typeof htmlRoom !== 'undefined' ? htmlRoom : "");
                     oneData.push(`<table width='100%' style='font-size:0.9em'><tr><td style='padding:0px; border:none' colspan='2'><i class='fa fa-calendar'></i> : <span style='font-weight:bold'>${fromDate} - ${toDate}</span></td></tr>${htmlTotal}</table>`)
                     /* oneData.push(`
                         <h5>Package :</h5>
@@ -1259,8 +1258,7 @@ route.get('/datatable-resort', async(req,res) => {
                             htmlPackage += `<tr><td style='padding:0px 5px; border:none'>Guest </td><td style='padding:0px 5px; border:none; text-align:right'> x ${packageData.package[i].packageItem[m].guest}</td></tr>`
                         }
                         
-                        // htmlService = `<tr><td style='padding:0px; border:none'>Service : </td><td style='padding:0px; border:none'></td><td style='padding:0px; border:none'></td></tr>`
-                        htmlService = ``
+                        var htmlService = ``
                         let pck = packageData.package[i].packageItem[m];
                         packDateList.push(pck.package_date);
                         if(pck.service){
@@ -1510,7 +1508,7 @@ route.get('/datatable-divecenter', async(req,res) => {
                         }
                         var serviceContent = '';
                         for (let m = 0; m < packageData.package[i].packageItem.length; m++) {
-                            dayCount = packageData.package[0].day
+                            var dayCount = packageData.package[0].day
 
                             if(packageData.package[i].packageItem[m].package_date){
                                 htmlPackage = `<tr><td style='padding:0px; border:none'>Date: </td><td style='padding:0px; border:none'><span style='font-weight:bold'>${dateFormatSM(packageData.package[i].packageItem[m].package_date)}</span></td></tr>`;
@@ -1518,8 +1516,7 @@ route.get('/datatable-divecenter', async(req,res) => {
                                 htmlPackage += `<tr><td style='padding:0px 5px; border:none'>Guest </td><td style='padding:0px 5px; border:none; '> x ${packageData.package[i].packageItem[m].guest}</td></tr>`
                             }
                             
-                            // htmlService = `<tr><td style='padding:0px; border:none'>Service : </td><td style='padding:0px; border:none'></td><td style='padding:0px; border:none'></td></tr>`
-                            htmlService = ``
+                            var htmlService = ``
                             let pck = packageData.package[i].packageItem[m];
                             packDateList.push(pck.package_date);
                             if (typeof pck.service !=='undefined') {
@@ -1645,6 +1642,7 @@ route.get('/datatable-liveaboard', async(req,res) => {
         // if(result.data.data[x].liveaboard_id == liveaboard_id){
             
             let srvcList = [];
+            let tglShow = '-';
             if (packageData.package) {
                 let tgl_start = packageData.package[0].package_date;
                 let tgl_start_add = new Date(tgl_start);
@@ -1687,11 +1685,13 @@ route.get('/datatable-liveaboard', async(req,res) => {
                 }
 
                 totalSummary = 0;
+                var htmlService = '';
+                var htmlTotal = htmlRoom;
                 if (srvcList.length > 0) {
                     htmlService = `<tr>
                     <td style='padding:0px 5px; border:none; background:#FFF44F' colspan='2'>Additional </td>
                     </tr>`;
-                    htmlServiceItem = '';
+                    var htmlServiceItem = '';
                     for(var i = 0; i < srvcList.length; i++){
                         if (parseFloat(srvcList[i].qty) > 0) {
                             htmlServiceItem += `<tr><td style='padding:0px 10px; border:none'><small>+ ${srvcList[i].name}</small></td>

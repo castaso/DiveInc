@@ -202,8 +202,6 @@ controller.get(`/`, async (req,res) => {
     ]
   })
 
-  console.log('geDa',getData.dataValues.package_data);
-
   if(!getData) return res.status(200).send({success: false, message: "Destination not found"})
 
   res.status(200).send({
