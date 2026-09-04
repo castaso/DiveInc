@@ -8,6 +8,7 @@ const env = process.env.NODE_ENV || 'test'
 const controller = require(`express`).Router({mergeParams : true})
 const jwt = require(`jsonwebtoken`)
 const Op = require('sequelize').Op
+const { sanitizeSqlInput } = require('@helpers/sanitize')
 const seq2 = require('sequelize')
 const sequelize = require('@helpers/database')
 const middleware = require('@helpers/middleware')
@@ -145,15 +146,15 @@ controller.get(`/datatable-vendor`, middleware.checkToken, async (req,res) => {
   var orderQuery = `ORDER BY m.created_at DESC`
   var order = [[`created_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-    paramQuery = `${paramQuery} AND (m.transaction_code ILIKE '%${query.search.value}%')`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+    paramQuery = `${paramQuery} AND (m.transaction_code ILIKE '%${sanitizeSqlInput(query.search.value)}%')`
     param = {
         active : true,
         contribution_id : contribution_id,
         '$contribution.user_id$' : { [Op.eq] : `${req.decoded.id}`},
         transaction_contribution_status_id : { [Op.notIn] : ["59cfbb65-efff-4d25-aae1-b439efa62188","d2f95bbe-159b-4447-9e07-33925e04c5e9","c7999dce-19b7-4bfd-84cc-d2f0845a3d86"]},
         [Op.or] : [
-            {transaction_code : { [Op.iLike] : `%${query.search.value}%`}}
+            {transaction_code : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}}
         ]
     }
   }
@@ -216,12 +217,12 @@ controller.get(`/datatable-admin`, async (req,res) => {
   var orderQuery = `ORDER BY m.created_at DESC`
   var order = [[`created_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-    paramQuery = `${paramQuery} AND (m.transaction_code ILIKE '%${query.search.value}%')`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+    paramQuery = `${paramQuery} AND (m.transaction_code ILIKE '%${sanitizeSqlInput(query.search.value)}%')`
     param = {
         active : true,
         [Op.or] : [
-            {transaction_code : { [Op.iLike] : `%${query.search.value}%`}}
+            {transaction_code : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}}
         ]
     }
   }

@@ -7,6 +7,7 @@ const env = process.env.NODE_ENV || 'test'
 const controller = require(`express`).Router({mergeParams : true})
 const jwt = require(`jsonwebtoken`)
 const Op = require('sequelize').Op
+const { sanitizeSqlInput } = require('@helpers/sanitize')
 const sequelize = require('@helpers/database')
 const middleware = require('@helpers/middleware')
 
@@ -182,14 +183,14 @@ controller.delete(`/`, (req,res) => {
 //   var orderQuery = `ORDER BY updated_at DESC`
 //   var order = [[`updated_at`, 'desc']] 
 
-//   if(query.search.value != `` && query.search.value != null){
-//       paramQuery = `${paramQuery} AND (m.schedule_date ILIKE '%${query.search.value}%' OR ss.name ILIKE '%${query.search.value}%'`
+//   if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+//       paramQuery = `${paramQuery} AND (m.schedule_date ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR ss.name ILIKE '%${sanitizeSqlInput(query.search.value)}%'`
 //       param = {
 //           active : true,
 //           parent_id: {[Op.eq] : req.params.id},
 //           [Op.or] : [
-//               {schedule_date : { [Op.iLike] : `%${query.search.value}%`}},
-//               {'$schedule_status.name$' : { [Op.iLike] : `%${query.search.value}%`}},
+//               {schedule_date : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+//               {'$schedule_status.name$' : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
 //           ]
 //       }
 //   }
@@ -280,14 +281,14 @@ controller.get(`/datatable/:id`, async (req,res) => {
   var orderQuery = `ORDER BY updated_at DESC`
   var order = [[`updated_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-      paramQuery = `${paramQuery} AND (m.schedule_date ILIKE '%${query.search.value}%' OR ss.name ILIKE '%${query.search.value}%'`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+      paramQuery = `${paramQuery} AND (m.schedule_date ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR ss.name ILIKE '%${sanitizeSqlInput(query.search.value)}%'`
       param = {
           active : true,
           '$package.parent_id$': {[Op.eq] : parentId},
           [Op.or] : [
-              {schedule_date : { [Op.iLike] : `%${query.search.value}%`}},
-              {'$schedule_status.name$' : { [Op.iLike] : `%${query.search.value}%`}},
+              {schedule_date : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              {'$schedule_status.name$' : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
           ]
       }
   }

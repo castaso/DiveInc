@@ -135,14 +135,14 @@ controller.get(`/datatable`, async (req,res) => {
   var orderQuery = `ORDER BY updated_at DESC`
   var order = [[`updated_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-      paramQuery = `${paramQuery} AND (m.name ILIKE '%${query.search.value}%' OR m.author ILIKE '%${query.search.value}%' OR ac.name ILIKE '%${query.search.value}%')`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+      paramQuery = `${paramQuery} AND (m.name ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR m.author ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR ac.name ILIKE '%${sanitizeSqlInput(query.search.value)}%')`
       param = {
           active : true,
           [Op.or] : [
-              {name : { [Op.iLike] : `%${query.search.value}%`}},
-              {author : { [Op.iLike] : `%${query.search.value}%`}},
-              {'$article_categories.name$' : { [Op.iLike] : `%${query.search.value}%`}}
+              {name : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              {author : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              {'$article_categories.name$' : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}}
           ]
       }
   }

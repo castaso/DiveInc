@@ -32,7 +32,6 @@ function formatRupiah(angka){
         rupiah += separator + ribuan.join('.');
     }
 
-    console.log(1000);
     return rupiah
 }
 
@@ -85,7 +84,6 @@ route.post('/login/email', async(req,res) => {
 route.post('/register/email', async(req,res) => {
     var cookie = parseCookies(req)
     let register = await axios.call(`v1/user/website/register/email`, `POST`, req.body, null, null, req._parsedUrl.query)
-    console.log(register)
     if(!register.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(register.status).send(register.data)
 })
@@ -114,7 +112,6 @@ route.put('/ganti-password', async(req,res) => {
 
 route.put('/change-password', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(cookie)
     let data = await axios.call(`v1/user/change-password`, `PUT`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -122,7 +119,6 @@ route.put('/change-password', async(req,res) => {
 
 route.get('/my-permission', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(cookie)
     let data = await axios.call(`v1/user/my-permission`, `GET`, null, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -130,7 +126,6 @@ route.get('/my-permission', async(req,res) => {
 
 route.get('/my-profile', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(cookie)
     let data = await axios.call(`v1/user/my-profile`, `GET`, null, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -138,7 +133,6 @@ route.get('/my-profile', async(req,res) => {
 
 route.post('/my-profile/save-info', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(cookie)
     let data = await axios.call(`v1/user/my-profile/save-info`, `POST`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -146,7 +140,6 @@ route.post('/my-profile/save-info', async(req,res) => {
 
 route.post('/my-profile/save-wallet', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(cookie)
     let data = await axios.call(`v1/user/my-profile/save-wallet`, `POST`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -161,7 +154,6 @@ route.post('/withdrawl', async(req,res) => {
 
 route.get('/my-order', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(cookie)
     let data = await axios.call(`v1/user/my-order`, `GET`, null, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -169,7 +161,6 @@ route.get('/my-order', async(req,res) => {
 
 route.get('/my-order-detail/:id', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(cookie)
     let data = await axios.call(`v1/user/my-order-detail`, `GET`, null, cookie.accessTokenDiveincWebsite, req.params.id, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -388,7 +379,6 @@ route.post('/divecenter', async(req,res) => {
 route.get('/divecenter/:id', async(req,res) => {
     var cookie = parseCookies(req)
     let data = await axios.call(`v1/divecenter/${req.params.id}`, `GET`, null, null, null, req._parsedUrl.query)
-    console.log(data)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
 })
@@ -646,20 +636,6 @@ route.get('/contribution/publish', async(req,res) => {
     res.status(data.status).send(data.data)
 })
 
-route.post('/contribution', async(req,res) => {
-    var cookie = parseCookies(req)
-    let data = await axios.call(`v1/contribution`, `POST`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
-    if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
-    res.status(data.status).send(data.data)
-})
-
-route.put('/contribution/:id', async(req,res) => {
-    var cookie = parseCookies(req)
-    let data = await axios.call(`v1/contribution/${req.params.id}`, `PUT`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
-    if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
-    res.status(data.status).send(data.data)
-})
-
 route.get('/contribution/:id', async(req,res) => {
     var cookie = parseCookies(req)
     let data = await axios.call(`v1/contribution/${req.params.id}`, `GET`, null, null, null, req._parsedUrl.query)
@@ -674,16 +650,8 @@ route.get('/contribution/sub-destination/:id', async(req,res) => {
     res.status(data.status).send(data.data)
 })
 
-route.put('/contribution/:id/publish', async(req,res) => {
-    var cookie = parseCookies(req)
-    let data = await axios.call(`v1/contribution/${req.params.id}/publish`, `PUT`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
-    if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
-    res.status(data.status).send(data.data)
-})
-
 route.post('/transaction-contribution', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(req.body)
     let data = await axios.call(`v1/transaction-contribution`, `POST`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -691,7 +659,6 @@ route.post('/transaction-contribution', async(req,res) => {
 
 route.post('/transaction-resort', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(req.body)
     let data = await axios.call(`v1/transaction-resort`, `POST`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -748,7 +715,6 @@ route.get('/transaction-resort/:id', async(req,res) => {
 
 route.post('/transaction-divecenter', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(req.body)
     let data = await axios.call(`v1/transaction-divecenter`, `POST`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -806,7 +772,6 @@ route.get('/transaction-divecenter/:id', async(req,res) => {
 
 route.post('/transaction-liveaboard', async(req,res) => {
     var cookie = parseCookies(req)
-    console.log(req.body)
     let data = await axios.call(`v1/transaction-liveaboard`, `POST`, req.body, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
     if(!data.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     res.status(data.status).send(data.data)
@@ -1028,8 +993,6 @@ route.get('/datatable-schedule/:id', async(req,res) => {
                     }
     
                     //$(`#summaryTotal${packageData.package[i].id}`).text(totalSummary) 
-                    console.log("Summary package +=",totalSummary);
-                    console.log("totalPrice package  +=",totalPrice);
                     totalPrice += totalSummary
                     htmlPackage += htmlPackageItem
                     // console.log("totalPrice2 package  +=",totalPrice);
@@ -1065,8 +1028,6 @@ route.get('/datatable-schedule/:id', async(req,res) => {
                         htmlRoomItem += htmlService
                     }
 
-                    console.log("Summary room +=",totalSummary);
-                    console.log("totalPrice room  +=",totalPrice);
                     totalPrice += totalSummary
                     htmlRoom += htmlRoomItem
                 }
@@ -1088,7 +1049,6 @@ route.get('/datatable-schedule/:id', async(req,res) => {
                 oneData.push("-")
                 oneData.push("-")
             }
-            console.log("totalPrice",totalPrice);
             
             oneData.push(`Total : IDR ${formatRupiah(totalPrice)}<br>
                 Diveinc fee : IDR ${formatRupiah(totalPrice * (general.resort_fee / 100))}<br>
@@ -1150,7 +1110,6 @@ route.get('/datatable-resort', async(req,res) => {
     var resort_id = req.query.id;
         
     let result = await axios.call(`v1/transaction-resort/datatable-vendor`, `GET`, null, cookie.accessTokenDiveincWebsite, null, req._parsedUrl.query)
-    console.log('rs',result.data);
     if(!result.data.message) return res.status(500).send({success : false, message : `Internal server error`})
     
     var general = result.data.general
@@ -1215,8 +1174,6 @@ route.get('/datatable-resort', async(req,res) => {
                             htmlRoomItem += htmlService
                         }
 
-                        console.log("Summary room +=",totalSummary);
-                        console.log("totalPrice room  +=",totalPrice);
                         totalPrice += totalSummary
                         htmlRoom += htmlRoomItem
                     }
@@ -1277,8 +1234,6 @@ route.get('/datatable-resort', async(req,res) => {
                     }
     
                     //$(`#summaryTotal${packageData.package[i].id}`).text(totalSummary) 
-                    console.log("Summary package +=",totalSummary);
-                    console.log("totalPrice package  +=",totalPrice);
                     totalPrice += totalSummary
                     htmlPackage += htmlPackageItem
                     // console.log("totalPrice2 package  +=",totalPrice);
@@ -1535,8 +1490,6 @@ route.get('/datatable-divecenter', async(req,res) => {
                     }
     
                     //$(`#summaryTotal${packageData.package[i].id}`).text(totalSummary) 
-                    console.log("Summary package +=",totalSummary);
-                    console.log("totalPrice package  +=",totalPrice);
                     totalPrice += totalSummary
                     htmlPackage += htmlPackageItem
                     // console.log("totalPrice2 package  +=",totalPrice);
@@ -1651,8 +1604,6 @@ route.get('/datatable-liveaboard', async(req,res) => {
                 if (typeof packageData.package[0].day !== 'undefined') {
                     dayCount = packageData.package[0].day
                 }
-                console.log('id',packageData.package[0].id);
-                console.log('dC',packageList);
                 let tgl_end = new Date(dS.setDate(tgl_start_add.getDate() + parseInt(dayCount) - 1));
                 let tgl_end_show =(tgl_end.getFullYear()+'-'+(tgl_end.getMonth()+1).toString().padStart(2,'0')+'-'+tgl_end.getDate().toString().padStart(2,'0'));
                 tglShow = dateFormatSM(tgl_start) + '-' + dateFormatSM(tgl_end_show);

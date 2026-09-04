@@ -2,8 +2,7 @@
 
 const Xendit = require('xendit-node');
 const x = new Xendit({
-  //secretKey: 'xnd_development_XyIFlW2lsRom3FpBWPi9Ncm2HkyBQlz1V71K4MSJz62swk0yRvpwHwGagbjoo',
-  secretKey: 'xnd_production_9mX4GiLbs5FGqdm8iREnOKekNAaLHybRpXJldTvHtV4fOnnapTCVt0IjPlxSP'
+  secretKey: process.env.XENDIT_SECRET_KEY || ''
 });
 
 const { Disbursement } = x;
@@ -15,9 +14,7 @@ const invoiceSpecificOptions = {};
 const i = new Invoice(invoiceSpecificOptions);
 
 module.exports = {
-    disbursment : async (data) => {
-      console.log(data)
-        let disb = await d.create({
+    disbursment : async (data) => {        let disb = await d.create({
             externalID: data.id,
             bankCode: data.user_data.bank_name,
             accountHolderName: data.user_data.bank_account_name,
@@ -26,8 +23,6 @@ module.exports = {
             amount: data.total,
             emailTo: [data.user.profile.contact.email]
           });
-
-        console.log(disb)
 
         return disb;
     },
@@ -41,8 +36,6 @@ module.exports = {
           amount: totalBayar,
           shouldSendEmail: false
         });
-
-      console.log(invoice)
 
       return invoice;
   }

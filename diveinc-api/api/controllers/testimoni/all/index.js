@@ -7,6 +7,7 @@ const env = process.env.NODE_ENV || 'test'
 const controller = require(`express`).Router({mergeParams : true})
 const jwt = require(`jsonwebtoken`)
 const Op = require('sequelize').Op
+const { sanitizeSqlInput } = require('@helpers/sanitize')
 const sequelize = require('@helpers/database')
 const middleware = require('@helpers/middleware')
 
@@ -129,16 +130,16 @@ controller.get(`/datatable`, async (req,res) => {
   var orderQuery = `ORDER BY updated_at DESC`
   var order = [[`updated_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-      paramQuery = `${paramQuery} AND (user_name ILIKE '%${query.search.value}%' OR CAST(rate as TEXT) ILIKE '%${query.search.value}%' OR comment ILIKE '%${query.search.value}%')`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+      paramQuery = `${paramQuery} AND (user_name ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR CAST(rate as TEXT) ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR comment ILIKE '%${sanitizeSqlInput(query.search.value)}%')`
       param = {
           active : true,
           [Op.or] : [
-              {user_name : { [Op.iLike] : `%${query.search.value}%`}},
-              {comment : { [Op.iLike] : `%${query.search.value}%`}},
+              {user_name : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              {comment : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
               sequelize.where(
                 sequelize.cast(sequelize.col('rate'), 'varchar'),
-                    {[Op.like]: `%${query.search.value}%`}
+                    {[Op.like]: `%${sanitizeSqlInput(query.search.value)}%`}
               ),
           ]
       }

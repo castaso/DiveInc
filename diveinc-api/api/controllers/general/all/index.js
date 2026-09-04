@@ -7,6 +7,7 @@ const env = process.env.NODE_ENV || 'test'
 const controller = require(`express`).Router({mergeParams : true})
 const jwt = require(`jsonwebtoken`)
 const Op = require('sequelize').Op
+const { sanitizeSqlInput } = require('@helpers/sanitize')
 const sequelize = require('@helpers/database')
 const middleware = require('@helpers/middleware')
 
@@ -141,12 +142,12 @@ controller.get(`/datatable`, async (req,res) => {
   var orderQuery = `ORDER BY updated_at DESC`
   var order = [[`updated_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-      paramQuery = `${paramQuery} AND (version ILIKE '%${query.search.value}%')`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+      paramQuery = `${paramQuery} AND (version ILIKE '%${sanitizeSqlInput(query.search.value)}%')`
       param = {
           active : true,
           [Op.or] : [
-              {version : { [Op.iLike] : `%${query.search.value}%`}},
+              {version : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
           ]
       }
   }

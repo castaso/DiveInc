@@ -56,7 +56,6 @@ module.exports = (message) => {
     );
 
     transporter.sendMail(message, (error, info) => {
-      console.log(message)
       if (error) {
         console.log('Error occurred');
         console.log(error);

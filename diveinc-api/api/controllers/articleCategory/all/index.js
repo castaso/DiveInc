@@ -7,6 +7,7 @@ const env = process.env.NODE_ENV || 'test'
 const controller = require(`express`).Router({mergeParams : true})
 const jwt = require(`jsonwebtoken`)
 const Op = require('sequelize').Op
+const { sanitizeSqlInput } = require('@helpers/sanitize')
 const sequelize = require('@helpers/database')
 
 const mainModel = require('@models').article_category
@@ -140,13 +141,13 @@ controller.get(`/datatable`, async (req,res) => {
   var orderQuery = `ORDER BY updated_at DESC`
   var order = [[`updated_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-      paramQuery = `${paramQuery} AND (name ILIKE '%${query.search.value}%' OR description ILIKE '%${query.search.value}%')`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+      paramQuery = `${paramQuery} AND (name ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR description ILIKE '%${sanitizeSqlInput(query.search.value)}%')`
       param = {
           active : true,
           [Op.or] : [
-              {name : { [Op.iLike] : `%${query.search.value}%`}},
-              {description : { [Op.iLike] : `%${query.search.value}%`}},
+              {name : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              {description : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
           ]
       }
   }

@@ -18,9 +18,8 @@ const mailService = require(`@service/email`)
 
 module.exports = {
     runCronReminderScheduleResort : async () => {
-        // use 0 0 * * * to run cron at midnight
-        cron.schedule('* * * * *', async function() {
-            console.log('running a task every minute');
+        // run cron at midnight
+        cron.schedule('0 0 * * *', async function() {
             let dataResort = await transactionResort.findAll({
                 where : {
                     transaction_resort_status_id : "bcc8ff37-468f-45cb-bccc-fd34cce4b8ac"
@@ -42,9 +41,8 @@ module.exports = {
         });
     },
     runCronDoneResort : async () => {
-        // use 0 0 * * * to run cron at midnight
-        cron.schedule('* * * * *', async function() {
-            console.log('running a task every minute');
+        // run cron at midnight
+        cron.schedule('0 0 * * *', async function() {
             let dataResort = await transactionResort.findAll({
                 where : {
                     //transaction_resort_status_id : "bcc8ff37-468f-45cb-bccc-fd34cce4b8ac",
@@ -77,9 +75,8 @@ module.exports = {
                 ]
             })
 
-            console.log(dataResort.length)
             for(var i = 0; i < dataResort.length; i++){
-                console.log(dataResort[i].dataValues.package_data)
+                // process dataResort[i]
             }
         });
     }

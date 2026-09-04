@@ -7,6 +7,7 @@ const env = process.env.NODE_ENV || 'test'
 const controller = require(`express`).Router({mergeParams : true})
 const jwt = require(`jsonwebtoken`)
 const Op = require('sequelize').Op
+const { sanitizeSqlInput } = require('@helpers/sanitize')
 const sequelize = require('@helpers/database')
 const middleware = require('@helpers/middleware')
 
@@ -216,15 +217,15 @@ controller.get(`/datatable`, async (req,res) => {
   var orderQuery = `ORDER BY updated_at DESC`
   var order = [[`updated_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-      paramQuery = `${paramQuery} AND (ct.name ILIKE '%${query.search.value}%' OR cs.name ILIKE '%${query.search.value}%' OR c.profile->'contact'->'email' ILIKE '%${query.search.value}%'`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+      paramQuery = `${paramQuery} AND (ct.name ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR cs.name ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR c.profile->'contact'->'email' ILIKE '%${sanitizeSqlInput(query.search.value)}%'`
       param = {
           active : true,
           creator_status_id: 'd2f95bbe-159b-4d47-9e07-33925e04c5e9',
           [Op.or] : [
-              {'$creator_type.name$' : { [Op.iLike] : `%${query.search.value}%`}},
-              {'$creator_status.name$' : { [Op.iLike] : `%${query.search.value}%`}},
-              sequelize.literal(`u.profile->'contact'->'email' ILIKE '%${query.search.value}%'`),
+              {'$creator_type.name$' : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              {'$creator_status.name$' : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              sequelize.literal(`u.profile->'contact'->'email' ILIKE '%${sanitizeSqlInput(query.search.value)}%'`),
           ]
       }
   }

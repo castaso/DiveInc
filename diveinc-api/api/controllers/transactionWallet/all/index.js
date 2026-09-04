@@ -7,6 +7,7 @@ const env = process.env.NODE_ENV || 'test'
 const controller = require(`express`).Router({mergeParams : true})
 const jwt = require(`jsonwebtoken`)
 const Op = require('sequelize').Op
+const { sanitizeSqlInput } = require('@helpers/sanitize')
 const sequelize = require('@helpers/database')
 const middleware = require('@helpers/middleware')
 
@@ -154,17 +155,17 @@ controller.get(`/datatable`, async (req,res) => {
   var orderQuery = `ORDER BY updated_at DESC`
   var order = [[`updated_at`, 'desc']] 
 
-  if(query.search.value != `` && query.search.value != null){
-      paramQuery = `${paramQuery} AND (m.type ILIKE '%${query.search.value}%' OR c.profile->'name'->'first_name' ILIKE '%${query.search.value}%' OR ts.name ILIKE '%${query.search.value}%' OR CAST(m.total as TEXT) ILIKE '%${query.search.value}%')`
+  if(sanitizeSqlInput(query.search.value) != `` && sanitizeSqlInput(query.search.value) != null){
+      paramQuery = `${paramQuery} AND (m.type ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR c.profile->'name'->'first_name' ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR ts.name ILIKE '%${sanitizeSqlInput(query.search.value)}%' OR CAST(m.total as TEXT) ILIKE '%${sanitizeSqlInput(query.search.value)}%')`
       param = {
           active : true,
           [Op.or] : [
-              {type : { [Op.iLike] : `%${query.search.value}%`}},
-              {'$transaction_wallet_status.name$' : { [Op.iLike] : `%${query.search.value}%`}},
-              sequelize.literal(`u.profile->'name'->'first_name' ILIKE '%${query.search.value}%'`),
+              {type : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              {'$transaction_wallet_status.name$' : { [Op.iLike] : `%${sanitizeSqlInput(query.search.value)}%`}},
+              sequelize.literal(`u.profile->'name'->'first_name' ILIKE '%${sanitizeSqlInput(query.search.value)}%'`),
               sequelize.where(
                 sequelize.cast(sequelize.col('total'), 'varchar'),
-                    {[Op.like]: `%${query.search.value}%`}
+                    {[Op.like]: `%${sanitizeSqlInput(query.search.value)}%`}
               ),
           ]
       }

@@ -27,7 +27,6 @@ module.exports = {
 
     checkOptionalToken : (req,res,next) => {
     
-        console.log(req.headers)
         var token = req.headers.authorization || ''
         
         // if(!token) return res.status(403).send({success: false, message:"Token is required"})
@@ -80,7 +79,6 @@ module.exports = {
 
     checkRequestToken : (req,res,next) => {
         var token = req.body.token;
-        console.log(token);
         
         if(!token) return res.status(403).send({success: false, message:"Token is required"})
         

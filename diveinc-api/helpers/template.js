@@ -57,7 +57,7 @@ module.exports = {
     var arrEmail = email.split(`@`)
     var username = arrEmail[0]
 
-    var apiVerification = 'http://165.232.173.141:3333/v1/user/verified?token='+token
+    var apiVerification = (process.env.API_HOST || 'http://localhost:3333') + '/v1/user/verified?token='+token
 
     let emailSender = {
       from: 'Diveinc<no-reply@diveinc.co>',
