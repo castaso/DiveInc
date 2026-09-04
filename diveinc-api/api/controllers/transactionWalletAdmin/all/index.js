@@ -128,7 +128,6 @@ controller.get(`/datatable`, async (req,res) => {
 })
 
 controller.post('/paid', async(req,res) => {
-  console.log(req.body)
 
   var getData;
   var transactionType = "";

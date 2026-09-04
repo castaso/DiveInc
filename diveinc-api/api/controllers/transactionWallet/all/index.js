@@ -67,6 +67,26 @@ controller.post(`/`, middleware.checkToken, async (req,res) => {
 
   var xendit_fee = 5500
 
+  // Validate withdrawal amount against user balance
+  const requestingUser = await user.findOne({ where: { id: req.decoded.id } })
+  if(!requestingUser) return res.status(404).send({success: false, message: "User not found"})
+
+  var userBalance = 0
+  var profileUser = requestingUser.dataValues.profile
+  if(profileUser && profileUser.permission) {
+    for(var i = 0; i < profileUser.permission.length; i++) {
+      if(profileUser.permission[i].creator_type_id == creator_type_id) {
+        userBalance = parseFloat(profileUser.permission[i].data.user.balance || 0)
+        break
+      }
+    }
+  }
+
+  var totalWithFee = parseFloat(total) + parseFloat(xendit_fee)
+  if(totalWithFee > userBalance) {
+    return res.status(400).send({success: false, message: `Insufficient balance. Available: ${userBalance}, Requested: ${totalWithFee}`})
+  }
+
   var paramData = {}
   paramData.user_id = req.decoded.id
   paramData.transaction_wallet_status_id = "c7999dce-19b7-4bfd-84cc-d2f0845a3d86"
@@ -232,13 +252,11 @@ controller.get(`/datatable`, async (req,res) => {
 })
 
 controller.post(`/xendit-send`, async(req,res) => {
-  console.log(req.body)
 
   res.status(200).send({success : true, message : "Sent Success"})
 })
 
 controller.post('/paid', async(req,res) => {
-  console.log(req.body)
 
   var getData;
   var transactionType = "";
@@ -500,7 +518,6 @@ controller.post('/paid', async(req,res) => {
 });
 
 controller.post('/disburst', async(req,res) => {
-  console.log(req.body)
 
   const getData = await mainModel.findOne({
     raw: true,
@@ -522,17 +539,13 @@ controller.post('/disburst', async(req,res) => {
   if(req.body.status == 'COMPLETED'){
     // if pending
     if(getData.transaction_wallet_status_id != 'b684ff73-486f-45cb-bbca-fd3459e4b8ac'){
-      console.log("TIDAK PENDING");
       return res.status(403).send({success : false, message : "Double Notif From Xendit"})
     }
-    console.log("MASUK COMPLETE");
     paramData.transaction_wallet_status_id = "b648ff73-468f-45cb-bbbc-fd3659e4b8ac"
   }else{
     if(req.body.status == "PENDING"){
-      console.log("MASUK PENDING");
       paramData.transaction_wallet_status_id = "b684ff73-486f-45cb-bbca-fd3459e4b8ac"
     }else{
-      console.log("MASUK PENDING ATAU GAGAL");
       paramData.transaction_wallet_status_id = "b648ff73-468f-45cb-bbbc-fd3659e4b8ac"
     }
   }
@@ -544,8 +557,6 @@ controller.post('/disburst', async(req,res) => {
   }
   paramData.updated_at = new Date()
 
-  console.log("HASIL YANG AKAN DIUPDATE")
-  console.log(paramData)
 
   let updateData = await mainModel.update(paramData, {
     where : {
@@ -578,13 +589,7 @@ controller.post('/disburst', async(req,res) => {
         }
       }else if(getData.creator_type_id == "c7199dce-19b7-4bfd-84cc-d2f0845a3d86"){
         if(profileUser.permission[i].type == "resort"){
-          console.log(" ============================= ini perhitungan uang ==============================");
-          console.log(profileUser.permission[i].data.user.balance)
-          console.log(getData.total_withdrawl)
           profileUser.permission[i].data.user.balance = parseFloat(profileUser.permission[i].data.user.balance) - parseFloat(getData.total_withdrawl)
-          //console.log(profileUser.permission[i].data.user)
-          console.log("SAMA DENGAN")
-          console.log(profileUser.permission[i].data.user.balance)
         }
       }else if(getData.creator_type_id == "d2f95bbe-159b-4d47-9e07-33925e04c5e9"){
         if(profileUser.permission[i].type == "liveaboards"){

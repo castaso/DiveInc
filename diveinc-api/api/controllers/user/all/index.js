@@ -674,7 +674,10 @@ controller.post(`/my-profile/save-wallet`, middleware.checkToken, async (req,res
 
 // Insert data profile
 const profile = getData.dataValues.profile
-profile.wallet.balance = 1000000 // hardcode
+// Preserve existing balance if wallet already exists
+if(!profile.wallet) {
+  profile.wallet = { balance: 0 }
+}
 profile.wallet.bank_id = null
 profile.wallet.bank_name = bank_name
 profile.wallet.account_name = account_name

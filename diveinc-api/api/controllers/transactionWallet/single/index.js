@@ -151,7 +151,6 @@ controller.put(`/approved`, middleware.checkToken, async (req,res) => {
   var totalBalanceVendor
   if(req.body.type == "Divecenter"){
 
-    console.log('masuk divecenter')
     getData = await transactionDivecenter.findOne({
       where : {
         id : { [Op.eq] : req.params.id}
@@ -159,7 +158,6 @@ controller.put(`/approved`, middleware.checkToken, async (req,res) => {
     })
     transactionType = "Divecenter";
 
-    console.log(transactionType)
 
     dataVendor = await divecenter.findOne({
       where : {
@@ -170,17 +168,14 @@ controller.put(`/approved`, middleware.checkToken, async (req,res) => {
     idUser = dataVendor.dataValues.user.dataValues.id
     profileUser = dataVendor.dataValues.user.dataValues.profile 
 
-    console.log(JSON.stringify(profileUser))
     for(var i = 0; i < profileUser.permission.length; i++){
       if(profileUser.permission[i].type == "divecenter"){
-        console.log("Masuk logic")
         //profileUser.permission[i].data.user.balance = parseFloat(profileUser.permission[i].data.user.balance) + (parseFloat(getData.dataValues.total_price) - parseFloat(getData.dataValues.diveinc_fee.fee_total) - parseFloat(getData.dataValues.diveinc_fee.task_total))
         profileUser.permission[i].data.user.balance = parseFloat(profileUser.permission[i].data.user.balance) + parseFloat(req.body.ballance)
         //console.log(profileUser.permission[i].data.user)
         totalBalanceVendor = profileUser.permission[i].data.user.balance
       }
     }
-    console.log(JSON.stringify(profileUser))
 
   }else if(req.body.type == "Resort"){
     getData = await transactionResort.findOne({

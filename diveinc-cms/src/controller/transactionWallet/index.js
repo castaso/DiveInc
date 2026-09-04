@@ -16,7 +16,6 @@ function parseCookies (request) {
 
 function formatDate(date) {
 
-    console.log(date)
     var monthNames = [
       "January", "February", "March",
       "April", "May", "June", "July",
@@ -69,8 +68,6 @@ module.exports = {
             
             for(var j = 0; j < result.data.data[i].user.profile.permission.length; j++){
                 if(result.data.data[i].user.profile.permission[j].creator_type_id == result.data.data[i].creator_type_id){
-                    console.log(result.data.data[i].user.profile.permission[j].data.user)
-                    console.log(result.data.data[i].user.profile.permission[j].data.business)
                     oneData.push(result.data.data[i].user.profile.permission[j].data.business.name+` (${result.data.data[i].user.profile.permission[j].data.business.type})`)
                 }
             }
